@@ -113,21 +113,3 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
     "     , Total Helpers = " + getTotalHelpers
   }
 }
-
-
-/*
- * This class is used to build AttendanceDataObjects by allowing
- * the data to be added one attribute at a time.
- */
-class AttendanceDataObjectBuilder {
-  var totalProductionWorkers: EmployeeTypes = new EmployeeTypes(NoInteger, NoInteger, NoInteger, NoDouble, NoInteger)
-  var operators: EmployeeTypes = new EmployeeTypes(NoInteger, NoInteger, NoInteger, NoDouble, NoInteger)
-  var helpers: EmployeeTypes = new EmployeeTypes(NoInteger, NoInteger, NoInteger, NoDouble, NoInteger)
-  var supervisors: EmployeeTypes = new EmployeeTypes(NoInteger, NoInteger, NoInteger, NoDouble, NoInteger)
-  var factoryCode: IntegerOption = NoInteger
-  var lineCode: IntegerOption = NoInteger
-  var date: DataOption[Date] = NoData
-
-  def build: LineListObject =
-    new LineListObject(totalProductionWorkers, operators, helpers, supervisors, factoryCode, lineCode, date)
-}
