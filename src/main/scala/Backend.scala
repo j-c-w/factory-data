@@ -12,6 +12,6 @@ import main.scala.datatypes.LineListObject
 
 object Backend {
   def loadData(): Array[LineListObject] =
-    DataLoader.dataAsList.toArray filter (x => !x.lineCode.isEmpty && x.lineCode.get == 100413)
+    DataLoader.dataAsList.toArray
 
 }

@@ -13,6 +13,10 @@ import scala.reflect.ClassTag
  * Created by Jackson Woodruff on 20/07/2014 
  *
  * For converting CSV files into ListObjects
+ *
+ * Until there is a database with fixed headers,
+ * this will only work for one database --
+ * currently wired to data from factory 1004
  */
 
 object DataLoader {
