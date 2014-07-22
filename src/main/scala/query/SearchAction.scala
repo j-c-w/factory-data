@@ -12,23 +12,24 @@ import scala.annotation.tailrec
  */
 
 abstract class SearchAction[B, T <: LineType[B]] (field: T, isValid: (B => Boolean)) {
-  def search(list: List[LineListObject]): List[LineListObject] = 
+  def search(list: List[LineListObject]): List[LineListObject] =
     list.filter(x => isValid(field.get(x)))
 
   def checkItem(item: LineListObject): Boolean = isValid(field.get(item))
 
   //defines the way in which the next item should be added (i.e. &&)
-  abstract def combinator: ((Boolean, Boolean) => Boolean)
+  def combinator: ((Boolean, Boolean) => Boolean)
 }
 
-class Searches(searches: List[SearchAction[Any, Any]]) {
+class Searches(searches: List[SearchAction[Any, LineType[Any]]]) {
   def search(list: List[LineListObject]): List[LineListObject] = {
     val searchReadyList = searches
     for {
       item <- list
       //convert this item into a list of successful searches
       //and their combinators
-      (resultList, combinatorList) = searches map (x => (x.checkItem(item), x.combinator))
+      resultList = searches map (x => x.checkItem(item))
+      combinatorList = searches map (_.combinator)
       if recursiveReduce(resultList, combinatorList)
     } yield item
   }
@@ -42,10 +43,7 @@ class Searches(searches: List[SearchAction[Any, Any]]) {
       case (result :: restOf, combinator :: combinators) => combinator(result, recursiveReduce(restOf, combinators))
     }
 
-  private val baseItem = new SearchAction[Any, Any](FactoryCode, x => true) {
-    def combinator = (x, y) => y
-  }
-  
-  def add(action: SearchAction[Any, Any]) =
-    new Searches()
+
+  def add(action: SearchAction[Any, LineType[Any]]) =
+    new Searches(action :: searches)
 }

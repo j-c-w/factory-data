@@ -2,7 +2,6 @@ package main.scala
 
 import java.text.SimpleDateFormat
 import java.util.Date
-import main.csv.main.scala.com.github.tototoshi.csv.CSVReader
 import main.csv.scala.com.github.tototoshi.csv.CSVReader
 import main.scala.datatypes._
 
