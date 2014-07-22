@@ -22,6 +22,8 @@ abstract class SearchAction[B, T <: LineType[B]] (field: T, isValid: (B => Boole
 }
 
 class Searches(searches: List[SearchAction[Any, LineType[Any]]]) {
+  def this() = this(Nil)
+
   def search(list: List[LineListObject]): List[LineListObject] = {
     val searchReadyList = searches
     for {
