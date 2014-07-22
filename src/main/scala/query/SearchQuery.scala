@@ -10,12 +10,12 @@ import main.scala.datatypes._
  * of the Searches and SearchAction classes
  */
 
-class SearchQuery(actions: Searches) {
-  def this() = this(new Searches(Nil))
-
-  def add(action: SearchAction[Any, LineType[Any]]) =
-    new SearchQuery(actions.add(action))
+class SearchQuery[A](action: SearchAction[A]) {
+  def add(action: SearchAction[A], combinator: (Boolean, Boolean) => Boolean) =
+    new SearchQuery(action.add(action, combinator))
 
   def search(list: List[LineListObject]): List[LineListObject] =
-    actions.search(list)
+    action.search(list)
 }
+
+

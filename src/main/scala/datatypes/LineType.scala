@@ -12,9 +12,8 @@ import java.util.Date
  * production
  */
 
-abstract class LineType[T] {
+trait LineType[T] {
   def get(line: LineListObject): T
-  override def toString = this.getClass.toString
 }
 
 case class LineTypeList(line: List[LineType[Any]])
