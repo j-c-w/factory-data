@@ -1,5 +1,7 @@
 package main.scala.datatypes
 
+import main.scala.datatypes.options.{NoDouble, DoubleOption, NoInteger, IntegerOption}
+
 
 /*
  * Created by Jackson Woodruff on 20/07/2014 

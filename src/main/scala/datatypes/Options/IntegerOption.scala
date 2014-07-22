@@ -1,4 +1,5 @@
-package main.scala.datatypes
+package main.scala.datatypes.options
+
 
 /*
  * Created by Jackson Woodruff on 20/07/2014 

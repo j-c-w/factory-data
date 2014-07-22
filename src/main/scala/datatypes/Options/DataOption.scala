@@ -1,4 +1,4 @@
-package main.scala.datatypes
+package main.scala.datatypes.options
 
 /*
  * Created by Jackson Woodruff on 20/07/2014 
@@ -16,14 +16,6 @@ package main.scala.datatypes
 //all those methods, I have left many uninplemented
 //implement them as need be
 
-object DataOption {
-  def apply[T](x: T): DataOption[T] = x match {
-    case NoData => NoData
-    case null => NoData
-    case x => new SomeData(x)
-  }
-}
-
 case object NoData extends DataOption[scala.Nothing] {
   def isEmpty: Boolean = true
   def get = throw new NoSuchElementException("NoData.get")
@@ -39,7 +31,7 @@ case class SomeData[+T](x: T) extends DataOption[T] {
   override def toString: String = x.toString
 }
 
-protected abstract class DataOption[+T] {
+abstract class DataOption[+T] {
   def isEmpty: Boolean
   def get: T
   //this is a method that acts the like the

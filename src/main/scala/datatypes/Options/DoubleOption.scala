@@ -1,10 +1,4 @@
-package main.scala.datatypes
-
-import java.lang.Exception
-import java.math.{MathContext, BigDecimal}
-import java.text.DecimalFormat
-
-import scala.util.control.Exception
+package main.scala.datatypes.options
 
 /*
  * Created by Jackson Woodruff on 21/07/2014 

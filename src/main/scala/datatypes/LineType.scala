@@ -2,6 +2,8 @@ package main.scala.datatypes
 
 import java.util.Date
 
+import main.scala.datatypes.options.{IntegerOption, DataOption}
+
 /*
  * Created by Jackson Woodruff on 22/07/2014 
  *
