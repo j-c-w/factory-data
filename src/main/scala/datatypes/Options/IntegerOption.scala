@@ -1,5 +1,7 @@
 package main.scala.datatypes.options
 
+import main.scala.datatypes.LineListObject
+
 
 /*
  * Created by Jackson Woodruff on 20/07/2014 
@@ -75,4 +77,17 @@ abstract class IntegerOption {
   def or(other: => IntegerOption): IntegerOption
   def isEmpty: Boolean
   def get: Int
+}
+
+object IntegerOption {
+  //returns first the sum of all the options
+  // with 0 as the default for a NoInteger
+  // and then the number of SomeIntegers in
+  // the list (for use when calculating most
+  //things
+  def sum(list: List[IntegerOption]): (Int, Int) = {
+    val notNones = list filter (x => !x.isEmpty)
+    val numUsed = notNones.length
+    ((notNones map (x => x.get)).sum, numUsed)
+  }
 }
