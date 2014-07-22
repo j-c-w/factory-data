@@ -1,6 +1,11 @@
 package main.scala.query
 
+import java.security.InvalidParameterException
+
 import main.scala.datatypes.{FactoryCode, LineTypeList, LineListObject, LineType}
+
+import scala.annotation.tailrec
+
 /*
  * Created by Jackson Woodruff on 22/07/2014 
  * 
@@ -18,17 +23,27 @@ abstract class SearchAction[B, T <: LineType[B]] (field: T, isValid: (B => Boole
 
 class Searches(searches: List[SearchAction[Any, Any]]) {
   def search(list: List[LineListObject]): List[LineListObject] = {
-    val searchReadyList = baseItem :: searches
-    for (item <- list) {
-      //list of the booleans for each seach param
-      val resultList = searches map (_.checkItem(item))
-      //now combine this into one
-      //for (0 until resultLength)
-    }
+    val searchReadyList = searches
+    for {
+      item <- list
+      //convert this item into a list of successful searches
+      //and their combinators
+      (resultList, combinatorList) = searches map (x => (x.checkItem(item), x.combinator))
+      if recursiveReduce(resultList, combinatorList)
+    } yield item
   }
 
+  //could be made tail recursive
+  private def recursiveReduce(results: List[Boolean], combinators: List[(Boolean, Boolean) => Boolean]): Boolean =
+    (results, combinators) match {
+      case (Nil, _) => true
+      case (_, Nil) => throw new InvalidParameterException("results list must be longer than combinators list")
+      case (result :: Nil, combinator :: Nil) => result //this is the crucial exit case
+      case (result :: restOf, combinator :: combinators) => combinator(result, recursiveReduce(restOf, combinators))
+    }
+
   private val baseItem = new SearchAction[Any, Any](FactoryCode, x => true) {
-    def combinator = _ && _
+    def combinator = (x, y) => y
   }
   
   def add(action: SearchAction[Any, Any]) =
