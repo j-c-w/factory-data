@@ -1,7 +1,7 @@
 package main.java;
 
 import main.scala.Backend;
-import main.scala.datatypes.LineListObject;
+import main.scala.query.ResultListObject;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +17,7 @@ public class Main {
 	private JButton search;
 	private JTextField searchBar;
 
-	LineListObject[] data;
+	ResultListObject[] data;
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Main");
