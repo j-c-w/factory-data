@@ -17,4 +17,5 @@ class ResultListObject(val lineObject: LineListObject) {
   def merge(other: ResultListObject) =
     new ResultListObject((lineObject.toBuilder merge other.lineObject.toBuilder).build)
 
+  override def toString = lineObject.toString
 }

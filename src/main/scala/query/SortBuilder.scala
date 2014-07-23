@@ -19,11 +19,11 @@ package main.scala.query
  */
 
 class SortBuilder(functions: List[(ResultListObject, ResultListObject) => Boolean]) {
-  def this(f: (ResultListObject, ResultListObject) => Boolean) = this (List(f))
+  def this(f: (ResultListObject, ResultListObject) => Boolean, single: Boolean) = this (List(f))
   def this() = this(Nil)
 
   def add(f2: (ResultListObject, ResultListObject) => Boolean) =
-    new SortBuilder(f2 :: functions)
+    new SortBuilder(functions :+ f2)
 
   def sortBy(list: List[ResultListObject]): List[ResultListObject] = functions match {
     case Nil => list
