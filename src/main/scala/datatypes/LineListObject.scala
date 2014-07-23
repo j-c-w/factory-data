@@ -2,6 +2,7 @@ package main.scala.datatypes
 
 import java.util.Date
 
+import main.scala.datatypes.builders.{EmployeeTypeBuilder, LineListObjectBuilder}
 import main.scala.datatypes.options.{DoubleOption, IntegerOption, DataOption}
 
 
@@ -22,6 +23,8 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
                  val factoryCode: IntegerOption,
                  val lineCode: IntegerOption,
                  val date: DataOption[Date]) {
+
+  self =>
 
 
   //////////////////////PRODUCTION WORKERS SECTION/////////////////////
@@ -101,6 +104,18 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
   lazy val getDate: DataOption[Date] = date
   lazy val getFactoryCode: IntegerOption = factoryCode
   lazy val getLineCode: IntegerOption = lineCode
+
+  def toBuilder: LineListObjectBuilder = {
+    new LineListObjectBuilder {
+      totalProductionWorkers = self.totalProductionWorkers.toBuilder.build
+      operators = self.operators.toBuilder.build
+      helpers = self.helpers.toBuilder.build
+      supervisors = self.supervisors.toBuilder.build
+      date = self.date
+      factoryCode = self.factoryCode
+      lineCode = self.lineCode
+    }
+  }
   
   override def toString = {
     "Factory code = " + getFactoryCode + 

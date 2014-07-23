@@ -1,5 +1,6 @@
 package main.scala.datatypes
 
+import main.scala.datatypes.builders.EmployeeTypeBuilder
 import main.scala.datatypes.options.{NoDouble, DoubleOption, NoInteger, IntegerOption}
 
 
@@ -17,6 +18,7 @@ class EmployeeTypes(total: IntegerOption,
                      absent: IntegerOption,
                      percentAbsent: DoubleOption,
                      leave: IntegerOption) extends DataType{
+  self =>
 
 
   //note that this does not call the present/absent methods
@@ -55,24 +57,13 @@ class EmployeeTypes(total: IntegerOption,
   //AFAIK, there is no way to calculate leave numbers unless given
   lazy val getLeave: IntegerOption =
     leave or (total - present - absent)
+
+  def toBuilder = new EmployeeTypeBuilder {
+    employees = self.total
+    present = self.present
+    absent = self.absent
+    percentAbsent = self.percentAbsent
+    leave = self.leave
+  }
 }
 
-
-/*
- * a builder class for the employee types
- */
-class EmployeeTypesBuilder {
-  var totalEmployees: IntegerOption = NoInteger
-  var totalPresent: IntegerOption = NoInteger
-  var percentPresent: DoubleOption = NoDouble
-  var totalAbsent: IntegerOption = NoInteger
-  var totalLeave: IntegerOption = NoInteger
-
-  def build: EmployeeTypes = new EmployeeTypes(
-    totalEmployees,
-    totalPresent,
-    totalAbsent,
-    percentPresent,
-    totalLeave
-  )
-}
