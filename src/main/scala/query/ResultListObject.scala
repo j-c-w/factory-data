@@ -14,8 +14,11 @@ import main.scala.datatypes.LineListObject
 
 class ResultListObject(val lineObject: LineListObject) {
   def mergeAverage(other: ResultListObject) = {
-    new ResultListObject(lineObject merge other.lineObject)
+    new ResultListObject(lineObject mergeAverage other.lineObject)
   }
   
+  def mergeSum(other: ResultListObject) = {
+    new ResultListObject(lineObject mergeSum other.lineObject)
+  }
   override def toString = lineObject.toString
 }

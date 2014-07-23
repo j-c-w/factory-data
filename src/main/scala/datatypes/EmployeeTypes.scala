@@ -66,8 +66,11 @@ class EmployeeTypes(total: IntegerOption,
     leave = self.leave
   }
 
-  def merge(other: EmployeeTypes) =
-    (this.toBuilder merge other.toBuilder).build
+  def mergeAverage(other: EmployeeTypes) =
+    (this.toBuilder mergeAverage other.toBuilder).build
+  
+  def mergeSum(other: EmployeeTypes) = 
+    (this.toBuilder mergeSum other.toBuilder).build
 
   override def toString =
     "     Employees = " + total +

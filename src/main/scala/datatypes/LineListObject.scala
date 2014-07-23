@@ -117,8 +117,14 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
     }
   }
 
-  def merge(other: LineListObject) =
-    (this.toBuilder merge other.toBuilder).build
+  //merges two datasets by averaging the values
+  def mergeAverage(other: LineListObject) =
+    (this.toBuilder mergeAverage other.toBuilder).build
+
+
+  //merges two datasets by adding the values together
+  def mergeSum(other: LineListObject) =
+    (this.toBuilder mergeSum other.toBuilder).build
   
   override def toString = {
     "Factory code = " + getFactoryCode + 

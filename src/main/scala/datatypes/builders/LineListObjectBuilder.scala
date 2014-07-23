@@ -33,15 +33,27 @@ class LineListObjectBuilder {
       operators, helpers, supervisors, factoryCode, lineCode, date)
 
   //takes two LineListObjectBuilders and
-  //combines them into one
-  def merge(other: LineListObjectBuilder) = new LineListObjectBuilder {
-    totalProductionWorkers = self.totalProductionWorkers merge other.totalProductionWorkers
-    operators = self.operators merge other.operators
-    helpers = self.helpers merge other.helpers
-    supervisors = self.supervisors merge other.supervisors
+  //combines them into one by averaging the values
+  def mergeAverage(other: LineListObjectBuilder) = new LineListObjectBuilder {
+    totalProductionWorkers = self.totalProductionWorkers mergeAverage other.totalProductionWorkers
+    operators = self.operators mergeAverage other.operators
+    helpers = self.helpers mergeAverage other.helpers
+    supervisors = self.supervisors mergeAverage other.supervisors
     //only merge these data if they are the same
     factoryCode = if (self.factoryCode == other.factoryCode) self.factoryCode else NoInteger
     lineCode = if (self.lineCode == other.lineCode) self.lineCode else NoInteger
     date = if (self.date == other.date) self.date else NoData
   }
+
+  //merges two datasets by adding values together
+  def mergeSum(other: LineListObjectBuilder) = new LineListObjectBuilder {
+    totalProductionWorkers = self.totalProductionWorkers mergeSum other.totalProductionWorkers
+    operators = self.operators mergeSum other.totalProductionWorkers
+    helpers = self.helpers mergeSum other.helpers
+    supervisors = self.supervisors mergeSum other.supervisors
+    factoryCode = if (self.factoryCode == other.factoryCode) self.factoryCode else NoInteger
+    lineCode = if (self.lineCode == other.lineCode) self.lineCode else NoInteger
+    date = if (self.date == other.date) self.date else NoData
+  }
+
 }
