@@ -33,6 +33,7 @@ case object NoInteger extends IntegerOption {
   def or(other: => IntegerOption) = other
   def get = throw new NoSuchElementException("NoInteger.get")
   def isEmpty = true
+  override def toString = "No Data"
 }
 
 //I have decided that for this class it is more efficient
@@ -85,9 +86,11 @@ object IntegerOption {
   // and then the number of SomeIntegers in
   // the list (for use when calculating most
   //things
-  def sum(list: List[IntegerOption]): (Int, Int) = {
+  def sum(list: List[IntegerOption]): (IntegerOption, Int) = {
     val notNones = list filter (x => !x.isEmpty)
     val numUsed = notNones.length
-    ((notNones map (x => x.get)).sum, numUsed)
+    if (numUsed == 0)//everything in the list is NoInteger
+      NoInteger
+    (SomeInteger((notNones map (x => x.get)).sum), numUsed)
   }
 }

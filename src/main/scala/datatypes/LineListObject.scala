@@ -111,9 +111,9 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
       operators = self.operators.toBuilder.build
       helpers = self.helpers.toBuilder.build
       supervisors = self.supervisors.toBuilder.build
-      date = self.date
-      factoryCode = self.factoryCode
-      lineCode = self.lineCode
+      date = self.getDate
+      factoryCode = self.getFactoryCode
+      lineCode = self.getLineCode
     }
   }
   
