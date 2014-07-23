@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import main.csv.scala.com.github.tototoshi.csv.CSVReader
 import main.scala.datatypes._
+import main.scala.datatypes.options.{NoDouble, NoInteger, SomeInteger, SomeData}
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.reflect.ClassTag

@@ -39,7 +39,8 @@ case class SomeDouble(x: Double) extends DoubleOption {
   def or(other: => DoubleOption) = SomeDouble.this
   def get = x
   def isEmpty = false
-  override def toString = x.toString
+  //rounds the output to 2dp before displaying
+  override def toString = rnd(2).toString
 }
 
 case object NoDouble extends DoubleOption {

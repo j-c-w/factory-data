@@ -64,10 +64,12 @@ abstract class IntegerOption {
     case _ => this * SomeInteger(other)
   }
 
+  //IMPORANT NOTE -- this function is different from the others here
+  //in that it returns NoInteger if EITHER of the inputs is NoInteger
   def / (other: IntegerOption): IntegerOption = (this, other) match {
-    case (_, NoInteger) => this
-    case (NoInteger, _) => other
-    case (SomeInteger(thisInt), SomeInteger(otherInt)) => SomeInteger(thisInt/otherInt)
+    case (SomeInteger(thisInt), SomeInteger(otherInt)) =>
+      SomeInteger((thisInt.toDouble/otherInt.toDouble).toInt)
+    case (_, _) => NoInteger //if we fall through to here, at least one is NoInteger
   }
 
   def toDoubleOption: DoubleOption = this match {

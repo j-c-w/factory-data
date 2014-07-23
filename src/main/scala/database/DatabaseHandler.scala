@@ -2,7 +2,7 @@ package main.scala.database
 
 import java.sql.ResultSet
 
-import main.scala.datatypes.{NoDouble, NoInteger, EmployeeTypes, LineListObject}
+import main.scala.datatypes.{EmployeeTypes, LineListObject}
 import org.skife.jdbi.v2.tweak.ResultSetMapper
 import org.skife.jdbi.v2.{StatementContext, Handle, DBI}
 
