@@ -116,6 +116,9 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
       lineCode = self.getLineCode
     }
   }
+
+  def merge(other: LineListObject) =
+    (this.toBuilder merge other.toBuilder).build
   
   override def toString = {
     "Factory code = " + getFactoryCode + 

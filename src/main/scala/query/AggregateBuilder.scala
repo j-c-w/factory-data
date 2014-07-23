@@ -8,14 +8,21 @@ import main.scala.datatypes.LineListObject
  */
 
 class AggregateBuilder(f: List[LineListObject] => List[ResultListObject]) {
+  def this() = this(_.map (x => new ResultListObject(x)))
+
   def add(f2: List[LineListObject] => List[ResultListObject]) =
     new AggregateBuilder(x => (f(x) zip f2(x)).map
-      {case (result1, result2) => result1 merge result2})
+      {case (result1, result2) => result1 mergeAverage result2})
 
   def aggregate(list: List[LineListObject]): ResultListObject = {
     val functionApplied = f(list)
-    (functionApplied.tail foldLeft functionApplied.head) ((x, y) => x.merge(y))
+   (functionApplied.tail fold functionApplied.head) ((x, y) =>{
+      x mergeAverage y
+    } )
   }
+
+  def noAggregate(list: List[LineListObject]): List[ResultListObject] =
+    f(list)
 
   //aggregates by a given stat, given by the aggregateBy function.
   //(listObject) => listObject.date for date separation

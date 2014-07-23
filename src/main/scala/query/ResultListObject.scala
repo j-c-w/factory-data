@@ -13,9 +13,9 @@ import main.scala.datatypes.LineListObject
  */
 
 class ResultListObject(val lineObject: LineListObject) {
-
-  def merge(other: ResultListObject) =
-    new ResultListObject((lineObject.toBuilder merge other.lineObject.toBuilder).build)
-
+  def mergeAverage(other: ResultListObject) = {
+    new ResultListObject(lineObject merge other.lineObject)
+  }
+  
   override def toString = lineObject.toString
 }

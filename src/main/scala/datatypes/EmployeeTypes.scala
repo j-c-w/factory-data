@@ -59,16 +59,21 @@ class EmployeeTypes(total: IntegerOption,
     leave or (total - present - absent)
 
   def toBuilder = new EmployeeTypeBuilder {
-    employees = getTotal
-    present = getPresent
-    absent = getAbsent
-    percentAbsent = getPercentAbsent
-    leave = getLeave
+    employees = total
+    present = self.present
+    absent = self.absent
+    percentAbsent = self.getPercentAbsent
+    leave = self.leave
   }
 
-  //helper method to take advantage of the
-  //merge method in the Builder class
   def merge(other: EmployeeTypes) =
     (this.toBuilder merge other.toBuilder).build
+
+  override def toString =
+    "     Employees = " + total +
+    "     Present = " + present +
+    "     Absent = " + absent +
+    "     Percent Absent" + getPercentAbsent
+    "     Leave = " + getLeave
 }
 
