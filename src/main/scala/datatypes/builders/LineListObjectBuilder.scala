@@ -26,7 +26,7 @@ class LineListObjectBuilder {
   var date: DataOption[Date] = NoData
 
   private val emptyEmployeeType = new EmployeeTypes(
-    NoInteger, NoInteger, NoInteger, NoDouble, NoInteger
+    NoDouble, NoDouble, NoDouble, NoDouble, NoDouble
   )
 
   def build = new LineListObject(totalProductionWorkers,

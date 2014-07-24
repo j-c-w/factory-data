@@ -6,20 +6,28 @@ package main.scala.datatypes.options
  */
 
 abstract class DoubleOption {
-  def * (other: DoubleOption) = (this, other) match {
-    case (_, NoDouble) => this
-    case (NoDouble, _) => other
+  def * (other: DoubleOption): DoubleOption = (this, other) match {
     case (SomeDouble(thisDouble), SomeDouble(thatDouble)) => SomeDouble(thisDouble * thatDouble)
+    case (_, _) => NoDouble
   }
 
+  def * (other: Double): DoubleOption =
+    this * SomeDouble(other)
+
+  def + (other: DoubleOption): DoubleOption = (this, other) match {
+    case (SomeDouble(x), SomeDouble(y)) => SomeDouble(x + y)
+    case (_, _) => NoDouble
+  }
+
+  def - (other: DoubleOption) = (this, other) match {
+    case (SomeDouble(x), SomeDouble(y)) => SomeDouble(x - y)
+    case (_, _) => NoDouble
+  }
   def / (other: DoubleOption) = (this, other) match {
-    case (_, NoDouble) => this
-    case (NoDouble, _) => other
     case (SomeDouble(thisDouble), SomeDouble(otherDouble)) => SomeDouble(thisDouble/otherDouble)
+    case (_, _) => NoDouble
   }
 
-  def / (other: IntegerOption): DoubleOption =
-    this / other.toDoubleOption
 
   //pushes the rounding on to the rnd(dp: Int)
   //method w/ two dp
@@ -27,7 +35,7 @@ abstract class DoubleOption {
 
   def rnd (dp: Int): DoubleOption = this match {
     case NoDouble => NoDouble
-    case SomeDouble(x) => SomeDouble(x.toInt.toDouble)
+    case SomeDouble(x) => SomeDouble(x)
   }
 
   def or(other: => DoubleOption): DoubleOption

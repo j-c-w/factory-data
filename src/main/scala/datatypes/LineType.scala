@@ -2,7 +2,7 @@ package main.scala.datatypes
 
 import java.util.Date
 
-import main.scala.datatypes.options.{IntegerOption, DataOption}
+import main.scala.datatypes.options.{IntegerOption, DoubleOption, DataOption}
 
 /*
  * Created by Jackson Woodruff on 22/07/2014 
@@ -32,15 +32,15 @@ case object Date extends LineType[DataOption[Date]] {
   def get(line: LineListObject) = line.getDate
 }
 
-case object TotalProductionWorkers extends LineType[IntegerOption] {
+case object TotalProductionWorkers extends LineType[DoubleOption] {
   def get(line: LineListObject) = line.getTotalProductionWorkers
 }
 
-case object ProductionWorkersPresent extends LineType[IntegerOption] {
+case object ProductionWorkersPresent extends LineType[DoubleOption] {
   def get(line: LineListObject) = line.getTotalProductionWorkersPresent
 }
 
-case object ProductionWorkersAbsent extends LineType[IntegerOption] {
+case object ProductionWorkersAbsent extends LineType[DoubleOption] {
   def get(line: LineListObject) = line.getTotalProductionWorkersAbsent
 }
 

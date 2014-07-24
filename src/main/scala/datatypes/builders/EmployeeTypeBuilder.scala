@@ -15,11 +15,11 @@ import main.scala.datatypes.options._
 class EmployeeTypeBuilder {
   self =>
 
-  var employees: IntegerOption = NoInteger
-  var present: IntegerOption = NoInteger
+  var employees: DoubleOption = NoDouble
+  var present: DoubleOption = NoDouble
   var percentAbsent: DoubleOption = NoDouble
-  var absent: IntegerOption = NoInteger
-  var leave: IntegerOption = NoInteger
+  var absent: DoubleOption = NoDouble
+  var leave: DoubleOption = NoDouble
 
   def build: EmployeeTypes = new EmployeeTypes(
     employees,
@@ -31,10 +31,10 @@ class EmployeeTypeBuilder {
 
   //AVERAGES the two data points
   def mergeAverage(other: EmployeeTypeBuilder) = new EmployeeTypeBuilder {
-    employees = (self.employees + other.employees) / SomeInteger(2)
-    present = (self.present + other.present) / SomeInteger(2)
-    absent = (self.absent + other.absent) / SomeInteger(2)
-    leave = (self.leave + other.leave) / SomeInteger(2)
+    employees = (self.employees + other.employees) / SomeDouble(2)
+    present = (self.present + other.present) / SomeDouble(2)
+    absent = (self.absent + other.absent) / SomeDouble(2)
+    leave = (self.leave + other.leave) / SomeDouble(2)
     //leaves out percent for the moment
   }
 

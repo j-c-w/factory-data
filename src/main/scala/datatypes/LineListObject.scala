@@ -31,68 +31,68 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
   //just like in the inner classes,
   // this calls the values rather than the methods
   //to avoid infinite loops
-  lazy val getTotalProductionWorkers: IntegerOption =
+  lazy val getTotalProductionWorkers: DoubleOption =
     totalProductionWorkers.getTotal or (operators.getTotal + helpers.getTotal)
 
   //just as above
-  lazy val getTotalHelpers: IntegerOption =
+  lazy val getTotalHelpers: DoubleOption =
     helpers.getTotal or (totalProductionWorkers.getTotal - operators.getTotal)
 
-  lazy val getTotalOperators: IntegerOption =
+  lazy val getTotalOperators: DoubleOption =
     operators.getTotal or (totalProductionWorkers.getTotal - helpers.getTotal)
 
-  lazy val getTotalProductionWorkersAbsent: IntegerOption =
+  lazy val getTotalProductionWorkersAbsent: DoubleOption =
     totalProductionWorkers.getAbsent or (operators.getAbsent + helpers.getAbsent)
 
-  lazy val getTotalHelpersAbsent: IntegerOption =
+  lazy val getTotalHelpersAbsent: DoubleOption =
     helpers.getAbsent or (totalProductionWorkers.getAbsent - operators.getAbsent)
 
-  lazy val getTotalOperatorsAbsent: IntegerOption =
+  lazy val getTotalOperatorsAbsent: DoubleOption =
     operators.getAbsent or (totalProductionWorkers.getAbsent - helpers.getAbsent)
 
-  lazy val getTotalProductionWorkersPresent: IntegerOption =
+  lazy val getTotalProductionWorkersPresent: DoubleOption =
     totalProductionWorkers.getPresent or (operators.getPresent + helpers.getPresent)
 
-  lazy val getTotalHelpersPresent: IntegerOption =
+  lazy val getTotalHelpersPresent: DoubleOption =
     helpers.getPresent or (totalProductionWorkers.getPresent - operators.getPresent)
 
-  lazy val getTotalOperatorsPresent: IntegerOption =
+  lazy val getTotalOperatorsPresent: DoubleOption =
     operators.getPresent or (totalProductionWorkers.getPresent - helpers.getPresent)
 
-  lazy val getTotalProductionWorkersLeave: IntegerOption =
+  lazy val getTotalProductionWorkersLeave: DoubleOption =
     totalProductionWorkers.getLeave or (operators.getLeave + helpers.getLeave)
 
-  lazy val getOperatorLeave: IntegerOption =
+  lazy val getOperatorLeave: DoubleOption =
     operators.getLeave or (totalProductionWorkers.getLeave - helpers.getLeave)
 
-  lazy val getHelpersLeave: IntegerOption =
+  lazy val getHelpersLeave: DoubleOption =
     helpers.getLeave or (totalProductionWorkers.getLeave - operators.getLeave)
 
   //methods are fine to use here instead of values
   lazy val getPercentProductionWorkersAbsent: DoubleOption =
     totalProductionWorkers.getPercentAbsent or {
-      ((getTotalProductionWorkersAbsent * 100).toDoubleOption / getTotalProductionWorkers.toDoubleOption).rnd
+      ((getTotalProductionWorkersAbsent * 100) / getTotalProductionWorkers).rnd
     }
 
   lazy val getPercentHelpersAbsent: DoubleOption =
     helpers.getPercentAbsent or {
-      ((getTotalHelpersAbsent * 100).toDoubleOption / getTotalHelpers.toDoubleOption).rnd
+      ((getTotalHelpersAbsent * 100) / getTotalHelpers).rnd
     }
 
   lazy val getPercentOperatorsAbsent: DoubleOption =
     operators.getPercentAbsent or {
-      ((getTotalOperatorsAbsent * 100).toDoubleOption / getTotalOperators.toDoubleOption).rnd
+      ((getTotalOperatorsAbsent * 100) / getTotalOperators).rnd
     }
   ////////////////////////////SUPERVISORS SECTION/////////////////////////////////////////
   //in this section there are no second guesses, because there is really no secondary way
   //to work out these numbers
-  lazy val getTotalSupervisors: IntegerOption =
+  lazy val getTotalSupervisors: DoubleOption =
     supervisors.getTotal
 
-  lazy val getAbsentSupervisors: IntegerOption =
+  lazy val getAbsentSupervisors: DoubleOption =
     supervisors.getAbsent
 
-  lazy val getSupervisorsLeave: IntegerOption =
+  lazy val getSupervisorsLeave: DoubleOption =
     supervisors.getLeave
 
   lazy val getPercentSupervisorsAbsent =

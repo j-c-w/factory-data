@@ -4,7 +4,10 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import main.csv.scala.com.github.tototoshi.csv.CSVReader
 import main.scala.datatypes._
-import main.scala.datatypes.options.{NoDouble, NoInteger, SomeInteger, SomeData}
+import main.scala.datatypes.options.NoDouble
+import main.scala.datatypes.options.SomeData
+import main.scala.datatypes.options.SomeInteger
+import main.scala.datatypes.options._
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.reflect.ClassTag
@@ -28,13 +31,13 @@ object DataLoader {
   val dateFormat = new SimpleDateFormat("yyyy-MM-dd")//.format(new Date())
 
   def rowToObject(list: List[String]): LineListObject = new LineListObject(
-    //new EmployeeTypes(SomeInteger(16), SomeInteger(11), SomeInteger(6), NoDouble, SomeInteger(4)),
-    new EmployeeTypes(NoInteger, NoInteger, NoInteger, NoDouble, NoInteger),
+    //new EmployeeTypes(SomeDouble(16), SomeDouble(11), SomeDouble(6), NoDouble, SomeDouble(4)),
+    new EmployeeTypes(NoDouble, NoDouble, NoDouble, NoDouble, NoDouble),
     new EmployeeTypes(
-      NoInteger, SomeInteger(list(2).toInt), SomeInteger(list(3).toInt),
-      NoDouble, SomeInteger(list.slice(4, 8).map(_.toInt).sum)),
-    new EmployeeTypes(NoInteger, SomeInteger(list(8).toInt), SomeInteger(list(9).toInt), NoDouble, SomeInteger(list.slice(10,14).map(_.toInt).sum)),
-    new EmployeeTypes(NoInteger, NoInteger, NoInteger, NoDouble, NoInteger),
+      NoDouble, SomeDouble(list(2).toInt), SomeDouble(list(3).toInt),
+      NoDouble, SomeDouble(list.slice(4, 8).map(_.toInt).sum)),
+    new EmployeeTypes(NoDouble, SomeDouble(list(8).toInt), SomeDouble(list(9).toInt), NoDouble, SomeDouble(list.slice(10,14).map(_.toInt).sum)),
+    new EmployeeTypes(NoDouble, NoDouble, NoDouble, NoDouble, NoDouble),
     SomeInteger(list(14).trim.toInt),
     SomeInteger(list(16).toInt),
     SomeData(dateFormat.parse(list(1)))

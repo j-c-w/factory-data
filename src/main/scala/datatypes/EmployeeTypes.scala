@@ -13,32 +13,32 @@ import main.scala.datatypes.options.{NoDouble, DoubleOption, NoInteger, IntegerO
  * types.
  */
 
-class EmployeeTypes(total: IntegerOption,
-                     present: IntegerOption,
-                     absent: IntegerOption,
+class EmployeeTypes(total: DoubleOption,
+                     present: DoubleOption,
+                     absent: DoubleOption,
                      percentAbsent: DoubleOption,
-                     leave: IntegerOption) extends DataType{
+                     leave: DoubleOption) extends DataType{
   self =>
 
 
   //note that this does not call the present/absent methods
   //because that would introduce an infinite circle of
   //data guessing if either were undefined
-  lazy val getTotal: IntegerOption = total match {
-    case NoInteger => present + absent + leave
+  lazy val getTotal: DoubleOption = total match {
+    case NoDouble => present + absent + leave
     case data => data
   }
 
 
   //once again, the getTotal and getAnsent methods
   //are not used on purpose
-  lazy val getPresent: IntegerOption = present match {
-    case NoInteger => total - absent - leave
+  lazy val getPresent: DoubleOption = present match {
+    case NoDouble => total - absent - leave
     case data => data
   }
 
-  lazy val getAbsent: IntegerOption = absent match {
-    case NoInteger => total - present - leave
+  lazy val getAbsent: DoubleOption = absent match {
+    case NoDouble => total - present - leave
     case data => data
   }
 
@@ -48,14 +48,14 @@ class EmployeeTypes(total: IntegerOption,
   //this cannot cause an infinite loop
   lazy val getPercentAbsent: DoubleOption = percentAbsent match {
     case NoDouble => {
-      ((getAbsent * 100).toDoubleOption / getTotal.toDoubleOption).rnd
+      ((getAbsent * 100) / getTotal).rnd
     }
     case data => data.rnd
   }
 
 
   //AFAIK, there is no way to calculate leave numbers unless given
-  lazy val getLeave: IntegerOption =
+  lazy val getLeave: DoubleOption =
     leave or (total - present - absent)
 
   def toBuilder = new EmployeeTypeBuilder {
