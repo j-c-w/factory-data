@@ -20,8 +20,6 @@ class EmployeeTypes(total: DoubleOption,
                      leave: DoubleOption) extends DataType{
   self =>
 
-  type Self = EmployeeTypes
-
 
   //note that this does not call the present/absent methods
   //because that would introduce an infinite circle of
