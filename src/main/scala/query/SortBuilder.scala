@@ -1,5 +1,7 @@
 package main.scala.query
 
+import main.scala.datatypes.DataType
+
 
 /*
  * Created by Jackson Woodruff on 23/07/2014 
@@ -18,7 +20,7 @@ package main.scala.query
  * return the input list
  */
 
-class SortBuilder[T](functions: List[(ResultListObject[T], ResultListObject[T]) => Boolean]) {
+class SortBuilder[T <: DataType[T]](functions: List[(ResultListObject[T], ResultListObject[T]) => Boolean]) {
   def this(f: (ResultListObject[T], ResultListObject[T]) => Boolean, single: Boolean) = this (List(f))
   def this() = this(Nil)
 

@@ -73,6 +73,8 @@ class EmployeeTypes(total: DoubleOption,
   def mergeSum(other: EmployeeTypes) = 
     (this.toBuilder mergeSum other.toBuilder).build
 
+  def get = this
+
   override def toString =
     "     Employees = " + total +
     "     Present = " + present +

@@ -7,14 +7,14 @@ import main.scala.datatypes.DataType
  * 
  */
 
-class AggregateBuilder[T <: DataType](f: List[T] => List[ResultListObject[T]]) {
+class AggregateBuilder[T <: DataType[T]](f: List[T] => List[ResultListObject[T]]) {
   def this() = this(_.map (x => new ResultListObject[T](x)))
   
   def aggregateSum(list: List[T]): ResultListObject[T] = {
     val functionApplied = f(list)
     (functionApplied.tail fold functionApplied.head) ((x, y) => {
       x mergeSum y
-    }.asInstanceOf)
+    })
   }
 
   def noAggregate(list: List[T]): List[ResultListObject[T]] =

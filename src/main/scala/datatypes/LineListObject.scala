@@ -22,7 +22,7 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
                  supervisors: EmployeeTypes,
                  val factoryCode: IntegerOption,
                  val lineCode: IntegerOption,
-                 val date: DataOption[Date]) {
+                 val date: DataOption[Date]) extends DataType[LineListObject] {
 
   self =>
 
@@ -123,11 +123,14 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
   def averageBy(number: Int) =
     this.toBuilder.averageBy(number).build
 
+  def get = this
 
   //merges two datasets by adding the values together
   def mergeSum(other: LineListObject) =
     (this.toBuilder mergeSum other.toBuilder).build
-  
+
+  def takeOut = this
+
   override def toString = {
     "Factory code = " + getFactoryCode + 
     "     , Line code = " + getLineCode +
