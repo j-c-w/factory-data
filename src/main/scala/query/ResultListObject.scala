@@ -1,6 +1,6 @@
 package main.scala.query
 
-import main.scala.datatypes.LineListObject
+import main.scala.datatypes.DataType
 
 /*
  * Created by Jackson Woodruff on 22/07/2014 
@@ -15,23 +15,23 @@ import main.scala.datatypes.LineListObject
  *
  */
 
-class ResultListObject(val lineObject: LineListObject, numberAggregated: Int) {
+class ResultListObject[T <: DataType](val lineObject: T, numberAggregated: Int) {
   //the constructor for most cases -- only 1 object has been combined
   //to make this
-  def this(lineObject: LineListObject) = this(lineObject, 1)
+  def this(lineObject: T) = this(lineObject, 1)
 
   //adds one to the number aggregated
-  def mergeSum(other: ResultListObject) = {
-    new ResultListObject(lineObject mergeSum other.lineObject, numberAggregated + 1)
+  def mergeSum(other: ResultListObject[T]) = {
+    new ResultListObject(lineObject mergeSum other.lineObject.asInstanceOf, numberAggregated + 1)
   }
 
   //averages by the number aggregated.
   // very useful for taking the averages
-  def averageBy: ResultListObject =
+  def averageBy: ResultListObject[T] =
     averageBy(numberAggregated)
 
-  def averageBy(number: Int): ResultListObject =
-    new ResultListObject(lineObject averageBy number)
+  def averageBy(number: Int): ResultListObject[T] =
+    new ResultListObject((lineObject averageBy number).asInstanceOf)
 
   override def toString = lineObject.toString
 }

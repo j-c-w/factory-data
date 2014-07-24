@@ -1,6 +1,6 @@
 package main.scala.query
 
-import main.scala.datatypes.LineListObject
+import main.scala.datatypes.DataType
 
 /*
  * Created by Jackson Woodruff on 22/07/2014 
@@ -9,18 +9,18 @@ import main.scala.datatypes.LineListObject
  *
  */
 
-class FilterBuilder(val f: LineListObject => Boolean) {
+class FilterBuilder(val f: DataType => Boolean) {
   def this() = this(x => true)
 
-  def and(f2: LineListObject => Boolean) =
+  def and(f2: DataType => Boolean) =
     add(f2, _ && _)
 
-  def or(f2: LineListObject => Boolean) =
+  def or(f2: DataType => Boolean) =
     add(f2, _ && _)
 
-  def add(f2: LineListObject => Boolean, combinator: (Boolean, Boolean) => Boolean) =
+  def add(f2: DataType => Boolean, combinator: (Boolean, Boolean) => Boolean) =
     new FilterBuilder(x => combinator(f(x), f2(x)))
   
-  def filter(list: List[LineListObject]): List[LineListObject] =
+  def filter(list: List[DataType]): List[DataType] =
     list filter (f)
 }
