@@ -22,10 +22,11 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
                  supervisors: EmployeeTypes,
                  val factoryCode: IntegerOption,
                  val lineCode: IntegerOption,
-                 val date: DataOption[Date]) {
+                 val date: DataOption[Date]) extends DataType {
 
   self =>
 
+  type Self = LineListObject
 
   //////////////////////PRODUCTION WORKERS SECTION/////////////////////
   //just like in the inner classes,
