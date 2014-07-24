@@ -29,6 +29,15 @@ class EmployeeTypeBuilder {
     leave
   )
 
+  def averageBy(number: Int) = new EmployeeTypeBuilder {
+    employees = self.employees / SomeDouble(number)
+    present = self.present / SomeDouble(number)
+    absent = self.absent / SomeDouble(number)
+    leave = self.leave / SomeDouble(number)
+    //leaves out the percent because that wouldn't make much, if any, sense
+  }
+
+
   //AVERAGES the two data points
   def mergeAverage(other: EmployeeTypeBuilder) = new EmployeeTypeBuilder {
     employees = (self.employees + other.employees) / SomeDouble(2)
@@ -43,7 +52,7 @@ class EmployeeTypeBuilder {
     employees = self.employees + other.employees
     present = self.present + other.present
     absent = self.absent + other.absent
-    leave = self.absent + other.absent
+    leave = self.leave + other.leave
   }
 }
 

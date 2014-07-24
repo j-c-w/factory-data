@@ -117,6 +117,10 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
     }
   }
 
+  //averages this datapoint by a number
+  def averageBy(number: Int) =
+    this.toBuilder.averageBy(number).build
+
   //merges two datasets by averaging the values
   def mergeAverage(other: LineListObject) =
     (this.toBuilder mergeAverage other.toBuilder).build

@@ -32,6 +32,17 @@ class LineListObjectBuilder {
   def build = new LineListObject(totalProductionWorkers,
       operators, helpers, supervisors, factoryCode, lineCode, date)
 
+  def averageBy(number: Int) = new LineListObjectBuilder {
+    totalProductionWorkers = self.totalProductionWorkers averageBy number
+    operators = self.operators averageBy number
+    helpers = self.helpers averageBy number
+    supervisors = self.supervisors averageBy number
+    factoryCode = self.factoryCode
+    lineCode = self.lineCode
+    date = self.date
+  }
+
+
   //takes two LineListObjectBuilders and
   //combines them into one by averaging the values
   def mergeAverage(other: LineListObjectBuilder) = new LineListObjectBuilder {
@@ -48,7 +59,7 @@ class LineListObjectBuilder {
   //merges two datasets by adding values together
   def mergeSum(other: LineListObjectBuilder) = new LineListObjectBuilder {
     totalProductionWorkers = self.totalProductionWorkers mergeSum other.totalProductionWorkers
-    operators = self.operators mergeSum other.totalProductionWorkers
+    operators = self.operators mergeSum other.operators
     helpers = self.helpers mergeSum other.helpers
     supervisors = self.supervisors mergeSum other.supervisors
     factoryCode = if (self.factoryCode == other.factoryCode) self.factoryCode else NoInteger
