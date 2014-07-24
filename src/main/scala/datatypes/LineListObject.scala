@@ -71,17 +71,17 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
   //methods are fine to use here instead of values
   lazy val getPercentProductionWorkersAbsent: DoubleOption =
     totalProductionWorkers.getPercentAbsent or {
-      ((getTotalProductionWorkersAbsent * 100) / getTotalProductionWorkers).rnd
+      (getTotalProductionWorkersAbsent * 100) / getTotalProductionWorkers
     }
 
   lazy val getPercentHelpersAbsent: DoubleOption =
     helpers.getPercentAbsent or {
-      ((getTotalHelpersAbsent * 100) / getTotalHelpers).rnd
+      (getTotalHelpersAbsent * 100) / getTotalHelpers
     }
 
   lazy val getPercentOperatorsAbsent: DoubleOption =
     operators.getPercentAbsent or {
-      ((getTotalOperatorsAbsent * 100) / getTotalOperators).rnd
+      (getTotalOperatorsAbsent * 100) / getTotalOperators
     }
   ////////////////////////////SUPERVISORS SECTION/////////////////////////////////////////
   //in this section there are no second guesses, because there is really no secondary way

@@ -48,9 +48,9 @@ class EmployeeTypes(total: DoubleOption,
   //this cannot cause an infinite loop
   lazy val getPercentAbsent: DoubleOption = percentAbsent match {
     case NoDouble => {
-      ((getAbsent * 100) / getTotal).rnd
+      (getAbsent * 100) / getTotal
     }
-    case data => data.rnd
+    case data => data
   }
 
 

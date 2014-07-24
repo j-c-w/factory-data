@@ -24,18 +24,8 @@ abstract class DoubleOption {
     case (_, _) => NoDouble
   }
   def / (other: DoubleOption) = (this, other) match {
-    case (SomeDouble(thisDouble), SomeDouble(otherDouble)) => SomeDouble(thisDouble/otherDouble)
+    case (SomeDouble(thisDouble), SomeDouble(otherDouble)) => SomeDouble(thisDouble / otherDouble)
     case (_, _) => NoDouble
-  }
-
-
-  //pushes the rounding on to the rnd(dp: Int)
-  //method w/ two dp
-  def rnd: DoubleOption = rnd(2)
-
-  def rnd (dp: Int): DoubleOption = this match {
-    case NoDouble => NoDouble
-    case SomeDouble(x) => SomeDouble(x)
   }
 
   def or(other: => DoubleOption): DoubleOption
@@ -48,7 +38,12 @@ case class SomeDouble(x: Double) extends DoubleOption {
   def get = x
   def isEmpty = false
   //rounds the output to 2dp before displaying
-  override def toString = rnd(2).get.toString
+  override def toString = if (x < 0) x.toString //there has been a serious problem -- leave as is
+  else {
+    //do the rounding -- this should not be done anywhere else
+    //for the sake of accuracy
+    (Math.floor(100 * x + 0.5) / 100).toString;
+  }
 }
 
 case object NoDouble extends DoubleOption {
