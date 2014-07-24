@@ -8,7 +8,7 @@ package main.scala.datatypes
  * todo -- the documentation for this crucial trait
  */
 
-trait DataType[T] {
+trait DataType[T <: DataType[T]] {
   type Self <: DataType[T]
 
   def mergeSum(other: T): T
