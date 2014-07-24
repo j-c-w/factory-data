@@ -68,9 +68,7 @@ class EmployeeTypes(total: DoubleOption,
 
   def averageBy(number: Int) =
     (this.toBuilder averageBy number).build
-  def mergeAverage(other: EmployeeTypes) =
-    (this.toBuilder mergeAverage other.toBuilder).build
-  
+
   def mergeSum(other: EmployeeTypes) = 
     (this.toBuilder mergeSum other.toBuilder).build
 

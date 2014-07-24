@@ -37,16 +37,6 @@ class EmployeeTypeBuilder {
     //leaves out the percent because that wouldn't make much, if any, sense
   }
 
-
-  //AVERAGES the two data points
-  def mergeAverage(other: EmployeeTypeBuilder) = new EmployeeTypeBuilder {
-    employees = (self.employees + other.employees) / SomeDouble(2)
-    present = (self.present + other.present) / SomeDouble(2)
-    absent = (self.absent + other.absent) / SomeDouble(2)
-    leave = (self.leave + other.leave) / SomeDouble(2)
-    //leaves out percent for the moment
-  }
-
   //SUMS the data points
   def mergeSum(other: EmployeeTypeBuilder) = new EmployeeTypeBuilder {
     employees = self.employees + other.employees
