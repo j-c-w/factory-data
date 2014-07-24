@@ -26,6 +26,8 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
 
   self =>
 
+  type Self = LineListObject
+
 
   //////////////////////PRODUCTION WORKERS SECTION/////////////////////
   //just like in the inner classes,
