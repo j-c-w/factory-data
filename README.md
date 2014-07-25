@@ -1,9 +1,3 @@
-This is data display backend for Attendance data in the IPA project.
+This is a scala/play project that is used to display data collected from garment factories.
 
-It has a Java Swing frontend to display the data, with only code based
-options to search etc.
-
-Eventual plans:
-    Play2 web interface
-    Extend to match the production data
-    Extend to match the final dataset for absenteeism
+Currently under heavy development. Eventual plans are to make this functional enough to run on a server as a production interfact to allow those factories that contributed to the project, and those who are considering contributing to view the data that they have/will helped to create
