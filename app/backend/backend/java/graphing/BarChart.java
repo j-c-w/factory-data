@@ -1,4 +1,4 @@
-package main.backend.java.graphing;
+package src.backend.backend.java.graphing;
 
 /*
  * Created by Jackson Woodruff on 23/07/2014 

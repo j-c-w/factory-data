@@ -1,4 +1,4 @@
-package main.backend.java;
+package src.backend.backend.java;
 
 import main.backend.scala.Backend;
 import main.backend.scala.query.ResultListObject;
