@@ -1,6 +1,5 @@
-package main.backend.scala.datatypes.options
+package backend.scala.datatypes.options
 
-import main.backend.scala.datatypes.LineListObject
 
 
 /*

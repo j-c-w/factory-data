@@ -1,6 +1,6 @@
-package main.backend.scala.query
+package backend.scala.query
 
-import main.backend.scala.datatypes.DataType
+import backend.scala.datatypes.DataType
 
 
 /*

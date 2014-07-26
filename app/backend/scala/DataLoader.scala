@@ -1,13 +1,10 @@
-package main.backend.scala
+package backend.scala
 
 import java.text.SimpleDateFormat
 import java.util.Date
+import backend.scala.datatypes.options.{SomeInteger, SomeData, SomeDouble, NoDouble}
+import backend.scala.datatypes.{EmployeeTypes, LineListObject}
 import main.backend.csv.scala.com.github.tototoshi.csv.CSVReader
-import main.backend.scala.datatypes._
-import main.backend.scala.datatypes.options.NoDouble
-import main.backend.scala.datatypes.options.SomeData
-import main.backend.scala.datatypes.options.SomeInteger
-import main.backend.scala.datatypes.options._
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.reflect.ClassTag

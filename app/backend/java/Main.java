@@ -1,27 +1,23 @@
-package src.backend.backend.java;
-
-import main.backend.scala.Backend;
-import main.backend.scala.query.ResultListObject;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
+package backend.java;
 
 /*
- * Created by Jackson Woodruff on 20/07/2014 
+ * Created by Jackson Woodruff on 26/07/2014 
  * 
  */
 
+import backend.scala.Backend;
+
+import javax.swing.*;
+
 public class Main {
-	private JList dataList;
 	private JPanel root;
-	private JButton search;
-	private JTextField searchBar;
+	private JList dataList;
 
 	String[] data;
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Main");
-		frame.setContentPane(new Main().root);
+		frame.setContentPane(new Main().dataList);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
@@ -29,19 +25,11 @@ public class Main {
 
 	public Main() {
 		super();
+		root = new JPanel();
+		dataList = new JList();
+		root.add(dataList);
 		data = Backend.loadData();
 		dataList.setListData(data);
 
-		search.setText("search");
-		search.setAction(new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//dataList.setListData(Backend.filterData(data, Integer.parseInt(searchBar.getText())));
-			}
-		});
-
-
 	}
-
-
 }

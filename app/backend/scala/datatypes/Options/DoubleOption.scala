@@ -1,4 +1,4 @@
-package main.backend.scala.datatypes.options
+package backend.scala.datatypes.options
 
 /*
  * Created by Jackson Woodruff on 21/07/2014 

@@ -1,12 +1,10 @@
-package main.backend.scala
+package backend.scala
 
 
 import java.util.Date
 
-import main.backend.scala.datatypes._
-import main.backend.scala.datatypes.builders.LineListObjectBuilder
-import main.backend.scala.datatypes.options._
-import main.backend.scala.query.{SortBuilder, AggregateBuilder, FilterBuilder, ResultListObject}
+import backend.scala.datatypes.LineListObject
+import backend.scala.query.{SortBuilder, ResultListObject, AggregateBuilder, FilterBuilder}
 
 
 /*

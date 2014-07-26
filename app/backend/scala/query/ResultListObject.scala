@@ -1,6 +1,7 @@
-package main.backend.scala.query
+package backend.scala.query
 
-import main.backend.scala.datatypes.{LineListObject, DataType}
+import backend.scala.datatypes.DataType
+
 
 /*
  * Created by Jackson Woodruff on 22/07/2014 

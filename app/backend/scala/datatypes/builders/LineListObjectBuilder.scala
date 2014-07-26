@@ -2,8 +2,9 @@ package main.backend.scala.datatypes.builders
 
 import java.util.Date
 
-import main.backend.scala.datatypes.{LineListObject, EmployeeTypes}
-import main.backend.scala.datatypes.options._
+import backend.scala.datatypes.{LineListObject, EmployeeTypes}
+import backend.scala.datatypes.options._
+
 
 /*
  * Created by Jackson Woodruff on 23/07/2014 

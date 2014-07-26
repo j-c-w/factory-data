@@ -1,4 +1,4 @@
-package main.backend.scala.datatypes
+package backend.scala.datatypes
 
 
 /*

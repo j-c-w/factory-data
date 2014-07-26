@@ -1,7 +1,8 @@
-package main.backend.scala.datatypes.builders
+package backend.scala.datatypes.builders
 
-import main.backend.scala.datatypes.EmployeeTypes
-import main.backend.scala.datatypes.options._
+import backend.scala.datatypes.EmployeeTypes
+import backend.scala.datatypes.options.{SomeDouble, NoDouble, DoubleOption}
+
 
 /*
  * Created by Jackson Woodruff on 23/07/2014 
