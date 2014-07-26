@@ -5,7 +5,7 @@ import java.util.Date
 
 import main.backend.scala.datatypes._
 import main.backend.scala.datatypes.builders.LineListObjectBuilder
-import main.backend.scala.datatypes.options.IntegerOption
+import main.backend.scala.datatypes.options._
 import main.backend.scala.query.{SortBuilder, AggregateBuilder, FilterBuilder, ResultListObject}
 
 
@@ -15,11 +15,10 @@ import main.backend.scala.query.{SortBuilder, AggregateBuilder, FilterBuilder, R
  */
 
 object Backend {
-  //todo -- I think I may have cracked the abstract type problem -- test it by fixing errors here
-  def loadData() = {
+  def loadData(): Array[String] = {
     val x = (performOperations(DataLoader.dataAsList)).toArray
     println(x.length)
-    x
+    x map (_.toString)
   }
 
   def performOperations(list: List[LineListObject]) =

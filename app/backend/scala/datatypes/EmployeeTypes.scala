@@ -1,7 +1,7 @@
 package main.backend.scala.datatypes
 
 import main.backend.scala.datatypes.builders.EmployeeTypeBuilder
-import main.backend.scala.datatypes.options.{NoDouble, DoubleOption, NoInteger, IntegerOption}
+import main.backend.scala.datatypes.options.{DoubleOption, NoDouble}
 
 
 /*

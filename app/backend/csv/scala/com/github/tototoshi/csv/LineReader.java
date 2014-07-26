@@ -1,4 +1,4 @@
-package src.backend.backend.csv.java.com.github.tototoshi.csv;
+package backend.csv.scala.com.github.tototoshi.csv;
 
 import java.io.BufferedReader;
 import java.io.IOException;

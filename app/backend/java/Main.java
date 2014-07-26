@@ -17,7 +17,7 @@ public class Main {
 	private JButton search;
 	private JTextField searchBar;
 
-	ResultListObject[] data;
+	String[] data;
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Main");

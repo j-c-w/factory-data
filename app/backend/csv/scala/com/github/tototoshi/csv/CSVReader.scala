@@ -18,7 +18,9 @@ package main.backend.csv.scala.com.github.tototoshi.csv
 
 import java.io._
 import java.util.NoSuchElementException
-import main.backend.csv.java.com.github.tototoshi.csv.LineReader
+
+
+import backend.csv.scala.com.github.tototoshi.csv.LineReader
 
 import scala.util.parsing.input.CharSequenceReader
 
