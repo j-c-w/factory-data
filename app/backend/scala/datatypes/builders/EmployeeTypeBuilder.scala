@@ -13,7 +13,7 @@ import backend.scala.datatypes.options.{SomeDouble, NoDouble, DoubleOption}
  * where a lot of data is not relevant)
  */
 
-class EmployeeTypeBuilder {
+class EmployeeTypeBuilder extends BuilderType[EmployeeTypes] {
   self =>
 
   var employees: DoubleOption = NoDouble

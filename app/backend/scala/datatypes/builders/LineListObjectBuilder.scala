@@ -2,6 +2,7 @@ package main.backend.scala.datatypes.builders
 
 import java.util.Date
 
+import backend.scala.datatypes.builders.BuilderType
 import backend.scala.datatypes.{LineListObject, EmployeeTypes}
 import backend.scala.datatypes.options._
 
@@ -15,7 +16,7 @@ import backend.scala.datatypes.options._
  * values out
  */
 
-class LineListObjectBuilder {
+class LineListObjectBuilder extends BuilderType[LineListObject] {
   self =>
 
   var totalProductionWorkers: EmployeeTypes = emptyEmployeeType
