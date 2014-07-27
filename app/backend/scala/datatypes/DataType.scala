@@ -1,5 +1,7 @@
 package backend.scala.datatypes
 
+import backend.scala.datatypes.builders.BuilderType
+
 
 /*
  * Created by Jackson Woodruff on 24/07/2014
@@ -63,4 +65,9 @@ trait DataType[T <: DataType[T]] {
    *    def get: T = this
    */
   def get: T
+
+  /*
+   * returns a builder object for this item.
+   */
+  def toBuilder: BuilderType[T]
 }
