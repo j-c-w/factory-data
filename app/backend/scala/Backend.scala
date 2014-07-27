@@ -4,7 +4,9 @@ package backend.scala
 import java.util.Date
 
 import backend.scala.datatypes.LineListObject
-import backend.scala.query.{SortBuilder, ResultListObject, AggregateBuilder, FilterBuilder}
+import backend.scala.graphing.{Graph, BarChartData}
+import backend.scala.graphing.data.DataParser
+import backend.scala.query.{SortBuilder, ResultListObject, Aggregator, FilterBuilder}
 
 
 /*
@@ -16,11 +18,12 @@ object Backend {
   def loadData(): Array[String] = {
     val x = (performOperations(DataLoader.dataAsList)).toArray
     println(x.length)
+
     x map (_.toString)
   }
 
   def performOperations(list: List[LineListObject]) =
-    generateSort.sortBy(generateAggregator.aggregateAverageBy(generateFilter.filter(list), _.lineCode.get))
+    generateSort.sortBy(generateFilter.filter(list) map (new ResultListObject[LineListObject](_) ))
 
   def generateFilter =
     new FilterBuilder[LineListObject](!_.get.lineCode.isEmpty).and(!_.get.date.isEmpty).and(
