@@ -40,12 +40,9 @@ class QueryBuilder[T <: DataType[T]](filterBuilder: FilterBuilder[T],
     if (filterBuilder == null) data
     else filterBuilder.filter(data)
 
-  private def aggregateData(data: List[T]): List[ResultListObject[T]] = aggregateBuilder match {
-    case (AggregateSum) => List(Aggregator.aggregateSum(data))
-    case (AggregateSumBy(f)) => Aggregator.aggregateSumBy(data, f)
-    case (AggregateAverage) => List(Aggregator.aggregateSum(data))
-    case (AggregateAverageBy(f)) => Aggregator.aggregateAverageBy(data, f)
-  }
+  private def aggregateData(data: List[T]): List[ResultListObject[T]] =
+    Aggregator.aggregateWith(data, aggregateBuilder)
+
   private def sortData(data: List[ResultListObject[T]]) = {
     if (sortBuilder == null) data
     else sortBuilder.sortBy(data)
