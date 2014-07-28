@@ -1,5 +1,7 @@
 package controllers
 
+import java.io.File
+
 import scala.util.Random
 
 /*
@@ -9,6 +11,9 @@ import scala.util.Random
 
 object Global {
   lazy val randoms: Stream[Char] = new Random().alphanumeric
+
   def nextNRandoms(n: Int): Array[Char] =
     randoms.take(n).toArray
+
+  lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\HelloWorld\\public\\images\\gen")
 }

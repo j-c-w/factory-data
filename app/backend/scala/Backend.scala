@@ -1,9 +1,10 @@
 package backend.scala
 
 
+import java.io.File
 import java.util.Date
 
-import backend.scala.datatypes.LineListObject
+import backend.scala.datatypes.{DataType, LineListObject}
 import backend.scala.graphing.{Graph, BarChartData}
 import backend.scala.graphing.data.DataParser
 import backend.scala.query.{AggregateAverageBy, SortBuilder, ResultListObject, FilterBuilder}
@@ -28,9 +29,17 @@ object Backend {
   def loadRaw: Array[ResultListObject[LineListObject]] =
     (performOperations(DataLoader.dataAsList)).toArray
 
+  def drawGraph(data: List[ResultListObject[LineListObject]]): File = {
+    val barChartData = new BarChartData[Integer, LineListObject](x => x.lineObject.lineCode.get, x => x.lineObject.getTotalProductionWorkers.get, "1", data.toList)
+    val imageLocation = Graph.drawBarChart(barChartData, "Title", "xAxis", "yAxis")
+    println(imageLocation)
+    imageLocation
+  }
+
 
   def performOperations(list: List[LineListObject]) =
-    (new AggregateAverageBy[Int, LineListObject](_.getDate.get.getMonth).aggregate(generateFilter.filter(list)))
+    (new AggregateAverageBy[Int, LineListObject](_.getLineCode.get).aggregate(generateFilter.filter(list)))
+
 
   def generateFilter =
     new FilterBuilder[LineListObject](!_.get.lineCode.isEmpty).and(!_.get.date.isEmpty).and(
