@@ -36,4 +36,6 @@ class ResultListObject[T <: DataType[T]](val lineObject: T, numberAggregated: In
     new ResultListObject((lineObject averageBy number))
 
   override def toString = lineObject.toString
+
+  def toHtml = lineObject.toHtml
 }
