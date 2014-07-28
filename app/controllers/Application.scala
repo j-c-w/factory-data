@@ -11,7 +11,12 @@ object Application extends Controller {
   }
 
   def list = Action {
-    Ok(Backend.loadData() mkString "\n")
+    Ok(views.html.dataView(Backend.loadRaw, List(
+      "Factory Code", "Line Code", "Date", "Total Operators",
+      "Operators Present", "Operators Absent", "Operators on Leave",
+      "Percent Operators Absent", "Total Helpers", "Helpers Present",
+      "Helpers Absent", "Helpers on Leave", "Percent Helpers Absent"
+    )))
   }
 
 }

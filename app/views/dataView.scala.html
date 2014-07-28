@@ -1,0 +1,23 @@
+@(data: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]], headers: List[String])
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Data</title>
+  <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <table>
+        @for(header <- headers) {
+            <th>@Html(header)</th>
+        }
+        @for(dataItem <- data) {
+            <tr>@Html(dataItem.toHtml)</tr>
+        }
+    </table>
+</body>
+</html>
