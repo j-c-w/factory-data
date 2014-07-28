@@ -1,10 +1,12 @@
 Options are a really good idea
 
-Don't use primitive types, it will cause nightmares when you come to aggregate the data
-and need to average everything
+Use double options almost everywhere
 
 Be careful with addition within a monad -- should 7 + NoInteger return 7 or NoInteger?
 
 Aggregating is difficult -- average after summing
 
 Don't use this pointless ResultListObject, just pass the LineListObject around
+
+Store date as month #, day #, year #, not as a java.util.date -- makes it impossible to
+sort after an aggregate
