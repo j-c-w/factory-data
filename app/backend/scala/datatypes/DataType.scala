@@ -70,4 +70,11 @@ trait DataType[T <: DataType[T]] {
    * returns a builder object for this item.
    */
   def toBuilder: BuilderType[T]
+
+  /*
+  * returns an Html representation of this peice of
+  * data. Used for displaying the data in table format
+  *
+  */
+  def toHtml: String
 }

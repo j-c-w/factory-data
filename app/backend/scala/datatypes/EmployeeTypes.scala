@@ -58,7 +58,6 @@ class EmployeeTypes(total: DoubleOption,
   //AFAIK, there is no way to calculate leave numbers unless given
   lazy val getLeave: DoubleOption =
     leave or (total - present - absent)
-
   def toBuilder = new EmployeeTypeBuilder {
     employees = total
     present = self.present
@@ -74,6 +73,22 @@ class EmployeeTypes(total: DoubleOption,
     (this.toBuilder mergeSum other.toBuilder).build
 
   def get = this
+
+  /*
+   * Note that this does not return a fully fledged
+   * html table, because it has never been designed
+   * for use on it's owm.
+   *
+   * It returns the items to be used in the
+   * LineListObject thing
+   * LineListObject thing
+   */
+  def toHtml = "<td>" + getTotal + "</td>" +
+    "<td>" + getPresent + "</td>" +
+    "<td>" + getAbsent + "</td>" +
+    "<td>" + getLeave + "</td>" +
+    "<td>" + getPercentAbsent + "</td>"
+
 
   override def toString =
     "     Employees = " + total +

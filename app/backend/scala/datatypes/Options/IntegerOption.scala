@@ -40,21 +40,18 @@ case object NoInteger extends IntegerOption {
 //rather than in its sub classes, please stick to that
 abstract class IntegerOption {
   def + (other: IntegerOption): IntegerOption = (this, other) match {
-    case (_, NoInteger) => this
-    case (NoInteger, _) => other
     case (SomeInteger(thisInteger), SomeInteger(thatInteger)) => SomeInteger(thisInteger + thatInteger)
+    case (_, _) => NoInteger
   }
 
   def - (other: IntegerOption): IntegerOption = (this, other) match {
-    case (_, NoInteger) => this
-    case (NoInteger, _) => other
     case (SomeInteger(thisInt), SomeInteger(thatInt)) => SomeInteger(thisInt - thatInt)
+    case (_, _) => NoInteger
   }
 
   def * (other: IntegerOption): IntegerOption = (this, other) match {
-    case (_, NoInteger) => this
-    case (NoInteger, _) => other
     case (SomeInteger(thisInt), SomeInteger(thatInt)) => SomeInteger(thisInt * thatInt)
+    case (_, _) => NoInteger
   }
 
   //also define a helper * method that takes an int

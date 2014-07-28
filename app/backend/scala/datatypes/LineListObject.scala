@@ -129,7 +129,13 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
   def mergeSum(other: LineListObject) =
     (this.toBuilder mergeSum other.toBuilder).build
 
-  def takeOut = this
+  //returns a table row containing this information
+  def toHtml =
+    "<td>" + getFactoryCode + "</td>" +
+    "<td>" + getLineCode + "</td>" +
+    "<td>" + getDate + "</td>" +
+    operators.toHtml +
+    helpers.toHtml
 
   override def toString = {
     "Factory code = " + getFactoryCode + 
