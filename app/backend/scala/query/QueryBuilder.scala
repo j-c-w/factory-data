@@ -12,9 +12,9 @@ import backend.scala.datatypes.options.{SomeData, NoData, DataOption}
  */
 
 class QueryBuilder[T <: DataType[T]](filterBuilder: DataOption[FilterBuilder[T]],
-                                      aggregateMode: AggregateMode,
+                                      aggregateMode: AggregateMode[T],
                                       sortBuilder: DataOption[SortBuilder[T]]) {
-  def this() = this(NoData, NoAggregate, NoData)
+  def this() = this(NoData, NoAggregate[T], NoData)
 
   def addFilter(f: T => Boolean, combinator: (Boolean, Boolean) => Boolean) = filterBuilder match {
     case (NoData) => new QueryBuilder[T](SomeData(new FilterBuilder[T](f)), aggregateMode, sortBuilder)
@@ -28,7 +28,7 @@ class QueryBuilder[T <: DataType[T]](filterBuilder: DataOption[FilterBuilder[T]]
   def addFilterOr(f: T => Boolean) =
     addFilter(f, _ || _)
 
-  def setAggregate(mode: AggregateMode) =
+  def setAggregate(mode: AggregateMode[T]) =
     new QueryBuilder[T](filterBuilder, mode, sortBuilder)
 
   def addSort(f: (ResultListObject[T], ResultListObject[T]) => Boolean) = sortBuilder match {
