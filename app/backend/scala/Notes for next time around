@@ -10,3 +10,6 @@ Don't use this pointless ResultListObject, just pass the LineListObject around
 
 Store date as month #, day #, year #, not as a java.util.date -- makes it impossible to
 sort after an aggregate
+
+Stay away from complex types (i.e. date). Anything that cannot be compared to a string is going to be nearly
+impossible to deal with on the frontend.
