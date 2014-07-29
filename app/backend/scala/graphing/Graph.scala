@@ -2,7 +2,7 @@ package backend.scala.graphing
 
 import java.io.File
 
-import backend.java.BarChart
+import backend.java.{LineGraph, BarChart}
 import backend.scala.datatypes.DataType
 import org.jfree.chart.{ChartUtilities, ChartFactory, JFreeChart}
 
@@ -30,6 +30,14 @@ object Graph {
                   xAxisTitle: String,
                   yAxisTitle: String): File = {
     val chart = new BarChart(data.toCategorySet, title, xAxisTitle, yAxisTitle)
+    chart.saveAsPNG()
+  }
+
+  def drawLineGraph[A <: Comparable[_], T <: DataType[T]](data: LineGraphData[A, T],
+                  title: String,
+                  xAxisTitle: String,
+                  yAxisTitle: String) : File = {
+    val chart = new LineGraph(data.toCategorySet, title, xAxisTitle, yAxisTitle)
     chart.saveAsPNG()
   }
 
