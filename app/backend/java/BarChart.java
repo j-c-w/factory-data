@@ -7,12 +7,20 @@ package backend.java;
  * as a png to a pre-specified location
  */
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 public class BarChart extends Graph {
 	public BarChart(DefaultCategoryDataset dataset, String title, String xAxisTitle, String yAxisTitle) {
-		chart = ChartFactory.createBarChart(title, xAxisTitle, yAxisTitle, dataset, PlotOrientation.VERTICAL, true, true, false);
+		chart = createChart(dataset, title, xAxisTitle, yAxisTitle);
 	}
+
+
+    public JFreeChart createChart(DefaultCategoryDataset dataset, String title, String xAxisTitle, String yAxisTitle) {
+        CategoryPlot categoryPlot = toCategoryPlot(dataset);
+        JFreeChart chart = new JFreeChart("Bar Chart", categoryPlot);
+        chart.setTitle(title);
+        return chart;
+    }
 }
