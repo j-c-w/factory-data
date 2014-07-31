@@ -52,7 +52,10 @@ class LineListObjectBuilder extends BuilderType[LineListObject] {
     supervisors = self.supervisors mergeSum other.supervisors
     factoryCode = if (self.factoryCode == other.factoryCode) self.factoryCode else NoInteger
     lineCode = if (self.lineCode == other.lineCode) self.lineCode else NoInteger
-    date = if (self.date == other.date) self.date else NoData
+    date = (self.date, other.date) match {
+      case (SomeData(thisDate), SomeData(otherDate)) => SomeData(thisDate merge otherDate)
+      case (_, _) => NoData
+    }
   }
 
 }

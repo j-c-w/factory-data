@@ -17,9 +17,41 @@ import backend.scala.datatypes.options.{SomeInteger, NoData, NoInteger, IntegerO
  * information in this context
  */
 
-class FactoryDate(year: IntegerOption, month: IntegerOption, day: IntegerOption) extends Comparable[FactoryDate]{
+class FactoryDate(val year: IntegerOption, val month: IntegerOption, val day: IntegerOption) extends Comparable[FactoryDate]{
   def this(javaDate: java.util.Date) = this(SomeInteger(javaDate.getYear + 1900),
                     SomeInteger(javaDate.getMonth + 1), SomeInteger(javaDate.getDate))
+
+  /*
+   * merges two dates.
+   *
+   * If the values for any specific number are the same
+   * (i.e. year1 == year2), then the value is kept
+   * in the new date object.
+   *
+   * Otherwise it is replaced with a NoInteger
+   * example:
+   *  25/12/1996 merge 10/12/1776 -> NoInteger/12/NoInteger
+   */
+  def merge(other: FactoryDate) = {
+    //I think I overdid this method -- please improve
+    //have a merry christmas and a happy
+    val newYear = other.year match {
+      case NoInteger => NoInteger
+      case otherYear =>
+        if (this.year == otherYear) otherYear else NoInteger
+    }
+    val newMonth = other.month match {
+      case NoInteger => NoInteger
+      case otherMonth =>
+        if (this.month == otherMonth) otherMonth else NoInteger
+    }
+    val newDay = other.day match {
+      case NoInteger => NoInteger
+      case otherDay =>
+        if (this.day == otherDay) otherDay else NoInteger
+    }
+    new FactoryDate(newYear, newMonth, newDay)
+  }
 
   override def toString = {
     val yearStr = year match {
@@ -34,7 +66,9 @@ class FactoryDate(year: IntegerOption, month: IntegerOption, day: IntegerOption)
       case NoInteger => ""
       case SomeInteger(x) => x + "/"
     }
-    dayString + monthStr + yearStr
+    val combined = dayString + monthStr + yearStr
+    //just a little check to make sure a friendly message is shown
+    if (combined == "") NoData.toString else combined
   }
 
   override def compareTo(other: FactoryDate): Int = {
