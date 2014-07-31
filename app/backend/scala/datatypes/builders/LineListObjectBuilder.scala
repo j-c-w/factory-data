@@ -3,7 +3,7 @@ package main.backend.scala.datatypes.builders
 import java.util.Date
 
 import backend.scala.datatypes.builders.BuilderType
-import backend.scala.datatypes.{LineListObject, EmployeeTypes}
+import backend.scala.datatypes.{FactoryDate, LineListObject, EmployeeTypes}
 import backend.scala.datatypes.options._
 
 
@@ -25,7 +25,7 @@ class LineListObjectBuilder extends BuilderType[LineListObject] {
   var supervisors: EmployeeTypes = emptyEmployeeType
   var factoryCode: IntegerOption = NoInteger
   var lineCode: IntegerOption = NoInteger
-  var date: DataOption[Date] = NoData
+  var date: DataOption[FactoryDate] = NoData
 
   private val emptyEmployeeType = new EmployeeTypes(
     NoDouble, NoDouble, NoDouble, NoDouble, NoDouble

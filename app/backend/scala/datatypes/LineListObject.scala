@@ -22,7 +22,7 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
                  supervisors: EmployeeTypes,
                  val factoryCode: IntegerOption,
                  val lineCode: IntegerOption,
-                 val date: DataOption[Date]) extends DataType[LineListObject] {
+                 val date: DataOption[FactoryDate]) extends DataType[LineListObject] {
 
   self =>
 
@@ -103,7 +103,7 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
 
   ///////////////////////////////MISCELLANEOUS SECTION////////////////////////////////////
 
-  lazy val getDate: DataOption[Date] = date
+  lazy val getDate: DataOption[FactoryDate] = date
   lazy val getFactoryCode: IntegerOption = factoryCode
   lazy val getLineCode: IntegerOption = lineCode
 

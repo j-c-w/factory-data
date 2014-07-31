@@ -3,7 +3,7 @@ package backend.scala
 import java.text.SimpleDateFormat
 import java.util.Date
 import backend.scala.datatypes.options.{SomeInteger, SomeData, SomeDouble, NoDouble}
-import backend.scala.datatypes.{EmployeeTypes, LineListObject}
+import backend.scala.datatypes.{FactoryDate, EmployeeTypes, LineListObject}
 import main.backend.csv.scala.com.github.tototoshi.csv.CSVReader
 
 import scala.collection.parallel.immutable.ParSeq
@@ -37,7 +37,7 @@ object DataLoader {
     new EmployeeTypes(NoDouble, NoDouble, NoDouble, NoDouble, NoDouble),
     SomeInteger(list(14).trim.toInt),
     SomeInteger(list(16).toInt),
-    SomeData(dateFormat.parse(list(1)))
+    SomeData(new FactoryDate(dateFormat.parse(list(1))))
   )
 
   def dataAsList: List[LineListObject] = loadData.drop(1).map(rowToObject)

@@ -68,6 +68,12 @@ abstract class IntegerOption {
     case (_, _) => NoInteger //if we fall through to here, at least one is NoInteger
   }
 
+  def == (other: IntegerOption) = (this, other) match {
+    case (NoInteger, NoInteger) => true
+    case (SomeInteger(x), SomeInteger(y)) => x == y
+    case (_, _) => false//not the same type therefore must be false
+  }
+
   def toDoubleOption: DoubleOption = this match {
     case NoInteger => NoDouble
     case SomeInteger(x) => SomeDouble(x.toDouble)

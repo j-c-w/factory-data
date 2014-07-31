@@ -39,7 +39,7 @@ case object LineCode extends DataField[IntegerOption] {
   def get(data: LineListObject) = data.lineCode
 }
 
-case object DateObject extends  DataField[DataOption[Date]] {
+case object DateObject extends  DataField[DataOption[FactoryDate]] {
   override val toString = "Date"
   def get(data: LineListObject) = data.date
 }

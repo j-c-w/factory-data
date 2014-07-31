@@ -4,10 +4,10 @@ package backend.scala
 import java.io.File
 import java.util.Date
 
-import backend.scala.datatypes.{DataType, LineListObject}
-import backend.scala.graphing.{Graph, BarChartData}
+import backend.scala.datatypes.{FactoryDate, DataType, LineListObject}
+import backend.scala.graphing.{LineGraphData, Graph, BarChartData}
 import backend.scala.graphing.data.DataParser
-import backend.scala.query.{AggregateAverageBy, SortBuilder, ResultListObject, FilterBuilder}
+import backend.scala.query._
 
 
 /*
@@ -30,7 +30,10 @@ object Backend {
     (performOperations(DataLoader.dataAsList)).toArray
 
   def drawGraph(data: List[ResultListObject[LineListObject]]): File = {
-    val barChartData = new BarChartData[Integer, LineListObject](x => x.lineObject.lineCode.get, x => x.lineObject.getTotalProductionWorkers.get, "1", data.toList)
+    val barChartData =
+      new BarChartData[FactoryDate, LineListObject](
+        x => x.lineObject.getDate.get, x => x.lineObject.getTotalProductionWorkers.get, "1", data.toList
+      )
     val imageLocation = Graph.drawBarChart(barChartData, "Title", "xAxis", "yAxis")
     println(imageLocation)
     imageLocation
@@ -38,7 +41,10 @@ object Backend {
 
 
   def performOperations(list: List[LineListObject]) =
-    (new AggregateAverageBy[Int, LineListObject](_.getLineCode.get).aggregate(generateFilter.filter(list)))
+    new SortBuilder[LineListObject](dateSort, true).sortBy(
+      new NoAggregate[LineListObject].aggregate(
+      //new AggregateAverageBy[Date, LineListObject](_.date.get).aggregate(
+        generateFilter.filter(list)))
 
 
   def generateFilter =
@@ -50,7 +56,7 @@ object Backend {
 
   def dateSort(res1: ResultListObject[LineListObject], res2: ResultListObject[LineListObject]): Boolean = //res match {
    // case (res1, res2) =>
-    res1.lineObject.lineCode.get.compareTo (res2.lineObject.lineCode.get) > 0
+    res1.lineObject.date.get.compareTo (res2.lineObject.date.get) > 0
    // }
 
   def lineSort (res1: ResultListObject[LineListObject], res2: ResultListObject[LineListObject]): Boolean =

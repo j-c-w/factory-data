@@ -33,7 +33,7 @@ object Graph {
     chart.saveAsPNG()
   }
 
-  def drawLineGraph[A <: Comparable[_], T <: DataType[T]](data: LineGraphData[A, T],
+  def drawLineGraph[A <: Comparable[_], T <: DataType[T]](data: BarChartData[A, T],
                   title: String,
                   xAxisTitle: String,
                   yAxisTitle: String) : File = {
