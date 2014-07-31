@@ -24,67 +24,70 @@ abstract class DataField[T] {
   def get(data: LineListObject): T
 }
 
+case object NoField extends DataField[Nothing] {
+  override val toString = "Invalid Field"
+  def get(data: LineListObject) = throw new NoSuchElementException("NoField.get")
+}
+
 case object FactoryCode extends DataField[IntegerOption] {
-  override def toString = "Factory Code"
+  override val toString = "Factory Code"
   def get(data: LineListObject) = data.factoryCode
 }
 
 case object LineCode extends DataField[IntegerOption] {
-  override def toString = "Line Code"
+  override val toString = "Line Code"
   def get(data: LineListObject) = data.lineCode
 }
 
 case object DateObject extends  DataField[DataOption[Date]] {
-  override def toString = "Date"
+  override val toString = "Date"
   def get(data: LineListObject) = data.date
 }
 
 case object HelpersPresent extends DataField[DoubleOption] {
-  override def toString = "Helpers Present"
+  override val toString = "Helpers Present"
   def get(data: LineListObject) = data.getTotalHelpersPresent
 }
 
 case object HelpersAbsent extends DataField[DoubleOption] {
-  override def toString = "Helpers Absent"
+  override val toString = "Helpers Absent"
   def get(data: LineListObject) = data.getTotalHelpersAbsent
 }
 
 case object HelpersLeave extends DataField[DoubleOption] {
-  override def toString = "Helpers Leave"
+  override val toString = "Helpers Leave"
   def get(data: LineListObject) = data.getHelpersLeave
 }
 
 case object PercentHelpersAbsent extends DataField[DoubleOption] {
-  override def toString = "Percent Helpers Absent"
+  override val toString = "Percent Helpers Absent"
   def get(data: LineListObject) = data.getPercentHelpersAbsent
 }
 
 case object TotalOperators extends DataField[DoubleOption] {
-  override def toString = "Total Operators"
+  override val toString = "Total Operators"
   def get(data: LineListObject) = data.getTotalOperators
 }
 
 case object OperatorsAbsent extends DataField[DoubleOption] {
-  override def toString = "Operators Absent"
+  override val toString = "Operators Absent"
   def get(data: LineListObject) = data.getTotalOperatorsAbsent
 }
 
 case object OperatorsLeave extends DataField[DoubleOption] {
-  override def toString = "Operators Leave"
+  override val toString = "Operators Leave"
   def get(data: LineListObject) = data.getOperatorLeave
 }
 
 case object PercentOperatorsAbsent extends DataField[DoubleOption] {
-  override def toString = "Percent Operators Absent"
+  override val toString = "Percent Operators Absent"
   def get(data: LineListObject) = data.getPercentOperatorsAbsent
 }
 
 
 
 object DataField {
-  //doesnt compile right now -- should be fixed
-  //if you decide to take this path
-  /*def fromString(s: String) = s match {
+  def fromString(s: String) = s match {
     case FactoryCode.toString => FactoryCode
     case LineCode.toString => LineCode
     case DateObject.toString => DateObject
@@ -96,7 +99,8 @@ object DataField {
     case OperatorsAbsent.toString => OperatorsAbsent
     case OperatorsLeave.toString => OperatorsLeave
     case PercentOperatorsAbsent.toString => PercentOperatorsAbsent
-  }*/
+    case _ => NoField
+  }
 
   def toHtml(data: LineListObject): String = {
     "<td>" + FactoryCode.toString + "</td>" +
