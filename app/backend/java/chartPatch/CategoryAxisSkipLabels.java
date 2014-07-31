@@ -2,31 +2,22 @@ package backend.java.chartPatch;
 
 import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.Effect3D;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.ui.RectangleAnchor;
-import org.jfree.chart.axis.AxisState;
-
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.Point2D;
-
-import java.awt.geom.Line2D;
-import java.awt.Shape;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotRenderingInfo;
-import org.jfree.chart.axis.CategoryAnchor;
-import org.jfree.chart.axis.CategoryTick;
-import org.jfree.chart.axis.CategoryLabelPosition;
-import org.jfree.chart.axis.Tick;
+import org.jfree.chart.axis.*;
 import org.jfree.chart.entity.EntityCollection;
 import org.jfree.chart.entity.TickLabelEntity;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.text.TextBlock;
-import java.util.List;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.RectangleEdge;
+
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 /*
  	Overview:
@@ -269,14 +260,14 @@ public class CategoryAxisSkipLabels extends CategoryAxis  {
    *          permitted). 
    * 
    * @return The updated axis state (never <code>null</code>). 
-   */ 
-  protected AxisState drawCategoryLabels(Graphics2D g2, Rectangle2D dataArea, 
-                                         RectangleEdge edge, AxisState state, 
-                                         PlotRenderingInfo plotState) {
+   */
+  protected AxisState drawCategoryLabels(Graphics2D g2, Rectangle2D plotArea,
+                                         Rectangle2D dataArea, RectangleEdge edge,
+                                         AxisState state, PlotRenderingInfo plotState) {
     if (state == null) { 
       throw new IllegalArgumentException("Null 'state' argument."); 
     } 
-    
+
     if (isTickLabelsVisible()) { 
       g2.setFont(getTickLabelFont()); 
       g2.setPaint(getTickLabelPaint()); 

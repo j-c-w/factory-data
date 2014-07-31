@@ -51,7 +51,9 @@ public class Graph {
         BarRenderer barRenderer = new BarRenderer();
         CategoryAxis customCategoryAxis = new CategoryAxisSkipLabels();
         ((CategoryAxisSkipLabels)customCategoryAxis).setTickMarksVisible(true);
-        ((CategoryAxisSkipLabels)customCategoryAxis).setDisplaySkippedTickMarks(true);
+        ((CategoryAxisSkipLabels)customCategoryAxis).setDisplaySkippedTickMarks(false);
+        ((CategoryAxisSkipLabels)customCategoryAxis).setTruncate(true);
+        //((CategoryAxisSkipLabels)customCategoryAxis).setTickLabelsVisible(false);
         ((CategoryAxisSkipLabels)customCategoryAxis).setAlgorithmType(CategoryAxisSkipLabels.N_STEP_ALGO);
         NumberAxis numberAxis = new NumberAxis("Value");
         return new CategoryPlot(
