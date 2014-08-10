@@ -8,6 +8,7 @@ import backend.scala.datatypes.{FactoryDate, DataType, LineListObject}
 import backend.scala.graphing.{LineGraphData, Graph, BarChartData}
 import backend.scala.graphing.data.DataParser
 import backend.scala.query._
+import controllers.Global
 
 
 /*
@@ -27,21 +28,21 @@ object Backend {
   }
 
   def loadRaw: Array[ResultListObject[LineListObject]] =
-    (performOperations(DataLoader.dataAsList)).toArray
+    (performOperations(Global.baseData)).toArray
 
   def drawGraph(data: List[ResultListObject[LineListObject]]): File = {
     val barChartData =
       new BarChartData[FactoryDate, LineListObject](
         x => x.lineObject.getDate.get, x => x.lineObject.getTotalProductionWorkers.get, "1", data.toList
       )
-    val imageLocation = Graph.drawBarChart(barChartData, "Title", "xAxis", "yAxis")
+    val imageLocation = Graph.drawLineGraph(barChartData, "Title", "xAxis", "yAxis")
     println(imageLocation)
     imageLocation
   }
 
 
   def performOperations(list: List[LineListObject]) =
-    new SortBuilder[LineListObject](dateSort, true).sortBy(
+    new SortBuilder[LineListObject](lineSort, true).sortBy(
       new NoAggregate[LineListObject].aggregate(
       //new AggregateAverageBy[Date, LineListObject](_.date.get).aggregate(
         generateFilter.filter(list)))
