@@ -31,7 +31,7 @@ case class SomeData[+T](x: T) extends DataOption[T] {
   override def toString: String = x.toString
 }
 
-abstract class DataOption[+T] {
+abstract class DataOption[+T] extends SimpleComparable[DataOption[T]]{
   def isEmpty: Boolean
   def get: T
   //this is a method that acts the like the
@@ -40,5 +40,35 @@ abstract class DataOption[+T] {
   //the second object is returned regardless
   //of value
   def or[A >: T](option: => DataOption[A]): DataOption[A]
+
+  override def == (other: DataOption[T]): Boolean = (this, other) match {
+    case (SomeData(x), SomeData(y)) => x == y
+    case (NoData, NoData) => true
+    case (_, _) => false
+  }
+
+  override def > (other: DataOption[T]): Boolean =
+    (this compareTo other) == 1
+
+  override def <= (other: DataOption[T]): Boolean = {
+    val compared: Int = this compareTo other
+    compared == 0 || compared == 1
+  }
+  override def < (other: DataOption[T]): Boolean =
+    (this compareTo other) == -1
+
+  override def >= (other: DataOption[T]): Boolean = {
+    val compared: Int = this compareTo other
+    compared == 0 || compared == -1
+  }
+
+  private def compareTo(other: DataOption[T]) = (this, other) match {
+    case (NoData, NoData) => 0
+    case (SomeData(x), SomeData(y))
+      if x.isInstanceOf[Comparable[_]] && y.isInstanceOf[Comparable[_]]
+        => x.asInstanceOf[Comparable[_]].compareTo(y.asInstanceOf)
+    case (_, _) => -2 //at this point, there is no comparison possible
+      //is NoData < SomeData?? Therefore -2 is returned
+  }
 }
 
