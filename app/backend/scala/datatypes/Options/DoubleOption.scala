@@ -5,7 +5,7 @@ package backend.scala.datatypes.options
  * 
  */
 
-abstract class DoubleOption {
+abstract class DoubleOption extends SimpleComparable[DoubleOption] {
   def * (other: DoubleOption): DoubleOption = (this, other) match {
     case (SomeDouble(thisDouble), SomeDouble(thatDouble)) => SomeDouble(thisDouble * thatDouble)
     case (_, _) => NoDouble
@@ -13,6 +13,34 @@ abstract class DoubleOption {
 
   def * (other: Double): DoubleOption =
     this * SomeDouble(other)
+
+  override def == (other: DoubleOption): Boolean = (this, other) match {
+    case (NoDouble, NoDouble) => true
+    case (SomeDouble(x), SomeDouble(y)) => x == y
+    case (_, _) => false
+  }
+
+  override def > (other: DoubleOption): Boolean = (this, other) match {
+    case (SomeDouble(x), SomeDouble(y)) => x > y
+    case (_, _) => false
+  }
+
+  override def <= (other: DoubleOption): Boolean = (this, other) match {
+    case (SomeDouble(x), SomeDouble(y)) => x <= y
+    case (NoDouble, NoDouble) => true
+    case (_, _) => false
+  }
+
+  override def < (other: DoubleOption): Boolean = (this, other) match {
+    case (SomeDouble(x), SomeDouble(y)) => x < y
+    case (_, _) => false
+  }
+
+  override def >= (other: DoubleOption): Boolean = (this, other) match {
+    case (SomeDouble(x), SomeDouble(y)) => x >= y
+    case (NoDouble, NoDouble) => true
+    case (_, _) => false
+  }
 
   def + (other: DoubleOption): DoubleOption = (this, other) match {
     case (SomeDouble(x), SomeDouble(y)) => SomeDouble(x + y)
