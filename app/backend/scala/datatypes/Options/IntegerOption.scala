@@ -43,7 +43,29 @@ case object NoInteger extends IntegerOption {
 //I have decided that for this class it is more efficient
 //to declare all additional methods in the IntegerOption class
 //rather than in its sub classes, please stick to that
-abstract class IntegerOption {
+abstract class IntegerOption extends SimpleComparable[IntegerOption] {
+  override def <(other: IntegerOption): Boolean = (this, other) match {
+    case (SomeInteger(x), SomeInteger(y)) => x < y
+    case (_, _) => false
+  }
+
+  override def >(other: IntegerOption): Boolean = (this, other) match {
+    case (SomeInteger(x), SomeInteger(y)) => x > y
+    case (_, _) => false
+  }
+
+  override def <=(other: IntegerOption): Boolean = (this, other) match {
+    case (NoInteger, NoInteger) => true
+    case (SomeInteger(x), SomeInteger(y)) => x <= y
+    case (_, _) => false
+  }
+
+  override def >=(other: IntegerOption): Boolean = (this, other) match {
+    case (NoInteger, NoInteger) => true
+    case (SomeInteger(x), SomeInteger(y)) => x >= y
+    case (_, _) => false
+  }
+
   def + (other: IntegerOption): IntegerOption = (this, other) match {
     case (SomeInteger(thisInteger), SomeInteger(thatInteger)) => SomeInteger(thisInteger + thatInteger)
     case (_, _) => NoInteger
