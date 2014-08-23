@@ -1,7 +1,6 @@
 package backend.scala.query
 
 import backend.scala.datatypes.DataType
-import backend.scala.datatypes.options.{SomeData, NoData, DataOption}
 
 /*
  * Created by Jackson Woodruff on 27/07/2014 
@@ -11,14 +10,14 @@ import backend.scala.datatypes.options.{SomeData, NoData, DataOption}
  *
  */
 
-class QueryBuilder[T <: DataType[T]](filterBuilder: DataOption[FilterBuilder[T]],
+class QueryBuilder[T <: DataType[T]](filterBuilder: Option[FilterBuilder[T]],
                                       aggregateMode: AggregateMode[T],
-                                      sortBuilder: DataOption[SortBuilder[T]]) {
-  def this() = this(NoData, NoAggregate[T], NoData)
+                                      sortBuilder: Option[SortBuilder[T]]) {
+  def this() = this(None, NoAggregate[T], None)
 
   def addFilter(f: T => Boolean, combinator: (Boolean, Boolean) => Boolean) = filterBuilder match {
-    case (NoData) => new QueryBuilder[T](SomeData(new FilterBuilder[T](f)), aggregateMode, sortBuilder)
-    case (SomeData(builder)) => new QueryBuilder[T](SomeData(builder.add (f, combinator)),
+    case (None) => new QueryBuilder[T](Some(new FilterBuilder[T](f)), aggregateMode, sortBuilder)
+    case (Some(builder)) => new QueryBuilder[T](Some(builder.add (f, combinator)),
                                       aggregateMode, sortBuilder)
   }
 
@@ -32,8 +31,8 @@ class QueryBuilder[T <: DataType[T]](filterBuilder: DataOption[FilterBuilder[T]]
     new QueryBuilder[T](filterBuilder, mode, sortBuilder)
 
   def addSort(f: (ResultListObject[T], ResultListObject[T]) => Boolean) = sortBuilder match {
-    case (NoData) => new QueryBuilder(filterBuilder, aggregateMode, SomeData(new SortBuilder[T](f, true)))
-    case (SomeData(builder)) => new QueryBuilder(filterBuilder, aggregateMode, SomeData(builder.add(f)))
+    case (None) => new QueryBuilder(filterBuilder, aggregateMode, Some(new SortBuilder[T](f, true)))
+    case (Some(builder)) => new QueryBuilder(filterBuilder, aggregateMode, Some(builder.add(f)))
   }
 
   def processData(data: List[T]) = {
@@ -41,16 +40,16 @@ class QueryBuilder[T <: DataType[T]](filterBuilder: DataOption[FilterBuilder[T]]
   }
 
   private def filterData(data: List[T]) = filterBuilder match {
-    case (NoData) => data
-    case (SomeData(builder)) => builder.filter(data)
+    case (None) => data
+    case (Some(builder)) => builder.filter(data)
   }
 
   private def aggregateData(data: List[T]): List[ResultListObject[T]] =
     aggregateMode.aggregate(data)
 
   private def sortData(data: List[ResultListObject[T]]) = sortBuilder match {
-    case (NoData) => data
-    case (SomeData(builder)) => builder.sortBy(data)
+    case (None) => data
+    case (Some(builder)) => builder.sortBy(data)
   }
 
 
