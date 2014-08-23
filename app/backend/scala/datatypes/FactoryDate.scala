@@ -2,7 +2,7 @@ package backend.scala.datatypes
 
 import java.util.{GregorianCalendar, Calendar}
 
-import backend.scala.datatypes.options.{SomeInteger, NoData, NoInteger, IntegerOption}
+import backend.scala.datatypes.options._
 
 /*
  * Created by Jackson Woodruff on 31/07/2014 
@@ -68,7 +68,7 @@ class FactoryDate(val year: IntegerOption, val month: IntegerOption, val day: In
     }
     val combined = dayString + monthStr + yearStr
     //just a little check to make sure a friendly message is shown
-    if (combined == "") NoData.toString else combined
+    if (combined == "") NoDate.toString else combined
   }
 
   override def compareTo(other: FactoryDate): Int = {

@@ -2,7 +2,7 @@ package backend.scala.datatypes
 
 import java.util.Date
 
-import backend.scala.datatypes.options.{DoubleOption, DataOption, IntegerOption}
+import backend.scala.datatypes.options.{DateOption, DoubleOption, IntegerOption}
 
 /*
  * Created by Jackson Woodruff on 31/07/2014 
@@ -39,7 +39,7 @@ case object LineCode extends DataField[IntegerOption] {
   def get(data: LineListObject) = data.lineCode
 }
 
-case object DateObject extends  DataField[DataOption[FactoryDate]] {
+case object DateObject extends  DataField[DateOption] {
   override val toString = "Date"
   def get(data: LineListObject) = data.date
 }
