@@ -13,7 +13,7 @@ import backend.scala.datatypes.options.SomeDate
  * implement. This is a big improvement
  */
 
-abstract class DateOption extends Comparable[DateOption] {
+abstract class DateOption extends MathComparable[DateOption] {
   def isEmpty: Boolean
   def get: FactoryDate
   def toString: String

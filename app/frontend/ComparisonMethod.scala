@@ -1,6 +1,6 @@
 package frontend
 
-import backend.scala.datatypes.options.SimpleComparable
+import backend.scala.datatypes.options.MathComparable
 
 /*
  * Created by Jackson Woodruff on 21/08/2014 
@@ -26,7 +26,7 @@ abstract class ComparisonMethod {
 
   def toString: String
 
-  def compare[A <: SimpleComparable[A]](o1: A, o2: A): Boolean
+  def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean
 }
 
 /*
@@ -35,35 +35,35 @@ abstract class ComparisonMethod {
  */
 
 object Equals extends ComparisonMethod {
-  override def compare[A <: SimpleComparable[_]](o1: A, o2: A): Boolean =
+  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
     o1 == o2
 
   override def toString = "=="
 }
 object LessThan extends ComparisonMethod {
 
-  override def compare[A <: SimpleComparable[A]](o1: A, o2: A): Boolean =
+  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
     o1 < o2
 
   override def toString = "<"
 }
 object GreaterThan extends ComparisonMethod {
 
-  override def compare[A <: SimpleComparable[A]](o1: A, o2: A): Boolean =
+  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
     o1 > o2
 
   override def toString = ">"
 }
 object LessThanOrEqual extends ComparisonMethod {
 
-  override def compare[A <: SimpleComparable[A]](o1: A, o2: A): Boolean =
+  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
     o1 <= o2
 
   override def toString = ">="
 }
 object GreaterThanOrEqual extends ComparisonMethod {
 
-  override def compare[A <: SimpleComparable[A]](o1: A, o2: A): Boolean =
+  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
     o1 >= o2
 
   override def toString = "<="

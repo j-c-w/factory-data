@@ -19,10 +19,6 @@ package backend.scala.datatypes.options
 
 
 case class SomeInteger(x: Int) extends IntegerOption {
-  def == (other: IntegerOption) = other match {
-    case SomeInteger(y) => y == x
-    case _ => false
-  }
   def or(other: => IntegerOption): IntegerOption = SomeInteger.this
   def get: Int = x
   def isEmpty = false
@@ -30,10 +26,6 @@ case class SomeInteger(x: Int) extends IntegerOption {
 }
 
 case object NoInteger extends IntegerOption {
-  //this is a dangerous method....
-  //has to cast the other passed data type
-  //...
-  def == (other: IntegerOption) = false
   def or(other: => IntegerOption) = other
   def get = throw new NoSuchElementException("NoInteger.get")
   def isEmpty = true
@@ -43,27 +35,11 @@ case object NoInteger extends IntegerOption {
 //I have decided that for this class it is more efficient
 //to declare all additional methods in the IntegerOption class
 //rather than in its sub classes, please stick to that
-abstract class IntegerOption extends SimpleComparable[IntegerOption] {
-  override def <(other: IntegerOption): Boolean = (this, other) match {
-    case (SomeInteger(x), SomeInteger(y)) => x < y
-    case (_, _) => false
-  }
-
-  override def >(other: IntegerOption): Boolean = (this, other) match {
-    case (SomeInteger(x), SomeInteger(y)) => x > y
-    case (_, _) => false
-  }
-
-  override def <=(other: IntegerOption): Boolean = (this, other) match {
-    case (NoInteger, NoInteger) => true
-    case (SomeInteger(x), SomeInteger(y)) => x <= y
-    case (_, _) => false
-  }
-
-  override def >=(other: IntegerOption): Boolean = (this, other) match {
-    case (NoInteger, NoInteger) => true
-    case (SomeInteger(x), SomeInteger(y)) => x >= y
-    case (_, _) => false
+abstract class IntegerOption extends MathComparable[IntegerOption] {
+  def compareTo(other: IntegerOption) = (this, other) match {
+    case (NoInteger, NoInteger) => 0
+    case (SomeInteger(x), SomeInteger(y)) => x compareTo y
+    case (_, _) => -2
   }
 
   def + (other: IntegerOption): IntegerOption = (this, other) match {
@@ -95,11 +71,7 @@ abstract class IntegerOption extends SimpleComparable[IntegerOption] {
     case (_, _) => NoInteger //if we fall through to here, at least one is NoInteger
   }
 
-  // I have been implementing most of these methods here, but have had a problem with
-  //this due to something related to the internal equality testing on NoInteger.
-  // Because of that, anything compared to NoInteger ALWAYS returns false.
-  //i.e. NoInteger == NoInteger -> false
-  def == (other: IntegerOption): Boolean
+
 
   def toDoubleOption: DoubleOption = this match {
     case NoInteger => NoDouble

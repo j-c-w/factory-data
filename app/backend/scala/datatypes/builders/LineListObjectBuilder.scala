@@ -25,7 +25,7 @@ class LineListObjectBuilder extends BuilderType[LineListObject] {
   var supervisors: EmployeeTypes = emptyEmployeeType
   var factoryCode: IntegerOption = NoInteger
   var lineCode: IntegerOption = NoInteger
-  var date: DataOption[FactoryDate] = NoData
+  var date: DateOption = NoDate
 
   private val emptyEmployeeType = new EmployeeTypes(
     NoDouble, NoDouble, NoDouble, NoDouble, NoDouble
@@ -53,8 +53,8 @@ class LineListObjectBuilder extends BuilderType[LineListObject] {
     factoryCode = if (self.factoryCode == other.factoryCode) self.factoryCode else NoInteger
     lineCode = if (self.lineCode == other.lineCode) self.lineCode else NoInteger
     date = (self.date, other.date) match {
-      case (SomeData(thisDate), SomeData(otherDate)) => SomeData(thisDate merge otherDate)
-      case (_, _) => NoData
+      case (SomeDate(thisDate), SomeDate(otherDate)) => SomeDate(thisDate merge otherDate)
+      case (_, _) => NoDate
     }
   }
 
