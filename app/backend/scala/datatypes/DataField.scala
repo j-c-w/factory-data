@@ -2,7 +2,7 @@ package backend.scala.datatypes
 
 import java.util.Date
 
-import backend.scala.datatypes.options.{DateOption, DoubleOption, IntegerOption}
+import backend.scala.datatypes.options.{MathComparable, DateOption, DoubleOption, IntegerOption}
 
 /*
  * Created by Jackson Woodruff on 31/07/2014 
@@ -19,7 +19,7 @@ import backend.scala.datatypes.options.{DateOption, DoubleOption, IntegerOption}
  * anonfun thing doesnt work out
  */
 
-abstract class DataField[T] {
+abstract class DataField[T <: MathComparable[T]] {
   def toString: String
   def get(data: LineListObject): T
 }
