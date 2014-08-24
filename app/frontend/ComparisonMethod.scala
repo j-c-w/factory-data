@@ -3,7 +3,7 @@ package frontend
 import backend.scala.datatypes.options.MathComparable
 
 /*
- * Created by Jackson Woodruff on 21/08/2014 
+ * Created by Jackson Woodruff on 21/08/2014
  *
  * This is class full of various different comparison
  * methods, (==, >, < etc)
