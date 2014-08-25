@@ -1,6 +1,6 @@
 package frontend
 
-import backend.scala.datatypes.DataField
+import backend.scala.datatypes.{LineListObject, DataType, DataField}
 import backend.scala.query.FilterBuilder
 
 /*
@@ -13,6 +13,6 @@ import backend.scala.query.FilterBuilder
  */
 
 class FilterParser[A, B](field: DataField[A], comparison: ComparisonMethod, value: A) {
-  def getBuilder[A <: DataField[A]]: FilterBuilder[A] =
-    new FilterBuilder[A](x => comparison.compare(value, x))
+  def getBuilder: FilterBuilder[LineListObject] =
+    new FilterBuilder[LineListObject](x => comparison.compare(value, field.get(x)))
 }
