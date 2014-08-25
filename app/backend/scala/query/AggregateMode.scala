@@ -19,7 +19,7 @@ abstract class AggregateMode[T <: DataType[T]] {
   def aggregate(data: List[T]): List[ResultListObject[T]]
 }
 
-case class AggregateSum[T <: DataType[T]] extends AggregateMode[T] {
+case class AggregateSum[T <: DataType[T]]() extends AggregateMode[T] {
   def aggregate(data: List[T]): List[ResultListObject[T]] = List({
     val functionApplied = converter(data)
     (functionApplied.tail fold functionApplied.head)((x, y) => {
@@ -27,7 +27,7 @@ case class AggregateSum[T <: DataType[T]] extends AggregateMode[T] {
     })
   })
 }
-case class AggregateAverage[T <: DataType[T]] extends AggregateMode[T] {
+case class AggregateAverage[T <: DataType[T]]() extends AggregateMode[T] {
   def aggregate(data: List[T]): List[ResultListObject[T]] = {
     //doing a head operation w/out checking is fine because the
     //aggregatesum is (at the moment) guaranteed to return a list with
@@ -35,7 +35,7 @@ case class AggregateAverage[T <: DataType[T]] extends AggregateMode[T] {
     List(new AggregateSum[T].aggregate(data).head.averageBy)
   }
 }
-case class NoAggregate[T <: DataType[T]] extends AggregateMode[T] {
+case class NoAggregate[T <: DataType[T]]() extends AggregateMode[T] {
   def aggregate(data: List[T]): List[ResultListObject[T]] =
     data map (x => new ResultListObject(x))
 }
