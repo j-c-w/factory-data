@@ -39,7 +39,7 @@ object AggregateParser {
   def getAggregateAverageBy[K <: MathComparable[K]](field: DataField[K]) =
     new AggregateAverageBy[K, LineListObject](field.get(_))
 
-  def getAggregateSumBy[K <: MathComparable](field: DataField[K]) =
+  def getAggregateSumBy[K <: MathComparable[K]](field: DataField[K]) =
     new AggregateSumBy[K, LineListObject](field.get(_))
 
   def getAggregateAverage =

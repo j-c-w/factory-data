@@ -1,5 +1,6 @@
 package frontend
 
+import backend.scala.datatypes.options.MathComparable
 import backend.scala.datatypes.{LineListObject, DataType, DataField}
 import backend.scala.query.FilterBuilder
 
@@ -12,7 +13,7 @@ import backend.scala.query.FilterBuilder
  * I have left this as a class.
  */
 
-class FilterParser[A, B](field: DataField[A], comparison: ComparisonMethod, value: A) {
+class FilterParser[A <: MathComparable[A]](field: DataField[A], comparison: ComparisonMethod, value: A) {
   def getBuilder: FilterBuilder[LineListObject] =
     new FilterBuilder[LineListObject](x => comparison.compare(value, field.get(x)))
 }
