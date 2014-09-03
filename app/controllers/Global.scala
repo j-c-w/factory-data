@@ -2,6 +2,8 @@ package controllers
 
 import java.io.File
 
+import backend.scala.DataLoader
+
 import scala.util.Random
 
 /*
@@ -16,4 +18,6 @@ object Global {
     randoms.take(n).toArray
 
   lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\HelloWorld\\public\\images\\gen")
+
+  val baseData = DataLoader.dataAsList
 }

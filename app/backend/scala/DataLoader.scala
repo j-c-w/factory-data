@@ -23,7 +23,10 @@ import scala.reflect.ClassTag
 object DataLoader {
   val reader = CSVReader.open("C:\\Users\\Jackson\\Projects\\IPA\\Data\\1004\\Attendance Report\\1004 Attendance 140714 QF.csv")
 
-  def loadData: List[List[String]] = reader.all()
+  def loadData: List[List[String]] = {
+    printf("Loading Data From CSV")
+    reader.all
+  }
 
   val dateFormat = new SimpleDateFormat("yyyy-MM-dd")//.format(new Date())
 
