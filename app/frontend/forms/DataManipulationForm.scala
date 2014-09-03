@@ -13,12 +13,11 @@ import play.api.data.Forms._
  */
 
 object DataManipulationForm {
-  val searchForm = Form(
+  val sortForm = Form(
     mapping (
       "Field" -> text,
-      "Comparison Method" -> text,
-      "Value" -> text
-    ) (SearchFormData.apply) (SearchFormData.unapply)
+      "Sort Order" -> text
+    ) (SortFormData.apply) (SortFormData.unapply)
   )
 
   val filterForm = Form(
@@ -32,7 +31,6 @@ object DataManipulationForm {
   val aggregateForm = Form(
     mapping (
       "Field" -> text,
-      "Comparison Method" -> text,
       "Mode" -> text
     ) (AggregateFormData.apply) (AggregateFormData.unapply)
   )
@@ -51,7 +49,7 @@ trait FormData
  * so they can return the correct ...Parser
  * classes.
  */
-case class SearchFormData(searchField: String, searchComparator: String, searchText: String) extends FormData {
+case class SortFormData(searchField: String, sortMethod: String) extends FormData {
 
 }
 
@@ -59,6 +57,6 @@ case class FilterFormData(filteringField: String, filterComparator: String, filt
 
 }
 
-case class AggregateFormData(aggregatingField: String, aggregatingComparator: String, aggregateMode: String) extends FormData {
+case class AggregateFormData(aggregatingField: String, aggregateMode: String) extends FormData {
 
 }
