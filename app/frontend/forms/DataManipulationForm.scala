@@ -13,28 +13,34 @@ import play.api.data.Forms._
  */
 
 object DataManipulationForm {
-  val sortForm = Form(
-    mapping (
-      "Field" -> text,
-      "Sort Order" -> text
-    ) (SortFormData.apply) (SortFormData.unapply)
-  )
+  private val sortForm = mapping (
+    "Field" -> text,
+    "Sort Order" -> text
+  ) (SortFormData.apply) (SortFormData.unapply)
 
-  val filterForm = Form(
-    mapping (
-      "Field" -> text,
-      "Comparison Method" -> text,
-      "Value" -> text
-    ) (FilterFormData.apply) (FilterFormData.unapply)
-  )
+  private val filterForm = mapping (
+    "Field" -> text,
+    "Comparison Method" -> text,
+    "Value" -> text
+  ) (FilterFormData.apply) (FilterFormData.unapply)
 
-  val aggregateForm = Form(
+  private val aggregateForm = mapping (
+    "Field" -> text,
+    "Mode" -> text
+  ) (AggregateFormData.apply) (AggregateFormData.unapply)
+
+  //This is the master val that combines
+  //the other forms
+  val form = Form (
     mapping (
-      "Field" -> text,
-      "Mode" -> text
-    ) (AggregateFormData.apply) (AggregateFormData.unapply)
+      "Filter" -> filterForm,
+      "Aggregate" -> aggregateForm,
+      "Sort" -> sortForm
+    ) (SearchFormParser.apply) (SearchFormParser.unapply)
   )
 }
+
+case class SearchFormParser(filterData: FilterFormData, aggregateData: AggregateFormData, sortData: SortFormData)
 
 /*
  * A simple trait to enable the passing
@@ -49,14 +55,6 @@ trait FormData
  * so they can return the correct ...Parser
  * classes.
  */
-case class SortFormData(searchField: String, sortMethod: String) extends FormData {
-
-}
-
-case class FilterFormData(filteringField: String, filterComparator: String, filterText: String) extends FormData {
-
-}
-
-case class AggregateFormData(aggregatingField: String, aggregateMode: String) extends FormData {
-
-}
+protected case class SortFormData(searchField: String, sortMethod: String) extends FormData
+protected case class FilterFormData(filteringField: String, filterComparator: String, filterText: String) extends FormData
+protected case class AggregateFormData(aggregatingField: String, aggregateMode: String) extends FormData
