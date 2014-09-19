@@ -34,7 +34,7 @@ class RowData(val params: CellData*) extends DataType[RowData]{
 
   def toBuilder = ???
 
-  def toHtml =
+  def toHtml = ???
 
   def get = this
 }
