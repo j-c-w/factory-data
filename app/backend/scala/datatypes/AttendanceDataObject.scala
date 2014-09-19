@@ -12,10 +12,10 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
  *
  */
 
-class AttendanceDataObject (val lineOperatorData: => EmployeeAttendanceObject,
-                            val helperData: => EmployeeAttendanceObject,
-                            val manpowerTotal: => DoubleOption,
-                            val machines: => DoubleOption) extends DataType[AttendanceDataObject] {
+class AttendanceDataObject (val lineOperatorData: EmployeeAttendanceObject,
+                            val helperData: EmployeeAttendanceObject,
+                            val manpowerTotal: DoubleOption,
+                            val machines: DoubleOption) extends DataType[AttendanceDataObject] {
   self =>
   
   override type Self = AttendanceDataObject

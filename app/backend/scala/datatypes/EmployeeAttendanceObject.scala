@@ -10,10 +10,10 @@ import backend.scala.datatypes.options.{DoubleOption, SomeDouble, IntegerOption}
  * for a single employee type (i.e. LO or HL
  */
 
-class EmployeeAttendanceObject (val registered: => DoubleOption,
-                                   val actual: => DoubleOption,
-                                   val present: => DoubleOption,
-                                   val absent: => DoubleOption) extends DataType[EmployeeAttendanceObject] {
+class EmployeeAttendanceObject (val registered: DoubleOption,
+                                   val actual: DoubleOption,
+                                   val present: DoubleOption,
+                                   val absent: DoubleOption) extends DataType[EmployeeAttendanceObject] {
 
   self =>
 
