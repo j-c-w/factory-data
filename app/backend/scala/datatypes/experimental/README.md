@@ -1,3 +1,7 @@
+This is a set of features I would very much like to implement should I have the time. It would really take this project to the next
+level. However, right now, I feel committed to focus on the project itself and not any future extensibility.
+
+
 This is a temporary file for me to have a try at making this whole program generic (with the exception of the loading classes).
 
 The idea is to pass a list of column headers, which will be used for the toHtml etc. and then a List of rows.
