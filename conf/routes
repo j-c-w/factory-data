@@ -8,6 +8,9 @@ GET        /                    controllers.Application.index
 # Basic lists page
 GET        /list                controllers.Application.list
 
+# Submit form route (redirects to /list)
+GET        /sumbitForm          controllers.Application.submitForm
+
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.at(path="/public", file)
 
