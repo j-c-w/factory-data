@@ -41,13 +41,20 @@ object DataManipulationForm {
 }
 
 case class SearchFormParser(filterData: FilterFormData, aggregateData: AggregateFormData, sortData: SortFormData)
+              extends FormData[SearchFormParser] {
+  def this() = this(new FilterFormData, new AggregateFormData, new SortFormData)
+
+  def default = new SearchFormParser
+}
 
 /*
  * A simple trait to enable the passing
  * of any of these to a single parser method,
  * enabling me to store these in a single list
  */
-trait FormData
+trait FormData[T <: FormData] {
+  def default: T
+}
 
 /*
  * This is a set of three classes that
@@ -55,6 +62,22 @@ trait FormData
  * so they can return the correct ...Parser
  * classes.
  */
-protected case class SortFormData(searchField: String, sortMethod: String) extends FormData
-protected case class FilterFormData(filteringField: String, filterComparator: String, filterText: String) extends FormData
-protected case class AggregateFormData(aggregatingField: String, aggregateMode: String) extends FormData
+protected case class SortFormData(searchField: String, sortMethod: String) extends FormData[SortFormData] {
+  def this() = this("", "")
+
+  def default = new SortFormData
+}
+
+protected case class FilterFormData(filteringField: String, filterComparator: String, filterText: String)
+              extends FormData[FilterFormData] {
+  def this() = this("", "", "")
+
+  def default = new FilterFormData
+}
+
+protected case class AggregateFormData(aggregatingField: String, aggregateMode: String)
+              extends FormData[AggregateFormData] {
+  def this() = this("", "")
+
+  def default = new AggregateFormData
+}
