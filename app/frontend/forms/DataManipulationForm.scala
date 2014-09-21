@@ -18,7 +18,7 @@ object DataManipulationForm {
     "Sort Order" -> text
   ) (SortFormData.apply) (SortFormData.unapply)
 
-  private val filterForm = mapping (
+  val filterForm = mapping (
     "Field" -> text,
     "Comparison Method" -> text,
     "Value" -> text
@@ -68,7 +68,7 @@ protected case class SortFormData(searchField: String, sortMethod: String) exten
   def default = new SortFormData
 }
 
-protected case class FilterFormData(filteringField: String, filterComparator: String, filterText: String)
+case class FilterFormData(filteringField: String, filterComparator: String, filterText: String)
               extends FormData[FilterFormData] {
   def this() = this("", "", "")
 
