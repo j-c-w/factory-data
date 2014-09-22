@@ -52,7 +52,7 @@ case class SearchFormParser(filterData: FilterFormData, aggregateData: Aggregate
  * of any of these to a single parser method,
  * enabling me to store these in a single list
  */
-trait FormData[T <: FormData] {
+trait FormData[T <: FormData[T]] {
   def default: T
 }
 
