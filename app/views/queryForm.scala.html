@@ -1,14 +1,18 @@
-@(filterData: List[frontend.forms.FilterFormData],
-        sortData: List[frontend.forms.SortFormData],
-        aggregateData: List[frontend.forms.AggregateFormData])
+@(form: play.api.data.Form[frontend.forms.FilterFormData])
 
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
+@import frontend.forms.DataManipulationForm
 
-</body>
-</html>
+<!-- No head/body/html tags here
+    because this should not be a webpage
+    on it's owm. It should always be
+    embedded in something else. -->
+
+
+<div>
+    @helper.form(action = routes.Application.submitForm) {
+        @helper.inputText(form("Field"))
+        @helper.inputText(form("Comparison Method"))
+        @helper.inputText(form("Value"))
+        <button type="submit" name="submit" value="Filter">Filter data</button>
+    }
+</div>

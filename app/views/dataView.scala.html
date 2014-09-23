@@ -1,4 +1,5 @@
-@(baseData: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]], headers: List[String])
+@(baseData: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]],
+        headers: List[String], form: play.api.data.Form[frontend.forms.FilterFormData])
 
 @import backend.scala.datatypes.LineListObject
 @import backend.scala.graphing.{Graph, BarChartData}
@@ -9,13 +10,13 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-  <meta charset="UTF-8">
-  <title>Data</title>
-  <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Data</title>
+    <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div>
-        @queryForm
+        @queryForm(form)
     </div>
     <table>
         @for(header <- headers) {
