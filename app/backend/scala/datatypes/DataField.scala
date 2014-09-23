@@ -19,7 +19,7 @@ import backend.scala.datatypes.options.{MathComparable, DateOption, DoubleOption
  * anonfun thing doesnt work out
  */
 
-abstract class DataField[T <: MathComparable[T]] {
+trait DataField[T <: MathComparable[T]] {
   def toString: String
   def get(data: LineListObject): T
 }
