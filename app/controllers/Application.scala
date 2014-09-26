@@ -26,7 +26,8 @@ object Application extends Controller {
       case Failure(fail) => new SearchFormParser
       case Success(parser) => parser
     }*/
-    Ok(views.html.dataView(Backend.loadRaw, tableHeaders, Form(DataManipulationForm.filterForm)))
+    Ok(views.html.statsTestView(Backend.loadRaw))
+    //Ok(views.html.dataView(Backend.loadRaw, tableHeaders, Form(DataManipulationForm.filterForm)))
   }
 
   def list = Action {
