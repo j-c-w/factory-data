@@ -11,7 +11,7 @@ import backend.scala.datatypes.options.MathComparable
  *
  */
 
-abstract class ComparisonMethod {
+object ComparisonMethod {
   def fromString(string: String) : ComparisonMethod = string match {
     case "==" => Equals
     case "<" => LessThan
@@ -23,7 +23,9 @@ abstract class ComparisonMethod {
   def asList: List[String] = List(
     "==", "<", ">", ">=", "<="
   )
+}
 
+trait ComparisonMethod {
   def toString: String
 
   def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean
