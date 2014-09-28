@@ -4,6 +4,8 @@
 @import backend.scala.datatypes.LineListObject
 @import backend.scala.graphing.{Graph, BarChartData}
 @import backend.scala.Backend
+@import scala.concurrent._
+@import scala.util.{Success, Failure}
 @import frontend.forms.{DataManipulationForm, FilterFormData, SortFormData, AggregateFormData}
 
 
@@ -26,6 +28,5 @@
             <tr>@Html(dataItem.toHtml)</tr>
         }
     </table>
-    <img src="@routes.Assets.at("images/gen/" + Backend.drawGraph(baseData.toList).getName)"/>
 </body>
 </html>

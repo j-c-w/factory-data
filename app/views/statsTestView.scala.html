@@ -1,5 +1,9 @@
 @(loadedData:  Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]])
 
+@import play.api.data.Form
+@import frontend.forms.DataManipulationForm
+
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -9,5 +13,6 @@
 <body>
     <p>@loadedData.length</p>
     <p>@Global.baseData.length</p>
+    @dataView(loadedData, Application.tableHeaders, Form(DataManipulationForm.filterForm))
 </body>
 </html>
