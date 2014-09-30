@@ -17,7 +17,7 @@ object SortParser {
   def toList =
     List("Ascending", "Descending")
 
-  def fromString[T <: MathComparable[T]](string: String, field: DataField[T], comparator: ComparisonMethod) = string match {
+  def fromString[T <: MathComparable[T]](order: String, field: DataField[T], comparator: ComparisonMethod) = order match {
     case "Ascending" => new SortBuilder[LineListObject](
       (o1, o2) => comparator.compare(field.get(o1.lineObject), field.get(o2.lineObject)), true)
     case ("Descending") => new SortBuilder[LineListObject](
