@@ -58,3 +58,21 @@ case object NoDouble extends DoubleOption {
   def isEmpty = true
   override def toString = "No Data"
 }
+
+/*
+ * This is a helper object to make the creation
+ * of DoubleOptions easier
+ */
+object DoubleOption {
+  def apply(input: Double) = SomeDouble(input)
+
+  /*
+   * This converts a string to an IntegerOption
+   *
+   * However, the reader should note that this
+   * will throw if it is passed a badly formatted
+   * number.
+   */
+  implicit def toDoubleOption(input: String) =
+    SomeDouble(input.toDouble)
+}
