@@ -84,6 +84,9 @@ abstract class IntegerOption extends MathComparable[IntegerOption] {
 }
 
 object IntegerOption {
+  def apply(number: Int) =
+    new SomeInteger(number)
+
   //returns first the sum of all the options
   // with 0 as the default for a NoInteger
   // and then the number of SomeIntegers in
@@ -96,4 +99,14 @@ object IntegerOption {
       NoInteger
     (SomeInteger((notNones map (x => x.get)).sum), numUsed)
   }
+
+  /*
+   * This converts a string to an IntegerOption
+   *
+   * However, the reader should note that this
+   * will throw if it is passed a badly formatted
+   * number.
+   */
+  implicit def toIntegerOption(x: String) =
+    SomeInteger(x.toInt)
 }
