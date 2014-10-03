@@ -97,3 +97,13 @@ class FactoryDate(val year: IntegerOption, val month: IntegerOption, val day: In
     y + m + d
   }
 }
+
+/*
+ * This is a helper object for implicit
+ * creation of dates
+ */
+object FactoryDate {
+  def toFactoryDate(day: String, month: String, year: String) = {
+    ???
+  }
+}
