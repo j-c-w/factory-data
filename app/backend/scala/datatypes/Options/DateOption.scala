@@ -37,7 +37,7 @@ case class SomeDate(date: FactoryDate) extends DateOption {
   override def toString: String = date.toString
 }
 
-object SomeDate {
+object DateOption {
   def apply(date: FactoryDate) =
     SomeDate(date)
   implicit def toDateOption(date: FactoryDate) =
