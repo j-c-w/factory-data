@@ -23,35 +23,26 @@ import scala.util.{Failure, Try}
 
 trait DataField[T <: MathComparable[T]] {
   def toString: String
-  /*
-   * This converts an input string into a type of T
-   * or fails to do so.
-   */
-  def convertTo(input: String): Try[T]
   def get(data: LineListObject): T
 }
 
 case object NoField extends DataField[Nothing] {
   override val toString = "Invalid Field"
-  def convertTo(input: String) = Try(throw new InputMismatchException("NoField.convertTo"))
   def get(data: LineListObject) = throw new NoSuchElementException("NoField.get")
 }
 
 case object FactoryCode extends DataField[IntegerOption] {
   override val toString = "Factory Code"
-  def convertTo(input: String) = Try(SomeInteger(input.toInt))
   def get(data: LineListObject) = data.factoryCode
 }
 
 case object LineCode extends DataField[IntegerOption] {
   override val toString = "Line Code"
-  def convertTo(input: String) = Try(SomeInteger(input.toInt))
   def get(data: LineListObject) = data.lineCode
 }
 
 case object DateObject extends  DataField[DateOption] {
   override val toString = "Date"
-  def convertTo(input: String) = Try(DateOption.toDateOption(FactoryDate.toFactoryDate(input)))
   def get(data: LineListObject) = data.date
 }
 
