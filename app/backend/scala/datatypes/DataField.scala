@@ -26,62 +26,74 @@ trait DataField[T <: MathComparable[T]] {
   def get(data: LineListObject): T
 }
 
-case object NoField extends DataField[Nothing] {
+/*
+ * These sub-traits are here to enable pattern matching
+ * in the FormToQuery object.
+ *
+ * It is basically so that the form can convert between strings
+ * and the required types.
+ */
+trait NothingDataField extends DataField[Nothing]
+trait IntegerOptionDataField extends DataField[IntegerOption]
+trait DateOptionDataField extends DataField[DateOption]
+trait DoubleOptionDataField extends DataField[DoubleOption]
+
+case object NoField extends NothingDataField {
   override val toString = "Invalid Field"
   def get(data: LineListObject) = throw new NoSuchElementException("NoField.get")
 }
 
-case object FactoryCode extends DataField[IntegerOption] {
+case object FactoryCode extends IntegerOptionDataField {
   override val toString = "Factory Code"
   def get(data: LineListObject) = data.factoryCode
 }
 
-case object LineCode extends DataField[IntegerOption] {
+case object LineCode extends IntegerOptionDataField {
   override val toString = "Line Code"
   def get(data: LineListObject) = data.lineCode
 }
 
-case object DateObject extends  DataField[DateOption] {
+case object DateObject extends  DateOptionDataField {
   override val toString = "Date"
   def get(data: LineListObject) = data.date
 }
 
-case object HelpersPresent extends DataField[DoubleOption] {
+case object HelpersPresent extends DoubleOptionDataField {
   override val toString = "Helpers Present"
   def get(data: LineListObject) = data.getTotalHelpersPresent
 }
 
-case object HelpersAbsent extends DataField[DoubleOption] {
+case object HelpersAbsent extends DoubleOptionDataField {
   override val toString = "Helpers Absent"
   def get(data: LineListObject) = data.getTotalHelpersAbsent
 }
 
-case object HelpersLeave extends DataField[DoubleOption] {
+case object HelpersLeave extends DoubleOptionDataField {
   override val toString = "Helpers Leave"
   def get(data: LineListObject) = data.getHelpersLeave
 }
 
-case object PercentHelpersAbsent extends DataField[DoubleOption] {
+case object PercentHelpersAbsent extends DoubleOptionDataField {
   override val toString = "Percent Helpers Absent"
   def get(data: LineListObject) = data.getPercentHelpersAbsent
 }
 
-case object TotalOperators extends DataField[DoubleOption] {
+case object TotalOperators extends DoubleOptionDataField {
   override val toString = "Total Operators"
   def get(data: LineListObject) = data.getTotalOperators
 }
 
-case object OperatorsAbsent extends DataField[DoubleOption] {
+case object OperatorsAbsent extends DoubleOptionDataField {
   override val toString = "Operators Absent"
   def get(data: LineListObject) = data.getTotalOperatorsAbsent
 }
 
-case object OperatorsLeave extends DataField[DoubleOption] {
+case object OperatorsLeave extends DoubleOptionDataField {
   override val toString = "Operators Leave"
   def get(data: LineListObject) = data.getOperatorLeave
 }
 
-case object PercentOperatorsAbsent extends DataField[DoubleOption] {
+case object PercentOperatorsAbsent extends DoubleOptionDataField {
   override val toString = "Percent Operators Absent"
   def get(data: LineListObject) = data.getPercentOperatorsAbsent
 }
