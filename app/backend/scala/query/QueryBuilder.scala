@@ -13,7 +13,7 @@ import backend.scala.datatypes.DataType
 class QueryBuilder[T <: DataType[T]](filterBuilder: Option[FilterBuilder[T]],
                                       aggregateMode: AggregateMode[T],
                                       sortBuilder: Option[SortBuilder[T]]) {
-  def this() = this(None, NoAggregate[T], None)
+  def this() = this(None, new NoAggregate[T], None)
 
   def addFilter(f: T => Boolean, combinator: (Boolean, Boolean) => Boolean) = filterBuilder match {
     case (None) => new QueryBuilder[T](Some(new FilterBuilder[T](f)), aggregateMode, sortBuilder)
