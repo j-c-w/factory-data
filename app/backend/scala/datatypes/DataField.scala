@@ -3,6 +3,8 @@ package backend.scala.datatypes
 import java.util.{InputMismatchException, Date}
 
 import backend.scala.datatypes.options._
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Comparison
+import frontend.ComparisonMethod
 
 import scala.util.{Failure, Try}
 
@@ -24,19 +26,45 @@ import scala.util.{Failure, Try}
 trait DataField[T <: MathComparable[T]] {
   def toString: String
   def get(data: LineListObject): T
+  /*
+   * This tries to convert the string passed to a type of T
+   * then compare it to the data passed. If this conversion & comparison
+   * is successful, then it returns a Success(Boolean),
+   */
+  def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean]
 }
 
 /*
- * These sub-traits are here to enable pattern matching
- * in the FormToQuery object.
- *
- * It is basically so that the form can convert between strings
- * and the required types.
+ * These sub classes implement the comparison method,
+ * which is very very helpful because it enables easy
+ * type casting (which is somethat that I had serious
+ * problems with before
  */
-trait NothingDataField extends DataField[Nothing]
-trait IntegerOptionDataField extends DataField[IntegerOption]
-trait DateOptionDataField extends DataField[DateOption]
-trait DoubleOptionDataField extends DataField[DoubleOption]
+abstract class NothingDataField extends DataField[Nothing] {
+  def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] =
+    Try(throw new Exception("NothingDataField.compare"))
+}
+
+abstract class IntegerOptionDataField extends DataField[IntegerOption] {
+  def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
+    Try(comparisonMethod.compare(get(data), IntegerOption.toIntegerOption(stringComparison)))
+  }
+}
+
+abstract class DateOptionDataField extends DataField[DateOption] {
+  /*
+   * Todo enable easy comparison of dates by completely re-thinking this
+   */
+  def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
+    ??? //Try(comparisonMethod.compare(get(data), DateOption.toDateOption(FactoryDate.toFactoryDate(stringComparison)))
+  }
+}
+
+abstract class DoubleOptionDataField extends DataField[DoubleOption] {
+  def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
+    Try(comparisonMethod.compare(get(data), DoubleOption.toDoubleOption(stringComparison)))
+  }
+}
 
 case object NoField extends NothingDataField {
   override val toString = "Invalid Field"
@@ -101,7 +129,7 @@ case object PercentOperatorsAbsent extends DoubleOptionDataField {
 
 
 object DataField {
-  def fromString(s: String) = s match {
+  def fromString(s: String): DataField = s match {
     case FactoryCode.toString => FactoryCode
     case LineCode.toString => LineCode
     case DateObject.toString => DateObject
