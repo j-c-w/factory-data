@@ -23,15 +23,18 @@ import scala.util.{Failure, Try}
  * anonfun thing doesnt work out
  */
 
-trait DataField[T <: MathComparable[T]] {
+trait SuperDataField {
+  /*
+ * This tries to convert the string passed to a type of T
+ * then compare it to the data passed. If this conversion & comparison
+ * is successful, then it returns a Success(Boolean),
+ */
+  def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean]
+}
+
+trait DataField[T <: MathComparable[T]] extends SuperDataField {
   def toString: String
   def get(data: LineListObject): T
-  /*
-   * This tries to convert the string passed to a type of T
-   * then compare it to the data passed. If this conversion & comparison
-   * is successful, then it returns a Success(Boolean),
-   */
-  def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean]
 }
 
 /*
@@ -129,6 +132,21 @@ case object PercentOperatorsAbsent extends DoubleOptionDataField {
 
 
 object DataField {
+  def fromString(s: String): SuperDataField = s match {
+    case FactoryCode.toString => FactoryCode
+    case LineCode.toString => LineCode
+    case DateObject.toString => DateObject
+    case HelpersPresent.toString => HelpersPresent
+    case HelpersAbsent.toString => HelpersAbsent
+    case HelpersLeave.toString => HelpersLeave
+    case PercentHelpersAbsent.toString => PercentHelpersAbsent
+    case TotalOperators.toString => TotalOperators
+    case OperatorsAbsent.toString => OperatorsAbsent
+    case OperatorsLeave.toString => OperatorsLeave
+    case PercentOperatorsAbsent.toString => PercentOperatorsAbsent
+    case _ => NoField
+  }
+
   def toHtml(data: LineListObject): String = {
     "<td>" + FactoryCode.toString + "</td>" +
     "<td>" + LineCode.toString + "</td>" +
