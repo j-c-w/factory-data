@@ -129,21 +129,6 @@ case object PercentOperatorsAbsent extends DoubleOptionDataField {
 
 
 object DataField {
-  def fromString(s: String): DataField = s match {
-    case FactoryCode.toString => FactoryCode
-    case LineCode.toString => LineCode
-    case DateObject.toString => DateObject
-    case HelpersPresent.toString => HelpersPresent
-    case HelpersAbsent.toString => HelpersAbsent
-    case HelpersLeave.toString => HelpersLeave
-    case PercentHelpersAbsent.toString => PercentHelpersAbsent
-    case TotalOperators.toString => TotalOperators
-    case OperatorsAbsent.toString => OperatorsAbsent
-    case OperatorsLeave.toString => OperatorsLeave
-    case PercentOperatorsAbsent.toString => PercentOperatorsAbsent
-    case _ => NoField
-  }
-
   def toHtml(data: LineListObject): String = {
     "<td>" + FactoryCode.toString + "</td>" +
     "<td>" + LineCode.toString + "</td>" +
