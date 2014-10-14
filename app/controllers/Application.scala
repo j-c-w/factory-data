@@ -38,11 +38,11 @@ object Application extends Controller {
     //finally, this creates the query using the FormToQuery calss
     val query = FormToQuery.wholeForm(submittedForm)
     //and then this pushes it to the view -- success!!
-    Ok(views.html.dataView(query.processData(Global.baseData).toArray, tableHeaders, Form(DataManipulationForm.filterForm)))
+    Ok(views.html.dataView(query.processData(Global.baseData).toArray, tableHeaders, DataManipulationForm.form))
   }
 
   def list = Action {
-    Ok(views.html.dataView(Backend.loadRaw, tableHeaders, Form(DataManipulationForm.filterForm)))
+    Ok(views.html.dataView(Backend.loadRaw, tableHeaders, DataManipulationForm.form))
   }
 
 }

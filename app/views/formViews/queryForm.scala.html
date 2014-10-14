@@ -1,4 +1,4 @@
-@(form: play.api.data.Form[frontend.forms.FilterFormData])
+@(form: play.api.data.Form[frontend.forms.SearchFormParser])
 
 @import frontend.forms.DataManipulationForm
 
@@ -9,10 +9,5 @@
 
 
 <div>
-    @helper.form(action = routes.Application.submitForm) {
-        @helper.inputText(form("Field"))
-        @helper.inputText(form("Comparison Method"))
-        @helper.inputText(form("Value"))
-        <button type="submit" name="submit" value="Filter">Filter data</button>
-    }
+
 </div>
