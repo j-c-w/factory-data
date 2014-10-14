@@ -22,7 +22,7 @@ case class SearchFormParser(filterData: FilterFormData, aggregateData: Aggregate
  * so they can return the correct ...Parser
  * classes.
  */
-protected case class SortFormData(searchField: String, sortMethod: String) extends FormData[SortFormData] {
+case class SortFormData(searchField: String, sortMethod: String) extends FormData[SortFormData] {
   def this() = this("", "")
 
   def default = new SortFormData
@@ -35,7 +35,7 @@ case class FilterFormData(filteringField: String, filterComparator: String, filt
   def default = new FilterFormData
 }
 
-protected case class AggregateFormData(aggregatingField: String, aggregateMode: String)
+case class AggregateFormData(aggregatingField: String, aggregateMode: String)
               extends FormData[AggregateFormData] {
   def this() = this("", "")
 
