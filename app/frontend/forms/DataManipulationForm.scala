@@ -38,5 +38,7 @@ object DataManipulationForm {
       "Sort" -> sortForm
     ) (SearchFormParser.apply) (SearchFormParser.unapply)
   )
+
+  //todo -- make this form take lists of the other items, then sort out the HTML bit before we get too carried away with the parsing of this stuff
 }
 
