@@ -13,7 +13,7 @@ import play.api.data.Forms._
  */
 
 object DataManipulationForm {
-  private val sortForm = mapping (
+  val sortForm = mapping (
     "Field" -> text,
     "Sort Order" -> text
   ) (SortFormData.apply) (SortFormData.unapply)
@@ -24,7 +24,7 @@ object DataManipulationForm {
     "Value" -> text
   ) (FilterFormData.apply) (FilterFormData.unapply)
 
-  private val aggregateForm = mapping (
+  val aggregateForm = mapping (
     "Field" -> text,
     "Mode" -> text
   ) (AggregateFormData.apply) (AggregateFormData.unapply)
