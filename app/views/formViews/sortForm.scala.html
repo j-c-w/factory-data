@@ -4,9 +4,8 @@
 
 <div>
     @helper.form(action = routes.Application.submitForm) {
-        @helper.inputText(form("Field"))
-        @helper.inputText(form("Comparison Method"))
-        @helper.inputText(form("Value"))
+        @helper.inputText(form("Sort Field"))
+        @helper.inputText(form("Sort Method"))
         <button type="submit" name="submit" value="Filter">Filter data</button>
     }
 </div>
