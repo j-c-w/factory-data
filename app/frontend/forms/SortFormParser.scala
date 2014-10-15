@@ -7,9 +7,9 @@ package frontend.forms
  * At some point, the parameters that are taken
  * should be converted to lists to make multiple queries easier.
  */
-case class SearchFormParser(filterData: FilterFormData, aggregateData: AggregateFormData, sortData: SortFormData)
+case class SearchFormParser(filterData: List[FilterFormData], aggregateData: List[AggregateFormData], sortData: List[SortFormData])
               extends FormData[SearchFormParser] {
-  def this() = this(new FilterFormData, new AggregateFormData, new SortFormData)
+  def this() = this(List(new FilterFormData), List(new AggregateFormData), List(new SortFormData))
 
   def default = new SearchFormParser
 }
@@ -28,9 +28,9 @@ case class SortFormData(searchField: String, sortMethod: String) extends FormDat
   def default = new SortFormData
 }
 
-case class FilterFormData(filteringField: String, filterComparator: String, filterText: String)
+case class FilterFormData(filteringField: String, filterComparator: String, filterText: String, combinator: String)
               extends FormData[FilterFormData] {
-  def this() = this("", "", "")
+  def this() = this("", "", "", "")
 
   def default = new FilterFormData
 }
