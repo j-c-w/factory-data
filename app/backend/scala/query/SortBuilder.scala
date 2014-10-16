@@ -20,7 +20,7 @@ import backend.scala.datatypes.DataType
  * return the input list
  */
 
-class SortBuilder[T <: DataType[T]](functions: List[(ResultListObject[T], ResultListObject[T]) => Boolean]) {
+class SortBuilder[T <: DataType[T]](val functions: List[(ResultListObject[T], ResultListObject[T]) => Boolean]) {
   def this(f: (ResultListObject[T], ResultListObject[T]) => Boolean, single: Boolean) = this (List(f))
   def this() = this(Nil)
 
