@@ -30,11 +30,21 @@ trait SuperDataField {
  * is successful, then it returns a Success(Boolean),
  */
   def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean]
+
+  /*
+   * This is a compare method that compares two different objects using a
+   * comparison method
+   */
+  def compare(data: LineListObject, dataTwo: LineListObject, comparisonMethod: ComparisonMethod)
 }
 
-trait DataField[T <: MathComparable[T]] extends SuperDataField {
+abstract class DataField[T <: MathComparable[T]] extends SuperDataField {
   def toString: String
   def get(data: LineListObject): T
+
+  def compare(dataOne: LineListObject, dataTwo: LineListObject, comparisonMethod: ComparisonMethod): Boolean = {
+    comparisonMethod.compare(get(dataOne), get(dataTwo))
+  }
 }
 
 /*
