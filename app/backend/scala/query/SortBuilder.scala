@@ -27,6 +27,12 @@ class SortBuilder[T <: DataType[T]](val functions: List[(ResultListObject[T], Re
   def add(f2: (ResultListObject[T], ResultListObject[T]) => Boolean) =
     new SortBuilder(functions :+ f2)
 
+  def add(moreFunctions: List[(ResultListObject[T], ResultListObject[T]) => Boolean]) =
+    new SortBuilder(functions ++ moreFunctions)
+
+  def add(otherBuilder: SortBuilder[T]) =
+    add(otherBuilder.functions)
+
   def sortBy(list: List[ResultListObject[T]]): List[ResultListObject[T]] = functions match {
     case Nil => list
     case x :: xs => new SortBuilder(xs).sortBy(list sortWith x)
