@@ -25,36 +25,48 @@ object FormToQuery {
   /*
    * This converts from a search form data into a FilterBuilder
    */
-  def searchForm(formData: Try[FilterFormData]): Option[FilterBuilder[LineListObject]] = {
-    val filledForm = formData match {
-      case Failure(fail) => new FilterFormData
-      case Success(parser) => parser
-    }
+  def searchForm(formData: List[FilterFormData]): FilterBuilder[LineListObject] = {
+    val base = new FilterBuilder[LineListObject](x => true)
+    formData.foldRight(base) ((form, filterBuilder) => {
+      val formBuilder = searchFormToBuilder(form)
 
-    println(filledForm.filterComparator)
-    println("_________________________________________________")
+      form.combinator match {
+        case ("Or") => filterBuilder.or(formBuilder.f)
+        case ("And") => filterBuilder.and(formBuilder.f)
+      }
+    })
+  }
 
-    val field = DataField.fromString(filledForm.filteringField)
-    val comparator = ComparisonMethod.fromString(filledForm.filterComparator)
-    val compareTo = filledForm.filterText
+  /*
+   * This is just a private version of the above method that converts from a single
+   * form into a single item long FilterBuilder. Hence, we can ignore the combinator
+   * for now
+   */
+  private def searchFormToBuilder(form: FilterFormData) = {
+    val field = DataField.fromString(form.filteringField)
+    val comparator = ComparisonMethod.fromString(form.filterComparator)
+    val comparisonValue = form.filterText
 
-    Some(new FilterBuilder[LineListObject]((x: LineListObject) => {
-      val comparison = field.compare(x, comparator, compareTo)
-      comparison match {
-        case Success(value) => value
+    new FilterBuilder[LineListObject](x => {
+      field.compare(x, comparator, comparisonValue) match {
+        case Success(result) => result
+        //because this is called when there was a problem converting the string to the desired type,
+        //it cannot possibly match the required value and so must be false.
         case Failure(error) => false
       }
-    }))
+    })
   }
 
   def sortForm(formData: SortFormData): SortBuilder[LineListObject] = ???
 
-  def aggregateForm(formData: AggregateFormData): AggregateMode[LineListObject] = ???
+  def aggregateForm(formData: List[AggregateFormData]): AggregateMode[LineListObject] = {
+    ???
+  }
 
   def wholeForm(formData: SearchFormParser): QueryBuilder[LineListObject] = {
-    val filterBuilder = searchForm(Try(formData.filterData))
+    val filterBuilder = searchForm(filterBuilder)
 
-    new QueryBuilder(filterBuilder, new NoAggregate[LineListObject], None)
+    new QueryBuilder(Some(filterBuilder), new NoAggregate[LineListObject], None)
   }
 
   //def filterForm(formData: )
