@@ -3,8 +3,7 @@ package frontend.forms
 import backend.scala.datatypes.options.MathComparable
 import backend.scala.datatypes.{NothingDataField, DataType, DataField, LineListObject}
 import backend.scala.query._
-import frontend.{ComparisonMethod, SortParser}
-import frontend.FilterParser
+import frontend._
 
 import scala.util.{Failure, Success, Try}
 
@@ -57,16 +56,38 @@ object FormToQuery {
     })
   }
 
-  def sortForm(formData: SortFormData): SortBuilder[LineListObject] = ???
+  /*
+   * This converts a list of sort form data into a single SortBuilder
+   */
+  def sortForm(formData: List[SortFormData]): SortBuilder[LineListObject] = formData match {
+    case Nil => new SortBuilder[LineListObject]()
+    case data :: Nil => sortForm(formData)
+    case _ => formData.tail.foldRight (sortFormToBuilder(formData.head)) ( { case(data, builder) => builder.add(sortFormToBuilder(data)) } )
+  }
 
-  def aggregateForm(formData: List[AggregateFormData]): AggregateMode[LineListObject] = {
+  /*
+   * This is once again like the above method, but it is for a single sort form
+   */
+  private def sortFormToBuilder(formData: SortFormData): SortBuilder[LineListObject] = {
+    val comparator = formData.sortMethod match {
+      case "Ascending" => GreaterThan
+      case "Descending" => LessThan
+    }
+    val field = DataField.fromString(formData.searchField)
+    //after getting everything out of the form we put it all together using that beautiful method defined in
+    //field.compare()
+    new SortBuilder[LineListObject]({ case (resultOne, resultTwo) => field.compare(resultOne, resultTwo, comparator) })
+  }
+
+  def aggregateForm(formData: AggregateFormData): AggregateMode[LineListObject] = {
     ???
   }
 
   def wholeForm(formData: SearchFormParser): QueryBuilder[LineListObject] = {
-    val filterBuilder = searchForm(filterBuilder)
+    val filterBuilder = searchForm(formData.filterData)
+    val sortBuilder = sortForm(formData.sortData)
 
-    new QueryBuilder(Some(filterBuilder), new NoAggregate[LineListObject], None)
+    new QueryBuilder(Some(filterBuilder), new NoAggregate[LineListObject], Some(sortBuilder))
   }
 
   //def filterForm(formData: )
