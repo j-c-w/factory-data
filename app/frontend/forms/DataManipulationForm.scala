@@ -21,7 +21,8 @@ object DataManipulationForm {
   val filterForm = mapping (
     "Field" -> text,
     "Comparison Method" -> text,
-    "Value" -> text
+    "Value" -> text,
+    "Combinator" -> text
   ) (FilterFormData.apply) (FilterFormData.unapply)
 
   val aggregateForm = mapping (
@@ -33,12 +34,10 @@ object DataManipulationForm {
   //the other forms
   val form = Form (
     mapping (
-      "Filter" -> filterForm,
-      "Aggregate" -> aggregateForm,
-      "Sort" -> sortForm
+      "Filter" -> list(filterForm),
+      "Aggregate" -> list(aggregateForm),
+      "Sort" -> list(sortForm)
     ) (SearchFormParser.apply) (SearchFormParser.unapply)
   )
-
-  //todo -- make this form take lists of the other items, then sort out the HTML bit before we get too carried away with the parsing of this stuff
 }
 
