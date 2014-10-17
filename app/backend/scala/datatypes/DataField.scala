@@ -35,7 +35,7 @@ trait SuperDataField {
    * This is a compare method that compares two different objects using a
    * comparison method
    */
-  def compare(data: LineListObject, dataTwo: LineListObject, comparisonMethod: ComparisonMethod)
+  def compare(data: LineListObject, dataTwo: LineListObject, comparisonMethod: ComparisonMethod): Boolean
 }
 
 abstract class DataField[T <: MathComparable[T]] extends SuperDataField {

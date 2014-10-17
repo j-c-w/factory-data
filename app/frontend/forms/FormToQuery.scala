@@ -74,9 +74,13 @@ object FormToQuery {
       case "Descending" => LessThan
     }
     val field = DataField.fromString(formData.searchField)
+
+    def compareFields(o1: ResultListObject[LineListObject], o2: ResultListObject[LineListObject]): Boolean =
+      field.compare(o1.lineObject, o2.lineObject, comparator)
+
     //after getting everything out of the form we put it all together using that beautiful method defined in
     //field.compare()
-    new SortBuilder[LineListObject]({ case (resultOne, resultTwo) => field.compare(resultOne, resultTwo, comparator) })
+    new SortBuilder[LineListObject](compareFields(_, _), true)
   }
 
   def aggregateForm(formData: AggregateFormData): AggregateMode[LineListObject] = {
@@ -87,8 +91,9 @@ object FormToQuery {
     val filterBuilder = searchForm(formData.filterData)
     val sortBuilder = sortForm(formData.sortData)
 
-    new QueryBuilder(Some(filterBuilder), new NoAggregate[LineListObject], Some(sortBuilder))
+    new QueryBuilder(Some(filterBuilder), new AggregateBuilder[LineListObject], Some(sortBuilder))
   }
 
   //def filterForm(formData: )
+  //
 }
