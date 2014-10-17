@@ -1,7 +1,7 @@
 import backend.scala.datatypes.LineListObject
-import backend.scala.query.{NoAggregate, FilterBuilder, QueryBuilder}
+import backend.scala.datatypes.options.DoubleOption
+import backend.scala.query._
 import controllers.Global
-import org.fluentlenium.core.filter.FilterBuilder
 import org.specs2.mutable.Specification
 
 /*
@@ -17,6 +17,19 @@ class QueryBuilderTest extends Specification {
 
       val data = queryBuilder.processData(Global.baseData)
       data.length mustEqual 0
+    }
+  }
+
+  "AggregateBuilder" should {
+    "Return a singleton list" in {
+      val aggregateBuilder = new AggregateBuilder[LineListObject](new NoAggregate[LineListObject])
+      aggregateBuilder.add(new AggregateSumBy[DoubleOption, LineListObject](_.getTotalSupervisors))
+      aggregateBuilder.add(new AggregateAverageBy[DoubleOption, LineListObject](_.getTotalProductionWorkersAbsent))
+      aggregateBuilder.add(new AggregateAverage[LineListObject])
+
+      val data = aggregateBuilder.aggregateData(Global.baseData)
+      data.length mustEqual 1
+
     }
   }
 }
