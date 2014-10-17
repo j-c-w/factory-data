@@ -22,7 +22,7 @@ class QueryBuilderTest extends Specification {
 
   "AggregateBuilder" should {
     "Return a singleton list" in {
-      val aggregateBuilder = new AggregateBuilder[LineListObject](new NoAggregate[LineListObject])
+      val aggregateBuilder = new AggregateBuilder[LineListObject]
       aggregateBuilder.add(new AggregateSumBy[DoubleOption, LineListObject](_.getTotalSupervisors))
       aggregateBuilder.add(new AggregateAverageBy[DoubleOption, LineListObject](_.getTotalProductionWorkersAbsent))
       aggregateBuilder.add(new AggregateAverage[LineListObject])
