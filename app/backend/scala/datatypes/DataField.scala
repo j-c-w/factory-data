@@ -23,6 +23,20 @@ import scala.util.{Failure, Try}
  * anonfun thing doesnt work out
  */
 
+/*
+ * Never directly override this trait.
+ *
+ * Always use the DataField[T] abstract class
+ * instead - this trait has some risky typeless
+ * functions that could cause problems were
+ * they not specified better further down the
+ * chain.
+ *
+ * In fact, this doesn't really sove the problem.
+ * however, it is important to remember that
+ * SuperDataDield can't take type parameters (really)
+ * so there is really on one path to take.
+ */
 trait SuperDataField {
   /*
  * This tries to convert the string passed to a type of T
@@ -42,7 +56,11 @@ trait SuperDataField {
    * when converting from strings to DataFields, this method has to be type
    * unsafe.
    *
-   * The types are overriden ASAP in the next level down in the DataField class
+   * The types are overriden ASAP in the next level down in the DataField class.
+   *
+   * Changing the type of the parameter creates some serious problems
+   * so is not worth doing. This method will have to remain concrete for the
+   * time being.
    */
   def get(data: LineListObject): Any
 }
