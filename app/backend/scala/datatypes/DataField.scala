@@ -36,6 +36,15 @@ trait SuperDataField {
    * comparison method
    */
   def compare(data: LineListObject, dataTwo: LineListObject, comparisonMethod: ComparisonMethod): Boolean
+
+  /*
+   * Because I need to have access to the field without knowing the type
+   * when converting from strings to DataFields, this method has to be type
+   * unsafe.
+   *
+   * The types are overriden ASAP in the next level down in the DataField class
+   */
+  def get(data: LineListObject): Any
 }
 
 abstract class DataField[T <: MathComparable[T]] extends SuperDataField {
