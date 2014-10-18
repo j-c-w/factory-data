@@ -17,11 +17,12 @@ object AggregateMode {
    * However, for the sake of my sanity, I am leaving it concrete for the time
    * being
    */
-  def fromString(string: String, field: SuperDataField) = string match {
+  def fromString(string: String, field: SuperDataField): AggregateMode[LineListObject] = string match {
     case "Aggregate Sum" => new AggregateSum[LineListObject]
     case "Aggregate Average" => new AggregateAverage[LineListObject]
-    case "Aggregate Average By" => new AggregateAverageBy(field.get(_))
-    case "Aggregate Sum By" => new AggregateSumBy(field.get(_))
+    case "Aggregate Average By" => new AggregateAverageBy(field.get(_))//the errors here are irrelevant
+    case "Aggregate Sum By" => new AggregateSumBy(field.get(_))//just an ide problem
+     //this method actually compiles just fine
   }
 }
 
