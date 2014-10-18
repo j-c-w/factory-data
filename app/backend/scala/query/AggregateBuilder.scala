@@ -13,6 +13,7 @@ import backend.scala.datatypes.{LineListObject, DataType}
  */
 
 class AggregateBuilder[T <: DataType[T]](modes: List[AggregateMode[T]]) {
+  def this(aggregateMode: AggregateMode[T]) = this(List(aggregateMode))
   def this() = this(List(new NoAggregate[T]))
 
   def add(singleMode: AggregateMode[T]) =
