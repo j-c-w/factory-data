@@ -80,18 +80,26 @@ object FormToQuery {
 
     //after getting everything out of the form we put it all together using that beautiful method defined in
     //field.compare()
-    new SortBuilder[LineListObject](compareFields(_, _), true)
+    new SortBuilder[LineListObject](compareFields, true)
   }
 
-  def aggregateForm(formData: AggregateFormData): AggregateMode[LineListObject] = {
-    ???
+  def aggregateForm(formData: List[AggregateFormData]): AggregateBuilder[LineListObject] = {
+    formData.foldRight(new AggregateBuilder[LineListObject]) ({
+      case (data, builder) => builder.add(aggregateFormToMode(data))
+    })
+  }
+
+  private def aggregateFormToMode(form: AggregateFormData) = {
+    val field = DataField.fromString(form.aggregatingField)
+    AggregateMode.fromString(form.aggregateMode, field)
   }
 
   def wholeForm(formData: SearchFormParser): QueryBuilder[LineListObject] = {
     val filterBuilder = searchForm(formData.filterData)
     val sortBuilder = sortForm(formData.sortData)
+    val aggregateBuilder = aggregateForm(formData.aggregateData)
 
-    new QueryBuilder(Some(filterBuilder), new AggregateBuilder[LineListObject], Some(sortBuilder))
+    new QueryBuilder(Some(filterBuilder), aggregateBuilder, Some(sortBuilder))
   }
 
   //def filterForm(formData: )
