@@ -7,4 +7,4 @@ package frontend.forms
  * This is the holder for the data that comes out of the form
  */
 
-case class GraphFormParser(xAxis: String, yAxis: String, graphType: String)
+case class GraphFormParser(xAxis: String, yAxis: String, title: String, graphType: String)
