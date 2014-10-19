@@ -16,7 +16,8 @@ object GraphForm {
     mapping (
       "xAxis" -> text,
       "yAxis" -> text,
-      "Graph Type" -> text
+      "Graph Type" -> text,
+      "Graph Title" -> text
     ) (GraphFormParser.apply) (GraphFormParser.unapply)
   )
 }
