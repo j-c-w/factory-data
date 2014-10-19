@@ -32,9 +32,9 @@ import scala.util.{Failure, Try}
  * they not specified better further down the
  * chain.
  *
- * In fact, this doesn't really sove the problem.
+ * In fact, this doesn't really solve the problem.
  * however, it is important to remember that
- * SuperDataDield can't take type parameters (really)
+ * SuperDataField can't take type parameters (really)
  * so there is really on one path to take.
  */
 trait SuperDataField {
@@ -62,7 +62,7 @@ trait SuperDataField {
    * so is not worth doing. This method will have to remain concrete for the
    * time being.
    */
-  def get(data: LineListObject): Any
+  def get(data: LineListObject): MathComparable[_]
 }
 
 abstract class DataField[T <: MathComparable[T]] extends SuperDataField {
