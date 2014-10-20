@@ -37,6 +37,7 @@ abstract class DoubleOption extends MathComparable[DoubleOption] {
   def or(other: => DoubleOption): DoubleOption
   def get: Double
   def isEmpty: Boolean
+  def getOrElse(otherwise: Double): Double
 }
 
 case class SomeDouble(x: Double) extends DoubleOption {
@@ -50,6 +51,8 @@ case class SomeDouble(x: Double) extends DoubleOption {
     //for the sake of accuracy
     (Math.floor(100 * x + 0.5) / 100).toString;
   }
+
+  def getOrElse(double: Double) = x
 }
 
 case object NoDouble extends DoubleOption {
@@ -57,6 +60,7 @@ case object NoDouble extends DoubleOption {
   def get = throw new UnsupportedOperationException("NoDouble.get")
   def isEmpty = true
   override def toString = "No Data"
+  def getOrElse(other: Double) = other
 }
 
 /*
