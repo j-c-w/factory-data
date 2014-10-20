@@ -1,11 +1,12 @@
 package frontend.forms
 
+import java.io.File
+
 import backend.scala.datatypes.{DoubleOptionDataField, DataField, DataType, LineListObject}
 import backend.scala.graphing.data.DataParser
 import backend.scala.graphing.{BarChartData, Graph}
 import backend.scala.query.ResultListObject
 
-import scala.reflect.io.File
 
 /*
  * Created by Jackson Woodruff on 19/10/2014 
