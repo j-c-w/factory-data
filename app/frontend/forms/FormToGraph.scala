@@ -2,6 +2,7 @@ package frontend.forms
 
 import java.io.File
 
+import backend.scala.datatypes.options.MathComparable
 import backend.scala.datatypes.{DoubleOptionDataField, DataField, DataType, LineListObject}
 import backend.scala.graphing.data.DataParser
 import backend.scala.graphing.{BarChartData, Graph}
@@ -33,7 +34,8 @@ object FormToGraph {
     //through
     val yAxis: DoubleOptionDataField = DataField.fromString(form.yAxis).asInstanceOf
 
-    val parser = new DataParser(data, x => (xAxis.get(x.lineObject), yAxis.get(x.lineObject).getOrElse(0)), form.title)
+    val parser = new DataParser[Comparable[_], LineListObject](
+      data, x => (xAxis.get(x.lineObject), yAxis.get(x.lineObject).getOrElse(0.0)), form.title)
     val chartData = new BarChartData(List(parser))
     drawChart(chartData, form.title, form.graphType, form.xAxis, form.yAxis)
   }
