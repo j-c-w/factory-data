@@ -39,7 +39,7 @@ class QueryBuilderTest extends Specification {
       sortBuilder.add({ case (d1, d2) => d1.lineObject.getTotalProductionWorkers > d1.lineObject.getTotalProductionWorkers})
 
       val newData = sortBuilder.sortBy(new NoAggregate[LineListObject].aggregate(Global.baseData))
-      newData.head.lineObject.getTotalProductionWorkers mustEqual DoubleOption(0)
+      newData.head.lineObject.getTotalProductionWorkers == DoubleOption(0) must equalTo(true)
 
     }
   }
