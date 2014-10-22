@@ -32,7 +32,7 @@ object FormToGraph {
     val xAxis = DataField.fromString(form.xAxis)
     //I think I am allowed to type-cast this because there should only be double options coming
     //through
-    val yAxis: DoubleOptionDataField = DataField.fromString(form.yAxis).asInstanceOf
+    val yAxis: DoubleOptionDataField = DataField.fromString(form.yAxis).asInstanceOf[DoubleOptionDataField]
 
     val parser = new DataParser[Comparable[_], LineListObject](
       data, x => (xAxis.get(x.lineObject), yAxis.get(x.lineObject).getOrElse(0.0)), form.title)
