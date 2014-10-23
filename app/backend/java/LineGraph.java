@@ -21,7 +21,7 @@ public class LineGraph extends Graph {
         //this sets the data (and only the data) to the chart.
         // in this line, categoryPlot.getDataset could well be replaced by
         //just dataset (the parameter)
-        JFreeChart chart = ChartFactory.createLineChart(title, yAxisTitle, xAxisTitle, categoryPlot.getDataset(), PlotOrientation.VERTICAL, true, false, false);
+        JFreeChart chart = ChartFactory.createLineChart(title, xAxisTitle, yAxisTitle, categoryPlot.getDataset(), PlotOrientation.VERTICAL, true, false, false);
         //this line sets the x axis to the exact x axis from the
         //category plot (which fits the values to size)
         chart.getCategoryPlot().setDomainAxis(categoryPlot.getDomainAxis());
