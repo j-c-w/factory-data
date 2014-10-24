@@ -17,7 +17,7 @@
     <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div>
+    <div id="queryForm">
         @formViews.queryForm(form)
     </div>
     <table>
@@ -28,5 +28,9 @@
             <tr>@Html(dataItem.toHtml)</tr>
         }
     </table>
+    <div id="graphForm">
+        @formViews.graphForm()
+    </div>
+    <img src="@routes.Assets.at("images/favicon.png")" id="graphDisplay">
 </body>
 </html>
