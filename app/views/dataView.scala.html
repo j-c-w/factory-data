@@ -1,5 +1,6 @@
 @(baseData: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]],
-        headers: List[String], form: play.api.data.Form[frontend.forms.SearchFormParser])
+        headers: List[String], queryForm: frontend.forms.SearchFormParser,
+        graphForm: frontend.forms.GraphFormParser)
 
 @import backend.scala.datatypes.LineListObject
 @import backend.scala.graphing.{Graph, BarChartData}
@@ -18,7 +19,7 @@
 </head>
 <body>
     <div id="queryForm">
-        @formViews.queryForm(form)
+        @formViews.queryForm(queryForm)
     </div>
     <table>
         @for(header <- headers) {
@@ -29,7 +30,7 @@
         }
     </table>
     <div id="graphForm">
-        @formViews.graphForm()
+        @formViews.graphForm(graphForm)
     </div>
     <img src="@routes.Assets.at("images/favicon.png")" id="graphDisplay">
 </body>
