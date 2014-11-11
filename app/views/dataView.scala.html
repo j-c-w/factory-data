@@ -18,21 +18,23 @@
 </head>
 <body>
     @generic.header()
-    <div id="queryForm">
-        @formViews.queryForm(form)
+    <div id="content">
+        <div id="queryForm">
+            @formViews.queryForm(form)
+        </div>
+        <table>
+            @for(header <- headers) {
+                <th>@Html(header)</th>
+            }
+            @for(dataItem <- baseData) {
+                <tr>@Html(dataItem.toHtml)</tr>
+            }
+        </table>
+        <div id="graphForm">
+            @formViews.graphForm()
+        </div>
+        <img src="@routes.Assets.at("images/favicon.png")" id="graphDisplay">
     </div>
-    <table>
-        @for(header <- headers) {
-            <th>@Html(header)</th>
-        }
-        @for(dataItem <- baseData) {
-            <tr>@Html(dataItem.toHtml)</tr>
-        }
-    </table>
-    <div id="graphForm">
-        @formViews.graphForm()
-    </div>
-    <img src="@routes.Assets.at("images/favicon.png")" id="graphDisplay">
     @generic.footer()
 </body>
 </html>

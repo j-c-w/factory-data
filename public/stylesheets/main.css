@@ -1,3 +1,35 @@
 table {
     border: 1px solid #000000;
 }
+
+body {
+    background-color: indianred;
+}
+
+#content {
+    padding-left: 10em;
+    padding-right: 10em;
+}
+
+#header {
+    background-color: darkred;
+}
+
+#header>h1 {
+    text-align: center;
+    color: white;
+}
+
+#header>ul {
+    list-style: none;
+}
+
+.navigationBar {
+    color: white;
+    font-size: 1em;
+    text-emphasis-style: none;
+}
+
+#footer {
+    background-color: darkred;
+}
