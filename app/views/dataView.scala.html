@@ -17,6 +17,7 @@
     <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet" type="text/css">
 </head>
 <body>
+    @generic.header()
     <div id="queryForm">
         @formViews.queryForm(form)
     </div>
@@ -32,5 +33,6 @@
         @formViews.graphForm()
     </div>
     <img src="@routes.Assets.at("images/favicon.png")" id="graphDisplay">
+    @generic.footer()
 </body>
 </html>
