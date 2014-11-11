@@ -1,0 +1,12 @@
+@(data: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]])
+
+@import scala.util.Try
+
+<div id="lazyList">
+    <div class="scroll">
+        <!-- show the first 100 rows of the data-->
+        @for(dataItem <- Try(data.take(100)).getOrElse(data)) {
+            <tr>@Html(dataItem.toHtml)</tr>
+        }
+    </div>
+</div>

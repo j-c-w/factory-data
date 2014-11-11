@@ -26,10 +26,9 @@
             @for(header <- headers) {
                 <th>@Html(header)</th>
             }
-            @for(dataItem <- baseData) {
-                <tr>@Html(dataItem.toHtml)</tr>
-            }
+            @generic.lazyList(baseData)
         </table>
+
         <div id="graphForm">
             @formViews.graphForm()
         </div>
