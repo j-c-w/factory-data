@@ -8,9 +8,11 @@
     puts the rest in cache and puts a link at the bottom
     to continue to the next page -->
 
-@for(dataItem <- Try(data.take(100)).getOrElse(data)) {
-    <tr>@Html(dataItem.toHtml)</tr>
-}
+<table>
+    @for(dataItem <- Try(data.take(100)).getOrElse(data)) {
+        <tr>@Html(dataItem.toHtml)</tr>
+    }
+</table>
 
 @if(data.length > 100) {
     <!-- This is a 1 hour reset time -->
