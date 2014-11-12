@@ -2,12 +2,14 @@ package controllers
 
 import backend.scala.Backend
 import backend.scala.datatypes.{DataField, OperatorsAbsent, LineListObject}
-import backend.scala.query.{FilterBuilder, QueryBuilder, NoAggregate}
+import backend.scala.query.{ResultListObject, FilterBuilder, QueryBuilder, NoAggregate}
 import frontend.{FilterParser, ComparisonMethod, Equals}
 import frontend.forms.{FormToQuery, FilterFormData, SearchFormParser, DataManipulationForm}
 import play.api._
+import play.api.cache.Cache
 import play.api.data.{Form, Field}
 import play.api.mvc._
+
 
 import scala.util.{Success, Failure, Try}
 
@@ -21,6 +23,17 @@ object Application extends Controller {
 
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
+  }
+
+  def moreData(sessionId: String) = Action {
+    val possiblyData = Cache.getOrElse(sessionId) (0)
+    val (data, message) = possiblyData match {
+      case 0 => (Nil, "Query Expired, Please re-run query")
+      case isData if isData.isInstanceOf[Array[ResultListObject[LineListObject]]] =>
+        (isData.asInstanceOf[Array[ResultListObject[LineListObject]]], "Data OK")
+    }
+    Ok(views.html.index("Successfully going to next page"))
+    //Ok(views.html.generic.dataDisplay(data, message))
   }
 
   def submitForm = Action { implicit request =>

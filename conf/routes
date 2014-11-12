@@ -14,4 +14,5 @@ POST        /sumbitForm          controllers.Application.submitForm
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.at(path="/public", file)
 
-    
+# This is used for getting more data from the query
+GET        /moreData/:sessionId  controllers.Application.moreData(sessionId)
