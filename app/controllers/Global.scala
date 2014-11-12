@@ -17,6 +17,9 @@ object Global {
   def nextNRandoms(n: Int): Array[Char] =
     randoms.take(n).toArray
 
+  def getSessionId =
+    nextNRandoms(20)
+
   lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\HelloWorld\\public\\images\\gen")
 
   val baseData = DataLoader.dataAsList
