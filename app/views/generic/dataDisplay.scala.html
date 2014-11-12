@@ -1,4 +1,4 @@
-@(data: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]], message: String)
+@(data: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]], message: String, sessionId: String)
 
 @import scala.util.Try
 @import play.api.cache.Cache
@@ -14,6 +14,6 @@
 
 @if(data.length > 100) {
     <!-- This is a 1 hour reset time -->
-    @Cache.set("10", data.drop(100), 3600)
-    <a href="@routes.Application.moreData("10")">next page</a>
+    @Cache.set(sessionId, data.drop(100), 3600)
+    <a href="@routes.Application.moreData(sessionId)">next page</a>
 }

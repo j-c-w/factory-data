@@ -32,7 +32,7 @@ object Application extends Controller {
       case None => (Nil, "Query Expired, Please re-run query")
       case Some(isData) => (isData, "Data OK")
     }
-    Ok(views.html.generic.dataDisplay(data.toArray, message))
+    Ok(views.html.generic.dataDisplay(data.toArray, message, sessionId))
   }
 
   def submitForm = Action { implicit request =>
