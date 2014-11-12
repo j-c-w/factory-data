@@ -5,8 +5,6 @@
 <div id="lazyList">
     <div class="scroll">
         <!-- show the first 100 rows of the data-->
-        @for(dataItem <- Try(data.take(100)).getOrElse(data)) {
-            <tr>@Html(dataItem.toHtml)</tr>
-        }
+        @generic.dataDisplay(data, "Data OK")
     </div>
 </div>

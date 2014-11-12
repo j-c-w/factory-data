@@ -1,0 +1,19 @@
+@(data: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]], message: String)
+
+@import scala.util.Try
+@import play.api.cache.Cache
+@import play.api.Play.current
+
+<!-- This chunk displays 100 rows worth of data, then
+    puts the rest in cache and puts a link at the bottom
+    to continue to the next page -->
+
+@for(dataItem <- Try(data.take(100)).getOrElse(data)) {
+    <tr>@Html(dataItem.toHtml)</tr>
+}
+
+@if(data.length > 100) {
+    <!-- This is a 1 hour reset time -->
+    @Cache.set("10", data.drop(100), 3600)
+    <a href="@routes.Application.moreData("10")">next page</a>
+}

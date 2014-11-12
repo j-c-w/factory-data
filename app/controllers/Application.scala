@@ -9,6 +9,7 @@ import play.api._
 import play.api.cache.Cache
 import play.api.data.{Form, Field}
 import play.api.mvc._
+import play.api.Play.current
 
 
 import scala.util.{Success, Failure, Try}
@@ -26,14 +27,12 @@ object Application extends Controller {
   }
 
   def moreData(sessionId: String) = Action {
-    val possiblyData = Cache.getOrElse(sessionId) (0)
-    val (data, message) = possiblyData match {
-      case 0 => (Nil, "Query Expired, Please re-run query")
-      case isData if isData.isInstanceOf[Array[ResultListObject[LineListObject]]] =>
-        (isData.asInstanceOf[Array[ResultListObject[LineListObject]]], "Data OK")
+    val possiblyData = Cache.getAs[Array[ResultListObject[LineListObject]]](sessionId)
+    val (data, message) = possiblyData.map(_.toList) match {
+      case None => (Nil, "Query Expired, Please re-run query")
+      case Some(isData) => (isData, "Data OK")
     }
-    Ok(views.html.index("Successfully going to next page"))
-    //Ok(views.html.generic.dataDisplay(data, message))
+    Ok(views.html.generic.dataDisplay(data.toArray, message))
   }
 
   def submitForm = Action { implicit request =>
