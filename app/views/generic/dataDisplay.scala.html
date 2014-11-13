@@ -13,9 +13,10 @@
         <tr>@Html(dataItem.toHtml)</tr>
     }
 </table>
-
-@if(data.length > 100) {
-    <!-- This is a 1 hour reset time -->
-    @Cache.set(sessionId, data.drop(100), 3600)
-    <a href="@(routes.Application.moreData(sessionId))">next page</a>
-}
+<div class="next">
+    @if(data.length > 100) {
+        <!-- This is a 1 hour reset time -->
+        @Cache.set(sessionId, data.drop(100), 3600)
+        <a class="jscroll-next" href="@(routes.Application.moreData(sessionId))">next page</a>
+    }
+</div>
