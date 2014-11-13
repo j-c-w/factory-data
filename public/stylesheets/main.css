@@ -36,6 +36,18 @@ body {
     text-emphasis-style: none;
 }
 
+.horizontalScroll {
+    padding:5px;
+    width: 100%;
+    overflow-x:scroll;
+}
+
+.verticalScroll {
+    padding:5px;
+    height: 300px;
+    overflow-y:scroll;
+}
+
 .scroll{
     padding:5px;
     height: 300px;
