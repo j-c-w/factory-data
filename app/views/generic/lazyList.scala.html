@@ -2,11 +2,12 @@
 
 @import scala.util.Try
 
-<div id="lazyList">
-    <div class="scroll">
-        <!-- show the first 100 rows of the data.
-        We also generate the session id here for this
-        particular dataset-->
-        @generic.dataDisplay(data, "Data OK", Global.getSessionId.mkString("")))
-    </div>
+<script src="@routes.Assets.at("javascripts/jscroll-min.js")" type="text/javascript"></script>
+<script src="@routes.Assets.at("javascripts/lazy-list.js")" type="text/javascript"></script>
+
+<div class="lazyList">
+    <!-- show the first 100 rows of the data.
+    We also generate the session id here for this
+    particular dataset-->
+    @generic.dataDisplay(data, "Data OK", Global.getSessionId.mkString("")))
 </div>

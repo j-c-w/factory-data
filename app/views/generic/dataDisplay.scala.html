@@ -17,5 +17,5 @@
 @if(data.length > 100) {
     <!-- This is a 1 hour reset time -->
     @Cache.set(sessionId, data.drop(100), 3600)
-    <a href="@routes.Application.moreData(sessionId)">next page</a>
+    <a href="@(routes.Application.moreData(sessionId))">next page</a>
 }

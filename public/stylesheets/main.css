@@ -36,11 +36,9 @@ body {
     text-emphasis-style: none;
 }
 
-#scroll{
-    display:block;
+.scroll{
     padding:5px;
-    width:300px;
-    max-height:10px;
+    height: 300px;
     overflow:scroll;
 }
 

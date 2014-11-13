@@ -23,13 +23,14 @@
         <div id="queryForm">
             @formViews.queryForm(form)
         </div>
-        <table>
-            @for(header <- headers) {
-                <th>@Html(header)</th>
-            }
-            @generic.lazyList(baseData)
-        </table>
-
+        <div class="scroll">
+            <table>
+                @for(header <- headers) {
+                    <th>@Html(header)</th>
+                }
+                @generic.lazyList(baseData)
+            </table>
+        </div>
         <div id="graphForm">
             @formViews.graphForm()
         </div>
