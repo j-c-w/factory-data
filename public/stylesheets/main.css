@@ -44,6 +44,10 @@ body {
     border-bottom: 1px solid #000000;
 }
 
+.borderedTable {
+    border: 1px solid #000000;
+}
+
 .navigationBar {
     color: white;
     font-size: 1em;
