@@ -8,7 +8,16 @@
     puts the rest in cache and puts a link at the bottom
     to continue to the next page -->
 
-<table>
+@if(data.length > 100) {
+    <!-- There are more elements after this, so
+    leave the table as on-going -->
+    <table class="dataTable">
+} else {
+    <!-- in this case, this is the last table, so
+    end it -->
+    <table class="lastDataTable">
+}
+
     @for(dataItem <- Try(data.take(100)).getOrElse(data)) {
         <tr>@Html(dataItem.toHtml)</tr>
     }
