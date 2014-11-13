@@ -5,6 +5,6 @@ $(document).ready(function() {
     $(".lazyList").jscroll({
         padding: 60,
         nextSelector: 'a.jscroll-next:last',
-        loadingHtml: '<img src="/assets/images/loading.gif" alt="Loading" />' // The HTML to show at the bottom of the content while loading the next set.
+        loadingHtml: '<p style="text-align:center"><img src="/assets/images/loading.gif" alt="Loading"/></p>' // The HTML to show at the bottom of the content while loading the next set.
     });
 });
