@@ -3,21 +3,20 @@
  */
 $(document).ready(function () {
     $("#addOr").click(function() {
-        $.get("forms/filter", function(data){
-            $("#filterDiv").append(data);
-        });
+        addToForm("filter")
     });
     $("#addAggregate").click(function() {
-        $.get("forms/aggregate", function(data){
-            $("#aggregateDiv").append(data);
-        });
+        addToForm("aggregate")
     });
 
     $("#addSort").click(function() {
-        $.get("forms/sort", function(data){
-            $("#sortDiv").append(data);
-        });
+        addToForm("sort");
     });
-
-
 });
+
+addToForm = function(type) {
+    $.get("forms/" + type, function(data){
+        $("#" + type + "Div").append(data);
+    });
+};
+
