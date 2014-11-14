@@ -8,7 +8,6 @@ $(document).ready(function () {
     $("#addAggregate").click(function() {
         addToForm("aggregate")
     });
-
     $("#addSort").click(function() {
         addToForm("sort");
     });
@@ -19,4 +18,3 @@ addToForm = function(type) {
         $("#" + type + "Div").append(data);
     });
 };
-
