@@ -43,4 +43,8 @@ object Static {
   val sortModes: List[String] = noSelection :: List(
     "Ascending", "Descending"
   )
+
+  val logicalConnectors: List[String] = List(
+    "And", "Or"
+  )
 }

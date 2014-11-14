@@ -30,7 +30,7 @@ object Application extends Controller {
 
   def load(formType: String) = Action {
     formType match {
-      case "filter" => Ok(views.html.formViews.filterForm())
+      case "filter" => Ok(views.html.formViews.filterForm(true))
       case "sort" => Ok(views.html.formViews.sortForm())
       case _ => Ok(views.html.formViews.aggregateForm())
     }
@@ -47,6 +47,7 @@ object Application extends Controller {
     println("Query Built")
     val data = queryBuilder.processData(Global.baseData).toArray
     println("Query Executed")
+    println(data.size)
 
     Ok(views.html.dataView(data, Static.tableHeaders, DataManipulationForm.form))
   }

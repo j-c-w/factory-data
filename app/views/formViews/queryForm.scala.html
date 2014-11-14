@@ -12,7 +12,7 @@
 <div>
     @helper.form(action = routes.Application.submitForm) {
         <div id="filterDiv">
-            @formViews.filterForm()
+            @formViews.filterForm(false)
         </div>
         <button id="addOr" type="button" name="addOr" value="Add Or Filter">Add Filter</button>
         <br/>
