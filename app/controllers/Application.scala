@@ -28,6 +28,14 @@ object Application extends Controller {
     Ok(views.html.generic.dataDisplay(data.toArray, message, sessionId))
   }
 
+  def load(formType: String) = Action {
+    formType match {
+      case "filter" => Ok(views.html.formViews.filterForm())
+      case "sort" => Ok(views.html.formViews.sortForm())
+      case _ => Ok(views.html.formViews.aggregateForm())
+    }
+  }
+
   def submitForm = Action { implicit request =>
     //this first gets the form from the request
     val filledFormTry = Try(
