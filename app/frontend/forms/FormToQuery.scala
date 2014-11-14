@@ -4,6 +4,7 @@ import backend.scala.datatypes.options.MathComparable
 import backend.scala.datatypes.{NothingDataField, DataType, DataField, LineListObject}
 import backend.scala.query._
 import frontend._
+import backend.scala.query.QueryBuilder
 
 import scala.util.{Failure, Success, Try}
 
@@ -21,6 +22,20 @@ import scala.util.{Failure, Success, Try}
  */
 
 object FormToQuery {
+  /*
+   * This is basically the mother method that takes all the
+   * other methods here and puts them together
+   */
+  def parse(formData: (List[FilterFormData], List[SortFormData], List[AggregateFormData])) = {
+    val (filters, sorting, aggregating) = formData
+
+    val filterBuilder = searchForm(filters)
+    val sortBuilder = sortForm(sorting)
+    val aggregateBuilder = aggregateForm(aggregating)
+
+    new QueryBuilder[LineListObject](Option(filterBuilder), aggregateBuilder, Option(sortBuilder))
+  }
+
   /*
    * This converts from a search form data into a FilterBuilder
    */

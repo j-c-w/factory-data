@@ -4,7 +4,7 @@ import backend.scala.Backend
 import backend.scala.datatypes.{DataField, OperatorsAbsent, LineListObject}
 import backend.scala.query.{ResultListObject, FilterBuilder, QueryBuilder, NoAggregate}
 import frontend.{FilterParser, ComparisonMethod, Equals}
-import frontend.forms.{FormToQuery, FilterFormData, SearchFormParser, DataManipulationForm}
+import frontend.forms._
 import play.api._
 import play.api.cache.Cache
 import play.api.data.{Form, Field}
@@ -37,25 +37,53 @@ object Application extends Controller {
   }
 
   def submitForm = Action { implicit request =>
-    //this first gets the form from the request
-    val filledFormTry = Try(
-      DataManipulationForm.form.bindFromRequest.get)
+    val dynamicForm = request.body.asFormUrlEncoded
+    //Now we parse that and turn it into a form parser
+    val dataForm = fromMapToData(dynamicForm getOrElse {
+      throw new NullPointerException("Bad Request")
+    })
 
-    //this then takes the form out of the monad
-    //and if there was a problem resets it
-    val submittedForm: SearchFormParser = filledFormTry match {
-      case Success(form) => form
-      case Failure(failureMessage) => new SearchFormParser
-    }
+    val queryBuilder = FormToQuery.parse(dataForm)
+    println("Query Built")
+    val data = queryBuilder.processData(Global.baseData).toArray
+    println("Query Executed")
 
-    //finally, this creates the query using the FormToQuery calss
-    val query = FormToQuery.wholeForm(submittedForm)
-    //and then this pushes it to the view -- success!!
-    Ok(views.html.dataView(query.processData(Global.baseData).toArray, Static.tableHeaders, DataManipulationForm.form))
+    Ok(views.html.dataView(data, Static.tableHeaders, DataManipulationForm.form))
   }
 
   def list = Action {
     Ok(views.html.dataView(Backend.loadRaw, Static.tableHeaders, DataManipulationForm.form))
   }
 
+  /*
+   * From this point onwards, these are no longer routes, but really
+   * important methods that I don't want to get lost in the mix
+   */
+
+  /*
+  * This takes a map and returns a tuple
+  */
+  def fromMapToData(map: Map[String, Seq[String]]): (List[FilterFormData], List[SortFormData], List[AggregateFormData]) = {
+    val filterComparisons = map.getOrElse("filterComparison", List())
+    val filterField = map.getOrElse("filterField", List())
+    val filterValue = map.getOrElse("filterValue", List())
+
+    val sortField = map.getOrElse("sortField", List())
+    val sortMode = map.getOrElse("sortMode", List())
+
+    val aggregateField = map.getOrElse("aggregateField", List())
+    val aggregateMode = map.getOrElse("aggregateMode", List())
+
+    val filters = (filterComparisons, filterField, filterValue).zipped.map(
+    {case (comparator, field, value) => new FilterFormData(field, comparator, value, "And")}
+    ).filter(!_.toList.contains(Static.noSelection))
+    val sorters = (sortField, sortMode).zipped.map(
+    {case (field, mode) => new SortFormData(field, mode)}
+    ).filter(!_.toList.contains(Static.noSelection))
+    val aggregators = (aggregateField, aggregateMode).zipped.map(
+    {case (field, mode) => new AggregateFormData(field, mode)}
+    ).filter(!_.toList.contains(Static.noSelection))
+
+    (filters.toList, sorters.toList, aggregators.toList)
+  }
 }

@@ -24,7 +24,7 @@ object Static {
     ""
   )
 
-  val noSelection: String = "--- Select ---"
+  val noSelection: String = "--- None ---"
 
   /*
    * From this point onwards, all variables are
