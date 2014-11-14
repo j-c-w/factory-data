@@ -10,18 +10,16 @@
 
 <div>
     @helper.form(action = routes.Application.submitForm) {
-        @helper.inputText(form("Field"))
-        @helper.inputText(form("Comparison Method"))
-        @helper.inputText(form("Value"))
+        @formViews.filterForm()
         <button type="button" name="addOr" value="Add Or Filter">Add Or Filter</button>
         <button type="button" name="addAnd" value="Add And Filter">Add And Filter</button>
-
-        @helper.inputText(form("Aggregate Field"))
-        @helper.inputText(form("Aggregate Mode"))
+        <br/>
+        <br/>
+        @formViews.aggregateForm()
         <button type="button" name="addAggregate" value="Add Aggregation">Add Aggregation</button>
-
-        @helper.inputText(form("Sort Field"))
-        @helper.inputText(form("Sort Method"))
+        <br/>
+        <br/>
+        @formViews.sortForm()
         <button type="button" name="addSort" value="Add Sort">Add Sort</button>
 
         <button type="submit" name="submit" value="Parse Data">Search Data</button>
