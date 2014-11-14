@@ -10,4 +10,10 @@ package frontend.forms
 
 trait FormData[T <: FormData[T]] {
   def default: T
+
+  /*
+   * This method should return a list of all the
+   * elements in the form
+   */
+  def toList: List[String]
 }

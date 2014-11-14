@@ -12,6 +12,10 @@ case class SearchFormParser(filterData: List[FilterFormData], aggregateData: Lis
   def this() = this(List(new FilterFormData), List(new AggregateFormData), List(new SortFormData))
 
   def default = new SearchFormParser
+
+  def toList = (filterData.flatMap(_.toList) ++
+    aggregateData.flatMap(_.toList) ++
+    sortData.flatMap(_.toList)).toList
 }
 
 
@@ -26,6 +30,8 @@ case class SortFormData(searchField: String, sortMethod: String) extends FormDat
   def this() = this("", "")
 
   def default = new SortFormData
+
+  def toList = List(searchField, sortMethod)
 }
 
 case class FilterFormData(filteringField: String, filterComparator: String, filterText: String, combinator: String)
@@ -33,6 +39,8 @@ case class FilterFormData(filteringField: String, filterComparator: String, filt
   def this() = this("", "", "", "")
 
   def default = new FilterFormData
+
+  def toList = List(filteringField, filterComparator, filterText, combinator)
 }
 
 case class AggregateFormData(aggregatingField: String, aggregateMode: String)
@@ -40,4 +48,6 @@ case class AggregateFormData(aggregatingField: String, aggregateMode: String)
   def this() = this("", "")
 
   def default = new AggregateFormData
+
+  def toList = List(aggregatingField, aggregateMode)
 }
