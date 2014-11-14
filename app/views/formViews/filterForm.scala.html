@@ -1,0 +1,13 @@
+@()
+
+Filter Field: <select name="filterField" id="filterField">
+    @for(field <- Static.fieldNames) {
+    <option value="@field">@field</option>
+    }
+</select>
+Comparison Method: <select name="filterComparison" id="filterComparator">
+    @for(method <- Static.comparisonMethods) {
+    <option value="@method">@method</option>
+    }
+</select>
+Comparison Value: <input type="text" name="filterValue" id="filterValue">

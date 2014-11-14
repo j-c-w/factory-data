@@ -1,0 +1,13 @@
+@()
+
+Aggregate Feild: <select name="aggregateField" id="aggregateField">
+    @for(field <- Static.fieldNames) {
+        <option value="@field">@field</option>
+    }
+</select>
+
+Aggregate Mode: <select name="aggregateMode" id="aggregateMode">
+    @for(mode <- Static.aggregateModes) {
+        <option value="@mode">@mode</option>
+    }
+</select>

@@ -1,0 +1,13 @@
+@()
+
+Sort Field: <select name="sortField" id="sortField">
+    @for(field <- Static.fieldNames) {
+        <option value="@field">@field</option>
+    }
+</select>
+
+Sort Mode: <select name="sortMode" id="sortMode">
+    @for(mode <- Static.sortModes) {
+        <option value="@mode">@mode</option>
+    }
+</select>
