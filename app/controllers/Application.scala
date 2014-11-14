@@ -15,13 +15,6 @@ import play.api.Play.current
 import scala.util.{Success, Failure, Try}
 
 object Application extends Controller {
-  val tableHeaders: List[String] = List(
-    "Factory Code", "Line Code", "Date", "Total Operators",
-    "Operators Present", "Operators Absent", "Operators on Leave",
-    "Percent Operators Absent", "Total Helpers", "Helpers Present",
-    "Helpers Absent", "Helpers on Leave", "Percent Helpers Absent"
-  )
-
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
   }
@@ -50,11 +43,11 @@ object Application extends Controller {
     //finally, this creates the query using the FormToQuery calss
     val query = FormToQuery.wholeForm(submittedForm)
     //and then this pushes it to the view -- success!!
-    Ok(views.html.dataView(query.processData(Global.baseData).toArray, tableHeaders, DataManipulationForm.form))
+    Ok(views.html.dataView(query.processData(Global.baseData).toArray, Static.tableHeaders, DataManipulationForm.form))
   }
 
   def list = Action {
-    Ok(views.html.dataView(Backend.loadRaw, tableHeaders, DataManipulationForm.form))
+    Ok(views.html.dataView(Backend.loadRaw, Static.tableHeaders, DataManipulationForm.form))
   }
 
 }
