@@ -7,21 +7,31 @@
     on it's owm. It should always be
     embedded in something else. -->
 
+<script src="@routes.Assets.at("javascripts/query-form.js")" type="text/javascript"></script>
 
 <div>
     @helper.form(action = routes.Application.submitForm) {
-        @formViews.filterForm()
-        <button type="button" name="addOr" value="Add Or Filter">Add Or Filter</button>
-        <button type="button" name="addAnd" value="Add And Filter">Add And Filter</button>
+        <div id="filterDiv">
+            @formViews.filterForm()
+        </div>
+        <button id="addOr" type="button" name="addOr" value="Add Or Filter">Add Filter</button>
         <br/>
         <br/>
-        @formViews.aggregateForm()
-        <button type="button" name="addAggregate" value="Add Aggregation">Add Aggregation</button>
-        <br/>
-        <br/>
-        @formViews.sortForm()
-        <button type="button" name="addSort" value="Add Sort">Add Sort</button>
 
+        <div id="aggregateDiv">
+            @formViews.aggregateForm()
+        </div>
+
+        <button id="addAggregate" type="button" name="addAggregate" value="Add Aggregation">Add Aggregation</button>
+        <br/>
+        <br/>
+        <div id="sortDiv">
+            @formViews.sortForm()
+        </div>
+
+        <button id="addSort" type="button" name="addSort" value="Add Sort">Add Sort</button>
+        <br/>
+        <br/>
         <button type="submit" name="submit" value="Parse Data">Search Data</button>
 
     }
