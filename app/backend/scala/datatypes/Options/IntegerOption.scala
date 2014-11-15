@@ -66,8 +66,10 @@ abstract class IntegerOption extends MathComparable[IntegerOption] {
   //IMPORANT NOTE -- this function is different from the others here
   //in that it returns NoInteger if EITHER of the inputs is NoInteger
   def / (other: IntegerOption): IntegerOption = (this, other) match {
-    case (SomeInteger(thisInt), SomeInteger(otherInt)) =>
-      SomeInteger((thisInt.toDouble/otherInt.toDouble).toInt)
+    case (SomeInteger(thisInt), SomeInteger(otherInt)) => {
+      if (otherInt == 0) NoInteger//This is a divide by 0, so there is no result
+      else SomeInteger((thisInt.toDouble / otherInt.toDouble).toInt)
+    }
     case (_, _) => NoInteger //if we fall through to here, at least one is NoInteger
   }
 

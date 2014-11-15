@@ -24,7 +24,10 @@ abstract class DoubleOption extends MathComparable[DoubleOption] {
     case (_, _) => NoDouble
   }
   def / (other: DoubleOption) = (this, other) match {
-    case (SomeDouble(thisDouble), SomeDouble(otherDouble)) => SomeDouble(thisDouble / otherDouble)
+    case (SomeDouble(thisDouble), SomeDouble(otherDouble)) => {
+      if (otherDouble == 0) NoDouble//this is a divide by zero, so there is no result
+      else SomeDouble(thisDouble / otherDouble)
+    }
     case (_, _) => NoDouble
   }
 
