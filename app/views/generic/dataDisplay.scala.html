@@ -28,7 +28,7 @@
         @Cache.set(sessionId, data.drop(100), 3600)
         <a class="jscroll-next" href="@(routes.Application.moreData(sessionId))">next page</a>
     } else {
-        <p>End of Query</p>
+        <a class="jscroll-next" href="@routes.Application.endOfQuery()">next page</a>
     }
 
 </div>

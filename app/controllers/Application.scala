@@ -56,6 +56,10 @@ object Application extends Controller {
     Ok(views.html.dataView(Backend.loadRaw, Static.tableHeaders, (List(), List(), List())))
   }
 
+  def endOfQuery = Action {
+    Ok(views.html.generic.endOfQuery())
+  }
+
   /*
    * From this point onwards, these are no longer routes, but really
    * important methods that I don't want to get lost in the mix
