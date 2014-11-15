@@ -68,6 +68,7 @@ object Application extends Controller {
     val filterComparisons = map.getOrElse("filterComparison", List())
     val filterField = map.getOrElse("filterField", List())
     val filterValue = map.getOrElse("filterValue", List())
+    val filterConnectors = (List("And") ++ map.getOrElse("filterConnector", List())).toSeq
 
     val sortField = map.getOrElse("sortField", List())
     val sortMode = map.getOrElse("sortMode", List())
@@ -75,8 +76,8 @@ object Application extends Controller {
     val aggregateField = map.getOrElse("aggregateField", List())
     val aggregateMode = map.getOrElse("aggregateMode", List())
 
-    val filters = (filterComparisons, filterField, filterValue).zipped.map(
-    {case (comparator, field, value) => new FilterFormData(field, comparator, value, "And")}
+    val filters = filterComparisons.zip(filterField).zip(filterValue).zip(filterConnectors).map(
+    {case (((comparator, field), value), connector) => new FilterFormData(field, comparator, value, connector)}
     ).filter(!_.toList.contains(Static.noSelection))
     val sorters = (sortField, sortMode).zipped.map(
     {case (field, mode) => new SortFormData(field, mode)}

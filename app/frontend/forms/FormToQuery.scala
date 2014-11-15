@@ -40,15 +40,17 @@ object FormToQuery {
    * This converts from a search form data into a FilterBuilder
    */
   def searchForm(formData: List[FilterFormData]): FilterBuilder[LineListObject] = {
-    val base = new FilterBuilder[LineListObject](x => true)
-    formData.foldRight(base) ((form, filterBuilder) => {
-      val formBuilder = searchFormToBuilder(form)
-
-      form.combinator match {
-        case ("Or") => filterBuilder.or(formBuilder.f)
-        case ("And") => filterBuilder.and(formBuilder.f)
+    def recurse(data: List[FilterFormData], builder: FilterBuilder[LineListObject]): FilterBuilder[LineListObject] = data match {
+      case Nil => builder
+      case x :: xs => {
+        val f = searchFormToBuilder(x)
+        x.combinator match {
+          case "And" => recurse(xs, builder.and(f.f))
+          case "Or" => recurse(xs, builder.or(f.f))
+        }
       }
-    })
+    }
+    recurse(formData, new FilterBuilder[LineListObject]())
   }
 
   /*
