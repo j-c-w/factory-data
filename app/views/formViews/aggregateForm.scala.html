@@ -1,13 +1,23 @@
-@()
+@(data: Option[frontend.forms.AggregateFormData])
+
+@import frontend.forms.AggregateFormData; val formData = data.getOrElse(new AggregateFormData())
 <br/>
 Aggregate Feild: <select name="aggregateField" id="aggregateField">
     @for(field <- Static.fieldNames) {
-        <option value="@field">@field</option>
+        @if(formData.aggregatingField == field) {
+            <option selected value="@field">@field</option>
+        } else {
+            <option value="@field">@field</option>
+        }
     }
 </select>
 
 Aggregate Mode: <select name="aggregateMode" id="aggregateMode">
     @for(mode <- Static.aggregateModes) {
-        <option value="@mode">@mode</option>
+        @if(formData.aggregateMode == mode) {
+            <option selected value="@mode">@mode</option>
+        } else {
+            <option value="@mode">@mode</option>
+        }
     }
 </select>

@@ -1,13 +1,23 @@
-@()
+@(data: Option[frontend.forms.SortFormData])
+
+@import frontend.forms.SortFormData; val formData = data.getOrElse(new SortFormData())
 <br/>
 Sort Field: <select name="sortField" id="sortField">
     @for(field <- Static.fieldNames) {
-        <option value="@field">@field</option>
+        @if(formData.searchField == field) {
+            <option selected value="@field">@field</option>
+        } else {
+            <option value="@field">@field</option>
+        }
     }
 </select>
 
 Sort Mode: <select name="sortMode" id="sortMode">
     @for(mode <- Static.sortModes) {
-        <option value="@mode">@mode</option>
+        @if(formData.sortMethod == mode) {
+            <option selected value="@mode">@mode</option>
+        } else {
+            <option value="@mode">@mode</option>
+        }
     }
 </select>

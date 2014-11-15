@@ -14,9 +14,15 @@
     @helper.form(action = routes.Application.submitForm) {
         <div id="filterDiv">
             @if(formData._1.length == 0) {
+                <!-- there was no passed data so we make a single,
+                empty form -->
                 @formViews.filterForm(displayConnector = false, None)
             } else {
+                <!-- There was passed data, so we take the head and convert
+                 it into a form without a logical connector -->
                 @formViews.filterForm(false, Some(formData._1.head))
+                <!-- Then we go through the remainder of the items passed
+                and fill them out correctly -->
                 @for(data <- formData._1.tail) {
                     @formViews.filterForm(true, Some(data))
                 }
@@ -27,14 +33,30 @@
         <br/>
 
         <div id="aggregateDiv">
-            @formViews.aggregateForm()
+            @if(formData._3.length == 0) {
+            <!-- there was no passed data so we make a single,
+                empty form -->
+                @formViews.aggregateForm(None)
+            } else {
+                @for(data <- formData._3) {
+                    @formViews.aggregateForm(Some(data))
+                }
+            }
         </div>
 
         <button id="addAggregate" type="button" name="addAggregate" value="Add Aggregation">Add Aggregation</button>
         <br/>
         <br/>
         <div id="sortDiv">
-            @formViews.sortForm()
+            @if(formData._2.length == 0) {
+                    <!-- there was no passed data so we make a single,
+                    empty form -->
+                @formViews.sortForm(None)
+            } else {
+                @for(data <- formData._2) {
+                    @formViews.sortForm(Some(data))
+                }
+            }
         </div>
 
         <button id="addSort" type="button" name="addSort" value="Add Sort">Add Sort</button>
