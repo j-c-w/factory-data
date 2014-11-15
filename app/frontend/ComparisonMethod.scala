@@ -14,6 +14,7 @@ import backend.scala.datatypes.options.MathComparable
 object ComparisonMethod {
   def fromString(string: String) : ComparisonMethod = string match {
     case "==" => Equals
+    case "!=" => NotEqual
     case "<" => LessThan
     case ">" => GreaterThan
     case ">=" => LessThanOrEqual
@@ -21,7 +22,7 @@ object ComparisonMethod {
   }
 
   def asList: List[String] = List(
-    "==", "<", ">", ">=", "<="
+    "==", "!=", "<", ">", ">=", "<="
   )
 }
 
@@ -41,6 +42,12 @@ object Equals extends ComparisonMethod {
     o1 == o2
 
   override def toString = "=="
+}
+object NotEqual extends ComparisonMethod {
+  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
+    o1 != o2
+
+  override def toString = "!="
 }
 object LessThan extends ComparisonMethod {
 

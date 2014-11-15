@@ -31,7 +31,7 @@ object Static {
    * used in layouts rather than in forms
    */
   val comparisonMethods: List[String] = List(
-    noSelection, "==", "<=", ">=", ">", "<"
+    noSelection, "==", "!=", "<=", ">=", ">", "<"
   )
 
   val fieldNames: List[String] = noSelection :: tableHeaders
