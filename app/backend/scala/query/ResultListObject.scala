@@ -33,9 +33,9 @@ class ResultListObject[T <: DataType[T]](val lineObject: T, numberAggregated: In
     averageBy(numberAggregated)
 
   def averageBy(number: Int): ResultListObject[T] =
-    new ResultListObject((lineObject averageBy number))
+    new ResultListObject((lineObject averageBy number), numberAggregated)
 
   override def toString = lineObject.toString
 
-  def toHtml = lineObject.toHtml
+  def toHtml = "<td>" + numberAggregated.toString + "</td>" + lineObject.toHtml
 }

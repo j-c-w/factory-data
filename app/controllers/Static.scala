@@ -11,7 +11,7 @@ package controllers
 object Static {
 
   val tableHeaders: List[String] = List(
-    "Factory Code", "Line Code", "Date", "Total Operators",
+    "Number of Observations", "Factory Code", "Line Code", "Date", "Total Operators",
     "Operators Present", "Operators Absent", "Operators on Leave",
     "Percent Operators Absent", "Total Helpers", "Helpers Present",
     "Helpers Absent", "Helpers on Leave", "Percent Helpers Absent"
