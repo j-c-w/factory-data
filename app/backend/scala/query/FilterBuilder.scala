@@ -17,7 +17,7 @@ class FilterBuilder[T <: DataType[T]](val f: T => Boolean) {
     add(f2, _ && _)
 
   def or(f2: T => Boolean) =
-    add(f2, _ && _)
+    add(f2, _ || _)
 
   def add(f2: T => Boolean, combinator: (Boolean, Boolean) => Boolean) =
     new FilterBuilder[T](x => combinator(f(x), f2(x)))
