@@ -43,6 +43,7 @@ object Application extends Controller {
       throw new NullPointerException("Bad Request")
     })
 
+    println("Building Query")
     val queryBuilder = FormToQuery.parse(dataForm)
     println("Query Built")
     val data = queryBuilder.processData(Global.baseData).toArray
