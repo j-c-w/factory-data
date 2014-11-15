@@ -37,7 +37,7 @@ object Static {
   val fieldNames: List[String] = noSelection :: tableHeaders
 
   val aggregateModes: List[String] = noSelection :: List(
-    "Aggregate Sum By", "Aggregate Average By", "Aggregate Sum", "Aggregate Average"
+    "Average", "Sum"
   )
 
   val sortModes: List[String] = noSelection :: List(
