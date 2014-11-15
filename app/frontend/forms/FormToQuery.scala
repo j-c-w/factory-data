@@ -78,7 +78,7 @@ object FormToQuery {
    */
   def sortForm(formData: List[SortFormData]): SortBuilder[LineListObject] = formData match {
     case Nil => new SortBuilder[LineListObject]()
-    case data :: Nil => sortForm(formData)
+    case data :: Nil => sortFormToBuilder(data)
     case _ => formData.tail.foldRight (sortFormToBuilder(formData.head)) ( { case(data, builder) => builder.add(sortFormToBuilder(data)) } )
   }
 
