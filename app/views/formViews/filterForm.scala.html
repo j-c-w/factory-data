@@ -1,25 +1,39 @@
-@(displayConnector: Boolean)
+@(displayConnector: Boolean, data: Option[frontend.forms.FilterFormData])
 <!-- 
 The display connector variable is so that we show the dropdown
 list containing the and/or options for use in chaining filters -->
+
+@import frontend.forms.FilterFormData; val formData = data.getOrElse(new FilterFormData())
 
 <br/>
 @if(displayConnector) {
     <select name="filterConnector" id="filterConnector">
         @for(field <- Static.logicalConnectors) {
-            <option value="@field">@field</option>
+            @if(formData.combinator == field) {
+                <option selected value="@field">@field</option>
+            } else {
+                <option value="@field">@field</option>
+            }
         }
     </select>
 }
 
 Filter Field: <select name="filterField" id="filterField">
     @for(field <- Static.fieldNames) {
-    <option value="@field">@field</option>
+        @if(formData.filteringField == field) {
+            <option selected value="@field">@field</option>
+        } else {
+            <option value="@field">@field</option>
+        }
     }
 </select>
 Comparison Method: <select name="filterComparison" id="filterComparator">
     @for(method <- Static.comparisonMethods) {
-    <option value="@method">@method</option>
+        @if(formData.filterComparator == method) {
+            <option selected value="@method">@method</option>
+        } else {
+            <option value="@method">@method</option>
+        }
     }
 </select>
-Comparison Value: <input type="text" name="filterValue" id="filterValue">
+Comparison Value: <input type="text" value="@formData.filterText" name="filterValue" id="filterValue">

@@ -30,7 +30,7 @@ object Application extends Controller {
 
   def load(formType: String) = Action {
     formType match {
-      case "filter" => Ok(views.html.formViews.filterForm(true))
+      case "filter" => Ok(views.html.formViews.filterForm(true, None))
       case "sort" => Ok(views.html.formViews.sortForm())
       case _ => Ok(views.html.formViews.aggregateForm())
     }
@@ -49,11 +49,11 @@ object Application extends Controller {
     println("Query Executed")
     println(data.size)
 
-    Ok(views.html.dataView(data, Static.tableHeaders, DataManipulationForm.form))
+    Ok(views.html.dataView(data, Static.tableHeaders, dataForm))
   }
 
   def list = Action {
-    Ok(views.html.dataView(Backend.loadRaw, Static.tableHeaders, DataManipulationForm.form))
+    Ok(views.html.dataView(Backend.loadRaw, Static.tableHeaders, (List(), List(), List())))
   }
 
   /*

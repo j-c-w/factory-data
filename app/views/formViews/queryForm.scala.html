@@ -1,4 +1,5 @@
-@(form: play.api.data.Form[frontend.forms.SearchFormParser])
+@(formData: (List[frontend.forms.FilterFormData],
+        List[frontend.forms.SortFormData], List[frontend.forms.AggregateFormData]))
 
 @import frontend.forms.DataManipulationForm
 
@@ -12,7 +13,14 @@
 <div>
     @helper.form(action = routes.Application.submitForm) {
         <div id="filterDiv">
-            @formViews.filterForm(false)
+            @if(formData._1.length == 0) {
+                @formViews.filterForm(displayConnector = false, None)
+            } else {
+                @formViews.filterForm(false, Some(formData._1.head))
+                @for(data <- formData._1.tail) {
+                    @formViews.filterForm(true, Some(data))
+                }
+            }
         </div>
         <button id="addOr" type="button" name="addOr" value="Add Or Filter">Add Filter</button>
         <br/>
