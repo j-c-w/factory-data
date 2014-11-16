@@ -10,6 +10,7 @@ import play.api.cache.Cache
 import play.api.data.{Form, Field}
 import play.api.mvc._
 import play.api.Play.current
+import java.io.File
 
 
 import scala.util.{Success, Failure, Try}
@@ -56,11 +57,11 @@ object Application extends Controller {
     val file = FormToGraph.formToGraph(graph, data)
     println("Finished drawing graph")
 
-    Ok(views.html.dataView(data.toArray, Static.tableHeaders, dataForm))
+    Ok(views.html.dataView(data.toArray, Static.tableHeaders, dataForm, file))
   }
 
   def list = Action {
-    Ok(views.html.dataView(Backend.loadRaw, Static.tableHeaders, (List(), List(), List(), List())))
+    Ok(views.html.dataView(Backend.loadRaw, Static.tableHeaders, (List(), List(), List(), List()), new File("")))
   }
 
   def endOfQuery = Action {

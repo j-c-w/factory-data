@@ -35,14 +35,11 @@ object Graph {
                   title: String,
                   xAxisTitle: String,
                   yAxisTitle: String): File = {
-    println("Drawing bar chart")
     val destinationFile = Global.getPictureFile
-    println("File determined")
     future {
       val chart = new BarChart(data.toCategorySet, title, xAxisTitle, yAxisTitle)
       chart.saveAsPNG(destinationFile)
     }
-    println("Future started")
     destinationFile
   }
 

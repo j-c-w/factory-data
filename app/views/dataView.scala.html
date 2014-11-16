@@ -1,6 +1,6 @@
 @(baseData: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]],
         headers: List[String], formData: (List[frontend.forms.FilterFormData], List[frontend.forms.SortFormData],
-        List[frontend.forms.AggregateFormData], List[frontend.forms.GraphFormParser]))
+        List[frontend.forms.AggregateFormData], List[frontend.forms.GraphFormParser]), graphFile: java.io.File)
 
 @import backend.scala.datatypes.LineListObject
 @import backend.scala.graphing.{Graph, BarChartData}
@@ -25,7 +25,15 @@
         <div id="queryForm">
             @formViews.queryForm(formData)
         </div>
-        <img src="@routes.Assets.at("images/favicon.png")" id="graphDisplay">
+        @if(graphFile.toString != "") {
+            <br/>
+            <br/>
+            <script src="@routes.Assets.at("javascripts/graph-loader.js")" type="text/javascript"></script>
+            <img src="@routes.Assets.at("images/loading.gif")" id="loadingGraphDisplay">
+            <img id="graphDisplay">
+            <!-- this <p> is soley for communicating with the JS. -->
+            <p id="pictureFileName">@graphFile.getName()</p>
+        }
 
         <div class="horizontalScroll">
             <table class="borderedTable">

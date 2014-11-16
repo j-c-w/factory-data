@@ -26,7 +26,7 @@ object FormToGraph {
    */
   def formToGraph(forms: List[GraphFormParser], data: List[ResultListObject[LineListObject]]): File = {
     if (forms.length == 0) {
-      new File("No Data")//return something because nothing was passed
+      new File("")//return something because nothing was passed
     } else {
       val title = forms.head.title
       val graphType = forms.head.graphType
