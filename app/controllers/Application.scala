@@ -49,11 +49,14 @@ object Application extends Controller {
     println("Building Query")
     val queryBuilder = FormToQuery.parse((filter, sort, aggregate))
     println("Query Built")
-    val data = queryBuilder.processData(Global.baseData).toArray
+    val data = queryBuilder.processData(Global.baseData)
     println("Query Executed")
     println(data.size)
+    println("Drawing Graph")
+    val file = FormToGraph.formToGraph(graph, data)
+    println("Finished drawing graph")
 
-    Ok(views.html.dataView(data, Static.tableHeaders, dataForm))
+    Ok(views.html.dataView(data.toArray, Static.tableHeaders, dataForm))
   }
 
   def list = Action {

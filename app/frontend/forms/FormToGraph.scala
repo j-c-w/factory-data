@@ -21,6 +21,28 @@ import backend.scala.query.ResultListObject
 object FormToGraph {
 
   /*
+   * this takes a list of graph forms and then returns a single graph file
+   * with all of those lines plotted
+   */
+  def formToGraph(forms: List[GraphFormParser], data: List[ResultListObject[LineListObject]]): File = {
+    if (forms.length == 0) {
+      new File("No Data")//return something because nothing was passed
+    } else {
+      val title = forms.head.title
+      val graphType = forms.head.graphType
+      val xAxisTitle = forms.map(_.xAxis).mkString("/")
+      val yAxisTitle = forms.map(_.yAxis).mkString("/")
+      val parsers = forms.map(form => {println("parsing"); new DataParser[Comparable[_], LineListObject](
+        data, result => {
+          val xAx = DataField.fromString(form.xAxis)
+          val yAx = DataField.fromString(form.yAxis).asInstanceOf[DoubleOptionDataField]
+          (xAx.get(result.lineObject), yAx.get(result.lineObject).getOrElse(0))
+        }, form.xAxis + "/" + form.yAxis
+      )})
+      drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle)
+    }
+  }
+  /*
    * This takes a form of the graph data and a bunch of
    * data to be plotted, then draws the graph using
    * all this info.

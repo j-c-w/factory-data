@@ -35,7 +35,7 @@ object Graph {
                   title: String,
                   xAxisTitle: String,
                   yAxisTitle: String): File = {
-    val destinationFile = Global.pictureFileLocation
+    val destinationFile = Global.getPictureFile
     future {
       val chart = new BarChart(data.toCategorySet, title, xAxisTitle, yAxisTitle)
       chart.saveAsPNG(destinationFile)
@@ -47,7 +47,7 @@ object Graph {
                   title: String,
                   xAxisTitle: String,
                   yAxisTitle: String) : File = {
-    val destinationFile = Global.pictureFileLocation
+    val destinationFile = Global.getPictureFile
     future {
       val chart = new LineGraph(data.toCategorySet, title, xAxisTitle, yAxisTitle)
       chart.saveAsPNG(destinationFile)

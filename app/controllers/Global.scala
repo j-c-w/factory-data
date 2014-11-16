@@ -20,7 +20,7 @@ object Global {
   def getSessionId =
     nextNRandoms(20)
 
-  lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\HelloWorld\\public\\images\\gen")
+  lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\factory-data\\public\\images\\gen")
 
   val baseData = DataLoader.dataAsList
 
@@ -32,5 +32,6 @@ object Global {
       val name: String = new String(Global.nextNRandoms(40))
       saveDir = new File(pictureFileLocation + "/" + name + ".png")
     } while (saveDir.exists)
+    saveDir
   }
 }
