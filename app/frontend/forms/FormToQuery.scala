@@ -87,8 +87,8 @@ object FormToQuery {
    */
   private def sortFormToBuilder(formData: SortFormData): SortBuilder[LineListObject] = {
     val comparator = formData.sortMethod match {
-      case "Ascending" => GreaterThan
-      case "Descending" => LessThan
+      case "Ascending" => LessThan
+      case "Descending" => GreaterThan
     }
     val field = DataField.fromString(formData.searchField)
 
