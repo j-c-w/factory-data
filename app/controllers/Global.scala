@@ -23,4 +23,14 @@ object Global {
   lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\HelloWorld\\public\\images\\gen")
 
   val baseData = DataLoader.dataAsList
+
+
+  def getPictureFile = {
+    var saveDir = pictureFileLocation
+    do {
+      //loop until the file doesn't already exist
+      val name: String = new String(Global.nextNRandoms(40))
+      saveDir = new File(pictureFileLocation + "/" + name + ".png")
+    } while (saveDir.exists)
+  }
 }

@@ -25,20 +25,12 @@ public class Graph {
 	 * Saves the picture in a randomly selected file and
 	 * returns the file used
 	 */
-    public File saveAsPNG() {
-        File parentDir = Global.pictureFileLocation();
-        File saveDir;
-        //loop until the file doesn't already exist
-        do {
-            String name = new String(Global.nextNRandoms(40));
-            saveDir = new File(parentDir + "/" + name + ".png");
-        } while (saveDir.exists());
+    public void saveAsPNG(File saveDir) {
         try {
             ChartUtilities.saveChartAsPNG(saveDir, chart, 1000, 600);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return saveDir;
     }
 
     /*
