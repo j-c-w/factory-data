@@ -17,7 +17,7 @@ object Static {
     "Helpers Absent", "Helpers on Leave", "Percent Helpers Absent"
   )
 
-  
+
   val noSelection: String = "--- None ---"
 
   /*
