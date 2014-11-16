@@ -29,7 +29,9 @@ object AggregateParser {
       throw new InvalidParameterException("Field must not be None")
 
     s match {
+      case "Average" => getAggregateAverageBy(field.getOrElse(invalidParameter))
       case "Aggregate Average By" => getAggregateAverageBy(field.getOrElse(invalidParameter))
+      case "Sum" => getAggregateSumBy(field.getOrElse(invalidParameter))
       case "Aggregate Sum By" => getAggregateSumBy(field.getOrElse(invalidParameter))
       case "Aggregate Average" => getAggregateAverage
       case "Aggregate Sum" => getAggregateSum

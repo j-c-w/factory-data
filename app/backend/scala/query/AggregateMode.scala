@@ -9,7 +9,7 @@ import frontend.Equals
  */
 object AggregateMode {
   def toList =
-    List("Aggregate Sum", "Aggregate Average", "Aggregate Average By", "Aggregate Sum By")
+    List("Sum", "Average", "Average All", "Sum All")
 
   /*
    * I would really like to go back through and make this method generic.
@@ -18,10 +18,10 @@ object AggregateMode {
    * being
    */
   def fromString(string: String, field: SuperDataField): AggregateMode[LineListObject] = string match {
-    case "Sum" => new AggregateSum[LineListObject]
-    case "Average" => new AggregateAverage[LineListObject]
-    case "Aggregate Average By" => new AggregateAverageBy(field.get(_))//the errors here are irrelevant
-    case "Aggregate Sum By" => new AggregateSumBy(field.get(_))//just an ide problem
+    case "Sum All" => new AggregateSum[LineListObject]
+    case "Average All" => new AggregateAverage[LineListObject]
+    case "Average" => new AggregateAverageBy(field.get(_))//the errors here are irrelevant
+    case "Sum" => new AggregateSumBy(field.get(_))//just an ide problem
      //this method actually compiles just fine
   }
 }
