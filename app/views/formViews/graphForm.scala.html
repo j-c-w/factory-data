@@ -1,7 +1,41 @@
+@(first: Boolean, form: Option[frontend.forms.GraphFormParser])
+
+@import frontend.forms.GraphFormParser; val data = form.getOrElse(new GraphFormParser())
+
+@if(first) {
+    Graph Title: <input id="graphTitle" name="graphTitle" value="@data.title">
+    Graph Type: <select id="graphType" name="graphType">
+        @for(graphType <- Static.graphTypes) {
+            @if(graphType == data.graphType) {
+                <option selected name="graphType" id="graphType">@graphType</option>
+            } else {
+                <option name="graphType" id="graphType">@graphType</option>
+            }
+        }
+    </select>
+    <br/>
+}
+
 <!-- This is not a full file because it should not be used as a full html file
     it should only be passed in parts in ajax, and should definitely be
     included in other files -->
+xAxis Values: <select id="xAxis" name="xAxis">
+    @for(value <- Static.fieldNames) {
+        @if(value == data.xAxis) {
+            <option selected name="xAxis">@value</option>
+        } else {
+            <option name="xAxis">@value</option>
+        }
+    }
+</select>
 
-<form>
+yAxis Values: <select id="xAxis" name="xAxis">
+@for(value <- Static.fieldNames) {
+    @if(value == data.yAxis) {
+        <option selected name="xAxis">@value</option>
+    } else {
+        <option name="xAxis">@value</option>
+    }
+}
+</select>
 
-</form>

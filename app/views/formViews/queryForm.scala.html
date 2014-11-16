@@ -1,5 +1,5 @@
-@(formData: (List[frontend.forms.FilterFormData],
-        List[frontend.forms.SortFormData], List[frontend.forms.AggregateFormData]))
+@(formData: (List[frontend.forms.FilterFormData], List[frontend.forms.SortFormData],
+        List[frontend.forms.AggregateFormData], List[frontend.forms.GraphFormParser]))
 
 @import frontend.forms.DataManipulationForm
 
@@ -62,7 +62,22 @@
         <button id="addSort" type="button" name="addSort" value="Add Sort">Add Sort</button>
         <br/>
         <br/>
-        <button type="submit" name="submit" value="Parse Data">Search Data</button>
+        <button type="submit" name="submitForm" value="Parse Data">Search Data</button>
+
+        <div id="graphForm">
+            @if(formData._4.length == 0) {
+                    <!-- there was no passed data so we make a single,
+                    empty form -->
+                @formViews.graphForm(true, None)
+            } else {
+                @formViews.graphForm(true, formData._4.headOption)
+                @for(data <- formData._4.tail) {
+                    @formViews.graphForm(false, Some(data))
+                }
+            }
+        </div>
+        <button type="button" id="addGraph" name="addGraph" value="Add Graph">Add Dataset to Graph</button>
+        <button type="submit" name="submitGraph" value="Draw Graph">Draw Graph</button>
 
     }
 </div>

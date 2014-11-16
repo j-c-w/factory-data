@@ -43,8 +43,9 @@ object Application extends Controller {
       throw new NullPointerException("Bad Request")
     })
 
+    val (filter, sort, aggregate, graph) = dataForm
     println("Building Query")
-    val queryBuilder = FormToQuery.parse(dataForm)
+    val queryBuilder = FormToQuery.parse((filter, sort, aggregate))
     println("Query Built")
     val data = queryBuilder.processData(Global.baseData).toArray
     println("Query Executed")
@@ -54,7 +55,7 @@ object Application extends Controller {
   }
 
   def list = Action {
-    Ok(views.html.dataView(Backend.loadRaw, Static.tableHeaders, (List(), List(), List())))
+    Ok(views.html.dataView(Backend.loadRaw, Static.tableHeaders, (List(), List(), List(), List())))
   }
 
   def endOfQuery = Action {
@@ -69,7 +70,7 @@ object Application extends Controller {
   /*
   * This takes a map and returns a tuple
   */
-  def fromMapToData(map: Map[String, Seq[String]]): (List[FilterFormData], List[SortFormData], List[AggregateFormData]) = {
+  def fromMapToData(map: Map[String, Seq[String]]): (List[FilterFormData], List[SortFormData], List[AggregateFormData], List[GraphFormParser]) = {
     val filterComparisons = map.getOrElse("filterComparison", List())
     val filterField = map.getOrElse("filterField", List())
     val filterValue = map.getOrElse("filterValue", List())
@@ -81,6 +82,14 @@ object Application extends Controller {
     val aggregateField = map.getOrElse("aggregateField", List())
     val aggregateMode = map.getOrElse("aggregateMode", List())
 
+    val xAxis = map.getOrElse("xAxis", List())
+    val yAxis = map.getOrElse("yAxis", List())
+    val graphType = map.getOrElse("graphType", List("Bar Chart"))
+    val graphTitle = map.getOrElse("graphTitle", List("Error"))
+
+    val graphData = (xAxis, yAxis).zipped.map{
+      case (x, y) => new GraphFormParser(x, y, graphTitle.head, graphType.head)
+    }.filter(!_.toList.contains(Static.noSelection))
     val filters = filterComparisons.zip(filterField).zip(filterValue).zip(filterConnectors).map(
     {case (((comparator, field), value), connector) => new FilterFormData(field, comparator, value, connector)}
     ).filter(!_.toList.contains(Static.noSelection))
@@ -91,6 +100,6 @@ object Application extends Controller {
     {case (field, mode) => new AggregateFormData(field, mode)}
     ).filter(!_.toList.contains(Static.noSelection))
 
-    (filters.toList, sorters.toList, aggregators.toList)
+    (filters.toList, sorters.toList, aggregators.toList, graphData.toList)
   }
 }

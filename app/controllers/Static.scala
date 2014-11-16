@@ -47,4 +47,8 @@ object Static {
   val logicalConnectors: List[String] = List(
     "And", "Or"
   )
+
+  val graphTypes: List[String] = List(
+    "Bar Chart", "Line Graph"
+  )
 }
