@@ -37,5 +37,5 @@ class ResultListObject[T <: DataType[T]](val lineObject: T, numberAggregated: In
 
   override def toString = lineObject.toString
 
-  def toHtml = "<td>" + numberAggregated.toString + "</td>" + lineObject.toHtml
+  def toHtml = lineObject.toHtml
 }

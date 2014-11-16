@@ -38,6 +38,7 @@ object DataLoader {
       NoDouble, SomeDouble(list.slice(4, 8).map(_.toInt).sum)),
     new EmployeeTypes(NoDouble, SomeDouble(list(8).toInt), SomeDouble(list(9).toInt), NoDouble, SomeDouble(list.slice(10,14).map(_.toInt).sum)),
     new EmployeeTypes(NoDouble, NoDouble, NoDouble, NoDouble, NoDouble),
+    SomeInteger(1),
     SomeInteger(list(14).trim.toInt),
     SomeInteger(list(16).toInt),
     SomeDate(new FactoryDate(dateFormat.parse(list(1))))

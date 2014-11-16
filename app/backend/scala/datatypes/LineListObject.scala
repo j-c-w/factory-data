@@ -20,6 +20,7 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
                  operators: EmployeeTypes,
                  helpers: EmployeeTypes,
                  supervisors: EmployeeTypes,
+                 val numberOfObservations: IntegerOption,
                  val factoryCode: IntegerOption,
                  val lineCode: IntegerOption,
                  val date: DateOption) extends DataType[LineListObject] {
@@ -116,6 +117,7 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
       date = self.getDate
       factoryCode = self.getFactoryCode
       lineCode = self.getLineCode
+      numberOfObservations = self.numberOfObservations
     }
   }
 
@@ -131,6 +133,7 @@ class LineListObject(totalProductionWorkers: EmployeeTypes,
 
   //returns a table row containing this information
   def toHtml =
+    "<td>" + numberOfObservations + "</td>" +
     "<td>" + getFactoryCode + "</td>" +
     "<td>" + getLineCode + "</td>" +
     "<td>" + getDate + "</td>" +
