@@ -32,7 +32,7 @@ object FormToGraph {
       val graphType = forms.head.graphType
       val xAxisTitle = forms.map(_.xAxis).mkString("/")
       val yAxisTitle = forms.map(_.yAxis).mkString("/")
-      val parsers = forms.map(form => {println("parsing"); new DataParser[Comparable[_], LineListObject](
+      val parsers = forms.map(form => {new DataParser[Comparable[_], LineListObject](
         data, result => {
           val xAx = DataField.fromString(form.xAxis)
           val yAx = DataField.fromString(form.yAxis).asInstanceOf[DoubleOptionDataField]

@@ -12,10 +12,8 @@ import scala.util.Random
  */
 
 object Global {
-  lazy val randoms: Stream[Char] = new Random().alphanumeric
-
   def nextNRandoms(n: Int): Array[Char] =
-    randoms.take(n).toArray
+    Random.alphanumeric.take(n).toArray
 
   def getSessionId =
     nextNRandoms(20)
@@ -25,13 +23,12 @@ object Global {
   val baseData = DataLoader.dataAsList
 
 
-  def getPictureFile = {
-    var saveDir = pictureFileLocation
-    do {
-      //loop until the file doesn't already exist
-      val name: String = new String(Global.nextNRandoms(40))
-      saveDir = new File(pictureFileLocation + "/" + name + ".png")
-    } while (saveDir.exists)
-    saveDir
+  def getPictureFile: File = {
+    val saveDir = new File(pictureFileLocation + "/" + nextNRandoms(40).mkString("") + ".png")
+    if (saveDir.exists) {
+      getPictureFile
+    } else {
+      saveDir
+    }
   }
 }
