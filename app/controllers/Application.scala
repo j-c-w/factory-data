@@ -61,6 +61,16 @@ object Application extends Controller {
       Global.sendNotification(sessionId)
       processedData
     }
+    data onFailure {
+      //we need to send the notification anyways, but since we put a boolean in the cache
+      //we know the query failed
+      case t => {
+        Cache.set(sessionId, false, 3600)
+        Global.sendNotification(sessionId)
+        println("Query " + sessionId + " Failed")
+        println("Error Message: " + t.getMessage)
+      }
+    }
     println("Drawing Graph")
     val file = FormToGraph.formsToGraph(graph, data)
     println("Finished drawing graph")
@@ -80,12 +90,21 @@ object Application extends Controller {
   }
 
   def dataStart(sessionId: String) = Action {
-    val data = Cache.get(sessionId).asInstanceOf[Option[Array[ResultListObject[LineListObject]]]]
-    data match {
-      case None => Ok(views.html.generic.endOfQuery("Query Expired, please re-run your query"))
-      case Some(x) => Ok(views.html.generic.lazyList(x, sessionId))
+    val data = Cache.get(sessionId)
+    try {
+      val convertedData = data.asInstanceOf[Option[Array[ResultListObject[LineListObject]]]]
+      convertedData match {
+        case None => Ok(views.html.generic.endOfQuery("Query Expired, please re-run your query"))
+        case Some(x) => Ok(views.html.generic.lazyList(x, sessionId))
+      }
+    } catch {
+      case e: Exception => Ok(views.html.generic.endOfQuery("Error -- Query failed"))
     }
+  }
 
+  def deleteConformationFile(sessionId: String) = Action {
+    val deletionFile = new File(Global.getPictureFile + "/" + sessionId)
+    Ok(views.html.generic.endOfQuery(deletionFile.delete.toString))
   }
 
   /*

@@ -16,13 +16,12 @@ $(document).ready(function() {
                     success : function(result){
                         $("#dataDiv").html(result);
                         $("#dataLoading").hide();
-                        
+
                     }
                 });
                 clearInterval(refreshDataInterval);
             },
             error: function(data){
-                alert(conformationUrl);
                 //leave it, because the file does not exist
             }
         })
