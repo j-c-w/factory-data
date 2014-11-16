@@ -2,7 +2,7 @@
 
 @import frontend.forms.AggregateFormData; val formData = data.getOrElse(new AggregateFormData())
 <br/>
-Aggregate Feild: <select name="aggregateField" id="aggregateField">
+Aggregate Feild: <select name="aggregateField" class="aggregateField">
     @for(field <- Static.fieldNames) {
         @if(formData.aggregatingField == field) {
             <option selected value="@field">@field</option>

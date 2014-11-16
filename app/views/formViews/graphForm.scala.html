@@ -19,7 +19,7 @@
 <!-- This is not a full file because it should not be used as a full html file
     it should only be passed in parts in ajax, and should definitely be
     included in other files -->
-xAxis Values: <select id="xAxis" name="xAxis">
+xAxis Values: <select class="xAxis" name="xAxis">
     @for(value <- Static.fieldNames) {
         @if(value == data.xAxis) {
             <option selected name="xAxis">@value</option>
