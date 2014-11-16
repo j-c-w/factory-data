@@ -17,19 +17,24 @@ object Static {
     "Helpers Absent", "Helpers on Leave", "Percent Helpers Absent"
   )
 
-  //this should be a variable full of the numbers that are used in the
-  //column headers. This is for plotting the y-axis of graphs on which
-  //only numbers can be plotted
-  val numberHeaders: List[String] = List(
-    ""
-  )
-
+  
   val noSelection: String = "--- None ---"
 
   /*
    * From this point onwards, all variables are
    * used in layouts rather than in forms
    */
+
+  //this should be a variable full of the numbers that are used in the
+  //column headers. This is for plotting the y-axis of graphs on which
+  //only numbers can be plotted
+
+  val numberHeaders: List[String] = noSelection :: List(
+    "Total Operators", "Operators Present", "Operators Absent", "Operators on Leave",
+    "Percent Operators Absent", "Total Helpers", "Helpers Present",
+    "Helpers Absent", "Helpers on Leave", "Percent Helpers Absent"
+  )
+
   val comparisonMethods: List[String] = List(
     noSelection, "==", "!=", "<=", ">=", ">", "<"
   )

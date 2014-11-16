@@ -30,7 +30,7 @@ xAxis Values: <select id="xAxis" name="xAxis">
 </select>
 
 yAxis Values: <select id="yAxis" name="yAxis">
-@for(value <- Static.fieldNames) {
+@for(value <- Static.numberHeaders) {
     @if(value == data.yAxis) {
         <option selected name="yAxis">@value</option>
     } else {
