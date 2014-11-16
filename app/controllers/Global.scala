@@ -22,6 +22,10 @@ object Global {
 
   val baseData = DataLoader.dataAsList
 
+  def sendNotification(sessionId: String): Unit = {
+    val location = new File(pictureFileLocation + "/" + sessionId)
+    location.createNewFile();
+  }
 
   def getPictureFile: File = {
     val saveDir = new File(pictureFileLocation + "/" + nextNRandoms(40).mkString("") + ".png")

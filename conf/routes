@@ -20,5 +20,8 @@ GET         /assets/*file               controllers.Assets.at(path="/public", fi
 # Map the pages from the /views/form forlder for use in JS files
 GET         /forms/*formType            controllers.Application.load(formType)
 
+# this is used to start the lazy list loading
+GET         /dataStart/:sessionId       controllers.Application.dataStart(sessionId)
+
 # This is used for getting more data from the query
 GET         /moreData/:sessionId        controllers.Application.moreData(sessionId)

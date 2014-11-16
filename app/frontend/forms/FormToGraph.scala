@@ -7,6 +7,10 @@ import backend.scala.datatypes.{DoubleOptionDataField, DataField, DataType, Line
 import backend.scala.graphing.data.DataParser
 import backend.scala.graphing.{BarChartData, Graph}
 import backend.scala.query.ResultListObject
+import scala.concurrent._
+import scala.concurrent.duration.Duration.Inf
+
+import scala.concurrent.Future
 
 
 /*
@@ -24,7 +28,7 @@ object FormToGraph {
    * this takes a list of graph forms and then returns a single graph file
    * with all of those lines plotted
    */
-  def formToGraph(forms: List[GraphFormParser], data: List[ResultListObject[LineListObject]]): File = {
+  def formsToGraph(forms: List[GraphFormParser], data: Future[List[ResultListObject[LineListObject]]]): File = {
     if (forms.length == 0) {
       new File("")//return something because nothing was passed
     } else {
@@ -50,7 +54,7 @@ object FormToGraph {
    * Finally it returns a File object that represents the
    * location of the drawn graph.
    */
-  def formToGraph(form: GraphFormParser, data: List[ResultListObject[LineListObject]]): File = {
+  def formToGraph(form: GraphFormParser, data: Future[List[ResultListObject[LineListObject]]]): File = {
     val xAxis = DataField.fromString(form.xAxis)
     //I think I am allowed to type-cast this because there should only be double options coming
     //through
