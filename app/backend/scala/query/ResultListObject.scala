@@ -33,7 +33,7 @@ class ResultListObject[T <: DataType[T]](val lineObject: T, numberAggregated: In
     averageBy(numberAggregated)
 
   def averageBy(number: Int): ResultListObject[T] =
-    new ResultListObject((lineObject averageBy number), numberAggregated)
+    new ResultListObject((lineObject averageBy number), number)
 
   override def toString = lineObject.toString
 
