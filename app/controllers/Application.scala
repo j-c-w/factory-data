@@ -30,6 +30,7 @@ object Application extends Controller {
 
   def load(formType: String) = Action {
     formType match {
+      case "graph" => Ok(views.html.formViews.graphForm(false, None))
       case "filter" => Ok(views.html.formViews.filterForm(true, None))
       case "sort" => Ok(views.html.formViews.sortForm(None))
       case _ => Ok(views.html.formViews.aggregateForm(None))
@@ -38,6 +39,7 @@ object Application extends Controller {
 
   def submitForm = Action { implicit request =>
     val dynamicForm = request.body.asFormUrlEncoded
+    println(dynamicForm)
     //Now we parse that and turn it into a form parser
     val dataForm = fromMapToData(dynamicForm getOrElse {
       throw new NullPointerException("Bad Request")

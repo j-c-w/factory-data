@@ -11,6 +11,9 @@ $(document).ready(function () {
     $("#addSort").click(function() {
         addToForm("sort");
     });
+    $("#addGraph").click(function() {
+        addToForm("graph")
+    });
 });
 
 addToForm = function(type) {

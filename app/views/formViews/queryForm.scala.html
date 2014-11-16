@@ -64,19 +64,23 @@
         <br/>
         <button type="submit" name="submitForm" value="Parse Data">Search Data</button>
 
-        <div id="graphForm">
+        <br/>
+        <br/>
+        <div id="graphDiv">
             @if(formData._4.length == 0) {
                     <!-- there was no passed data so we make a single,
                     empty form -->
                 @formViews.graphForm(true, None)
             } else {
-                @formViews.graphForm(true, formData._4.headOption)
+                @formViews.graphForm(true, Some(formData._4.head))
                 @for(data <- formData._4.tail) {
                     @formViews.graphForm(false, Some(data))
                 }
             }
         </div>
         <button type="button" id="addGraph" name="addGraph" value="Add Graph">Add Dataset to Graph</button>
+        <br/>
+        <br/>
         <button type="submit" name="submitGraph" value="Draw Graph">Draw Graph</button>
 
     }
