@@ -30,14 +30,14 @@ object FormToGraph {
     } else {
       val title = forms.head.title
       val graphType = forms.head.graphType
-      val xAxisTitle = forms.map(_.xAxis).mkString("/")
-      val yAxisTitle = forms.map(_.yAxis).mkString("/")
+      val xAxisTitle = forms.head.xAxisTitle
+      val yAxisTitle = forms.head.yAxisTitle
       val parsers = forms.map(form => {new DataParser[Comparable[_], LineListObject](
         data, result => {
           val xAx = DataField.fromString(form.xAxis)
           val yAx = DataField.fromString(form.yAxis).asInstanceOf[DoubleOptionDataField]
           (xAx.get(result.lineObject), yAx.get(result.lineObject).getOrElse(0))
-        }, form.xAxis + "/" + form.yAxis
+        }, generateSort(forms.head.graphSortMode), form.yAxis
       )})
       drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle)
     }
@@ -57,7 +57,7 @@ object FormToGraph {
     val yAxis: DoubleOptionDataField = DataField.fromString(form.yAxis).asInstanceOf[DoubleOptionDataField]
 
     val parser = new DataParser[Comparable[_], LineListObject](
-      data, x => (xAxis.get(x.lineObject), yAxis.get(x.lineObject).getOrElse(0.0)), form.title)
+      data, x => (xAxis.get(x.lineObject), yAxis.get(x.lineObject).getOrElse(0.0)), generateSort(form.graphSortMode), form.title)
     val chartData = new BarChartData(List(parser))
     drawChart(chartData, form.title, form.graphType, form.xAxis, form.yAxis)
   }
@@ -69,5 +69,12 @@ object FormToGraph {
     case "Line Graph" => Graph.drawLineGraph(data, title, xAxisTitle, yAxisTitle)
   }
 
+  private def generateSort[A <: Comparable[_]](sortMode: String): (((A, Double), (A, Double)) => Boolean) = sortMode match {
+    case "xAxis Ascending" => {case ((x1, _), (x2, _)) => x1.toString.compareTo(x2.toString()) < 0}
+    case "xAxis Descending" => {case ((x1, _), (x2, _)) => x1.toString.compareTo(x2.toString()) > 0}
+    case "No Sort" => ((_, _) => false)
+    case "yAxis Ascending" => {case ((_, y1), (_, y2)) => y1 > y2}
+    case "yAxis Descending" => {case ((_, y1), (_, y2)) => y1 < y2}
+  }
 
 }

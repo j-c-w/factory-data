@@ -92,9 +92,12 @@ object Application extends Controller {
     val yAxis = map.getOrElse("yAxis", List())
     val graphType = map.getOrElse("graphType", List("Bar Chart"))
     val graphTitle = map.getOrElse("graphTitle", List("Error"))
+    val xAxisTitle = map.getOrElse("xAxisTitle", List("Error"))
+    val yAxisTitle = map.getOrElse("yAxisTitle", List("Error"))
+    val graphSortMode = map.getOrElse("graphSortMode", List("xAxis"))
 
     val graphData = (xAxis, yAxis).zipped.map{
-      case (x, y) => new GraphFormParser(x, y, graphTitle.head, graphType.head)
+      case (x, y) => new GraphFormParser(x, y, graphTitle.head, graphType.head, xAxisTitle.head, yAxisTitle.head, graphSortMode.head)
     }.filter(!_.toList.contains(Static.noSelection))
     val filters = filterComparisons.zip(filterField).zip(filterValue).zip(filterConnectors).map(
     {case (((comparator, field), value), connector) => new FilterFormData(field, comparator, value, connector)}

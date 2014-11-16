@@ -15,9 +15,4 @@ import backend.scala.query.ResultListObject
  * a line graph, then this is the place to do it
  */
 
-class LineGraphData[A <: Comparable[_], T <: DataType[T]](dataParser: List[DataParser[A, T]]) extends BarChartData[A, T](dataParser){
-  def this(xAxis: ResultListObject[T] => A, yAxis: ResultListObject[T] => Double, series: String, data: List[ResultListObject[T]]) = this(List(new DataParser[A, T](
-    data, ((x) => (xAxis(x), yAxis(x))), series
-  )))
-
-}
+class LineGraphData[A <: Comparable[_], T <: DataType[T]](dataParser: List[DataParser[A, T]]) extends BarChartData[A, T](dataParser)

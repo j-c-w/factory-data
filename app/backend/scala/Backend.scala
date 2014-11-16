@@ -30,17 +30,6 @@ object Backend {
   def loadRaw: Array[ResultListObject[LineListObject]] =
     (performOperations(Global.baseData)).toArray
 
-  def drawGraph(data: List[ResultListObject[LineListObject]]): File = {
-    val barChartData =
-      new BarChartData[FactoryDate, LineListObject](
-        x => x.lineObject.getDate.get, x => x.lineObject.getTotalProductionWorkers.get, "1", data.toList
-      )
-    val imageLocation = Graph.drawLineGraph(barChartData, "Title", "xAxis", "yAxis")
-    println(imageLocation)
-    imageLocation
-  }
-
-
   def performOperations(list: List[LineListObject]) =
     new SortBuilder[LineListObject](lineSort, true).sortBy(
       new NoAggregate[LineListObject].aggregate(

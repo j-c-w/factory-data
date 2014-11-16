@@ -15,15 +15,9 @@ import java.lang.Comparable
 
 class DataParser[A <: Comparable[_], T <: DataType[T]](data: List[ResultListObject[T]],
                                       converter: ResultListObject[T] => (A, Double),
-                                      series: String) {
+                                      sortMode: ((A, Double), (A, Double)) => Boolean, series: String) {
   lazy val parse: XYData[A, Double] = {
-    val zippedData  = (data map converter).sortWith {
-      //we have to sort with strings because the compiler is dying on me
-      // and I do not have the time/stamina to sort out all the type errors
-      //without an in-ide type checker.
-      //Please do update this if possible
-      case ((xAxis, _), (xAxisTwo, _)) => xAxis.toString().compareTo(xAxisTwo.toString()) < 1
-    }
+    val zippedData  = (data map converter).sortWith (sortMode)
     println("data sorted")
     val (x, y) = zippedData.toList.unzip
     new XYData[A, Double](x, y, series)

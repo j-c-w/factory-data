@@ -13,6 +13,18 @@
             }
         }
     </select>
+    xAxis Title: <input id="xAxis Title" type="text" value="@data.xAxisTitle">
+    yAxis Title: <input id="yAxis Title" type="text" value="@data.yAxisTitle">
+    Sort xAxis values by: <select id="xAxisSort" name="graphSortMode">
+        @for(option <- Static.graphSortOptions) {
+            @if(option == data.graphSortMode){
+                <option selected name="graphSortMode" id="xAxisSort">@option</option>
+            } else {
+                <option name="graphSortMode" id="xAxisSort">@option</option>
+            }
+        }
+    </select>
+
 
 }
 <br/>

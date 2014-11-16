@@ -39,6 +39,10 @@ object Static {
     noSelection, "==", "!=", "<=", ">=", ">", "<"
   )
 
+  val graphSortOptions: List[String] = List(
+    "xAxis Ascending", "xAxis Descending", "No Sort", "yAxis Ascending", "yAxis Descending"
+  )
+
   val fieldNames: List[String] = noSelection :: tableHeaders
 
   val aggregateModes: List[String] = noSelection :: List(
