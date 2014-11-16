@@ -19,7 +19,7 @@ $(document).ready(function () {
 
 updateXAxis = function(value) {
     var elements = $(".xAxis");
-    for(var i=0; i<elements.length; i++){
+    for(var i = 0; i < elements.length; i ++){
         var element = elements.eq(i);
         element.val(value);
     }
@@ -36,6 +36,10 @@ addToForm = function(type) {
 
 setDropdownListeners = function() {
     $(".xAxis").change(function() {
+        updateXAxis(this.value)
+    });
+    $(".aggregateField").off('change');
+    $(".aggregateField:last").change(function() {
         updateXAxis(this.value)
     });
 }
