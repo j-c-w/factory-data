@@ -73,8 +73,8 @@ object FormToGraph {
     case "xAxis Ascending" => {case ((x1, _), (x2, _)) => x1.toString.compareTo(x2.toString()) < 0}
     case "xAxis Descending" => {case ((x1, _), (x2, _)) => x1.toString.compareTo(x2.toString()) > 0}
     case "No Sort" => ((_, _) => false)
-    case "yAxis Ascending" => {case ((_, y1), (_, y2)) => y1 > y2}
-    case "yAxis Descending" => {case ((_, y1), (_, y2)) => y1 < y2}
+    case "yAxis Ascending" => {case ((_, y1), (_, y2)) => y1 < y2}
+    case "yAxis Descending" => {case ((_, y1), (_, y2)) => y1 > y2}
   }
 
 }
