@@ -31,8 +31,18 @@
 <!-- This is not a full file because it should not be used as a full html file
     it should only be passed in parts in ajax, and should definitely be
     included in other files -->
-xAxis Values: <select class="xAxis" name="xAxis">
+xAxis Values: <select class="xAxisAll" name="xAxisAll">
     @for(value <- Static.fieldNames) {
+        @if(value == data.xAxis) {
+            <option selected name="xAxis">@value</option>
+        } else {
+            <option name="xAxis">@value</option>
+        }
+    }
+</select>
+
+<select class="xAxisDoublesOnly" name="xAxisDoubles">
+    @for(value <- Static.numberHeaders) {
         @if(value == data.xAxis) {
             <option selected name="xAxis">@value</option>
         } else {

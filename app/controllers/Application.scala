@@ -88,12 +88,17 @@ object Application extends Controller {
     val aggregateField = map.getOrElse("aggregateField", List())
     val aggregateMode = map.getOrElse("aggregateMode", List())
 
-    val xAxis = map.getOrElse("xAxis", List())
+    val xAxisAll = map.getOrElse("xAxisAll", List())
+    val xAxisDoubles = map.getOrElse("xAxisDoubles", List())
     val yAxis = map.getOrElse("yAxis", List())
     val graphType = map.getOrElse("graphType", List("Bar Chart"))
-    val graphTitle = map.getOrElse("graphTitle", List("Error"))
-    val xAxisTitle = map.getOrElse("xAxisTitle", List("Error"))
-    val yAxisTitle = map.getOrElse("yAxisTitle", List("Error"))
+    val xAxis = graphType.head match {
+      case "Bar Chart" => xAxisAll
+      case "Line Graph" => xAxisDoubles
+    }
+    val graphTitle = map.getOrElse("graphTitle", List(""))
+    val xAxisTitle = map.getOrElse("xAxisTitle", List(""))
+    val yAxisTitle = map.getOrElse("yAxisTitle", List(""))
     val graphSortMode = map.getOrElse("graphSortMode", List("xAxis"))
 
     val graphData = (xAxis, yAxis).zipped.map{
