@@ -64,6 +64,8 @@ object Application extends Controller {
     val file = FormToGraph.formToGraph(filteredGraph, data)
     println("Finished drawing graph")
 
+    //note that we are passing the un=filtered data back to the
+    //layout so people don't get confused when things dissapear
     Ok(views.html.dataView(data.toArray, Static.tableHeaders, dataForm, file))
   }
 
