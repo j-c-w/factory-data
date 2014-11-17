@@ -22,4 +22,11 @@ class DataParser[A <: Comparable[_], T <: DataType[T]](data: List[ResultListObje
     val (x, y) = zippedData.toList.unzip
     new XYData[A, Double](x, y, series)
   }
+
+  lazy val parseXY: XYData[Double, Double] = {
+    val zippedData  = (data map converter).sortWith (sortMode)
+    println("data sorted")
+    val (x, y) = zippedData.toList.unzip
+    new XYData[Double, Double](x.asInstanceOf[List[Double]], y, series)
+  }
 }
