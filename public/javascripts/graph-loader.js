@@ -21,7 +21,6 @@ $(document).ready(function() {
             },
             error: function(data){
                 //leave it, because the file does not exist
-                alert(url)
             }
         })
     }, 1000);

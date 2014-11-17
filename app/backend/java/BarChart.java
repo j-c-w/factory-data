@@ -7,9 +7,11 @@ package backend.java;
  * as a png to a pre-specified location
  */
 
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.chart.plot.PlotOrientation;
 
 public class BarChart extends Graph {
 	public BarChart(DefaultCategoryDataset dataset, String title, String xAxisTitle, String yAxisTitle) {
@@ -19,7 +21,10 @@ public class BarChart extends Graph {
 
     public JFreeChart createChart(DefaultCategoryDataset dataset, String title, String xAxisTitle, String yAxisTitle) {
         CategoryPlot categoryPlot = toCategoryPlot(dataset);
-        JFreeChart chart = new JFreeChart("Bar Chart", categoryPlot);
+        JFreeChart chart = ChartFactory.createBarChart(title, xAxisTitle, yAxisTitle, categoryPlot.getDataset(), PlotOrientation.VERTICAL, true, false, false);
+		//this line sets the x axis to the exact x axis from the
+		//category plot (which fits the values to size)
+		chart.getCategoryPlot().setDomainAxis(categoryPlot.getDomainAxis());
         chart.setTitle(title);
         return chart;
     }

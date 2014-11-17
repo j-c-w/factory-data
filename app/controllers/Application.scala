@@ -10,7 +10,9 @@ import play.api.cache.Cache
 import play.api.data.{Form, Field}
 import play.api.mvc._
 import play.api.Play.current
+import scala.concurrent.future
 import java.io.File
+import scala.concurrent.ExecutionContext.Implicits.global
 
 
 import scala.util.{Success, Failure, Try}
@@ -46,6 +48,7 @@ object Application extends Controller {
       throw new NullPointerException("Bad Request")
     })
 
+    val sessionId = Global.getSessionId.mkString("")
     val (filter, sort, aggregate, graph) = dataForm
     //after we extract the data, we have to remove the non-entered data values
     //for parsing by the rest of the program at this point
@@ -57,24 +60,60 @@ object Application extends Controller {
     println("Building Query")
     val queryBuilder = FormToQuery.parse((filteredFilter, filteredSort, filteredAggregate))
     println("Query Built")
-    val data = queryBuilder.processData(Global.baseData)
-    println("Query Executed")
-    println(data.size)
+    val data = future {
+      val processedData = queryBuilder.processData(Global.baseData)
+      println("Data Processed")
+      Cache.set(sessionId, processedData.toArray, 3600)
+      println("data in cache under session id " + sessionId)
+      Global.sendNotification(sessionId)
+      processedData
+    }
+    data onFailure {
+      //we need to send the notification anyways, but since we put a boolean in the cache
+      //we know the query failed
+      case t => {
+        Cache.set(sessionId, false, 3600)
+        Global.sendNotification(sessionId)
+        println("Query " + sessionId + " Failed")
+        println("Error Message: " + t.getMessage)
+      }
+    }
     println("Drawing Graph")
-    val file = FormToGraph.formToGraph(filteredGraph, data)
+    val file = FormToGraph.formsToGraph(filteredGraph, data)
     println("Finished drawing graph")
 
     //note that we are passing the un=filtered data back to the
     //layout so people don't get confused when things dissapear
-    Ok(views.html.dataView(data.toArray, Static.tableHeaders, dataForm, file))
+    Ok(views.html.dataView(sessionId, Static.tableHeaders, dataForm, file))
   }
 
   def list = Action {
-    Ok(views.html.dataView(Backend.loadRaw, Static.tableHeaders, (List(), List(), List(), List()), new File("")))
+    val sessionId = Global.getSessionId.mkString("")
+    Cache.set(sessionId, Backend.loadRaw, 3600)
+    Global.sendNotification(sessionId)
+    Ok(views.html.dataView(sessionId, Static.tableHeaders, (List(), List(), List(), List()), new File("")))
   }
 
   def endOfQuery = Action {
-    Ok(views.html.generic.endOfQuery())
+    Ok(views.html.generic.endOfQuery("End of Query"))
+  }
+
+  def dataStart(sessionId: String) = Action {
+    val data = Cache.get(sessionId)
+    try {
+      val convertedData = data.asInstanceOf[Option[Array[ResultListObject[LineListObject]]]]
+      convertedData match {
+        case None => Ok(views.html.generic.endOfQuery("Query Expired, please re-run your query"))
+        case Some(x) => Ok(views.html.generic.lazyList(x, sessionId))
+      }
+    } catch {
+      case e: Exception => Ok(views.html.generic.endOfQuery("Error -- Query failed"))
+    }
+  }
+
+  def deleteConformationFile(sessionId: String) = Action {
+    val deletionFile = new File(Global.getPictureFile + "/" + sessionId)
+    Ok(views.html.generic.endOfQuery(deletionFile.delete.toString))
   }
 
   /*
