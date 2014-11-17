@@ -1,7 +1,7 @@
 package backend.scala.graphing.data
 
 import backend.scala.datatypes.DataType
-import backend.scala.datatypes.options.MathComparable
+import backend.scala.datatypes.options.{DoubleOption, MathComparable}
 import backend.scala.query.ResultListObject
 import java.lang.Comparable
 import scala.concurrent.{Future, Await}
@@ -21,8 +21,14 @@ class DataParser[A <: Comparable[_], T <: DataType[T]](data: Future[List[ResultL
   lazy val parse: XYData[A, Double] = {
     val awaitedData = Await.result(data, 10 minutes)
     val zippedData  = (awaitedData map converter).sortWith (sortMode)
-    println("data sorted")
     val (x, y) = zippedData.toList.unzip
     new XYData[A, Double](x, y, series)
+  }
+
+  lazy val parseXY: XYData[Double, Double] = {
+    val zippedData  = (data map converter).sortWith (sortMode)
+    val (x, y) = zippedData.toList.unzip
+    val doubleX = x.asInstanceOf[List[DoubleOption]] map (x => x.getOrElse(0))
+    new XYData[Double, Double](doubleX, y, series)
   }
 }

@@ -36,9 +36,13 @@ object Graph {
                   xAxisTitle: String,
                   yAxisTitle: String): File = {
     val destinationFile = Global.getPictureFile
-    future {
+    val drawer = future {
       val chart = new BarChart(data.toCategorySet, title, xAxisTitle, yAxisTitle)
       chart.saveAsPNG(destinationFile)
+    }
+    drawer onFailure {
+      case t =>
+        println("Graph failed: " + t.getMessage)
     }
     destinationFile
   }
@@ -48,9 +52,14 @@ object Graph {
                   xAxisTitle: String,
                   yAxisTitle: String) : File = {
     val destinationFile = Global.getPictureFile
-    future {
-      val chart = new LineGraph(data.toCategorySet, title, xAxisTitle, yAxisTitle)
+    val drawer = future {
+      val chart = new LineGraph(data.toXYSeriesCollection, title, xAxisTitle, yAxisTitle)
       chart.saveAsPNG(destinationFile)
+    }
+
+    drawer onFailure {
+      case t =>
+        println("Graph failed: " + t.getMessage)
     }
     destinationFile
   }

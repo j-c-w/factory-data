@@ -18,7 +18,7 @@ object Global {
   def getSessionId =
     nextNRandoms(20)
 
-  lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\factory-data\\public\\images\\gen")
+  lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\restore\\factory-data\\public\\images\\gen")
 
   val baseData = DataLoader.dataAsList
 

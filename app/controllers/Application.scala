@@ -50,8 +50,15 @@ object Application extends Controller {
 
     val sessionId = Global.getSessionId.mkString("")
     val (filter, sort, aggregate, graph) = dataForm
+    //after we extract the data, we have to remove the non-entered data values
+    //for parsing by the rest of the program at this point
+    val filteredFilter = filter.filter(!_.toList.contains(Static.noSelection))
+    val filteredSort = sort.filter(!_.toList.contains(Static.noSelection))
+    val filteredAggregate = aggregate.filter(!_.toList.contains(Static.noSelection))
+    val filteredGraph = graph.filter(!_.toList.contains(Static.noSelection))
+
     println("Building Query")
-    val queryBuilder = FormToQuery.parse((filter, sort, aggregate))
+    val queryBuilder = FormToQuery.parse((filteredFilter, filteredSort, filteredAggregate))
     println("Query Built")
     val data = future {
       val processedData = queryBuilder.processData(Global.baseData)
@@ -72,7 +79,7 @@ object Application extends Controller {
       }
     }
     println("Drawing Graph")
-    val file = FormToGraph.formsToGraph(graph, data)
+    val file = FormToGraph.formToGraph(filteredGraph, data)
     println("Finished drawing graph")
 
     Ok(views.html.dataView(sessionId, Static.tableHeaders, dataForm, file))
@@ -127,26 +134,31 @@ object Application extends Controller {
     val aggregateField = map.getOrElse("aggregateField", List())
     val aggregateMode = map.getOrElse("aggregateMode", List())
 
-    val xAxis = map.getOrElse("xAxis", List())
+    val xAxisAll = map.getOrElse("xAxisAll", List())
+    val xAxisDoubles = map.getOrElse("xAxisDoubles", List())
     val yAxis = map.getOrElse("yAxis", List())
     val graphType = map.getOrElse("graphType", List("Bar Chart"))
-    val graphTitle = map.getOrElse("graphTitle", List("Error"))
-    val xAxisTitle = map.getOrElse("xAxisTitle", List("Error"))
-    val yAxisTitle = map.getOrElse("yAxisTitle", List("Error"))
+    val xAxis = graphType.head match {
+      case "Bar Chart" => xAxisAll
+      case "Line Graph" => xAxisDoubles
+    }
+    val graphTitle = map.getOrElse("graphTitle", List(""))
+    val xAxisTitle = map.getOrElse("xAxisTitle", List(""))
+    val yAxisTitle = map.getOrElse("yAxisTitle", List(""))
     val graphSortMode = map.getOrElse("graphSortMode", List("xAxis"))
 
     val graphData = (xAxis, yAxis).zipped.map{
       case (x, y) => new GraphFormParser(x, y, graphTitle.head, graphType.head, xAxisTitle.head, yAxisTitle.head, graphSortMode.head)
-    }.filter(!_.toList.contains(Static.noSelection))
+    }
     val filters = filterComparisons.zip(filterField).zip(filterValue).zip(filterConnectors).map(
     {case (((comparator, field), value), connector) => new FilterFormData(field, comparator, value, connector)}
-    ).filter(!_.toList.contains(Static.noSelection))
+    )
     val sorters = (sortField, sortMode).zipped.map(
     {case (field, mode) => new SortFormData(field, mode)}
-    ).filter(!_.toList.contains(Static.noSelection))
+    )
     val aggregators = (aggregateField, aggregateMode).zipped.map(
     {case (field, mode) => new AggregateFormData(field, mode)}
-    ).filter(!_.toList.contains(Static.noSelection))
+    )
 
     (filters.toList, sorters.toList, aggregators.toList, graphData.toList)
   }
