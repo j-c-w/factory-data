@@ -1,0 +1,11 @@
+@(suppliedField: Option[String])
+<select name="displayAxes" id="displayAxes">
+    @for(field <- Static.fieldNames) {
+        @if(suppliedField.getOrElse("") == field) {
+            <option selected name="@field">@field</option>
+        } else {
+            <option name="@field">@field</option>
+        }
+    }
+</select>
+<br/>

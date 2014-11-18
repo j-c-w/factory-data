@@ -35,6 +35,7 @@ object Application extends Controller {
   def load(formType: String) = Action {
     formType match {
       case "graph" => Ok(views.html.formViews.graphForm(false, None))
+      case "column" => Ok(views.html.formViews.fieldSelect(None))
       case "filter" => Ok(views.html.formViews.filterForm(true, None))
       case "sort" => Ok(views.html.formViews.sortForm(None))
       case _ => Ok(views.html.formViews.aggregateForm(None))

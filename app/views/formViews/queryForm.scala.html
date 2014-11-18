@@ -80,6 +80,16 @@
             }
         </div>
         <button type="button" id="addGraph" name="addGraph" value="Add Graph">Add Dataset to Graph</button>
+        <div id="columnDiv">
+            @if(formData._5.length == 0) {
+                @formViews.fieldSelect(Some(Static.noSelection))
+            } else {
+                @for(field <- formData._5) {
+                    @formViews.fieldSelect(Some(field))
+                }
+            }
+        </div>
+        <button type="button" id="addColumn" name="addColumn" value="Add Column">Add Column</button>
         <br/>
         <br/>
         <button type="submit" name="submitGraph" value="Draw Graph">Draw Graph</button>

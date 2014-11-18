@@ -25,7 +25,9 @@ $(document).ready(function () {
             //after adding the form we need to hide what should not be shown -- i.e. the other part of the form
             hideRequiredXAxis($("#graphType").val());
         });
-
+    });
+    $("#addColumn").click(function() {
+        addToForm("column")
     });
     setDropdownListeners();
     setGraphAxisValues();
