@@ -1,7 +1,7 @@
 .toolDiv {
     background-color: darkred;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .submitButtonsList {
@@ -31,6 +31,24 @@
 }
 
 .submitButtonsList a:hover {
+    background-color: darkred;
+}
+
+.deleteButton {
+    color: white;
+    background-color: #550000;
+    text-decoration: none;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    float: right;
+    transition: .3s background-color;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;
+}
+
+.deleteButton:hover {
     background-color: darkred;
 }
 

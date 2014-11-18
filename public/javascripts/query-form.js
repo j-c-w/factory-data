@@ -38,6 +38,7 @@ $(document).ready(function () {
     });
     setDropdownListeners();
     setGraphAxisValues();
+    updateListeners();
     hideRequiredXAxis($("#graphType").val());
     //se also set the selected xAxis to the default
     //note that this will always exist because it will be added by default
@@ -87,9 +88,20 @@ addToForm = function(type, oncomplete) {
     $.get("forms/" + type, function(data){
         $("#" + type + "Div").append(data);
         oncomplete()
+        //this updates the delete buttons etc.
+        updateListeners();
     });
+
     //this stops the links from being followed when they are clicked
     return false;
+};
+
+updateListeners = function() {
+    $(".deleteButton").click(function() {
+        $(this).parent().remove();
+
+        return false
+    });
 };
 
 setDropdownListeners = function() {

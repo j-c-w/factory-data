@@ -4,36 +4,39 @@ The display connector variable is so that we show the dropdown
 list containing the and/or options for use in chaining filters -->
 
 @import frontend.forms.FilterFormData; val formData = data.getOrElse(new FilterFormData())
+<div>
+    <br/>
+    <br/>
+    @if(displayConnector) {
+        <select name="filterConnector" id="filterConnector">
+            @for(field <- Static.logicalConnectors) {
+                @if(formData.combinator == field) {
+                    <option selected value="@field">@field</option>
+                } else {
+                    <option value="@field">@field</option>
+                }
+            }
+        </select>
+    }
 
-<br/>
-@if(displayConnector) {
-    <select name="filterConnector" id="filterConnector">
-        @for(field <- Static.logicalConnectors) {
-            @if(formData.combinator == field) {
+    Filter Field: <select name="filterField" id="filterField">
+        @for(field <- Static.fieldNames) {
+            @if(formData.filteringField == field) {
                 <option selected value="@field">@field</option>
             } else {
                 <option value="@field">@field</option>
             }
         }
     </select>
-}
-
-Filter Field: <select name="filterField" id="filterField">
-    @for(field <- Static.fieldNames) {
-        @if(formData.filteringField == field) {
-            <option selected value="@field">@field</option>
-        } else {
-            <option value="@field">@field</option>
+    Comparison Method: <select name="filterComparison" id="filterComparator">
+        @for(method <- Static.comparisonMethods) {
+            @if(formData.filterComparator == method) {
+                <option selected value="@method">@method</option>
+            } else {
+                <option value="@method">@method</option>
+            }
         }
-    }
-</select>
-Comparison Method: <select name="filterComparison" id="filterComparator">
-    @for(method <- Static.comparisonMethods) {
-        @if(formData.filterComparator == method) {
-            <option selected value="@method">@method</option>
-        } else {
-            <option value="@method">@method</option>
-        }
-    }
-</select>
-Comparison Value: <input type="text" value="@formData.filterText" name="filterValue" id="filterValue">
+    </select>
+    Comparison Value: <input type="text" value="@formData.filterText" name="filterValue" id="filterValue">
+    <a href="" class="deleteButton">X</a>
+</div>
