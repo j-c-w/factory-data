@@ -11,8 +11,10 @@ $(document).ready(function () {
         return false;
     });
 
-    $("#addOr").click(function() {
-        return addToForm("filter")
+    $("#addFilter").click(function() {
+        return addToForm("filter", function() {
+            removeConnectors();
+        })
     });
     $("#addAggregate").click(function() {
         return addToForm("aggregate", function() {
@@ -47,6 +49,14 @@ $(document).ready(function () {
 
 });
 
+removeConnectors = function() {
+    if ($("#filterDiv div:first #filterConnector").length != 0) {
+        //in this case, the first filterDiv has a filterConnector attached
+        //to it so we must remove it.
+        $("#filterConnector:first").remove()
+    }
+};
+
 setGraphAxisValues = function() {
     $("#graphType").change(function() {
         hideRequiredXAxis(this.value)
@@ -80,16 +90,19 @@ updateXAxis = function(value) {
         elem.val(value);
     }
 
-    $(".aggregateField:last").val(value)
+    $(".aggregateField:last").val(value);
     selectedXAxis = value;
 };
 
 addToForm = function(type, oncomplete) {
     $.get("forms/" + type, function(data){
         $("#" + type + "Div").append(data);
-        oncomplete()
+        if (oncomplete != null) {
+            oncomplete();
+        }
         //this updates the delete buttons etc.
         updateListeners();
+
     });
 
     //this stops the links from being followed when they are clicked
@@ -99,7 +112,9 @@ addToForm = function(type, oncomplete) {
 updateListeners = function() {
     $(".deleteButton").click(function() {
         $(this).parent().remove();
-
+        //we need to call this in case we removed the second to last
+        //filter.
+        removeConnectors();
         return false
     });
 };
@@ -110,12 +125,12 @@ setDropdownListeners = function() {
     });
     $(".xAxisAll").change(function () {
         updateXAxis(this.value)
-    })
+    });
     $(".aggregateField").off('change');
     $(".aggregateField:last").change(function() {
         updateXAxis(this.value)
     });
-}
+};
 
 setupDataTools = function() {
     hideAllNoSlide = function() {
