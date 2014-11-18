@@ -126,6 +126,11 @@ case object DateObject extends  DateOptionDataField {
   def get(data: LineListObject) = data.date
 }
 
+case object TotalHelpers extends DoubleOptionDataField {
+  override val toString = "Total Helpers"
+  override def get(data: LineListObject): DoubleOption = data.getTotalHelpers
+}
+
 case object HelpersPresent extends DoubleOptionDataField {
   override val toString = "Helpers Present"
   def get(data: LineListObject) = data.getTotalHelpersPresent
@@ -151,6 +156,16 @@ case object TotalOperators extends DoubleOptionDataField {
   def get(data: LineListObject) = data.getTotalOperators
 }
 
+case object NumberOfObservations extends IntegerOptionDataField {
+  override val toString = "Number of Observations"
+  def get(data: LineListObject) = data.numberOfObservations
+}
+
+case object OperatorsPresent extends DoubleOptionDataField {
+  override val toString = "Operators Present"
+  def get(data: LineListObject) = data.getTotalOperatorsPresent
+}
+
 case object OperatorsAbsent extends DoubleOptionDataField {
   override val toString = "Operators Absent"
   def get(data: LineListObject) = data.getTotalOperatorsAbsent
@@ -173,6 +188,7 @@ object DataField {
     case FactoryCode.toString => FactoryCode
     case LineCode.toString => LineCode
     case DateObject.toString => DateObject
+    case TotalHelpers.toString => TotalHelpers
     case HelpersPresent.toString => HelpersPresent
     case HelpersAbsent.toString => HelpersAbsent
     case HelpersLeave.toString => HelpersLeave
@@ -181,6 +197,8 @@ object DataField {
     case OperatorsAbsent.toString => OperatorsAbsent
     case OperatorsLeave.toString => OperatorsLeave
     case PercentOperatorsAbsent.toString => PercentOperatorsAbsent
+    case NumberOfObservations.toString => NumberOfObservations
+    case OperatorsPresent.toString => OperatorsPresent
     case _ => NoField
   }
 
