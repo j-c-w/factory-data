@@ -16,23 +16,23 @@ object Global {
   def nextNRandoms(n: Int): Array[Char] =
     Random.alphanumeric.take(n).toArray
 
-  def getSessionId =
+  def getQueryId =
     nextNRandoms(20)
 
   lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\restore\\factory-data\\public\\images\\gen")
 
   val baseData = DataLoader.dataAsList
 
-  def sendNotification(sessionId: String, formData: Option[Map[String, Seq[String]]]): Unit = {
-    val location = new File(pictureFileLocation + "/" + sessionId)
+  def sendNotification(queryId: String, formData: Option[Map[String, Seq[String]]]): Unit = {
+    val location = new File(pictureFileLocation + "/" + queryId)
     location.createNewFile()
     val objectStream = new ObjectOutputStream(new FileOutputStream(location))
     objectStream.writeObject(formData)
     objectStream.close()
   }
 
-  def restoreSession(sessionId: String): Option[Map[String, Seq[String]]] = {
-    val location = new File(pictureFileLocation + "/" + sessionId)
+  def restoreSession(queryId: String): Option[Map[String, Seq[String]]] = {
+    val location = new File(pictureFileLocation + "/" + queryId)
     if (!location.exists()) {
       None
     } else {
@@ -43,7 +43,7 @@ object Global {
         map.asInstanceOf
       } catch {
         case ex: Exception => {
-          println("Error restoring previous query, ID: " + sessionId)
+          println("Error restoring previous query, ID: " + queryId)
           None
         }
       }

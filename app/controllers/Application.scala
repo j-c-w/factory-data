@@ -22,14 +22,14 @@ object Application extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
-  def moreData(sessionId: String) = Action {
-    val displayFields = Cache.getOrElse(sessionId + "DisplayFields")(Static.defaultFields)
-    val possiblyData = Cache.getAs[Array[ResultListObject[LineListObject]]](sessionId)
+  def moreData(queryId: String) = Action {
+    val displayFields = Cache.getOrElse(queryId + "DisplayFields")(Static.defaultFields)
+    val possiblyData = Cache.getAs[Array[ResultListObject[LineListObject]]](queryId)
     val (data, message) = possiblyData.map(_.toList) match {
       case None => (Nil, "Query Expired, Please re-run query")
       case Some(isData) => (isData, "Data OK")
     }
-    Ok(views.html.generic.dataDisplay(data.toArray, displayFields, message, sessionId))
+    Ok(views.html.generic.dataDisplay(data.toArray, displayFields, message, queryId))
   }
 
   def load(formType: String) = Action {
@@ -44,8 +44,8 @@ object Application extends Controller {
 
   def recoverSession() = Action { implicit request =>
     val sentForm = request.body.asFormUrlEncoded
-    val sessionId = sentForm.getOrElse(Map()).getOrElse("id", List("")).head
-    val dynamicForm = Global.restoreSession(sessionId)
+    val queryId = sentForm.getOrElse(Map()).getOrElse("id", List("")).head
+    val dynamicForm = Global.restoreSession(queryId)
     //note how we need a new SessionID so we don't run into
     //loading problems
     loadDataPage(dynamicForm)
@@ -63,7 +63,7 @@ object Application extends Controller {
       throw new NullPointerException("Bad Request")
     })
 
-    val sessionId = Global.getSessionId.mkString("")
+    val queryId = Global.getQueryId.mkString("")
     val (filter, sort, aggregate, graph, displayAxes) = dataForm
     //after we extract the data, we have to remove the non-entered data values
     //for parsing by the rest of the program at this point
@@ -80,23 +80,23 @@ object Application extends Controller {
     val data = future {
       val processedData = queryBuilder.processData(Global.baseData)
       println("Data Processed")
-      Cache.set(sessionId, processedData.toArray, 3600)
-      println("data in cache under session id " + sessionId)
-      Cache.set(sessionId + "DisplayFields", filteredDisplayAxes, 3600)
-      println("fields in cache under session id " + sessionId)
+      Cache.set(queryId, processedData.toArray, 3600)
+      println("data in cache under session id " + queryId)
+      Cache.set(queryId + "DisplayFields", filteredDisplayAxes, 3600)
+      println("fields in cache under session id " + queryId)
       //we need to pass the dataForm so that the
       //global can put a serialized version of it in a file
       //that way, given a session ID, we can recover the query
-      Global.sendNotification(sessionId, dynamicForm)
+      Global.sendNotification(queryId, dynamicForm)
       processedData
     }
     data onFailure {
       //we need to send the notification anyways, but since we put a boolean in the cache
       //we know the query failed
       case t => {
-        Cache.set(sessionId, false, 3600)
-        Global.sendNotification(sessionId, dynamicForm)
-        println("Query " + sessionId + " Failed")
+        Cache.set(queryId, false, 3600)
+        Global.sendNotification(queryId, dynamicForm)
+        println("Query " + queryId + " Failed")
         println("Error Message: " + t.getMessage)
       }
     }
@@ -106,28 +106,28 @@ object Application extends Controller {
 
     //note that we are passing the un=filtered data back to the
     //layout so people don't get confused when things dissapear
-    Ok(views.html.dataView(sessionId, Static.tableHeaders, dataForm, file))
+    Ok(views.html.dataView(queryId, Static.tableHeaders, dataForm, file))
   }
 
   def list = Action {
-    val sessionId = Global.getSessionId.mkString("")
-    Cache.set(sessionId, Backend.loadRaw, 3600)
-    Global.sendNotification(sessionId, Some(Map()))
-    Ok(views.html.dataView(sessionId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), new File("")))
+    val queryId = Global.getQueryId.mkString("")
+    Cache.set(queryId, Backend.loadRaw, 3600)
+    Global.sendNotification(queryId, Some(Map()))
+    Ok(views.html.dataView(queryId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), new File("")))
   }
 
   def endOfQuery = Action {
     Ok(views.html.generic.endOfQuery("End of Query"))
   }
 
-  def dataStart(sessionId: String) = Action {
-    val data = Cache.get(sessionId)
-    val displayFields = Cache.getOrElse(sessionId + "DisplayFields")(Static.defaultFields)
+  def dataStart(queryId: String) = Action {
+    val data = Cache.get(queryId)
+    val displayFields = Cache.getOrElse(queryId + "DisplayFields")(Static.defaultFields)
     try {
       val convertedData = data.asInstanceOf[Option[Array[ResultListObject[LineListObject]]]]
       convertedData match {
         case None => Ok(views.html.generic.endOfQuery("Query Expired, please re-run your query"))
-        case Some(x) => Ok(views.html.generic.lazyList(x, displayFields, sessionId))
+        case Some(x) => Ok(views.html.generic.lazyList(x, displayFields, queryId))
       }
     } catch {
       case e: Exception => Ok(views.html.generic.endOfQuery("Error -- Query failed"))
