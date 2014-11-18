@@ -1,4 +1,5 @@
-@(data: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]], message: String, sessionId: String)
+@(data: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]],
+        displayField: List[String], message: String, sessionId: String)
 
 @import scala.util.Try
 @import play.api.cache.Cache

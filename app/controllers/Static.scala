@@ -1,5 +1,7 @@
 package controllers
 
+import backend.scala.datatypes.DataField
+
 /*
  * Created by Jackson Woodruff on 13/11/2014 
  *
@@ -15,6 +17,10 @@ object Static {
     "Operators Present", "Operators Absent", "Operators on Leave",
     "Percent Operators Absent", "Total Helpers", "Helpers Present",
     "Helpers Absent", "Helpers on Leave", "Percent Helpers Absent"
+  )
+
+  val defaultFields: List[String] = List(
+    "Factory Code", "Line Code", "Total Operators", "Operators Absent"
   )
 
 

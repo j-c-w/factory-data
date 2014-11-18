@@ -23,12 +23,13 @@ object Application extends Controller {
   }
 
   def moreData(sessionId: String) = Action {
+    val displayFields = Cache.getOrElse(sessionId + "DisplayFields")(Static.defaultFields)
     val possiblyData = Cache.getAs[Array[ResultListObject[LineListObject]]](sessionId)
     val (data, message) = possiblyData.map(_.toList) match {
       case None => (Nil, "Query Expired, Please re-run query")
       case Some(isData) => (isData, "Data OK")
     }
-    Ok(views.html.generic.dataDisplay(data.toArray, message, sessionId))
+    Ok(views.html.generic.dataDisplay(data.toArray, displayFields, message, sessionId))
   }
 
   def load(formType: String) = Action {
@@ -49,22 +50,29 @@ object Application extends Controller {
     })
 
     val sessionId = Global.getSessionId.mkString("")
-    val (filter, sort, aggregate, graph) = dataForm
+    val (filter, sort, aggregate, graph, displayAxes) = dataForm
     //after we extract the data, we have to remove the non-entered data values
     //for parsing by the rest of the program at this point
     val filteredFilter = filter.filter(!_.toList.contains(Static.noSelection))
     val filteredSort = sort.filter(!_.toList.contains(Static.noSelection))
     val filteredAggregate = aggregate.filter(!_.toList.contains(Static.noSelection))
     val filteredGraph = graph.filter(!_.toList.contains(Static.noSelection))
+    val filteredDisplayAxes = displayAxes.filter(!_.equals(Static.noSelection))
 
     println("Building Query")
     val queryBuilder = FormToQuery.parse((filteredFilter, filteredSort, filteredAggregate))
     println("Query Built")
+
+    Cache.set(sessionId + "DisplayFields", filteredDisplayAxes, 3600)
+    println("fields in cache under session id " + sessionId)
+
     val data = future {
       val processedData = queryBuilder.processData(Global.baseData)
       println("Data Processed")
       Cache.set(sessionId, processedData.toArray, 3600)
       println("data in cache under session id " + sessionId)
+      Cache.set(sessionId + "DisplayFields", filteredDisplayAxes, 3600)
+      println("fields in cache under session id " + sessionId)
       Global.sendNotification(sessionId)
       processedData
     }
@@ -91,7 +99,7 @@ object Application extends Controller {
     val sessionId = Global.getSessionId.mkString("")
     Cache.set(sessionId, Backend.loadRaw, 3600)
     Global.sendNotification(sessionId)
-    Ok(views.html.dataView(sessionId, Static.tableHeaders, (List(), List(), List(), List()), new File("")))
+    Ok(views.html.dataView(sessionId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), new File("")))
   }
 
   def endOfQuery = Action {
@@ -100,11 +108,12 @@ object Application extends Controller {
 
   def dataStart(sessionId: String) = Action {
     val data = Cache.get(sessionId)
+    val displayFields = Cache.getOrElse(sessionId + "DisplayFields")(Static.defaultFields)
     try {
       val convertedData = data.asInstanceOf[Option[Array[ResultListObject[LineListObject]]]]
       convertedData match {
         case None => Ok(views.html.generic.endOfQuery("Query Expired, please re-run your query"))
-        case Some(x) => Ok(views.html.generic.lazyList(x, sessionId))
+        case Some(x) => Ok(views.html.generic.lazyList(x, displayFields, sessionId))
       }
     } catch {
       case e: Exception => Ok(views.html.generic.endOfQuery("Error -- Query failed"))
@@ -124,7 +133,8 @@ object Application extends Controller {
   /*
   * This takes a map and returns a tuple
   */
-  def fromMapToData(map: Map[String, Seq[String]]): (List[FilterFormData], List[SortFormData], List[AggregateFormData], List[GraphFormParser]) = {
+  def fromMapToData(map: Map[String, Seq[String]]):
+  (List[FilterFormData], List[SortFormData], List[AggregateFormData], List[GraphFormParser], List[String]) = {
     val filterComparisons = map.getOrElse("filterComparison", List())
     val filterField = map.getOrElse("filterField", List())
     val filterValue = map.getOrElse("filterValue", List())
@@ -149,6 +159,8 @@ object Application extends Controller {
     val yAxisTitle = map.getOrElse("yAxisTitle", List(""))
     val graphSortMode = map.getOrElse("graphSortMode", List("xAxis"))
 
+    val axesDisplayed = map.getOrElse("displayAxes", Static.defaultFields)
+
     val graphData = (xAxis, yAxis).zipped.map{
       case (x, y) => new GraphFormParser(x, y, graphTitle.head, graphType.head, xAxisTitle.head, yAxisTitle.head, graphSortMode.head)
     }
@@ -162,6 +174,6 @@ object Application extends Controller {
     {case (field, mode) => new AggregateFormData(field, mode)}
     )
 
-    (filters.toList, sorters.toList, aggregators.toList, graphData.toList)
+    (filters.toList, sorters.toList, aggregators.toList, graphData.toList, axesDisplayed.toList)
   }
 }
