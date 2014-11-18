@@ -20,13 +20,38 @@ body {
     background-color: darkred;
 }
 
-#header>h1 {
+#header h1 {
     text-align: center;
     color: white;
 }
 
-#header>ul {
+#header ul {
     list-style: none;
+    background-color: #550000;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    display: table;
+    width: 100%;
+}
+
+#header li {
+    font-size: 1.2em;
+    line-height: 40px;
+    display: table-cell;
+    height: 40px;
+    width: 50%;
+}
+
+#header a {
+    background-color: #550000;
+    text-decoration: none;
+    display: block;
+    transition: .3s background-color;
+}
+
+#header a:hover {
+    background-color: darkred;
 }
 
 #footer {
