@@ -31,6 +31,10 @@ $(document).ready(function () {
     setGraphAxisValues();
     hideRequiredXAxis($("#graphType").val());
     //se also set the selected xAxis to the default
+    //note that this will always exist because it will be added by default
+    selectedXAxis = $(".aggregateField:last").val()
+
+
 });
 
 setGraphAxisValues = function() {
