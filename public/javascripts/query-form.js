@@ -6,20 +6,25 @@ var selectedXAxis;
 $(document).ready(function () {
     setupDataTools();
 
+    $(".submitButton").click(function() {
+        document.queryForm.submit();
+        return false;
+    });
+
     $("#addOr").click(function() {
-        addToForm("filter")
+        return addToForm("filter")
     });
     $("#addAggregate").click(function() {
-        addToForm("aggregate", function() {
+        return addToForm("aggregate", function() {
             $(".aggregateField:last").val(selectedXAxis);
             setDropdownListeners();
         })
     });
     $("#addSort").click(function() {
-        addToForm("sort");
+        return addToForm("sort");
     });
     $("#addGraph").click(function() {
-        addToForm("graph", oncomplete = function() {
+        return addToForm("graph", oncomplete = function() {
             //set the value of the just-added value to the selected axis
             $(".xAxisDoublesOnly:last").val(selectedXAxis);
             $(".xAxisAll:last").val(selectedXAxis);
@@ -29,7 +34,7 @@ $(document).ready(function () {
         });
     });
     $("#addColumn").click(function() {
-        addToForm("column")
+        return addToForm("column")
     });
     setDropdownListeners();
     setGraphAxisValues();
@@ -83,6 +88,8 @@ addToForm = function(type, oncomplete) {
         $("#" + type + "Div").append(data);
         oncomplete()
     });
+    //this stops the links from being followed when they are clicked
+    return false;
 };
 
 setDropdownListeners = function() {

@@ -21,8 +21,9 @@
         <li><a href="" id="graphShow">Graphs</a></li>
         <li><a href="" id="columnShow">Columns Displayed</a></li>
     </ul>
-    @helper.form(action = routes.Application.submitForm) {
+    <form action="/submitForm" method="POST" id="queryForm" name="queryForm">
         <div id="filter" class="toolDiv">
+            <br/>
             <div id="filterDiv">
                 @if(formData._1.length == 0) {
                     <!-- there was no passed data so we make a single,
@@ -39,10 +40,15 @@
                     }
                 }
             </div>
-            <button id="addOr" type="button" name="addOr" value="Add Or Filter">Add Filter</button>
-            <button type="submit" name="submitForm" value="Parse Data">Search Data</button>
+            <br/>
+            <ul class="submitButtonsList">
+                <li><a href="" id="addOr" name="addOr">Add Filter</a></li>
+                <li><a href="" class="submitButton" onclick="submitForm()">Search Data</a></li>
+            </ul>
+            <br/>
         </div>
         <div id="aggregate" class="toolDiv">
+            <br/>
             <div id="aggregateDiv">
                 @if(formData._3.length == 0) {
                 <!-- there was no passed data so we make a single,
@@ -54,11 +60,16 @@
                     }
                 }
             </div>
-            <button id="addAggregate" type="button" name="addAggregate" value="Add Aggregation">Add Aggregation</button>
-            <button type="submit" name="submitForm" value="Parse Data">Search Data</button>
+            <br/>
+            <ul class="submitButtonsList">
+                <li><a href="" id="addAggregate" name="addAggregate">Add Aggregation</a></li>
+                <li><a href="" class="submitButton" onclick="submitForm()">Search Data</a></li>
+            </ul>
+            <br/>
         </div>
 
         <div id="sort" class="toolDiv">
+            <br/>
             <div id="sortDiv">
                 @if(formData._2.length == 0) {
                         <!-- there was no passed data so we make a single,
@@ -70,11 +81,16 @@
                     }
                 }
             </div>
-            <button id="addSort" type="button" name="addSort" value="Add Sort">Add Sort</button>
-            <button type="submit" name="submitForm" value="Parse Data">Search Data</button>
+            <br/>
+            <ul class="submitButtonsList">
+                <li><a href="" id="addSort" name="addSort">Add Sort</a></li>
+                <li><a href="" class="submitButton" onclick="submitForm()">Search Data</a></li>
+            </ul>
+            <br/>
         </div>
 
         <div id="graph" class="toolDiv">
+            <br/>
             <div id="graphDiv">
                 @if(formData._4.length == 0) {
                         <!-- there was no passed data so we make a single,
@@ -87,10 +103,15 @@
                     }
                 }
             </div>
-            <button type="button" id="addGraph" name="addGraph" value="Add Graph">Add Dataset to Graph</button>
-            <button type="submit" name="submitGraph" value="Draw Graph">Draw Graph</button>
+            <br/>
+            <ul class="submitButtonsList">
+                <li><a href="" id="addGraph" name="addGraph">Add Dataset to Graph</a></li>
+                <li><a href="" class="submitButton" onclick="submitForm()">Draw Graph</a></li>
+            </ul>
+            <br/>
         </div>
         <div id="column" class="toolDiv">
+            <br/>
             <div id="columnDiv">
                 @if(formData._5.length == 0) {
                     @formViews.fieldSelect(Some(Static.noSelection))
@@ -100,9 +121,12 @@
                     }
                 }
             </div>
-            <button type="button" id="addColumn" name="addColumn" value="Add Column">Add Column</button>
-            <button type="submit" name="submitForm" value="Parse Data">Search Data</button>
+            <br/>
+            <ul class="submitButtonsList">
+                <li><a href="" id="addColumn" name="addColumn">Add Column</a></li>
+                <li><a href="" class="submitButton" onclick="submitForm()">Search Data</a></li>
+            </ul>
+            <br/>
         </div>
-
-    }
+    </form>
 </div>
