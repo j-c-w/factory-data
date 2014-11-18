@@ -63,9 +63,6 @@ object Application extends Controller {
     val queryBuilder = FormToQuery.parse((filteredFilter, filteredSort, filteredAggregate))
     println("Query Built")
 
-    Cache.set(sessionId + "DisplayFields", filteredDisplayAxes, 3600)
-    println("fields in cache under session id " + sessionId)
-
     val data = future {
       val processedData = queryBuilder.processData(Global.baseData)
       println("Data Processed")

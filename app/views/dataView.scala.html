@@ -6,6 +6,8 @@
 @import backend.scala.graphing.{Graph, BarChartData}
 @import backend.scala.Backend
 @import scala.concurrent._
+@import play.api.cache.Cache
+@import play.api.Play.current
 @import scala.util.{Success, Failure}
 @import frontend.forms.{DataManipulationForm, FilterFormData, SortFormData, AggregateFormData}
 
@@ -37,7 +39,7 @@
 
         <div class="horizontalScroll">
             <table class="borderedTable">
-                @for(header <- headers) {
+                @for(header <- formData._5) {
                     <th>@Html(header)</th>
                 }
             </table>
