@@ -55,51 +55,12 @@ body {
     cursor: pointer;
 }
 
-#dataToolsHeader {
-    list-style: none;
-    background-color: #550000;
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    display: table;
-    width: 100%;
-}
-
-#dataToolsHeader li {
-    font-size: 1.2em;
-    line-height: 40px;
-    display: table-cell;
-    height: 40px;
-    width: 20%;
-}
-
-#dataToolsHeader a {
-    color: white;
-    background-color: #550000;
-    text-decoration: none;
-    display: block;
-    transition: .3s background-color;
-}
-
-#dataToolsHeader a:hover {
-    background-color: darkred;
-}
-
-#dataToolsHeader a.active {
-    background-color: darkred;
-}
-
 #footer {
      background-color: darkred;
 }
 
 .center {
     text-align: center;
-}
-
-.toolDiv {
-    padding: 10px;
-    background-color: darkred;
 }
 
 .dataTable {

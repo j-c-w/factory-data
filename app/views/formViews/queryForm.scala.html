@@ -22,7 +22,7 @@
         <li><a href="" id="columnShow">Columns Displayed</a></li>
     </ul>
     @helper.form(action = routes.Application.submitForm) {
-        <div id="filter">
+        <div id="filter" class="toolDiv">
             <div id="filterDiv">
                 @if(formData._1.length == 0) {
                     <!-- there was no passed data so we make a single,
@@ -42,7 +42,7 @@
             <button id="addOr" type="button" name="addOr" value="Add Or Filter">Add Filter</button>
             <button type="submit" name="submitForm" value="Parse Data">Search Data</button>
         </div>
-        <div id="aggregate">
+        <div id="aggregate" class="toolDiv">
             <div id="aggregateDiv">
                 @if(formData._3.length == 0) {
                 <!-- there was no passed data so we make a single,
@@ -58,7 +58,7 @@
             <button type="submit" name="submitForm" value="Parse Data">Search Data</button>
         </div>
 
-        <div id="sort">
+        <div id="sort" class="toolDiv">
             <div id="sortDiv">
                 @if(formData._2.length == 0) {
                         <!-- there was no passed data so we make a single,
@@ -74,7 +74,7 @@
             <button type="submit" name="submitForm" value="Parse Data">Search Data</button>
         </div>
 
-        <div id="graph">
+        <div id="graph" class="toolDiv">
             <div id="graphDiv">
                 @if(formData._4.length == 0) {
                         <!-- there was no passed data so we make a single,
@@ -90,7 +90,7 @@
             <button type="button" id="addGraph" name="addGraph" value="Add Graph">Add Dataset to Graph</button>
             <button type="submit" name="submitGraph" value="Draw Graph">Draw Graph</button>
         </div>
-        <div id="column">
+        <div id="column" class="toolDiv">
             <div id="columnDiv">
                 @if(formData._5.length == 0) {
                     @formViews.fieldSelect(Some(Static.noSelection))
