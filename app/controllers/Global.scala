@@ -1,6 +1,7 @@
 package controllers
 
-import java.io.File
+import java.io._
+import java.nio.file.{Files, Paths}
 
 import backend.scala.DataLoader
 
@@ -22,9 +23,31 @@ object Global {
 
   val baseData = DataLoader.dataAsList
 
-  def sendNotification(sessionId: String): Unit = {
+  def sendNotification(sessionId: String, formData: Option[Map[String, Seq[String]]]): Unit = {
     val location = new File(pictureFileLocation + "/" + sessionId)
-    location.createNewFile();
+    location.createNewFile()
+    val objectStream = new ObjectOutputStream(new FileOutputStream(location))
+    objectStream.writeObject(formData)
+    objectStream.close()
+  }
+
+  def restoreSession(sessionId: String): Option[Map[String, Seq[String]]] = {
+    val location = new File(pictureFileLocation + "/" + sessionId)
+    if (!location.exists()) {
+      None
+    } else {
+      //get the map out of a pickle
+      val objectInput = new ObjectInputStream(new FileInputStream(location))
+      val map = objectInput.readObject()
+      try {
+        map.asInstanceOf
+      } catch {
+        case ex: Exception => {
+          println("Error restoring previous query, ID: " + sessionId)
+          None
+        }
+      }
+    }
   }
 
   def getPictureFile: File = {

@@ -42,10 +42,23 @@ object Application extends Controller {
     }
   }
 
+  def recoverSession() = Action { implicit request =>
+    val sentForm = request.body.asFormUrlEncoded
+    val sessionId = sentForm.getOrElse(Map()).getOrElse("id", List("")).head
+    val dynamicForm = Global.restoreSession(sessionId)
+    //note how we need a new SessionID so we don't run into
+    //loading problems
+    loadDataPage(dynamicForm)
+  }
+
   def submitForm = Action { implicit request =>
     val dynamicForm = request.body.asFormUrlEncoded
     println(dynamicForm)
     //Now we parse that and turn it into a form parser
+    loadDataPage(dynamicForm)
+  }
+
+  private def loadDataPage(dynamicForm: Option[Map[String, Seq[String]]]) = {
     val dataForm = fromMapToData(dynamicForm getOrElse {
       throw new NullPointerException("Bad Request")
     })
@@ -71,7 +84,10 @@ object Application extends Controller {
       println("data in cache under session id " + sessionId)
       Cache.set(sessionId + "DisplayFields", filteredDisplayAxes, 3600)
       println("fields in cache under session id " + sessionId)
-      Global.sendNotification(sessionId)
+      //we need to pass the dataForm so that the
+      //global can put a serialized version of it in a file
+      //that way, given a session ID, we can recover the query
+      Global.sendNotification(sessionId, dynamicForm)
       processedData
     }
     data onFailure {
@@ -79,7 +95,7 @@ object Application extends Controller {
       //we know the query failed
       case t => {
         Cache.set(sessionId, false, 3600)
-        Global.sendNotification(sessionId)
+        Global.sendNotification(sessionId, dynamicForm)
         println("Query " + sessionId + " Failed")
         println("Error Message: " + t.getMessage)
       }
@@ -96,7 +112,7 @@ object Application extends Controller {
   def list = Action {
     val sessionId = Global.getSessionId.mkString("")
     Cache.set(sessionId, Backend.loadRaw, 3600)
-    Global.sendNotification(sessionId)
+    Global.sendNotification(sessionId, Some(Map()))
     Ok(views.html.dataView(sessionId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), new File("")))
   }
 
@@ -116,11 +132,6 @@ object Application extends Controller {
     } catch {
       case e: Exception => Ok(views.html.generic.endOfQuery("Error -- Query failed"))
     }
-  }
-
-  def deleteConformationFile(sessionId: String) = Action {
-    val deletionFile = new File(Global.getPictureFile + "/" + sessionId)
-    Ok(views.html.generic.endOfQuery(deletionFile.delete.toString))
   }
 
   /*
