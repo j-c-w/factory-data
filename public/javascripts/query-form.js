@@ -95,7 +95,9 @@ updateXAxis = function(value) {
 };
 
 addToForm = function(type, oncomplete) {
+    $("#" + type + "Div").append(tempLoadingBar());
     $.get("forms/" + type, function(data){
+        $("#" + type + "Div #tempLoading:first").remove()
         $("#" + type + "Div").append(data);
         if (oncomplete != null) {
             oncomplete();
@@ -107,6 +109,10 @@ addToForm = function(type, oncomplete) {
 
     //this stops the links from being followed when they are clicked
     return false;
+};
+
+tempLoadingBar = function() {
+    return '<p class="center" id="tempLoading"><img src="assets/images/loading.gif"></p>'
 };
 
 updateListeners = function() {
