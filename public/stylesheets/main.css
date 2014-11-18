@@ -59,6 +59,15 @@ body {
      background-color: darkred;
 }
 
+#floatingMessageBox {
+    width: 300px;
+    float: left;
+    display: block;
+    position: absolute;
+    border: 1px solid #000000;
+    background: darkred;
+}
+
 .center {
     text-align: center;
 }
