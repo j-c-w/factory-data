@@ -4,6 +4,8 @@
 var selectedXAxis;
 
 $(document).ready(function () {
+    setupDataTools();
+
     $("#addOr").click(function() {
         addToForm("filter")
     });
@@ -94,4 +96,73 @@ setDropdownListeners = function() {
     $(".aggregateField:last").change(function() {
         updateXAxis(this.value)
     });
+}
+
+setupDataTools = function() {
+    hideAllNoSlide = function() {
+        //this is called the first time only
+        //so I don't have to worry about the links
+        filters.hide();
+        aggregators.hide();
+        sorting.hide();
+        graphs.hide();
+        columns.hide();
+    };
+    hideAll = function() {
+        hideElem(filters, filterShow);
+        hideElem(aggregators, aggregateShow);
+        hideElem(sorting, sortShow);
+        hideElem(graphs, graphShow);
+        hideElem(columns, columnShow)
+    };
+    toggleElement = function(elem, link) {
+        if (elem.is(":visible")) {
+            elem.slideUp();
+            hideAll();
+        } else {
+            hideAll();
+            elem.slideDown();
+            link.addClass("active")
+        }
+        return false
+    };
+
+    hideElem = function(elem, link) {
+        elem.slideUp();
+        link.removeClass("active")
+    };
+    //find all the bits of the form
+    var filters = $("#filter");
+    var aggregators = $("#aggregate");
+    var sorting = $("#sort");
+    var graphs = $("#graph");
+    var columns = $("#column");
+    //now we get all the buttons that we need
+    var filterShow = $("#filterShow");
+    var aggregateShow = $("#aggregateShow");
+    var sortShow = $("#sortShow");
+    var graphShow = $("#graphShow");
+    var columnShow = $("#columnShow");
+    //first, hide all the form bits
+    hideAllNoSlide();
+    //now set the click listeners for the links where we show the appropriate fields and
+    //hide the others
+    filterShow.click(function() {
+        return toggleElement(filters, filterShow)
+    });
+    aggregateShow.click(function() {
+        return toggleElement(aggregators, aggregateShow)
+    });
+    sortShow.click(function() {
+        return toggleElement(sorting, sortShow)
+    });
+    graphShow.click(function() {
+        return toggleElement(graphs, graphShow)
+    });
+    columnShow.click(function() {
+        return toggleElement(columns, columnShow)
+    });
+
+
+
 }
