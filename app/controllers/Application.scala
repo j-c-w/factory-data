@@ -46,6 +46,7 @@ object Application extends Controller {
     val sentForm = request.body.asFormUrlEncoded
     val queryId = sentForm.getOrElse(Map()).getOrElse("id", List("")).head
     val dynamicForm = Global.restoreSession(queryId)
+    println("Restoring...")
     //note how we need a new SessionID so we don't run into
     //loading problems
     loadDataPage(dynamicForm)

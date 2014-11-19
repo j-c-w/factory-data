@@ -4,9 +4,9 @@ import java.io._
 import java.nio.file.{Files, Paths}
 
 import backend.scala.DataLoader
+import frontend.Serialization
 
 import scala.util.Random
-
 /*
  * Created by Jackson Woodruff on 27/07/2014 
  * 
@@ -26,25 +26,25 @@ object Global {
   def sendNotification(queryId: String, formData: Option[Map[String, Seq[String]]]): Unit = {
     val location = new File(pictureFileLocation + "/" + queryId)
     location.createNewFile()
-    val objectStream = new ObjectOutputStream(new FileOutputStream(location))
-    objectStream.writeObject(formData)
-    objectStream.close()
+    val writer = new PrintWriter(location)
+    writer.write(Serialization.serialize(formData.getOrElse(Map())))
+    writer.close()
   }
 
   def restoreSession(queryId: String): Option[Map[String, Seq[String]]] = {
     val location = new File(pictureFileLocation + "/" + queryId)
     if (!location.exists()) {
-      None
+      Some(Map())
     } else {
-      //get the map out of a pickle
-      val objectInput = new ObjectInputStream(new FileInputStream(location))
-      val map = objectInput.readObject()
+      val formString = new String(Files.readAllBytes(Paths.get(location.toString)))
+      println(formString)
       try {
-        map.asInstanceOf
+        Some(Serialization.unserialize(formString))
       } catch {
         case ex: Exception => {
           println("Error restoring previous query, ID: " + queryId)
-          None
+          println("Error Message: " + ex.getMessage)
+          Some(Map())
         }
       }
     }
