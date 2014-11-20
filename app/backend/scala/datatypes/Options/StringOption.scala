@@ -20,7 +20,7 @@ abstract class StringOption extends MathComparable[StringOption]{
 
   def ==(other: StringOption) =
     (this compareTo other) == 0
-  
+
   def isEmpty: Boolean
   def get: String
   def getOrElse(x: => String): String
