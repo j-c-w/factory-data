@@ -49,7 +49,7 @@ class TargetData(val hourlyTarget: DoubleOption,
     targetMinutes = self.targetMinutes/SomeDouble(number.toDouble)
     hours = self.hours/SomeDouble(number.toDouble)
     availableMinutes = self.availableMinutes/SomeDouble(number.toDouble)
-  }
+  }.build
 
 
   /*
