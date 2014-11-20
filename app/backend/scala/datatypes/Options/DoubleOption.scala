@@ -39,11 +39,8 @@ abstract class DoubleOption extends MathComparable[DoubleOption] {
     case (_, _) => -2
   }
 
-  def == (other: DoubleOption) =
-    (this compareTo other) == 0
-
   def mergeEqual(other: DoubleOption) =
-    if (this == other) this
+    if ((this compareTo other) == 0) this
     else NoDouble
 
   def or(other: => DoubleOption): DoubleOption

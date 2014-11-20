@@ -43,12 +43,9 @@ abstract class IntegerOption extends MathComparable[IntegerOption] {
    * we return NoInteger
    */
   def mergeEqual(other: IntegerOption): IntegerOption = {
-    if (this == other) this
+    if ((this compareTo other) == 0) this
     else NoInteger
   }
-
-  def ==(other: IntegerOption) =
-    (this compareTo other) == 0
 
   def compareTo(other: IntegerOption) = (this, other) match {
     case (NoInteger, NoInteger) => 0

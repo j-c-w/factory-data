@@ -15,11 +15,8 @@ abstract class StringOption extends MathComparable[StringOption] {
   }
 
   def mergeEqual(other: StringOption) =
-    if (this == other) this
+    if ((this compareTo other) == 0) this
     else NoString
-
-  def ==(other: StringOption) =
-    (this compareTo other) == 0
 
   def isEmpty: Boolean
   def get: String
