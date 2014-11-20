@@ -28,18 +28,16 @@ abstract class StringOption extends MathComparable[StringOption] {
 
 case class SomeString(s: String) extends StringOption {
   override def isEmpty: Boolean = false
-
   override def get: String = s
-
   override def getOrElse(x: => String): String = s
+  override def toString = s
 }
 
 object NoString extends StringOption {
   override def isEmpty: Boolean = true
-
   override def get: String = throw new NoSuchElementException("NoString.get")
-
   override def getOrElse(x: => String): String = x
+  override def toString = "No Data"
 }
 
 object StringOption {
