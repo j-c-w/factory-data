@@ -1,28 +1,21 @@
 package backend.scala.datatypes
 
-import backend.scala.datatypes.builders.BuilderType
-
-
 /*
- * Created by Jackson Woodruff on 24/07/2014
+ * Created by Jackson Woodruff on 20/11/2014 
  *
- * This trait is used by every data type which
- * contains some crucial functions to enable the
- * abstraction of the data that will be used.
  *
- * This trait enables the passing of datatypes
- * to the aggregator, filter and sorter.
+ * This class was created to resolve compatibility issues
+ * where the classes using this expected to pass a single
+ * parameter.
  *
- * The type parameter required should be the
- * implementing class e.g:
+ * However when I moved over to the harmonized data I decided
+ * it would be better to have two type paramters.
  *
- * Implementation:
- *    class Example extends DataType[Example]
+ * Thus this is here to provide the (many many) old classes
+ * with the key functions that they still need
  */
 
-abstract class DataType[T <: DataType[T, B], B <: BuilderType[T, B]] {
-  type Self <: DataType[T, B]
-
+trait DataType[T <: DataType[T]] {
   /*
    * This function takes another datatype of type T
    * and adds it to the current datatype by merging
@@ -35,8 +28,7 @@ abstract class DataType[T <: DataType[T, B], B <: BuilderType[T, B]] {
    * should not be summed, but should be kept the same
    * if they are both equal etc.)
    */
-  def mergeSum(other: T): T =
-    (this.toBuilder mergeSum other.toBuilder).build
+  def mergeSum(other: T): T
 
   /*
    * This is used in the aggregateByAverage function.
@@ -66,9 +58,4 @@ abstract class DataType[T <: DataType[T, B], B <: BuilderType[T, B]] {
    *    def get: T = this
    */
   def get: T
-
-  /*
-   * returns a builder object for this item.
-   */
-  def toBuilder: B
 }

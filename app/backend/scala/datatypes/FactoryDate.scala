@@ -10,7 +10,7 @@ import backend.scala.datatypes.options.IntegerOption
 
 class FactoryDate(val day: IntegerOption,
                   val month: IntegerOption,
-                  val year: IntegerOption) extends DataType[FactoryDate, FactoryDateBuilder] {
+                  val year: IntegerOption) extends ImplementedDataType[FactoryDate, FactoryDateBuilder] {
   self =>
 
   override type Self = this.type

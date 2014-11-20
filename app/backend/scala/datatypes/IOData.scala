@@ -13,7 +13,7 @@ class IOData(input: DoubleOption,
              outputCount: DoubleOption,
              dayOutput: DoubleOption,
              outputMinutes: DoubleOption,
-             lostMinutes: DoubleOption) extends DataType[IOData, IODataBuilder] {
+             lostMinutes: DoubleOption) extends ImplementedDataType[IOData, IODataBuilder] {
   self =>
   override type Self = this.type
 

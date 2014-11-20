@@ -2,7 +2,7 @@ package backend.scala.datatypes
 
 import java.util.Date
 
-import backend.scala.datatypes.options.{DateOption, DoubleOption, IntegerOption}
+import backend.scala.datatypes.options.{DoubleOption, IntegerOption}
 import main.backend.scala.datatypes.builders.LineListObjectBuilder
 
 
@@ -24,7 +24,7 @@ class LineListObject(val factoryDate: FactoryDate,
                  val qualityInformation: QualityData,
                  val absenteeism: AbsenteeismData,
                  val numberOfObservations: IntegerOption,
-                 val factoryCode: IntegerOption) extends DataType[LineListObject, LineListObjectBuilder] {
+                 val factoryCode: IntegerOption) extends ImplementedDataType[LineListObject, LineListObjectBuilder] {
 
   self =>
 

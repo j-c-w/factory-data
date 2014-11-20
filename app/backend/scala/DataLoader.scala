@@ -3,7 +3,7 @@ package backend.scala
 import java.text.SimpleDateFormat
 import java.util.Date
 import backend.scala.datatypes.options._
-import backend.scala.datatypes.{FactoryDate, EmployeeTypes, LineListObject}
+import backend.scala.datatypes.{FactoryDate, LineListObject}
 import main.backend.csv.scala.com.github.tototoshi.csv.CSVReader
 
 import scala.collection.parallel.immutable.ParSeq

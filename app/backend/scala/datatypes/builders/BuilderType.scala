@@ -1,6 +1,6 @@
 package backend.scala.datatypes.builders
 
-import backend.scala.datatypes.DataType
+import backend.scala.datatypes.{ImplementedDataType, DataType}
 
 /*
  * Created by Jackson Woodruff on 27/07/2014 
@@ -16,7 +16,7 @@ import backend.scala.datatypes.DataType
  * it is so I can define a mergeSum here.
  */
 
-trait BuilderType[T <: DataType[T, B], B <: BuilderType[T, B]] {
+trait BuilderType[T <: ImplementedDataType[T, B], B <: BuilderType[T, B]] {
   /*
    * This method is used to turn the builder
    * into a type of T.

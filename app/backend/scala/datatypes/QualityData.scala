@@ -13,7 +13,7 @@ class QualityData(val totalChecked: DoubleOption,
                   val altered: DoubleOption,
                   val spot: DoubleOption,
                   val reject: DoubleOption,
-                  val fabricError: DoubleOption) extends DataType[QualityData, QualityDataBuilder] {
+                  val fabricError: DoubleOption) extends ImplementedDataType[QualityData, QualityDataBuilder] {
   self =>
 
   override type Self = this.type

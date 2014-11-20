@@ -16,7 +16,7 @@ class OrderData(val item: StringOption,
                 val buyer: StringOption,
                 val smv: DoubleOption,
                 val runningDays: IntegerOption,
-                val runningDaysNA: IntegerOption) extends DataType[OrderData, OrderDataBuilder] {
+                val runningDaysNA: IntegerOption) extends ImplementedDataType[OrderData, OrderDataBuilder] {
   self =>
 
   override type Self = this.type

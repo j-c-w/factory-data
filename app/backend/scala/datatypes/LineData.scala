@@ -13,7 +13,7 @@ class LineData(val lineCode: IntegerOption,
                 val lineStatus: IntegerOption,
                 val merged: IntegerOption,
                 val mergedWith: IntegerOption,
-                val splitLine: IntegerOption) extends DataType[LineData, LineDataBuilder] {
+                val splitLine: IntegerOption) extends ImplementedDataType[LineData, LineDataBuilder] {
   self =>
 
   override type Self = this.type

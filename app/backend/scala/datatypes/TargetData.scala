@@ -12,7 +12,7 @@ class TargetData(val hourlyTarget: DoubleOption,
                  val totalTarget: DoubleOption,
                  val targetMinutes: DoubleOption,
                  val hours: DoubleOption,
-                 val availableMinutes: DoubleOption) extends DataType[TargetData, TargetDataBuilder]{
+                 val availableMinutes: DoubleOption) extends ImplementedDataType[TargetData, TargetDataBuilder]{
   self =>
   override type Self = this.type
 

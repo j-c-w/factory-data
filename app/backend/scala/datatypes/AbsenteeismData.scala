@@ -17,7 +17,7 @@ class AbsenteeismData(loRegistered: DoubleOption,
                       loPresent: DoubleOption,
                       loAbsent: DoubleOption,
                       hlPresent: DoubleOption,
-                      hlAbsent: DoubleOption) extends DataType[AbsenteeismData, AbsenteeismDataBuilder] {
+                      hlAbsent: DoubleOption) extends ImplementedDataType[AbsenteeismData, AbsenteeismDataBuilder] {
   self =>
 
   override type Self = this.type
