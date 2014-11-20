@@ -23,7 +23,7 @@ object Serialization {
     lines.map(line => {
       val lineSplit = line.split(":->")
       val end = Try(lineSplit.tail.head.split("~.~").toSeq)
-      (lineSplit.head, end.getOrElse(List()))
+      (lineSplit.head, end.getOrElse(List("")))
     }).toMap
   }
 }
