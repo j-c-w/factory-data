@@ -1,7 +1,7 @@
 package controllers
 
 import backend.scala.Backend
-import backend.scala.datatypes.{DataField, OperatorsAbsent, LineListObject}
+import backend.scala.datatypes.{DataField, LineListObject}
 import backend.scala.query.{ResultListObject, FilterBuilder, QueryBuilder, NoAggregate}
 import frontend.{FilterParser, ComparisonMethod, Equals}
 import frontend.forms._

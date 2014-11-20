@@ -91,15 +91,6 @@ abstract class IntegerOptionDataField extends DataField[IntegerOption] {
   }
 }
 
-abstract class DateOptionDataField extends DataField[DateOption] {
-  /*
-   * Todo enable easy comparison of dates by completely re-thinking this
-   */
-  def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
-    ??? //Try(comparisonMethod.compare(get(data), DateOption.toDateOption(FactoryDate.toFactoryDate(stringComparison)))
-  }
-}
-
 abstract class DoubleOptionDataField extends DataField[DoubleOption] {
   def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
     Try(comparisonMethod.compare(get(data), DoubleOption.toDoubleOption(stringComparison)))
