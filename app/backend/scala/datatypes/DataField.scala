@@ -191,7 +191,7 @@ case object OrderNo extends IntegerOptionDataField {
 case object OrderQuantity extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
     data.orderInfo.orderQuantity
-  override val toString = "Item"
+  override val toString = "Order Quantity"
 }
 
 case object Buyer extends StringOptionDataField {
@@ -365,6 +365,15 @@ case object Efficiency extends DoubleOptionDataField {
   override val toString = "Efficiency"
 }
 
+/////////////////////////////////////////////////
+////////////miscelanious//////////////////////
+case object NumberOfObservations extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.numberOfObservations
+  override val toString = "Number Of Observations"
+}
+
+
 object DataField {
   def fromString(s: String): SuperDataField = s match {
     case FactoryCode.toString => FactoryCode
@@ -408,6 +417,7 @@ object DataField {
     case HelpersPresent.toString => HelpersPresent
     case HelpersAbsent.toString => HelpersAbsent
     case Efficiency.toString => Efficiency
+    case NumberOfObservations.toString => NumberOfObservations
     case _ => NoField
   }
 
@@ -430,6 +440,38 @@ object DataField {
     SMV.toString,
     RunningDays.toString,
     RunningDaysNA.toString,
+    Input.toString,
+    InputCount.toString,
+    OutputCount.toString,
+    DayOutput.toString,
+    OutputMinutes.toString,
+    LostMinutes.toString,
+    TotalChecked.toString,
+    TotalQCPass.toString,
+    QCAlter.toString,
+    QCSpot.toString,
+    QCRejected.toString,
+    QCFabricError.toString,
+    OperatorsRegistered.toString,
+    HelpersRegistered.toString,
+    OperatorsActual.toString,
+    HelpersActual.toString,
+    ActualManpowerTotal.toString,
+    Machines.toString,
+    OperatorsPresent.toString,
+    OperatorsAbsent.toString,
+    HelpersPresent.toString,
+    HelpersAbsent.toString,
+    Efficiency.toString,
+    NumberOfObservations.toString
+  )
+
+  //this is a list of only the
+  //double fields, for graphing etc.
+  val asDoublesList = List(
+    OrderQuantity.toString,
+    SMV.toString,
+    RunningDays.toString,
     Input.toString,
     InputCount.toString,
     OutputCount.toString,

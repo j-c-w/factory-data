@@ -30,11 +30,7 @@ object Static {
   //column headers. This is for plotting the y-axis of graphs on which
   //only numbers can be plotted
 
-  val numberHeaders: List[String] = noSelection :: List(
-    "Total Operators", "Operators Present", "Operators Absent", "Operators on Leave",
-    "Percent Operators Absent", "Total Helpers", "Helpers Present",
-    "Helpers Absent", "Helpers on Leave", "Percent Helpers Absent"
-  )
+  val numberHeaders: List[String] = noSelection :: DataField.asDoublesList
 
   val comparisonMethods: List[String] = List(
     noSelection, "==", "!=", "<=", ">=", ">", "<"
