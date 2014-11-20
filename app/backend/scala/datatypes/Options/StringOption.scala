@@ -1,4 +1,4 @@
-package backend.scala.datatypes.Options
+package backend.scala.datatypes.options
 
 import backend.scala.datatypes.options.MathComparable
 
@@ -7,7 +7,7 @@ import backend.scala.datatypes.options.MathComparable
  * 
  */
 
-abstract class StringOption extends MathComparable[StringOption]{
+abstract class StringOption extends MathComparable[StringOption] {
   override def compareTo(other: StringOption): Int = (this, other) match {
     case (SomeString(x), SomeString(y)) => x compareTo y
     case (NoString, NoString) => 0

@@ -2,7 +2,6 @@ package backend.scala.datatypes
 
 import java.util.{InputMismatchException, Date}
 
-import backend.scala.datatypes.Options.StringOption
 import backend.scala.datatypes.options._
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Comparison
 import frontend.ComparisonMethod
@@ -100,7 +99,7 @@ abstract class DoubleOptionDataField extends DataField[DoubleOption] {
 
 abstract class StringOptionDataField extends DataField[StringOption] {
   def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
-    Try(comparisonMethod.compare(get(data), stringComparison))
+    Try(comparisonMethod.compare(get(data), SomeString(stringComparison)))
   }
 }
 

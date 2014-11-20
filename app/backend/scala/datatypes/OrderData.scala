@@ -1,6 +1,6 @@
 package backend.scala.datatypes
 
-import backend.scala.datatypes.Options.StringOption
+import backend.scala.datatypes.options._
 import backend.scala.datatypes.builders.{BuilderType, OrderDataBuilder}
 import backend.scala.datatypes.options.{SomeDouble, DoubleOption, IntegerOption}
 
