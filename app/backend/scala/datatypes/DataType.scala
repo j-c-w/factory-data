@@ -70,5 +70,5 @@ abstract class DataType[T <: DataType[T, B], B <: BuilderType[T, B]] {
   /*
    * returns a builder object for this item.
    */
-  def toBuilder: BuilderType[T, B]
+  def toBuilder: B
 }
