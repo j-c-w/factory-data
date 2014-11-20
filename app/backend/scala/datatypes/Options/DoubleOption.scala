@@ -1,5 +1,7 @@
 package backend.scala.datatypes.options
 
+import scala.util.Try
+
 /*
  * Created by Jackson Woodruff on 21/07/2014 
  * 
@@ -89,4 +91,11 @@ object DoubleOption {
    */
   implicit def toDoubleOption(input: String) =
     SomeDouble(input.toDouble)
+
+  /*
+   * This is like the above, but it returns a NoInteger
+   * if the conversion fails
+   */
+  implicit def toDoubleOptionOrNone(x: String) =
+    Try(SomeDouble(x.toDouble)).getOrElse(NoDouble)
 }

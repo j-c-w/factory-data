@@ -1,5 +1,6 @@
 package backend.scala.datatypes.options
 
+import scala.util.Try
 
 
 /*
@@ -124,4 +125,11 @@ object IntegerOption {
    */
   implicit def toIntegerOption(x: String) =
     SomeInteger(x.toInt)
+
+  /*
+   * This is like the above, but it returns a NoInteger
+   * if the conversion fails
+   */
+  implicit def toIntegerOptionOrNone(x: String) =
+    Try(SomeInteger(x.toInt)).getOrElse(NoInteger)
 }
