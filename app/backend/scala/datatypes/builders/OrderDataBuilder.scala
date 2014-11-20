@@ -15,10 +15,10 @@ class OrderDataBuilder extends BuilderType[OrderData, OrderDataBuilder] {
   var item: StringOption = NoString
   var style: StringOption = NoString
   var orderNo: IntegerOption = NoInteger
-  var orderQuantity: IntegerOption = NoInteger
+  var orderQuantity: DoubleOption = NoDouble
   var buyer: StringOption = NoString
   var smv: DoubleOption = NoDouble
-  var runningDays: IntegerOption = NoInteger
+  var runningDays: DoubleOption = NoDouble
   var runningDaysNA: IntegerOption = NoInteger
 
 
@@ -38,10 +38,10 @@ class OrderDataBuilder extends BuilderType[OrderData, OrderDataBuilder] {
     item = self.item  mergeEqual other.item
     style = self.style mergeEqual other.style
     orderNo = self.orderNo mergeEqual other.orderNo
-    orderQuantity = self.orderQuantity mergeEqual other.orderQuantity
+    orderQuantity = self.orderQuantity + other.orderQuantity
     buyer = self.buyer mergeEqual other.buyer
     smv = self.smv mergeEqual other.smv
-    runningDays = self.runningDays mergeEqual other.runningDays
+    runningDays = self.runningDays + other.runningDays
     runningDaysNA = self.runningDaysNA mergeEqual other.runningDaysNA
   }
 }

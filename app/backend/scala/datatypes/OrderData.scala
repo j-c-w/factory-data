@@ -2,7 +2,7 @@ package backend.scala.datatypes
 
 import backend.scala.datatypes.Options.StringOption
 import backend.scala.datatypes.builders.{BuilderType, OrderDataBuilder}
-import backend.scala.datatypes.options.{DoubleOption, IntegerOption}
+import backend.scala.datatypes.options.{SomeDouble, DoubleOption, IntegerOption}
 
 /*
  * Created by Jackson Woodruff on 20/11/2014 
@@ -12,10 +12,10 @@ import backend.scala.datatypes.options.{DoubleOption, IntegerOption}
 class OrderData(val item: StringOption,
                 val style: StringOption,
                 val orderNo: IntegerOption,
-                val orderQuantity: IntegerOption,
+                val orderQuantity: DoubleOption,
                 val buyer: StringOption,
                 val smv: DoubleOption,
-                val runningDays: IntegerOption,
+                val runningDays: DoubleOption,
                 val runningDaysNA: IntegerOption) extends ImplementedDataType[OrderData, OrderDataBuilder] {
   self =>
 
@@ -52,10 +52,10 @@ class OrderData(val item: StringOption,
     item = self.item
     style = self.style
     orderNo = self.orderNo
-    orderQuantity = self.orderQuantity
+    orderQuantity = self.orderQuantity / SomeDouble(number.toDouble)
     buyer = self.buyer
     smv = self.smv
-    runningDays = self.runningDays
+    runningDays = self.runningDays / SomeDouble(number.toDouble)
     runningDaysNA = self.runningDaysNA
   }.build
 
