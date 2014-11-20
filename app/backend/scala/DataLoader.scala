@@ -21,7 +21,7 @@ import scala.reflect.ClassTag
  */
 
 object DataLoader {
-  val reader = CSVReader.open("C:\\Users\\Jackson\\Projects\\IPA\\Data\\1004\\Attendance Report\\1004 Attendance 140714 QF.csv")
+  val reader = CSVReader.open("C:\\Users\\Jackson\\Projects\\IPA\\Data\\harmonized data\\first_harmonized.csv")
 
   def loadData: List[List[String]] = {
     printf("Loading Data From CSV")
@@ -30,7 +30,7 @@ object DataLoader {
 
   val dateFormat = new SimpleDateFormat("yyyy-MM-dd")//.format(new Date())
 
-  def rowToObject(list: List[String]): LineListObject = new LineListObject(
+  def rowToObject(list: List[String]): LineListObject = ???/* new LineListObject(
     //new EmployeeTypes(SomeDouble(16), SomeDouble(11), SomeDouble(6), NoDouble, SomeDouble(4)),
     new EmployeeTypes(NoDouble, NoDouble, NoDouble, NoDouble, NoDouble),
     new EmployeeTypes(
@@ -42,7 +42,7 @@ object DataLoader {
     SomeInteger(list(14).trim.toInt),
     SomeInteger(list(16).toInt),
     SomeDate(new FactoryDate(dateFormat.parse(list(1))))
-  )
+  )*/
 
   def dataAsList: List[LineListObject] = loadData.drop(1).map(rowToObject)
 }

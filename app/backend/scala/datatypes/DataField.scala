@@ -111,81 +111,9 @@ case object NoField extends NothingDataField {
   def get(data: LineListObject) = throw new NoSuchElementException("NoField.get")
 }
 
-case object FactoryCode extends IntegerOptionDataField {
-  override val toString = "Factory Code"
-  def get(data: LineListObject) = data.factoryCode
-}
-
-case object LineCode extends IntegerOptionDataField {
-  override val toString = "Line Code"
-  def get(data: LineListObject) = data.lineCode
-}
-
-case object DateObject extends  DateOptionDataField {
-  override val toString = "Date"
-  def get(data: LineListObject) = data.date
-}
-
-case object TotalHelpers extends DoubleOptionDataField {
-  override val toString = "Total Helpers"
-  override def get(data: LineListObject): DoubleOption = data.getTotalHelpers
-}
-
-case object HelpersPresent extends DoubleOptionDataField {
-  override val toString = "Helpers Present"
-  def get(data: LineListObject) = data.getTotalHelpersPresent
-}
-
-case object HelpersAbsent extends DoubleOptionDataField {
-  override val toString = "Helpers Absent"
-  def get(data: LineListObject) = data.getTotalHelpersAbsent
-}
-
-case object HelpersLeave extends DoubleOptionDataField {
-  override val toString = "Helpers on Leave"
-  def get(data: LineListObject) = data.getHelpersLeave
-}
-
-case object PercentHelpersAbsent extends DoubleOptionDataField {
-  override val toString = "Percent Helpers Absent"
-  def get(data: LineListObject) = data.getPercentHelpersAbsent
-}
-
-case object TotalOperators extends DoubleOptionDataField {
-  override val toString = "Total Operators"
-  def get(data: LineListObject) = data.getTotalOperators
-}
-
-case object NumberOfObservations extends IntegerOptionDataField {
-  override val toString = "Number of Observations"
-  def get(data: LineListObject) = data.numberOfObservations
-}
-
-case object OperatorsPresent extends DoubleOptionDataField {
-  override val toString = "Operators Present"
-  def get(data: LineListObject) = data.getTotalOperatorsPresent
-}
-
-case object OperatorsAbsent extends DoubleOptionDataField {
-  override val toString = "Operators Absent"
-  def get(data: LineListObject) = data.getTotalOperatorsAbsent
-}
-
-case object OperatorsLeave extends DoubleOptionDataField {
-  override val toString = "Operators on Leave"
-  def get(data: LineListObject) = data.getOperatorLeave
-}
-
-case object PercentOperatorsAbsent extends DoubleOptionDataField {
-  override val toString = "Percent Operators Absent"
-  def get(data: LineListObject) = data.getPercentOperatorsAbsent
-}
-
-
-
 object DataField {
   def fromString(s: String): SuperDataField = s match {
-    case FactoryCode.toString => FactoryCode
+    /*case FactoryCode.toString => FactoryCode
     case LineCode.toString => LineCode
     case DateObject.toString => DateObject
     case TotalHelpers.toString => TotalHelpers
@@ -198,41 +126,7 @@ object DataField {
     case OperatorsLeave.toString => OperatorsLeave
     case PercentOperatorsAbsent.toString => PercentOperatorsAbsent
     case NumberOfObservations.toString => NumberOfObservations
-    case OperatorsPresent.toString => OperatorsPresent
+    case OperatorsPresent.toString => OperatorsPresent */
     case _ => NoField
-  }
-
-  def toHtml(data: LineListObject): String = {
-    "<td>" + FactoryCode.toString + "</td>" +
-    "<td>" + LineCode.toString + "</td>" +
-    "<td>" + DateObject.toString + "</td>" +
-    "<td>" + HelpersPresent.toString + "</td>" +
-    "<td>" + HelpersAbsent.toString + "</td>" +
-    "<td>" + HelpersLeave.toString + "</td>" +
-    "<td>" + PercentHelpersAbsent.toString + "</td>" +
-    "<td>" + TotalOperators.toString + "</td>" +
-    "<td>" + OperatorsAbsent.toString + "</td>" +
-    "<td>" + OperatorsLeave.toString + "</td>" +
-    "<td>" + PercentOperatorsAbsent.toString
-  }
-
-  def toHtml(data: List[LineListObject]): String = {
-    "<table>" + htmlHeader + 
-      (data map (x => DataField.toHtml(x))).mkString("<tr>", "</tr><tr>", "</tr>").toString +
-      "</table>"
-  }
-
-  def htmlHeader: String = {
-    "<th>" + FactoryCode.toString + "</th>" +
-    "<th>" + LineCode.toString + "</th>" +
-    "<th>" + DateObject.toString + "</th>" +
-    "<th>" + HelpersPresent.toString + "</th>" +
-    "<th>" + HelpersAbsent.toString + "</th>" +
-    "<th>" + HelpersLeave.toString + "</th>" +
-    "<th>" + PercentHelpersAbsent.toString + "</th>" +
-    "<th>" + TotalOperators.toString + "</th>" +
-    "<th>" + OperatorsAbsent.toString + "</th>" +
-    "<th>" + OperatorsLeave.toString + "</th>" +
-    "<th>" + PercentOperatorsAbsent.toString
   }
 }

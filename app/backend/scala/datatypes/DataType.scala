@@ -20,8 +20,8 @@ import backend.scala.datatypes.builders.BuilderType
  *    class Example extends DataType[Example]
  */
 
-trait DataType[T <: DataType[T]] {
-  type Self <: DataType[T]
+abstract class DataType[T <: DataType[T, B], B <: BuilderType[T, B]] {
+  type Self <: DataType[T, B]
 
   /*
    * This function takes another datatype of type T
@@ -35,7 +35,8 @@ trait DataType[T <: DataType[T]] {
    * should not be summed, but should be kept the same
    * if they are both equal etc.)
    */
-  def mergeSum(other: T): T
+  def mergeSum(other: T): T =
+    (this.toBuilder mergeSum other.toBuilder).build
 
   /*
    * This is used in the aggregateByAverage function.
@@ -69,12 +70,5 @@ trait DataType[T <: DataType[T]] {
   /*
    * returns a builder object for this item.
    */
-  def toBuilder: BuilderType[T]
-
-  /*
-  * returns an Html representation of this peice of
-  * data. Used for displaying the data in table format
-  *
-  */
-  def toHtml: String
+  def toBuilder: BuilderType[T, B]
 }
