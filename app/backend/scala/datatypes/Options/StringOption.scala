@@ -13,6 +13,14 @@ abstract class StringOption extends MathComparable[StringOption]{
     case (NoString, NoString) => 0
     case _ => -2
   }
+
+  def mergeEqual(other: StringOption) =
+    if (this == other) this
+    else NoString
+
+  def ==(other: StringOption) =
+    (this compareTo other) == 0
+  
   def isEmpty: Boolean
   def get: String
   def getOrElse(x: => String): String
