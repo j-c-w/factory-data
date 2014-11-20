@@ -8,16 +8,16 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
  * 
  */
 
-class AbsenteeismData(loRegistered: DoubleOption,
-                      hlRegistered: DoubleOption,
-                      loActual: DoubleOption,
-                      hlActual: DoubleOption,
-                      actualManpowerTotal: DoubleOption,
-                      machines: DoubleOption,
-                      loPresent: DoubleOption,
-                      loAbsent: DoubleOption,
-                      hlPresent: DoubleOption,
-                      hlAbsent: DoubleOption) extends ImplementedDataType[AbsenteeismData, AbsenteeismDataBuilder] {
+class AbsenteeismData(val loRegistered: DoubleOption,
+                      val hlRegistered: DoubleOption,
+                      val loActual: DoubleOption,
+                      val hlActual: DoubleOption,
+                      val actualManpowerTotal: DoubleOption,
+                      val machines: DoubleOption,
+                      val loPresent: DoubleOption,
+                      val loAbsent: DoubleOption,
+                      val hlPresent: DoubleOption,
+                      val hlAbsent: DoubleOption) extends ImplementedDataType[AbsenteeismData, AbsenteeismDataBuilder] {
   self =>
 
   override type Self = this.type

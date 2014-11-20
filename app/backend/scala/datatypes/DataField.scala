@@ -2,6 +2,7 @@ package backend.scala.datatypes
 
 import java.util.{InputMismatchException, Date}
 
+import backend.scala.datatypes.Options.StringOption
 import backend.scala.datatypes.options._
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Comparison
 import frontend.ComparisonMethod
@@ -97,27 +98,361 @@ abstract class DoubleOptionDataField extends DataField[DoubleOption] {
   }
 }
 
+abstract class StringOptionDataField extends DataField[StringOption] {
+  def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
+    Try(comparisonMethod.compare(get(data), stringComparison))
+  }
+}
+
 case object NoField extends NothingDataField {
   override val toString = "Invalid Field"
   def get(data: LineListObject) = throw new NoSuchElementException("NoField.get")
 }
 
+case object FactoryCode extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.factoryCode
+  override val toString = "Factory Code"
+}
+
+case object Day extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.factoryDate.day
+  override val toString = "Day"
+}
+
+case object Month extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.factoryDate.month
+  override val toString = "Month"
+}
+
+case object Year extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.factoryDate.day
+  override val toString = "Year"
+}
+
+case object LineCode extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.lineInfo.lineCode
+  override val toString = "Line Code"
+}
+
+case object SLine extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.lineInfo.sLine
+  override val toString = "sLine"
+}
+
+case object LineStatus extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.lineInfo.lineStatus
+  override val toString = "Line Status"
+}
+
+case object LineMerged extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.lineInfo.merged
+  override val toString = "Line Merged"
+}
+
+case object LineMergedWith extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.lineInfo.mergedWith
+  override val toString = "Line Merged With"
+}
+
+case object SplitLine extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.lineInfo.splitLine
+  override val toString = "Split Line"
+}
+
+///////////////////////////////////////////////
+//Order Information ///////////////////
+case object Item extends StringOptionDataField {
+  override def get(data: LineListObject): StringOption =
+    data.orderInfo.item
+  override val toString = "Item"
+}
+
+case object Style extends StringOptionDataField {
+  override def get(data: LineListObject): StringOption =
+    data.orderInfo.style
+  override val toString = "Style"
+}
+
+case object OrderNo extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.orderInfo.orderNo
+  override val toString = "Order Number"
+}
+
+case object OrderQuantity extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.orderInfo.orderQuantity
+  override val toString = "Item"
+}
+
+case object Buyer extends StringOptionDataField {
+  override def get(data: LineListObject): StringOption =
+    data.orderInfo.buyer
+  override val toString = "Buyer"
+}
+
+case object SMV extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.orderInfo.smv
+  override val toString = "SMV"
+}
+
+case object RunningDays extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.orderInfo.runningDays
+  override val toString = "Running Days"
+}
+
+case object RunningDaysNA extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.orderInfo.runningDaysNA
+  override val toString = "Running Days NA"
+}
+
+///////////////////////////////////////////////////////////
+///////////Target Data////////////////////////////////////
+
+case object Input extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.inputOutput.input
+  override val toString = "Input"
+}
+
+case object InputCount extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.inputOutput.inputCount
+  override val toString = "Input Count"
+}
+
+case object OutputCount extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.inputOutput.outputCount
+  override val toString = "Output Count"
+}
+
+case object DayOutput extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.inputOutput.dayOutput
+  override val toString = "Day Output"
+}
+
+case object OutputMinutes extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.inputOutput.outputMinutes
+  override val toString = "Output Minutes"
+}
+
+case object LostMinutes extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.inputOutput.lostMinutes
+  override val toString = "Lost Minutes"
+}
+
+//////////////////////////////////////////////////////
+//////////Quality section////////////////////////////
+case object TotalChecked extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.qualityInformation.totalChecked
+  override val toString = "QC Total Checked"
+}
+
+case object TotalQCPass extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.qualityInformation.totalQCPass
+  override val toString = "QC Total Passed"
+}
+
+case object QCAlter extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.qualityInformation.altered
+  override val toString = "QC Total Altered"
+}
+
+case object QCSpot extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.qualityInformation.spot
+  override val toString = "QC Spot"
+}
+
+case object QCRejected extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.qualityInformation.reject
+  override val toString = "QC Rejected"
+}
+
+case object QCFabricError extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.qualityInformation.fabricError
+  override val toString = "QC Fabric Error"
+}
+
+///////////////////////////////////////////////////////
+//////////Attendance Data/////////////////////////////
+case object OperatorsRegistered extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.absenteeism.loRegistered
+  override val toString = "Line Operators Registered"
+}
+
+case object HelpersRegistered extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.absenteeism.hlRegistered
+  override val toString = "Helpers Registered"
+}
+
+case object OperatorsActual extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.absenteeism.loActual
+  override val toString = "Line Operators Actual"
+}
+
+case object HelpersActual extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.absenteeism.hlActual
+  override val toString = "Helpers Actual"
+}
+
+case object ActualManpowerTotal extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.absenteeism.actualManpowerTotal
+  override val toString = "Actual Manpower Total"
+}
+
+case object Machines extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.absenteeism.machines
+  override val toString = "Machines"
+}
+
+case object OperatorsPresent extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.absenteeism.loPresent
+  override val toString = "Line Operators Present"
+}
+
+case object OperatorsAbsent extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.absenteeism.loAbsent
+  override val toString = "Line Operators Absent"
+}
+
+case object HelpersPresent extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.absenteeism.hlPresent
+  override val toString = "Helpers Present"
+}
+
+case object HelpersAbsent extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.absenteeism.hlAbsent
+  override val toString = "Helpers Absent"
+}
+
+/////////////////////////////////////////////////////
+/////////efficiency//////////////////////////////////
+case object Efficiency extends DoubleOptionDataField {
+  override def get(data: LineListObject): DoubleOption =
+    data.efficiency
+  override val toString = "Efficiency"
+}
+
 object DataField {
   def fromString(s: String): SuperDataField = s match {
-    /*case FactoryCode.toString => FactoryCode
+    case FactoryCode.toString => FactoryCode
+    case Day.toString => Day
+    case Month.toString => Month
+    case Year.toString => Year
     case LineCode.toString => LineCode
-    case DateObject.toString => DateObject
-    case TotalHelpers.toString => TotalHelpers
+    case SLine.toString => SLine
+    case LineStatus.toString => LineStatus
+    case LineMerged.toString => LineMerged
+    case LineMergedWith.toString => LineMergedWith
+    case SplitLine.toString => SplitLine
+    case Item.toString => Item
+    case Style.toString => Style
+    case OrderNo.toString => OrderNo
+    case OrderQuantity.toString => OrderQuantity
+    case Buyer.toString => Buyer
+    case SMV.toString => SMV
+    case RunningDays.toString => RunningDays
+    case RunningDaysNA.toString => RunningDaysNA
+    case Input.toString => Input
+    case InputCount.toString => InputCount
+    case OutputCount.toString => OutputCount
+    case DayOutput.toString => DayOutput
+    case OutputMinutes.toString => OutputMinutes
+    case LostMinutes.toString => LostMinutes
+    case TotalChecked.toString => TotalChecked
+    case TotalQCPass.toString => TotalQCPass
+    case QCAlter.toString => QCAlter
+    case QCSpot.toString => QCSpot
+    case QCRejected.toString => QCRejected
+    case QCFabricError.toString => QCFabricError
+    case OperatorsRegistered.toString => OperatorsRegistered
+    case HelpersRegistered.toString => HelpersRegistered
+    case OperatorsActual.toString => OperatorsActual
+    case HelpersActual.toString => HelpersActual
+    case ActualManpowerTotal.toString => ActualManpowerTotal
+    case Machines.toString => Machines
+    case OperatorsPresent.toString => OperatorsPresent
+    case OperatorsAbsent.toString => OperatorsAbsent
     case HelpersPresent.toString => HelpersPresent
     case HelpersAbsent.toString => HelpersAbsent
-    case HelpersLeave.toString => HelpersLeave
-    case PercentHelpersAbsent.toString => PercentHelpersAbsent
-    case TotalOperators.toString => TotalOperators
-    case OperatorsAbsent.toString => OperatorsAbsent
-    case OperatorsLeave.toString => OperatorsLeave
-    case PercentOperatorsAbsent.toString => PercentOperatorsAbsent
-    case NumberOfObservations.toString => NumberOfObservations
-    case OperatorsPresent.toString => OperatorsPresent */
+    case Efficiency.toString => Efficiency
     case _ => NoField
   }
+
+  val asList = List(
+    FactoryCode.toString,
+    Day.toString,
+    Month.toString,
+    Year.toString,
+    LineCode.toString,
+    SLine.toString,
+    LineStatus.toString,
+    LineMerged.toString,
+    LineMergedWith.toString,
+    SplitLine.toString,
+    Item.toString,
+    Style.toString,
+    OrderNo.toString,
+    OrderQuantity.toString,
+    Buyer.toString,
+    SMV.toString,
+    RunningDays.toString,
+    RunningDaysNA.toString,
+    Input.toString,
+    InputCount.toString,
+    OutputCount.toString,
+    DayOutput.toString,
+    OutputMinutes.toString,
+    LostMinutes.toString,
+    TotalChecked.toString,
+    TotalQCPass.toString,
+    QCAlter.toString,
+    QCSpot.toString,
+    QCRejected.toString,
+    QCFabricError.toString,
+    OperatorsRegistered.toString,
+    HelpersRegistered.toString,
+    OperatorsActual.toString,
+    HelpersActual.toString,
+    ActualManpowerTotal.toString,
+    Machines.toString,
+    OperatorsPresent.toString,
+    OperatorsAbsent.toString,
+    HelpersPresent.toString,
+    HelpersAbsent.toString,
+    Efficiency.toString
+  )
 }

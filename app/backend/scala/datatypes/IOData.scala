@@ -8,12 +8,12 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
  * 
  */
 
-class IOData(input: DoubleOption,
-             inputCount: DoubleOption,
-             outputCount: DoubleOption,
-             dayOutput: DoubleOption,
-             outputMinutes: DoubleOption,
-             lostMinutes: DoubleOption) extends ImplementedDataType[IOData, IODataBuilder] {
+class IOData(val input: DoubleOption,
+             val inputCount: DoubleOption,
+             val outputCount: DoubleOption,
+             val dayOutput: DoubleOption,
+             val outputMinutes: DoubleOption,
+             val lostMinutes: DoubleOption) extends ImplementedDataType[IOData, IODataBuilder] {
   self =>
   override type Self = this.type
 
