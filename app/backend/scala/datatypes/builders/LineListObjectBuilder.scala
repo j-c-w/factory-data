@@ -2,7 +2,7 @@ package main.backend.scala.datatypes.builders
 
 import java.util.Date
 
-import backend.scala.datatypes.builders.{OrderDataBuilder, FactoryDateBuilder, LineDataBuilder, BuilderType}
+import backend.scala.datatypes.builders._
 import backend.scala.datatypes._
 import backend.scala.datatypes.options._
 
@@ -16,7 +16,7 @@ import backend.scala.datatypes.options._
  * values out
  */
 
-class LineListObjectBuilder extends BuilderType[LineListObject] {
+class LineListObjectBuilder extends BuilderType[LineListObject, LineListObjectBuilder] {
   self =>
 
   var factoryDate: FactoryDate = new FactoryDateBuilder().build
@@ -24,7 +24,7 @@ class LineListObjectBuilder extends BuilderType[LineListObject] {
   var orderInfo: OrderData = new OrderDataBuilder().build
   var targetInformation: TargetData = new TargetDataBuilder().build
   var inputOutput: IOData = new IODataBuilder().build
-  var qualityInformation: QuailtyData = new QualityDataBuilder().build
+  var qualityInformation: QualityData = new QualityDataBuilder().build
   var absenteeism: AbsenteeismData = new AbsenteeismDataBuilder().build
   var numberOfObservations: IntegerOption = NoInteger
   var factoryCode: IntegerOption = NoInteger

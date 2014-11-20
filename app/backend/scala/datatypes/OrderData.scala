@@ -62,7 +62,7 @@ class OrderData(val item: StringOption,
   /*
    * returns a builder object for this item.
    */
-  override def toBuilder: BuilderType[OrderData, OrderDataBuilder] = new OrderDataBuilder {
+  override def toBuilder: OrderDataBuilder = new OrderDataBuilder {
     item = self.item
     style = self.style
     orderNo = self.orderNo

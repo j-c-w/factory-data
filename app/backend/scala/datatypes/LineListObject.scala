@@ -21,10 +21,10 @@ class LineListObject(val factoryDate: FactoryDate,
                  val orderInfo: OrderData,
                  val targetInformation: TargetData,
                  val inputOutput: IOData,
-                 val qualityInformation: QuailtyData,
+                 val qualityInformation: QualityData,
                  val absenteeism: AbsenteeismData,
                  val numberOfObservations: IntegerOption,
-                 val factoryCode: IntegerOption) extends DataType[LineListObject] {
+                 val factoryCode: IntegerOption) extends DataType[LineListObject, LineListObjectBuilder] {
 
   self =>
 
