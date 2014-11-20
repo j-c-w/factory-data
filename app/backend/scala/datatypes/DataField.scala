@@ -128,7 +128,7 @@ case object Month extends IntegerOptionDataField {
 
 case object Year extends IntegerOptionDataField {
   override def get(data: LineListObject): IntegerOption =
-    data.factoryDate.day
+    data.factoryDate.year
   override val toString = "Year"
 }
 
