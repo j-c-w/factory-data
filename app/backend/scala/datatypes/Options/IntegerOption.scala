@@ -36,6 +36,19 @@ case object NoInteger extends IntegerOption {
 //to declare all additional methods in the IntegerOption class
 //rather than in its sub classes, please stick to that
 abstract class IntegerOption extends MathComparable[IntegerOption] {
+  /*
+   * This method compares the two options. If they are equal, then we
+   * return the value that they contain. If they are not equal, then
+   * we return NoInteger
+   */
+  def mergeEqual(other: IntegerOption): IntegerOption = {
+    if (this == other) this
+    else NoInteger
+  }
+
+  def ==(other: IntegerOption) =
+    (this compareTo other) == 0
+
   def compareTo(other: IntegerOption) = (this, other) match {
     case (NoInteger, NoInteger) => 0
     case (SomeInteger(x), SomeInteger(y)) => x compareTo y
