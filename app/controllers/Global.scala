@@ -20,6 +20,7 @@ object Global {
     nextNRandoms(40)
 
   lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\restore\\factory-data\\public\\images\\gen")
+  lazy val errorPictureLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\restore\\factory-data\\public\\images\\graphFailed.png")
 
   val baseData = DataLoader.dataAsList
 

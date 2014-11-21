@@ -2,6 +2,7 @@ package backend.scala.graphing
 
 import java.io.File
 
+import backend.java.utils.FileUtility
 import backend.java.{LineGraph, BarChart}
 import backend.scala.datatypes.DataType
 import controllers.Global
@@ -43,6 +44,7 @@ object Graph {
     drawer onFailure {
       case t =>
         println("Graph failed: " + t.getMessage)
+        FileUtility.copyFile(Global.errorPictureLocation, destinationFile)
     }
     destinationFile
   }
@@ -60,6 +62,7 @@ object Graph {
     drawer onFailure {
       case t =>
         println("Graph failed: " + t.getMessage)
+        FileUtility.copyFile(Global.errorPictureLocation, destinationFile)
     }
     destinationFile
   }
