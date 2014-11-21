@@ -1,5 +1,6 @@
 package backend.scala.datatypes.options
 
+import scala.util.Try
 
 
 /*
@@ -36,6 +37,16 @@ case object NoInteger extends IntegerOption {
 //to declare all additional methods in the IntegerOption class
 //rather than in its sub classes, please stick to that
 abstract class IntegerOption extends MathComparable[IntegerOption] {
+  /*
+   * This method compares the two options. If they are equal, then we
+   * return the value that they contain. If they are not equal, then
+   * we return NoInteger
+   */
+  def mergeEqual(other: IntegerOption): IntegerOption = {
+    if ((this compareTo other) == 0) this
+    else NoInteger
+  }
+
   def compareTo(other: IntegerOption) = (this, other) match {
     case (NoInteger, NoInteger) => 0
     case (SomeInteger(x), SomeInteger(y)) => x compareTo y
@@ -111,4 +122,11 @@ object IntegerOption {
    */
   implicit def toIntegerOption(x: String) =
     SomeInteger(x.toInt)
+
+  /*
+   * This is like the above, but it returns a NoInteger
+   * if the conversion fails
+   */
+  implicit def toIntegerOptionOrNone(x: String) =
+    Try(SomeInteger(x.toInt)).getOrElse(NoInteger)
 }

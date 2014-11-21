@@ -1,6 +1,6 @@
 package backend.scala.datatypes
 
-import backend.scala.datatypes.builders.{FactoryDateBuilder, BuilderType}
+import backend.scala.datatypes.builders.{LineDataBuilder, BuilderType}
 import backend.scala.datatypes.options.IntegerOption
 
 /*
@@ -8,9 +8,12 @@ import backend.scala.datatypes.options.IntegerOption
  * 
  */
 
-class FactoryDate(val day: IntegerOption,
-                  val month: IntegerOption,
-                  val year: IntegerOption) extends ImplementedDataType[FactoryDate, FactoryDateBuilder] {
+class LineData(val lineCode: IntegerOption,
+                val sLine: IntegerOption,
+                val lineStatus: IntegerOption,
+                val merged: IntegerOption,
+                val mergedWith: IntegerOption,
+                val splitLine: IntegerOption) extends ImplementedDataType[LineData, LineDataBuilder] {
   self =>
 
   override type Self = this.type
@@ -30,7 +33,7 @@ class FactoryDate(val day: IntegerOption,
      * Suggested implementation :
      *    def get: T = this
      */
-  override def get: FactoryDate = this
+  override def get: LineData = this
 
   /*
      * This is used in the aggregateByAverage function.
@@ -42,19 +45,21 @@ class FactoryDate(val day: IntegerOption,
      * All other fields (date, factory code etc.)
      * should be ignored completely.
      *
-     * Because you can't average a date, this should
-     * be left untouched
+     * Because this is all non-summable fields,
+     * we are not going to be averaging anything here
      */
-  override def averageBy(number: Int): FactoryDate =
-    this
+  override def averageBy(number: Int): LineData = this
 
   /*
      * returns a builder object for this item.
      */
-  override def toBuilder: FactoryDateBuilder =
-    new FactoryDateBuilder {
-      month = self.month
-      year = self.year
-      day = self.day
+  override def toBuilder: LineDataBuilder =
+    new LineDataBuilder {
+      lineCode = self.lineCode
+      sLine = self.sLine
+      lineStatus = self.lineStatus
+      merged = self.merged
+      mergedWith = self.mergedWith
+      splitLine = self.splitLine
     }
 }

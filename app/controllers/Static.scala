@@ -1,6 +1,6 @@
 package controllers
 
-import backend.scala.datatypes.DataField
+import backend.scala.datatypes._
 
 /*
  * Created by Jackson Woodruff on 13/11/2014 
@@ -12,15 +12,10 @@ import backend.scala.datatypes.DataField
 
 object Static {
 
-  val tableHeaders: List[String] = List(
-    "Number of Observations", "Factory Code", "Line Code", "Date", "Total Operators",
-    "Operators Present", "Operators Absent", "Operators on Leave",
-    "Percent Operators Absent", "Total Helpers", "Helpers Present",
-    "Helpers Absent", "Helpers on Leave", "Percent Helpers Absent"
-  )
+  val tableHeaders: List[String] = DataField.asList
 
   val defaultFields: List[String] = List(
-    "Factory Code", "Line Code", "Total Operators", "Operators Absent"
+    FactoryCode.toString, LineCode.toString, OperatorsRegistered.toString, HelpersRegistered.toString
   )
 
 
@@ -35,11 +30,7 @@ object Static {
   //column headers. This is for plotting the y-axis of graphs on which
   //only numbers can be plotted
 
-  val numberHeaders: List[String] = noSelection :: List(
-    "Total Operators", "Operators Present", "Operators Absent", "Operators on Leave",
-    "Percent Operators Absent", "Total Helpers", "Helpers Present",
-    "Helpers Absent", "Helpers on Leave", "Percent Helpers Absent"
-  )
+  val numberHeaders: List[String] = noSelection :: DataField.asDoublesList
 
   val comparisonMethods: List[String] = List(
     noSelection, "==", "!=", "<=", ">=", ">", "<"

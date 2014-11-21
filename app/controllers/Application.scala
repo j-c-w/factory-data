@@ -1,7 +1,7 @@
 package controllers
 
 import backend.scala.Backend
-import backend.scala.datatypes.{DataField, OperatorsAbsent, LineListObject}
+import backend.scala.datatypes.{DataField, LineListObject}
 import backend.scala.query.{ResultListObject, FilterBuilder, QueryBuilder, NoAggregate}
 import frontend.{FilterParser, ComparisonMethod, Equals}
 import frontend.forms._
@@ -99,6 +99,7 @@ object Application extends Controller {
         Global.sendNotification(queryId, dynamicForm)
         println("Query " + queryId + " Failed")
         println("Error Message: " + t.getMessage)
+        println("Stacktrace: " + t.getStackTrace)
       }
     }
     println("Drawing Graph")

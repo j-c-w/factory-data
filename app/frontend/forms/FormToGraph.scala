@@ -11,6 +11,7 @@ import scala.concurrent._
 import scala.concurrent.duration.Duration.Inf
 
 import scala.concurrent.Future
+import scala.util.Try
 
 
 /*
@@ -74,8 +75,18 @@ object FormToGraph {
   }
 
   private def generateSort[A <: Comparable[_]](sortMode: String): (((A, Double), (A, Double)) => Boolean) = sortMode match {
-    case "xAxis Ascending" => {case ((x1, _), (x2, _)) => x1.toString.compareTo(x2.toString()) < 0}
-    case "xAxis Descending" => {case ((x1, _), (x2, _)) => x1.toString.compareTo(x2.toString()) > 0}
+    case "xAxis Ascending" => {case ((x1, _), (x2, _)) =>
+      //we need to try sorting as numbers first, because if the values passed are indeed numbers,
+      //then the string sort really doesn't cut it at all
+      //I don't want to do this with a match statement, because that
+      //would mean trying for both integers and doubles, whereas this is
+      //much shorter (and cleaner?)
+      Try (x1.toString.toDouble < x2.toString.toDouble).getOrElse(x1.toString.compareTo(x2.toString()) < 0)
+    }
+    case "xAxis Descending" => {
+      case ((x1, _), (x2, _)) =>
+        Try (x1.toString.toDouble > x2.toString.toDouble).getOrElse(x1.toString.compareTo(x2.toString()) > 0)
+    }
     case "No Sort" => ((_, _) => false)
     case "yAxis Ascending" => {case ((_, y1), (_, y2)) => y1 < y2}
     case "yAxis Descending" => {case ((_, y1), (_, y2)) => y1 > y2}
