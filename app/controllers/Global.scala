@@ -17,9 +17,9 @@ object Global {
     Random.alphanumeric.take(n).toArray
 
   def getQueryId =
-    nextNRandoms(20)
+    nextNRandoms(40)
 
-  lazy val pictureFileLocation = new File("C:\\Users\\Family\\FactoryProject\\gen")
+  lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\restore\\factory-data\\public\\images\\gen")
 
   val baseData = DataLoader.dataAsList
 
