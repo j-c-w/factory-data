@@ -45,7 +45,11 @@ class LineListObject(val factoryDate: FactoryDate,
 
   //we have to define efficiency down here because it is calculated
   //from other values
-  def efficiency: DoubleOption = ???
+  def efficiency: DoubleOption = {
+    {inputOutput.outputMinutes / targetInformation.availableMinutes} or {
+      inputOutput.outputMinutes / ((absenteeism.loPresent + absenteeism.hlPresent) * targetInformation.hours * 60)
+    }
+  }
 
   //averages this datapoint by a number
   def averageBy(number: Int) =
