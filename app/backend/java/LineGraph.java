@@ -16,8 +16,8 @@ public class LineGraph extends Graph {
     }
 
     public JFreeChart createChart(XYSeriesCollection collection, String title, String xAxisTitle, String yAxisTitle) {
+		System.out.println("XAXis Title" + xAxisTitle);
         JFreeChart chart = ChartFactory.createXYLineChart(title, xAxisTitle, yAxisTitle, collection, PlotOrientation.VERTICAL, true, false, false);
-        chart.setTitle(title);
         return chart;
     }
 
