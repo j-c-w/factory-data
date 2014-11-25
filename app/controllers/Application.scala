@@ -99,7 +99,8 @@ object Application extends Controller {
         Global.sendNotification(queryId, dynamicForm)
         println("Query " + queryId + " Failed")
         println("Error Message: " + t.getMessage)
-        println("Stacktrace: " + t.getStackTrace)
+        println("Stacktrace: ")
+        t.printStackTrace
       }
     }
     println("Drawing Graph")
