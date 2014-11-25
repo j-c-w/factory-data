@@ -36,7 +36,8 @@ abstract class DoubleOption extends MathComparable[DoubleOption] {
   def compareTo(other: DoubleOption) = (this, other) match {
     case (SomeDouble(x), SomeDouble(y)) => x compareTo y
     case (NoDouble, NoDouble) => 0
-    case (_, _) => -2
+    case (SomeDouble(x), NoDouble) => 1
+    case (NoDouble, SomeDouble(x)) => -1
   }
 
   def mergeEqual(other: DoubleOption) =

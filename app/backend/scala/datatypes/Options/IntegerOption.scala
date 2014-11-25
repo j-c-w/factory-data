@@ -50,7 +50,8 @@ abstract class IntegerOption extends MathComparable[IntegerOption] {
   def compareTo(other: IntegerOption) = (this, other) match {
     case (NoInteger, NoInteger) => 0
     case (SomeInteger(x), SomeInteger(y)) => x compareTo y
-    case (_, _) => -2
+    case (SomeInteger(x), NoInteger) => 1
+    case (NoInteger, SomeInteger(x)) => -1
   }
 
   def + (other: IntegerOption): IntegerOption = (this, other) match {

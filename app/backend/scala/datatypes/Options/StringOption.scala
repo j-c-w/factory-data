@@ -11,7 +11,8 @@ abstract class StringOption extends MathComparable[StringOption] {
   override def compareTo(other: StringOption): Int = (this, other) match {
     case (SomeString(x), SomeString(y)) => x compareTo y
     case (NoString, NoString) => 0
-    case _ => -2
+    case (SomeString(x), NoString) => 1
+    case (NoString, SomeString(x)) => -1
   }
 
   def mergeEqual(other: StringOption) =
