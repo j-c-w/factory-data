@@ -22,7 +22,7 @@ import scala.util.Try
  */
 
 object DataLoader {
-  val reader = CSVReader.open("C:\\Users\\Jackson\\Projects\\IPA\\Data\\harmonized data\\first_harmonised.csv")
+  val reader = CSVReader.open("C:\\Users\\Jackson\\Projects\\IPA\\Data\\harmonized data\\second_harmonised.csv")
 
   def loadData: List[List[String]] = {
     printf("Loading Data From CSV")
