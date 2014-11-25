@@ -22,17 +22,16 @@ import scala.util.Try
  */
 
 object DataLoader {
-  val reader = CSVReader.open("C:\\Users\\Jackson\\Projects\\IPA\\Data\\harmonized data\\second_harmonised.csv")
+  val reader = CSVReader.open("C:\\Users\\Jackson\\Projects\\IPA\\Data\\harmonized data\\second_harmonized.csv")
 
   def loadData: List[List[String]] = {
     printf("Loading Data From CSV")
     reader.all
   }
 
-  val dateFormat = new SimpleDateFormat("yyyy-MM-dd")//.format(new Date())
 
   def rowToObject(list: List[String]): LineListObject = new LineListObject(
-    getDate(list(2)),
+    getDate(list(1)),
     new LineData(IntegerOption.toIntegerOptionOrNone(list(2)), IntegerOption.toIntegerOptionOrNone(list(3)), IntegerOption.toIntegerOptionOrNone(list(4)),
       IntegerOption.toIntegerOptionOrNone(list(5)), IntegerOption.toIntegerOptionOrNone(list(6))),
     new OrderData(IntegerOption.toIntegerOptionOrNone(list(7)), DoubleOption.toDoubleOptionOrNone(list(8)), DoubleOption.toDoubleOptionOrNone(list(9))),
@@ -46,12 +45,12 @@ object DataLoader {
   )
 
   private def getDate(date: String) = {
-    val dateFormat = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(date)
+    Try {
+      val splitDate = date.split("/")
 
-
-    Try(new FactoryDate(IntegerOption(dateFormat.getDay),
-      IntegerOption(dateFormat.getMonth),
-      IntegerOption(dateFormat.getYear))).getOrElse(
+      new FactoryDate(IntegerOption.toIntegerOptionOrNone(splitDate(1)),
+      IntegerOption.toIntegerOptionOrNone(splitDate(0)),
+      IntegerOption.toIntegerOptionOrNone(splitDate(2)))}.getOrElse(
         new FactoryDate(NoInteger, NoInteger, NoInteger)
       )
   }
