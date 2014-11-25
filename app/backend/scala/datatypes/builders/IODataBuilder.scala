@@ -11,7 +11,6 @@ import backend.scala.datatypes.options.{NoDouble, DoubleOption}
 class IODataBuilder extends BuilderType[IOData, IODataBuilder] {
   self =>
 
-  var input: DoubleOption = NoDouble
   var inputCount: DoubleOption = NoDouble
   var outputCount: DoubleOption = NoDouble
   var dayOutput: DoubleOption = NoDouble
@@ -23,14 +22,13 @@ class IODataBuilder extends BuilderType[IOData, IODataBuilder] {
      * into a type of T.
      */
   override def build: IOData =
-    new IOData(input, inputCount, outputCount, dayOutput, outputMinutes, lostMinutes)
+    new IOData(inputCount, outputCount, dayOutput, outputMinutes, lostMinutes)
 
   /*
    * This takes another builder object of the same type
    * and merges it to create a single builder
    */
   override def mergeSum(other: IODataBuilder): IODataBuilder = new IODataBuilder {
-    input = self.input + other.input
     inputCount = self.inputCount + other.inputCount
     outputCount = self.outputCount + other.outputCount
     dayOutput = self.dayOutput + other.dayOutput

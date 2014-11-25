@@ -9,14 +9,9 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption, IntegerOption}
  * 
  */
 
-class OrderData(val item: StringOption,
-                val style: StringOption,
-                val orderNo: IntegerOption,
-                val orderQuantity: DoubleOption,
-                val buyer: StringOption,
+class OrderData(val buyer: IntegerOption,
                 val smv: DoubleOption,
-                val runningDays: DoubleOption,
-                val runningDaysNA: IntegerOption) extends ImplementedDataType[OrderData, OrderDataBuilder] {
+                val runningDays: DoubleOption) extends ImplementedDataType[OrderData, OrderDataBuilder] {
   self =>
 
   override type Self = this.type
@@ -49,27 +44,17 @@ class OrderData(val item: StringOption,
      * should be ignored completely.
      */
   override def averageBy(number: Int): OrderData = new OrderDataBuilder {
-    item = self.item
-    style = self.style
-    orderNo = self.orderNo
-    orderQuantity = self.orderQuantity / SomeDouble(number.toDouble)
     buyer = self.buyer
     smv = self.smv
     runningDays = self.runningDays / SomeDouble(number.toDouble)
-    runningDaysNA = self.runningDaysNA
   }.build
 
   /*
    * returns a builder object for this item.
    */
   override def toBuilder: OrderDataBuilder = new OrderDataBuilder {
-    item = self.item
-    style = self.style
-    orderNo = self.orderNo
-    orderQuantity = self.orderQuantity
     buyer = self.buyer
     smv = self.smv
     runningDays = self.runningDays
-    runningDaysNA = self.runningDaysNA
   }
 }

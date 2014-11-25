@@ -8,8 +8,7 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
  * 
  */
 
-class IOData(val input: DoubleOption,
-             val inputCount: DoubleOption,
+class IOData(val inputCount: DoubleOption,
              val outputCount: DoubleOption,
              val dayOutput: DoubleOption,
              val outputMinutes: DoubleOption,
@@ -45,7 +44,6 @@ class IOData(val input: DoubleOption,
      * should be ignored completely.
      */
   override def averageBy(number: Int): IOData = new IODataBuilder {
-    input = self.input / SomeDouble(number.toDouble)
     inputCount = self.inputCount / SomeDouble(number.toDouble)
     outputCount = self.outputCount / SomeDouble(number.toDouble)
     dayOutput = self.dayOutput / SomeDouble(number.toDouble)
@@ -57,7 +55,6 @@ class IOData(val input: DoubleOption,
    * returns a builder object for this item.
    */
   override def toBuilder: IODataBuilder = new IODataBuilder {
-    input = self.input
     inputCount = self.inputCount
     outputCount = self.outputCount
     dayOutput = self.dayOutput

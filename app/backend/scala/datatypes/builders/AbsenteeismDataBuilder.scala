@@ -11,11 +11,6 @@ import backend.scala.datatypes.options.{NoDouble, DoubleOption}
 class AbsenteeismDataBuilder extends BuilderType[AbsenteeismData, AbsenteeismDataBuilder] {
   self =>
 
-  var loRegistered: DoubleOption = NoDouble
-  var hlRegistered: DoubleOption = NoDouble
-  var loActual: DoubleOption = NoDouble
-  var hlActual: DoubleOption = NoDouble
-  var actualManpowerTotal: DoubleOption = NoDouble
   var machines: DoubleOption = NoDouble
   var loPresent: DoubleOption = NoDouble
   var loAbsent: DoubleOption = NoDouble
@@ -27,8 +22,7 @@ class AbsenteeismDataBuilder extends BuilderType[AbsenteeismData, AbsenteeismDat
      * into a type of T.
      */
   override def build: AbsenteeismData =
-    new AbsenteeismData(loRegistered, hlRegistered, loActual, hlActual,
-      actualManpowerTotal, machines, loPresent,
+    new AbsenteeismData(machines, loPresent,
       loAbsent, hlPresent, hlAbsent)
 
   /*
@@ -36,11 +30,6 @@ class AbsenteeismDataBuilder extends BuilderType[AbsenteeismData, AbsenteeismDat
    * and merges it to create a single builder
    */
   override def mergeSum(other: AbsenteeismDataBuilder): AbsenteeismDataBuilder = new AbsenteeismDataBuilder {
-    loRegistered = self.loRegistered + other.loRegistered
-    hlRegistered = self.hlRegistered + other.hlRegistered
-    loActual = self.loActual + other.loActual
-    hlActual = self.hlActual + other.hlActual
-    actualManpowerTotal = self.actualManpowerTotal + other.actualManpowerTotal
     machines = self.machines + other.machines
     loPresent = self.loPresent + other.loPresent
     loAbsent = self.loAbsent + other.loAbsent

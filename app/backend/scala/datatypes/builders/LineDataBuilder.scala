@@ -12,22 +12,20 @@ class LineDataBuilder extends  BuilderType[LineData, LineDataBuilder] {
   self =>
 
   var lineCode: IntegerOption = NoInteger
-  var sLine: IntegerOption = NoInteger
-  var lineStatus: IntegerOption = NoInteger
   var merged: IntegerOption = NoInteger
-  var mergedWith: IntegerOption = NoInteger
+  var mergedWith1: IntegerOption = NoInteger
+  var mergedWith2: IntegerOption = NoInteger
   var splitLine: IntegerOption = NoInteger
 
   def build: LineData = new LineData(
-    lineCode, sLine, lineStatus, merged, mergedWith, splitLine
+    lineCode, merged, mergedWith1, mergedWith2, splitLine
   )
 
   def mergeSum(other: LineDataBuilder) = new LineDataBuilder {
     lineCode = self.lineCode mergeEqual other.lineCode
-    sLine = self.sLine mergeEqual other.sLine
-    lineStatus = self.lineStatus mergeEqual other.lineStatus
     merged = self.merged mergeEqual other.merged
-    mergedWith = self.mergedWith mergeEqual other.mergedWith
+    mergedWith1 = self.mergedWith1 mergeEqual other.mergedWith1
+    mergedWith2 = self.mergedWith1 mergeEqual other.mergedWith2
     splitLine = self.splitLine mergeEqual other.splitLine
   }
 }

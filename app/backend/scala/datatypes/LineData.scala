@@ -9,10 +9,9 @@ import backend.scala.datatypes.options.IntegerOption
  */
 
 class LineData(val lineCode: IntegerOption,
-                val sLine: IntegerOption,
-                val lineStatus: IntegerOption,
                 val merged: IntegerOption,
-                val mergedWith: IntegerOption,
+                val mergedWith1: IntegerOption,
+                val mergedWith2: IntegerOption,
                 val splitLine: IntegerOption) extends ImplementedDataType[LineData, LineDataBuilder] {
   self =>
 
@@ -56,10 +55,9 @@ class LineData(val lineCode: IntegerOption,
   override def toBuilder: LineDataBuilder =
     new LineDataBuilder {
       lineCode = self.lineCode
-      sLine = self.sLine
-      lineStatus = self.lineStatus
       merged = self.merged
-      mergedWith = self.mergedWith
+      mergedWith1 = self.mergedWith1
+      mergedWith2 = self.mergedWith2
       splitLine = self.splitLine
     }
 }

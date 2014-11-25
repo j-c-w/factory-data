@@ -8,9 +8,7 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
  * 
  */
 
-class TargetData(val hourlyTarget: DoubleOption,
-                 val totalTarget: DoubleOption,
-                 val targetMinutes: DoubleOption,
+class TargetData(val targetMinutes: DoubleOption,
                  val hours: DoubleOption,
                  val availableMinutes: DoubleOption) extends ImplementedDataType[TargetData, TargetDataBuilder]{
   self =>
@@ -44,8 +42,6 @@ class TargetData(val hourlyTarget: DoubleOption,
      * should be ignored completely.
      */
   override def averageBy(number: Int): TargetData = new TargetDataBuilder {
-    hourlyTarget = self.hourlyTarget/SomeDouble(number.toDouble)
-    totalTarget = self.totalTarget/SomeDouble(number.toDouble)
     targetMinutes = self.targetMinutes/SomeDouble(number.toDouble)
     hours = self.hours/SomeDouble(number.toDouble)
     availableMinutes = self.availableMinutes/SomeDouble(number.toDouble)
@@ -56,8 +52,6 @@ class TargetData(val hourlyTarget: DoubleOption,
    * returns a builder object for this item.
    */
   override def toBuilder: TargetDataBuilder = new TargetDataBuilder {
-    hourlyTarget = self.hourlyTarget
-    totalTarget = self.totalTarget
     targetMinutes = self.targetMinutes
     hours = self.hours
     availableMinutes = self.availableMinutes

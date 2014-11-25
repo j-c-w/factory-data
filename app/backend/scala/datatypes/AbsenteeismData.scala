@@ -8,12 +8,7 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
  * 
  */
 
-class AbsenteeismData(val loRegistered: DoubleOption,
-                      val hlRegistered: DoubleOption,
-                      val loActual: DoubleOption,
-                      val hlActual: DoubleOption,
-                      val actualManpowerTotal: DoubleOption,
-                      val machines: DoubleOption,
+class AbsenteeismData(val machines: DoubleOption,
                       val loPresent: DoubleOption,
                       val loAbsent: DoubleOption,
                       val hlPresent: DoubleOption,
@@ -50,11 +45,6 @@ class AbsenteeismData(val loRegistered: DoubleOption,
      * should be ignored completely.
      */
   override def averageBy(number: Int): AbsenteeismData = new AbsenteeismDataBuilder {
-    loRegistered = self.loRegistered / SomeDouble(number.toDouble)
-    hlRegistered = self.hlRegistered / SomeDouble(number.toDouble)
-    loActual = self.loActual / SomeDouble(number.toDouble)
-    hlActual = self.hlActual / SomeDouble(number.toDouble)
-    actualManpowerTotal = self.actualManpowerTotal / SomeDouble(number.toDouble)
     machines = self.machines / SomeDouble(number.toDouble)
     loPresent = self.loPresent / SomeDouble(number.toDouble)
     loAbsent = self.loAbsent / SomeDouble(number.toDouble)
@@ -66,11 +56,6 @@ class AbsenteeismData(val loRegistered: DoubleOption,
    * returns a builder object for this item.
    */
   override def toBuilder: AbsenteeismDataBuilder = new AbsenteeismDataBuilder {
-    loRegistered = self.loRegistered
-    hlRegistered = self.hlRegistered
-    loActual = self.loActual
-    hlActual = self.hlActual
-    actualManpowerTotal = self.actualManpowerTotal
     machines = self.machines
     loPresent = self.loPresent
     loAbsent = self.loAbsent

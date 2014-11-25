@@ -138,28 +138,22 @@ case object LineCode extends IntegerOptionDataField {
   override val toString = "Line Code"
 }
 
-case object SLine extends IntegerOptionDataField {
-  override def get(data: LineListObject): IntegerOption =
-    data.lineInfo.sLine
-  override val toString = "sLine"
-}
-
-case object LineStatus extends IntegerOptionDataField {
-  override def get(data: LineListObject): IntegerOption =
-    data.lineInfo.lineStatus
-  override val toString = "Line Status"
-}
-
 case object LineMerged extends IntegerOptionDataField {
   override def get(data: LineListObject): IntegerOption =
     data.lineInfo.merged
   override val toString = "Line Merged"
 }
 
-case object LineMergedWith extends IntegerOptionDataField {
+case object LineMergedWithOne extends IntegerOptionDataField {
   override def get(data: LineListObject): IntegerOption =
-    data.lineInfo.mergedWith
-  override val toString = "Line Merged With"
+    data.lineInfo.mergedWith1
+  override val toString = "Line Merged With 1"
+}
+
+case object LineMergedWithTwo extends IntegerOptionDataField {
+  override def get(data: LineListObject): IntegerOption =
+    data.lineInfo.mergedWith2
+  override val toString = "Line Merged With 2"
 }
 
 case object SplitLine extends IntegerOptionDataField {
@@ -170,32 +164,8 @@ case object SplitLine extends IntegerOptionDataField {
 
 ///////////////////////////////////////////////
 //Order Information ///////////////////
-case object Item extends StringOptionDataField {
-  override def get(data: LineListObject): StringOption =
-    data.orderInfo.item
-  override val toString = "Item"
-}
-
-case object Style extends StringOptionDataField {
-  override def get(data: LineListObject): StringOption =
-    data.orderInfo.style
-  override val toString = "Style"
-}
-
-case object OrderNo extends IntegerOptionDataField {
+case object Buyer extends IntegerOptionDataField {
   override def get(data: LineListObject): IntegerOption =
-    data.orderInfo.orderNo
-  override val toString = "Order Number"
-}
-
-case object OrderQuantity extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
-    data.orderInfo.orderQuantity
-  override val toString = "Order Quantity"
-}
-
-case object Buyer extends StringOptionDataField {
-  override def get(data: LineListObject): StringOption =
     data.orderInfo.buyer
   override val toString = "Buyer"
 }
@@ -212,21 +182,8 @@ case object RunningDays extends DoubleOptionDataField {
   override val toString = "Running Days"
 }
 
-case object RunningDaysNA extends IntegerOptionDataField {
-  override def get(data: LineListObject): IntegerOption =
-    data.orderInfo.runningDaysNA
-  override val toString = "Running Days NA"
-}
-
 ///////////////////////////////////////////////////////////
 ///////////Target Data////////////////////////////////////
-
-case object Input extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
-    data.inputOutput.input
-  override val toString = "Input"
-}
-
 case object InputCount extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
     data.inputOutput.inputCount
@@ -265,22 +222,10 @@ case object TotalChecked extends DoubleOptionDataField {
   override val toString = "QC Total Checked"
 }
 
-case object TotalQCPass extends DoubleOptionDataField {
+case object QCDefect extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.qualityInformation.totalQCPass
-  override val toString = "QC Total Passed"
-}
-
-case object QCAlter extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
-    data.qualityInformation.altered
-  override val toString = "QC Total Altered"
-}
-
-case object QCSpot extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
-    data.qualityInformation.spot
-  override val toString = "QC Spot"
+    data.qualityInformation.defect
+  override val toString = "QC Defect"
 }
 
 case object QCRejected extends DoubleOptionDataField {
@@ -289,44 +234,8 @@ case object QCRejected extends DoubleOptionDataField {
   override val toString = "QC Rejected"
 }
 
-case object QCFabricError extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
-    data.qualityInformation.fabricError
-  override val toString = "QC Fabric Error"
-}
-
 ///////////////////////////////////////////////////////
 //////////Attendance Data/////////////////////////////
-case object OperatorsRegistered extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
-    data.absenteeism.loRegistered
-  override val toString = "Line Operators Registered"
-}
-
-case object HelpersRegistered extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
-    data.absenteeism.hlRegistered
-  override val toString = "Helpers Registered"
-}
-
-case object OperatorsActual extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
-    data.absenteeism.loActual
-  override val toString = "Line Operators Actual"
-}
-
-case object HelpersActual extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
-    data.absenteeism.hlActual
-  override val toString = "Helpers Actual"
-}
-
-case object ActualManpowerTotal extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
-    data.absenteeism.actualManpowerTotal
-  override val toString = "Actual Manpower Total"
-}
-
 case object Machines extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
     data.absenteeism.machines
@@ -381,36 +290,21 @@ object DataField {
     case Month.toString => Month
     case Year.toString => Year
     case LineCode.toString => LineCode
-    case SLine.toString => SLine
-    case LineStatus.toString => LineStatus
     case LineMerged.toString => LineMerged
-    case LineMergedWith.toString => LineMergedWith
+    case LineMergedWithOne.toString => LineMergedWithOne
+    case LineMergedWithTwo.toString => LineMergedWithTwo
     case SplitLine.toString => SplitLine
-    case Item.toString => Item
-    case Style.toString => Style
-    case OrderNo.toString => OrderNo
-    case OrderQuantity.toString => OrderQuantity
     case Buyer.toString => Buyer
     case SMV.toString => SMV
     case RunningDays.toString => RunningDays
-    case RunningDaysNA.toString => RunningDaysNA
-    case Input.toString => Input
     case InputCount.toString => InputCount
     case OutputCount.toString => OutputCount
     case DayOutput.toString => DayOutput
     case OutputMinutes.toString => OutputMinutes
     case LostMinutes.toString => LostMinutes
     case TotalChecked.toString => TotalChecked
-    case TotalQCPass.toString => TotalQCPass
-    case QCAlter.toString => QCAlter
-    case QCSpot.toString => QCSpot
+    case QCDefect.toString => QCDefect
     case QCRejected.toString => QCRejected
-    case QCFabricError.toString => QCFabricError
-    case OperatorsRegistered.toString => OperatorsRegistered
-    case HelpersRegistered.toString => HelpersRegistered
-    case OperatorsActual.toString => OperatorsActual
-    case HelpersActual.toString => HelpersActual
-    case ActualManpowerTotal.toString => ActualManpowerTotal
     case Machines.toString => Machines
     case OperatorsPresent.toString => OperatorsPresent
     case OperatorsAbsent.toString => OperatorsAbsent
@@ -427,36 +321,20 @@ object DataField {
     Month.toString,
     Year.toString,
     LineCode.toString,
-    SLine.toString,
-    LineStatus.toString,
     LineMerged.toString,
-    LineMergedWith.toString,
+    LineMergedWithOne.toString,
+    LineMergedWithTwo.toString,
     SplitLine.toString,
-    Item.toString,
-    Style.toString,
-    OrderNo.toString,
-    OrderQuantity.toString,
     Buyer.toString,
     SMV.toString,
     RunningDays.toString,
-    RunningDaysNA.toString,
-    Input.toString,
     InputCount.toString,
     OutputCount.toString,
     DayOutput.toString,
     OutputMinutes.toString,
     LostMinutes.toString,
     TotalChecked.toString,
-    TotalQCPass.toString,
-    QCAlter.toString,
-    QCSpot.toString,
     QCRejected.toString,
-    QCFabricError.toString,
-    OperatorsRegistered.toString,
-    HelpersRegistered.toString,
-    OperatorsActual.toString,
-    HelpersActual.toString,
-    ActualManpowerTotal.toString,
     Machines.toString,
     OperatorsPresent.toString,
     OperatorsAbsent.toString,
@@ -469,26 +347,16 @@ object DataField {
   //this is a list of only the
   //double fields, for graphing etc.
   val asDoublesList = List(
-    OrderQuantity.toString,
     SMV.toString,
     RunningDays.toString,
-    Input.toString,
     InputCount.toString,
     OutputCount.toString,
     DayOutput.toString,
     OutputMinutes.toString,
     LostMinutes.toString,
     TotalChecked.toString,
-    TotalQCPass.toString,
-    QCAlter.toString,
-    QCSpot.toString,
     QCRejected.toString,
-    QCFabricError.toString,
-    OperatorsRegistered.toString,
-    HelpersRegistered.toString,
-    OperatorsActual.toString,
-    HelpersActual.toString,
-    ActualManpowerTotal.toString,
+    QCDefect.toString,
     Machines.toString,
     OperatorsPresent.toString,
     OperatorsAbsent.toString,

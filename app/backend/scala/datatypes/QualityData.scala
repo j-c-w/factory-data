@@ -9,11 +9,8 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
  */
 
 class QualityData(val totalChecked: DoubleOption,
-                  val totalQCPass: DoubleOption,
-                  val altered: DoubleOption,
-                  val spot: DoubleOption,
                   val reject: DoubleOption,
-                  val fabricError: DoubleOption) extends ImplementedDataType[QualityData, QualityDataBuilder] {
+                  val defect: DoubleOption) extends ImplementedDataType[QualityData, QualityDataBuilder] {
   self =>
 
   override type Self = this.type
@@ -47,11 +44,8 @@ class QualityData(val totalChecked: DoubleOption,
      */
   override def averageBy(number: Int): QualityData = new QualityDataBuilder {
     totalChecked = self.totalChecked / SomeDouble(number.toDouble)
-    totalQCPass = self.totalQCPass / SomeDouble(number.toDouble)
-    altered = self.altered / SomeDouble(number.toDouble)
-    spot = self.spot / SomeDouble(number.toDouble)
+    defect = self.defect / SomeDouble(number.toDouble)
     reject = self.reject / SomeDouble(number.toDouble)
-    fabricError = self.fabricError / SomeDouble(number.toDouble)
   }.build
 
   /*
@@ -59,10 +53,7 @@ class QualityData(val totalChecked: DoubleOption,
    */
   override def toBuilder: QualityDataBuilder = new QualityDataBuilder {
     totalChecked = self.totalChecked
-    totalQCPass = self.totalQCPass
-    altered = self.altered
-    spot = self.spot
+    defect = self.defect
     reject = self.reject
-    fabricError = self.fabricError
   }
 }
