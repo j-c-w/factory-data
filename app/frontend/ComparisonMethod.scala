@@ -17,8 +17,8 @@ object ComparisonMethod {
     case "!=" => NotEqual
     case "<" => LessThan
     case ">" => GreaterThan
-    case ">=" => LessThanOrEqual
-    case "<=" => GreaterThanOrEqual
+    case ">=" => GreaterThanOrEqual
+    case "<=" => LessThanOrEqual
   }
 
   def asList: List[String] = List(
