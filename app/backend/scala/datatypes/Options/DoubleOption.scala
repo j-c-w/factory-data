@@ -1,5 +1,7 @@
 package backend.scala.datatypes.options
 
+import backend.scala.datatypes.options.wrappers.DoubleOptionWrapper
+
 import scala.util.Try
 
 /*
@@ -96,4 +98,7 @@ object DoubleOption {
    */
   implicit def toDoubleOptionOrNone(x: String) =
     Try(SomeDouble(x.toDouble)).getOrElse(NoDouble)
+
+  implicit def toWrappedDoubleOrNone(x: String) =
+    new DoubleOptionWrapper(toDoubleOptionOrNone(x))
 }

@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package backend.scala.datatypes.Options.wrappers
+package backend.scala.datatypes.options.wrappers
 
 /*
  * Created by Jackson Woodruff on 26/11/2014 
@@ -25,7 +25,7 @@ package backend.scala.datatypes.Options.wrappers
  * not intending to use this for type convenience.
  */
 
-abstract class OptionWrapper[T, B <: OptionWrapper[T, B]] (val numberOfObservations: Int) {
+abstract class OptionWrapper[T, B <: OptionWrapper[T, B]] {
   def get: T
 
   def mergeSum(other: B): B

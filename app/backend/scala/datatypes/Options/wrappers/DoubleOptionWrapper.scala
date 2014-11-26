@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package backend.scala.datatypes.Options.wrappers
+package backend.scala.datatypes.options.wrappers
 
 import backend.scala.datatypes.options.{NoDouble, SomeDouble, DoubleOption}
 
@@ -31,8 +31,9 @@ import backend.scala.datatypes.options.{NoDouble, SomeDouble, DoubleOption}
  * matter for the mergeEqual types
  */
 
-class DoubleOptionWrapper(option: DoubleOption, numberOfObservations: Int) extends OptionWrapper[DoubleOption, DoubleOptionWrapper](numberOfObservations) {
+class DoubleOptionWrapper(option: DoubleOption, val numberOfObservations: Int) extends OptionWrapper[DoubleOption, DoubleOptionWrapper] {
   def this(option: DoubleOption) = this(option, 1)
+  def this() = this(NoDouble, 1)
 
   override def get: DoubleOption = option
 
