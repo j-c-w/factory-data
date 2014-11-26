@@ -1,6 +1,7 @@
 package backend.scala.datatypes.builders
 
 import backend.scala.datatypes.IOData
+import backend.scala.datatypes.options.wrappers.DoubleOptionWrapper
 import backend.scala.datatypes.options.{NoDouble, DoubleOption}
 
 /*
@@ -11,11 +12,11 @@ import backend.scala.datatypes.options.{NoDouble, DoubleOption}
 class IODataBuilder extends BuilderType[IOData, IODataBuilder] {
   self =>
 
-  var inputCount: DoubleOption = NoDouble
-  var outputCount: DoubleOption = NoDouble
-  var dayOutput: DoubleOption = NoDouble
-  var outputMinutes: DoubleOption = NoDouble
-  var lostMinutes: DoubleOption = NoDouble
+  var inputCount: DoubleOptionWrapper = new DoubleOptionWrapper
+  var outputCount: DoubleOptionWrapper = new DoubleOptionWrapper
+  var dayOutput: DoubleOptionWrapper = new DoubleOptionWrapper
+  var outputMinutes: DoubleOptionWrapper = new DoubleOptionWrapper
+  var lostMinutes: DoubleOptionWrapper = new DoubleOptionWrapper
 
   /*
      * This method is used to turn the builder
@@ -29,10 +30,10 @@ class IODataBuilder extends BuilderType[IOData, IODataBuilder] {
    * and merges it to create a single builder
    */
   override def mergeSum(other: IODataBuilder): IODataBuilder = new IODataBuilder {
-    inputCount = self.inputCount + other.inputCount
-    outputCount = self.outputCount + other.outputCount
-    dayOutput = self.dayOutput + other.dayOutput
-    outputMinutes = self.outputMinutes + other.outputMinutes
-    lostMinutes = self.lostMinutes + other.lostMinutes
+    inputCount = self.inputCount mergeSum other.inputCount
+    outputCount = self.outputCount mergeSum other.outputCount
+    dayOutput = self.dayOutput mergeSum other.dayOutput
+    outputMinutes = self.outputMinutes mergeSum other.outputMinutes
+    lostMinutes = self.lostMinutes mergeSum other.lostMinutes
   }
 }

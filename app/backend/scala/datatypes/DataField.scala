@@ -172,13 +172,13 @@ case object Buyer extends IntegerOptionDataField {
 
 case object SMV extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.orderInfo.smv
+    data.orderInfo.smv.get
   override val toString = "SMV"
 }
 
 case object RunningDays extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.orderInfo.runningDays
+    data.orderInfo.runningDays.get
   override val toString = "Running Days"
 }
 
@@ -186,31 +186,31 @@ case object RunningDays extends DoubleOptionDataField {
 ///////////Target Data////////////////////////////////////
 case object InputCount extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.inputOutput.inputCount
+    data.inputOutput.inputCount.get
   override val toString = "Input Count"
 }
 
 case object OutputCount extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.inputOutput.outputCount
+    data.inputOutput.outputCount.get
   override val toString = "Output Count"
 }
 
 case object DayOutput extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.inputOutput.dayOutput
+    data.inputOutput.dayOutput.get
   override val toString = "Day Output"
 }
 
 case object OutputMinutes extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.inputOutput.outputMinutes
+    data.inputOutput.outputMinutes.get
   override val toString = "Output Minutes"
 }
 
 case object LostMinutes extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.inputOutput.lostMinutes
+    data.inputOutput.lostMinutes.get
   override val toString = "Lost Minutes"
 }
 
@@ -218,19 +218,19 @@ case object LostMinutes extends DoubleOptionDataField {
 //////////Quality section////////////////////////////
 case object TotalChecked extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.qualityInformation.totalChecked
+    data.qualityInformation.totalChecked.get
   override val toString = "QC Total Checked"
 }
 
 case object QCDefect extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.qualityInformation.defect
+    data.qualityInformation.defect.get
   override val toString = "QC Defect"
 }
 
 case object QCRejected extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.qualityInformation.reject
+    data.qualityInformation.reject.get
   override val toString = "QC Rejected"
 }
 
@@ -238,31 +238,31 @@ case object QCRejected extends DoubleOptionDataField {
 //////////Attendance Data/////////////////////////////
 case object Machines extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.absenteeism.machines
+    data.absenteeism.machines.get
   override val toString = "Machines"
 }
 
 case object OperatorsPresent extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.absenteeism.loPresent
+    data.absenteeism.loPresent.get
   override val toString = "Line Operators Present"
 }
 
 case object OperatorsAbsent extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.absenteeism.loAbsent
+    data.absenteeism.loAbsent.get
   override val toString = "Line Operators Absent"
 }
 
 case object HelpersPresent extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.absenteeism.hlPresent
+    data.absenteeism.hlPresent.get
   override val toString = "Helpers Present"
 }
 
 case object HelpersAbsent extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.absenteeism.hlAbsent
+    data.absenteeism.hlAbsent.get
   override val toString = "Helpers Absent"
 }
 

@@ -46,8 +46,8 @@ class LineListObject(val factoryDate: FactoryDate,
   //we have to define efficiency down here because it is calculated
   //from other values
   def efficiency: DoubleOption = {
-    {inputOutput.outputMinutes / targetInformation.availableMinutes} or {
-      inputOutput.outputMinutes / ((absenteeism.loPresent + absenteeism.hlPresent) * targetInformation.hours * 60)
+    {inputOutput.outputMinutes.get / targetInformation.availableMinutes.get} or {
+      inputOutput.outputMinutes.get / ((absenteeism.loPresent.get + absenteeism.hlPresent.get) * targetInformation.hours.get * 60)
     }
   }
 

@@ -1,18 +1,19 @@
 package backend.scala.datatypes
 
+import backend.scala.datatypes.options.wrappers.DoubleOptionWrapper
 import backend.scala.datatypes.builders.AbsenteeismDataBuilder
-import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
+import backend.scala.datatypes.options._
 
 /*
  * Created by Jackson Woodruff on 20/11/2014 
  * 
  */
 
-class AbsenteeismData(val machines: DoubleOption,
-                      val loPresent: DoubleOption,
-                      val loAbsent: DoubleOption,
-                      val hlPresent: DoubleOption,
-                      val hlAbsent: DoubleOption) extends ImplementedDataType[AbsenteeismData, AbsenteeismDataBuilder] {
+class AbsenteeismData(val machines: DoubleOptionWrapper,
+                      val loPresent: DoubleOptionWrapper,
+                      val loAbsent: DoubleOptionWrapper,
+                      val hlPresent: DoubleOptionWrapper,
+                      val hlAbsent: DoubleOptionWrapper) extends ImplementedDataType[AbsenteeismData, AbsenteeismDataBuilder] {
   self =>
 
   override type Self = this.type
@@ -45,11 +46,11 @@ class AbsenteeismData(val machines: DoubleOption,
      * should be ignored completely.
      */
   override def averageBy(number: Int): AbsenteeismData = new AbsenteeismDataBuilder {
-    machines = self.machines / SomeDouble(number.toDouble)
-    loPresent = self.loPresent / SomeDouble(number.toDouble)
-    loAbsent = self.loAbsent / SomeDouble(number.toDouble)
-    hlPresent = self.hlPresent / SomeDouble(number.toDouble)
-    hlAbsent = self.hlAbsent / SomeDouble(number.toDouble)
+    machines = self.machines.average
+    loPresent = self.loPresent.average
+    loAbsent = self.loAbsent.average
+    hlPresent = self.hlPresent.average
+    hlAbsent = self.hlAbsent.average
   }.build
 
   /*

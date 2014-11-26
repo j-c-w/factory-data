@@ -1,5 +1,6 @@
 package backend.scala.datatypes
 
+import backend.scala.datatypes.options.wrappers.DoubleOptionWrapper
 import backend.scala.datatypes.builders.QualityDataBuilder
 import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
 
@@ -8,9 +9,9 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
  * 
  */
 
-class QualityData(val totalChecked: DoubleOption,
-                  val reject: DoubleOption,
-                  val defect: DoubleOption) extends ImplementedDataType[QualityData, QualityDataBuilder] {
+class QualityData(val totalChecked: DoubleOptionWrapper,
+                  val reject: DoubleOptionWrapper,
+                  val defect: DoubleOptionWrapper) extends ImplementedDataType[QualityData, QualityDataBuilder] {
   self =>
 
   override type Self = this.type
@@ -43,9 +44,9 @@ class QualityData(val totalChecked: DoubleOption,
      * should be ignored completely.
      */
   override def averageBy(number: Int): QualityData = new QualityDataBuilder {
-    totalChecked = self.totalChecked / SomeDouble(number.toDouble)
-    defect = self.defect / SomeDouble(number.toDouble)
-    reject = self.reject / SomeDouble(number.toDouble)
+    totalChecked = self.totalChecked.average
+    defect = self.defect.average
+    reject = self.reject.average
   }.build
 
   /*

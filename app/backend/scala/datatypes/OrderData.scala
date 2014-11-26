@@ -1,5 +1,6 @@
 package backend.scala.datatypes
 
+import backend.scala.datatypes.options.wrappers.DoubleOptionWrapper
 import backend.scala.datatypes.options._
 import backend.scala.datatypes.builders.{BuilderType, OrderDataBuilder}
 import backend.scala.datatypes.options.{SomeDouble, DoubleOption, IntegerOption}
@@ -10,8 +11,8 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption, IntegerOption}
  */
 
 class OrderData(val buyer: IntegerOption,
-                val smv: DoubleOption,
-                val runningDays: DoubleOption) extends ImplementedDataType[OrderData, OrderDataBuilder] {
+                val smv: DoubleOptionWrapper,
+                val runningDays: DoubleOptionWrapper) extends ImplementedDataType[OrderData, OrderDataBuilder] {
   self =>
 
   override type Self = this.type
@@ -46,7 +47,7 @@ class OrderData(val buyer: IntegerOption,
   override def averageBy(number: Int): OrderData = new OrderDataBuilder {
     buyer = self.buyer
     smv = self.smv
-    runningDays = self.runningDays / SomeDouble(number.toDouble)
+    runningDays = self.runningDays.average
   }.build
 
   /*

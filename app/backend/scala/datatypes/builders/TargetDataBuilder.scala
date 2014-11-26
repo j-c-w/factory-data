@@ -1,5 +1,6 @@
 package backend.scala.datatypes.builders
 
+import backend.scala.datatypes.options.wrappers.DoubleOptionWrapper
 import backend.scala.datatypes.TargetData
 import backend.scala.datatypes.options.{DoubleOption, NoDouble}
 
@@ -11,9 +12,9 @@ import backend.scala.datatypes.options.{DoubleOption, NoDouble}
 class TargetDataBuilder extends BuilderType[TargetData, TargetDataBuilder] {
   self =>
 
-  var targetMinutes: DoubleOption = NoDouble
-  var hours: DoubleOption = NoDouble
-  var availableMinutes: DoubleOption = NoDouble
+  var targetMinutes: DoubleOptionWrapper = new DoubleOptionWrapper
+  var hours: DoubleOptionWrapper = new DoubleOptionWrapper
+  var availableMinutes: DoubleOptionWrapper = new DoubleOptionWrapper
 
   /*
      * This method is used to turn the builder
@@ -27,8 +28,8 @@ class TargetDataBuilder extends BuilderType[TargetData, TargetDataBuilder] {
    * and merges it to create a single builder
    */
   override def mergeSum(other: TargetDataBuilder): TargetDataBuilder = new TargetDataBuilder{
-    targetMinutes = self.targetMinutes + other.targetMinutes
-    hours = self.hours + other.hours
-    availableMinutes = self.availableMinutes + other.availableMinutes
+    targetMinutes = self.targetMinutes mergeSum other.targetMinutes
+    hours = self.hours mergeSum other.hours
+    availableMinutes = self.availableMinutes mergeSum other.availableMinutes
   }
 }

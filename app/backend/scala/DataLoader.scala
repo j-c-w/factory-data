@@ -34,13 +34,13 @@ object DataLoader {
     getDate(list(1)),
     new LineData(IntegerOption.toIntegerOptionOrNone(list(2)), IntegerOption.toIntegerOptionOrNone(list(3)), IntegerOption.toIntegerOptionOrNone(list(4)),
       IntegerOption.toIntegerOptionOrNone(list(5)), IntegerOption.toIntegerOptionOrNone(list(6))),
-    new OrderData(IntegerOption.toIntegerOptionOrNone(list(7)), DoubleOption.toDoubleOptionOrNone(list(8)), DoubleOption.toDoubleOptionOrNone(list(9))),
-    new TargetData(DoubleOption.toDoubleOptionOrNone(list(10)), DoubleOption.toDoubleOptionOrNone(list(11)), DoubleOption.toDoubleOptionOrNone(list(12))),
-    new IOData(DoubleOption.toDoubleOptionOrNone(list(13)), DoubleOption.toDoubleOptionOrNone(list(14)), DoubleOption.toDoubleOptionOrNone(list(15)),
-      DoubleOption.toDoubleOptionOrNone(list(16)), DoubleOption.toDoubleOptionOrNone(list(17))),
-    new QualityData(DoubleOption.toDoubleOptionOrNone(list(18)), DoubleOption.toDoubleOptionOrNone(list(19)), DoubleOption.toDoubleOptionOrNone(list(25))),
-    new AbsenteeismData(DoubleOption.toDoubleOptionOrNone(list(20)), DoubleOption.toDoubleOptionOrNone(list(21)), DoubleOption.toDoubleOptionOrNone(list(22)),
-      DoubleOption.toDoubleOptionOrNone(list(23)), DoubleOption.toDoubleOptionOrNone(list(24))),
+    new OrderData(IntegerOption.toIntegerOptionOrNone(list(7)), DoubleOption.toWrappedDoubleOrNone(list(8)), DoubleOption.toWrappedDoubleOrNone(list(9))),
+    new TargetData(DoubleOption.toWrappedDoubleOrNone(list(10)), DoubleOption.toWrappedDoubleOrNone(list(11)), DoubleOption.toWrappedDoubleOrNone(list(12))),
+    new IOData(DoubleOption.toWrappedDoubleOrNone(list(13)), DoubleOption.toWrappedDoubleOrNone(list(14)), DoubleOption.toWrappedDoubleOrNone(list(15)),
+      DoubleOption.toWrappedDoubleOrNone(list(16)), DoubleOption.toWrappedDoubleOrNone(list(17))),
+    new QualityData(DoubleOption.toWrappedDoubleOrNone(list(18)), DoubleOption.toWrappedDoubleOrNone(list(19)), DoubleOption.toWrappedDoubleOrNone(list(25))),
+    new AbsenteeismData(DoubleOption.toWrappedDoubleOrNone(list(20)), DoubleOption.toWrappedDoubleOrNone(list(21)), DoubleOption.toWrappedDoubleOrNone(list(22)),
+      DoubleOption.toWrappedDoubleOrNone(list(23)), DoubleOption.toWrappedDoubleOrNone(list(24))),
     IntegerOption(1), IntegerOption.toIntegerOptionOrNone(list(0))
   )
 

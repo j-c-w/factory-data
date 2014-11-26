@@ -1,6 +1,7 @@
 package backend.scala.datatypes.builders
 
 import backend.scala.datatypes.AbsenteeismData
+import backend.scala.datatypes.options.wrappers.DoubleOptionWrapper
 import backend.scala.datatypes.options.{NoDouble, DoubleOption}
 
 /*
@@ -11,11 +12,11 @@ import backend.scala.datatypes.options.{NoDouble, DoubleOption}
 class AbsenteeismDataBuilder extends BuilderType[AbsenteeismData, AbsenteeismDataBuilder] {
   self =>
 
-  var machines: DoubleOption = NoDouble
-  var loPresent: DoubleOption = NoDouble
-  var loAbsent: DoubleOption = NoDouble
-  var hlPresent: DoubleOption = NoDouble
-  var hlAbsent: DoubleOption = NoDouble
+  var machines: DoubleOptionWrapper = new DoubleOptionWrapper
+  var loPresent: DoubleOptionWrapper = new DoubleOptionWrapper
+  var loAbsent: DoubleOptionWrapper = new DoubleOptionWrapper
+  var hlPresent: DoubleOptionWrapper = new DoubleOptionWrapper
+  var hlAbsent: DoubleOptionWrapper = new DoubleOptionWrapper
 
   /*
      * This method is used to turn the builder
@@ -30,10 +31,10 @@ class AbsenteeismDataBuilder extends BuilderType[AbsenteeismData, AbsenteeismDat
    * and merges it to create a single builder
    */
   override def mergeSum(other: AbsenteeismDataBuilder): AbsenteeismDataBuilder = new AbsenteeismDataBuilder {
-    machines = self.machines + other.machines
-    loPresent = self.loPresent + other.loPresent
-    loAbsent = self.loAbsent + other.loAbsent
-    hlPresent = self.hlPresent + other.hlPresent
-    hlAbsent = self.hlAbsent + other.hlAbsent
+    machines = self.machines mergeSum other.machines
+    loPresent = self.loPresent mergeSum other.loPresent
+    loAbsent = self.loAbsent mergeSum other.loAbsent
+    hlPresent = self.hlPresent mergeSum other.hlPresent
+    hlAbsent = self.hlAbsent mergeSum other.hlAbsent
   }
 }

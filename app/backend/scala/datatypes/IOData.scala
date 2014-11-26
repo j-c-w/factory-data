@@ -1,5 +1,6 @@
 package backend.scala.datatypes
 
+import backend.scala.datatypes.options.wrappers.DoubleOptionWrapper
 import backend.scala.datatypes.builders.IODataBuilder
 import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
 
@@ -8,11 +9,11 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
  * 
  */
 
-class IOData(val inputCount: DoubleOption,
-             val outputCount: DoubleOption,
-             val dayOutput: DoubleOption,
-             val outputMinutes: DoubleOption,
-             val lostMinutes: DoubleOption) extends ImplementedDataType[IOData, IODataBuilder] {
+class IOData(val inputCount: DoubleOptionWrapper,
+             val outputCount: DoubleOptionWrapper,
+             val dayOutput: DoubleOptionWrapper,
+             val outputMinutes: DoubleOptionWrapper,
+             val lostMinutes: DoubleOptionWrapper) extends ImplementedDataType[IOData, IODataBuilder] {
   self =>
   override type Self = this.type
 
@@ -44,11 +45,11 @@ class IOData(val inputCount: DoubleOption,
      * should be ignored completely.
      */
   override def averageBy(number: Int): IOData = new IODataBuilder {
-    inputCount = self.inputCount / SomeDouble(number.toDouble)
-    outputCount = self.outputCount / SomeDouble(number.toDouble)
-    dayOutput = self.dayOutput / SomeDouble(number.toDouble)
-    outputMinutes = self.outputMinutes / SomeDouble(number.toDouble)
-    lostMinutes = self.lostMinutes / SomeDouble(number.toDouble)
+    inputCount = self.inputCount.average
+    outputCount = self.outputCount.average
+    dayOutput = self.dayOutput.average
+    outputMinutes = self.outputMinutes.average
+    lostMinutes = self.lostMinutes.average
   }.build
 
   /*
