@@ -25,7 +25,7 @@ class LineDataBuilder extends  BuilderType[LineData, LineDataBuilder] {
     lineCode = self.lineCode mergeEqual other.lineCode
     merged = self.merged mergeEqual other.merged
     mergedWith1 = self.mergedWith1 mergeEqual other.mergedWith1
-    mergedWith2 = self.mergedWith1 mergeEqual other.mergedWith2
+    mergedWith2 = self.mergedWith2 mergeEqual other.mergedWith2
     splitLine = self.splitLine mergeEqual other.splitLine
   }
 }

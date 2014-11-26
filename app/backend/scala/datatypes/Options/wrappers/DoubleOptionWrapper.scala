@@ -38,7 +38,8 @@ class DoubleOptionWrapper(option: DoubleOption, val numberOfObservations: Int) e
   override def get: DoubleOption = option
 
   override def average: DoubleOptionWrapper =
-    new DoubleOptionWrapper(option / SomeDouble(numberOfObservations), numberOfObservations)
+    //we need to reset to 1 to avoid problems when aggregating multiple times
+    new DoubleOptionWrapper(option / SomeDouble(numberOfObservations), 1)
 
   override def mergeSum(other: DoubleOptionWrapper): DoubleOptionWrapper = (this.get, other.get) match {
     case (NoDouble, SomeDouble(x)) => other
