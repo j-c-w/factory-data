@@ -22,7 +22,7 @@ object Global {
   lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\restore\\factory-data\\public\\images\\gen")
   lazy val errorPictureLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\restore\\factory-data\\public\\images\\graphFailed.png")
 
-  val baseData = DataLoader.dataAsList
+  lazy val baseData = DataLoader.dataAsList
 
   def sendNotification(queryId: String, formData: Option[Map[String, Seq[String]]]): Unit = {
     val location = new File(pictureFileLocation + "/" + queryId)

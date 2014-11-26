@@ -114,8 +114,16 @@ object Application extends Controller {
 
   def list = Action {
     val queryId = Global.getQueryId.mkString("")
-    Cache.set(queryId, Backend.loadRaw, 3600)
-    Global.sendNotification(queryId, Some(Map()))
+    val fut = future {
+      Cache.set(queryId, Backend.loadRaw, 3600)
+      Global.sendNotification(queryId, Some(Map()))
+    }
+    fut.onFailure {
+      case t => {
+        println("Error loading data, Stacktrace: ")
+        t.printStackTrace
+      }
+    }
     Ok(views.html.dataView(queryId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), new File("")))
   }
 
