@@ -1,5 +1,5 @@
 @(data: Array[backend.scala.query.ResultListObject[backend.scala.datatypes.LineListObject]],
-        displayField: List[String], message: String, sessionId: String)
+        displayField: List[String], message: String, sessionId: String, startPosition: Int)
 
 @import scala.util.Try
 @import play.api.cache.Cache
@@ -10,7 +10,7 @@
     puts the rest in cache and puts a link at the bottom
     to continue to the next page -->
 
-@if(data.length > 100) {
+@if(data.length > startPosition + 100) {
     <!-- There are more elements after this, so
     leave the table as on-going -->
     <table class="dataTable">
@@ -20,16 +20,16 @@
     <table class="lastDataTable">
 }
 
-    @for(dataItem <- Try(data.take(100)).getOrElse(data)) {
+    @for(dataItem <- Try(data.slice(startPosition, startPosition + 100)).getOrElse(data)) {
         <tr>@for(field <- displayField) {
             <td>@(DataField.fromString(field).get(dataItem.lineObject).toString)</td>
         }</tr>
     }
 </table>
 <div class="next">
-    @if(data.length > 100) {
+    @if(data.length > startPosition) {
         <!-- This is a 1 hour reset time -->
-        @Cache.set(sessionId, data.drop(100), 3600)
+        @Cache.set(sessionId + "Position", startPosition + 100, 3600)
         <a class="jscroll-next" href="@(routes.Application.moreData(sessionId))">next page</a>
     } else {
         <a class="jscroll-next" href="@routes.Application.endOfQuery()">next page</a>

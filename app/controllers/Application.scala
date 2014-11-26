@@ -25,11 +25,12 @@ object Application extends Controller {
   def moreData(queryId: String) = Action {
     val displayFields = Cache.getOrElse(queryId + "DisplayFields")(Static.defaultFields)
     val possiblyData = Cache.getAs[Array[ResultListObject[LineListObject]]](queryId)
+    val position = Cache.getOrElse(queryId + "Position")(0)
     val (data, message) = possiblyData.map(_.toList) match {
       case None => (Nil, "Query Expired, Please re-run query")
       case Some(isData) => (isData, "Data OK")
     }
-    Ok(views.html.generic.dataDisplay(data.toArray, displayFields, message, queryId))
+    Ok(views.html.generic.dataDisplay(data.toArray, displayFields, message, queryId, position))
   }
 
   def load(formType: String) = Action {
