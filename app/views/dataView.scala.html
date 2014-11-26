@@ -46,7 +46,7 @@
         </div>
         <div class="horizontalScroll">
             <table class="borderedTable">
-                @for(header <- formData._5) {
+                @for(header <- formData._5.filter(!_.equals(Static.noSelection))) {
                     <th>@Html(header)</th>
                 }
             </table>
