@@ -5,6 +5,7 @@ import java.io.File
 import backend.java.utils.FileUtility
 import backend.java.{LineGraph, BarChart}
 import backend.scala.datatypes.DataType
+import backend.scala.graphing.regressions.{RegressionGenerator, NoRegression}
 import controllers.Global
 import org.jfree.chart.{ChartUtilities, ChartFactory, JFreeChart}
 import scala.concurrent.future
@@ -38,7 +39,7 @@ object Graph {
                   yAxisTitle: String): File = {
     val destinationFile = Global.getPictureFile
     val drawer = future {
-      val chart = new BarChart(data.toCategorySet, title, xAxisTitle, yAxisTitle)
+      val chart = new BarChart(data.toCategorySet, NoRegression, title, xAxisTitle, yAxisTitle)
       chart.saveAsPNG(destinationFile)
     }
     drawer onFailure {
@@ -50,12 +51,14 @@ object Graph {
   }
 
   def drawLineGraph[A <: Comparable[_], T <: DataType[T]](data: BarChartData[A, T],
+                  regression: String,
                   title: String,
                   xAxisTitle: String,
                   yAxisTitle: String) : File = {
     val destinationFile = Global.getPictureFile
     val drawer = future {
-      val chart = new LineGraph(data.toXYSeriesCollection, title, xAxisTitle, yAxisTitle)
+      val chart = new LineGraph(data.toXYSeriesCollection, RegressionGenerator.fromString(regression),
+        title, xAxisTitle, yAxisTitle)
       chart.saveAsPNG(destinationFile)
     }
 

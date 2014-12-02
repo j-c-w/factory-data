@@ -8,9 +8,10 @@ package frontend.forms
  */
 
 case class GraphFormParser(xAxis: String, yAxis: String, title: String, graphType: String,
-                           xAxisTitle: String, yAxisTitle: String, graphSortMode: String) extends FormData[GraphFormParser] {
-  def this() = this("", "", "", "", "", "", "")
+                           xAxisTitle: String, yAxisTitle: String, graphSortMode: String,
+                           regression: String) extends FormData[GraphFormParser] {
+  def this() = this("", "", "", "", "", "", "", "")
   def default = new GraphFormParser
 
-  def toList = List(xAxis, yAxis, title, graphType, xAxisTitle, yAxisTitle, graphSortMode)
+  def toList = List(xAxis, yAxis, title, graphType, xAxisTitle, yAxisTitle, graphSortMode, regression)
 }

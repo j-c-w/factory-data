@@ -30,6 +30,7 @@ object RegressionGenerator {
     case Linear.toString => Linear
     case Polynomial.toString => Polynomial
     case Exponential.toString => Exponential
+    case _ => NoRegression
   }
 
   def toList = List(
@@ -48,18 +49,38 @@ abstract class RegressionGenerator {
   protected def exponential(set: XYDataset, seriesNumber: Int) =
     Regression.getPowerRegression(set, seriesNumber)
 
-  protected def exponentialEquation(doubles: Array[Double]): (Double => Double) =
-    x => doubles(0) * Math.pow(x, doubles(1))
+  def getEquation(equation: Array[Double]): (Double => Double)
+
+  def getEquationString: String
+
+  def drawLine: XYSeries
+
+}
+
+object NoRegression extends RegressionGenerator {
+  override val toString = "No Line of Best Fit"
+  def getEquation(set: Array[Double]) = ???
+  def getEquationString = ???
+  def drawLine = ???
 }
 
 object Linear extends RegressionGenerator {
   override val toString = "Linear"
+  def getEquation(set: Array[Double]) = ???
+  def getEquationString = ???
+  def drawLine = ???
 }
 
 object Polynomial extends RegressionGenerator {
   override val toString = "Polynomial"
+  def getEquation(set: Array[Double]) = ???
+  def getEquationString = ???
+  def drawLine = ???
 }
 
 object Exponential extends RegressionGenerator {
   override val toString = "Exponential"
+  def getEquation(set: Array[Double]) = ???
+  def getEquationString = ???
+  def drawLine = ???
 }

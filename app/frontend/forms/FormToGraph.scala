@@ -37,6 +37,7 @@ object FormToGraph {
       val graphType = forms.head.graphType
       val xAxisTitle = forms.head.xAxisTitle
       val yAxisTitle = forms.head.yAxisTitle
+      val regression = forms.head.regression
       val parsers = forms.map(form => {new DataParser[Comparable[_], LineListObject](
         data, result => {
           val xAx = DataField.fromString(form.xAxis)
@@ -44,7 +45,7 @@ object FormToGraph {
           (xAx.get(result.lineObject), yAx.get(result.lineObject).getOrElse(0))
         }, generateSort(forms.head.graphSortMode), form.yAxis
       )})
-      drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle)
+      drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle, regression)
     }
   }
   /*
@@ -64,14 +65,14 @@ object FormToGraph {
     val parser = new DataParser[Comparable[_], LineListObject](
       data, x => (xAxis.get(x.lineObject), yAxis.get(x.lineObject).getOrElse(0.0)), generateSort(form.graphSortMode), form.title)
     val chartData = new BarChartData(List(parser))
-    drawChart(chartData, form.title, form.graphType, form.xAxis, form.yAxis)
+    drawChart(chartData, form.title, form.graphType, form.xAxis, form.yAxis, form.regression)
   }
 
   private def drawChart[A <: Comparable[_], T <: DataType[T]](data: BarChartData[A, T], title: String,
                                                               graphType: String, xAxisTitle: String,
-                                                              yAxisTitle: String): File = graphType match {
+                                                              yAxisTitle: String, regression: String): File = graphType match {
     case "Bar Chart" => Graph.drawBarChart(data, title, xAxisTitle, yAxisTitle)
-    case "Line Graph" => Graph.drawLineGraph(data, title, xAxisTitle, yAxisTitle)
+    case "Line Graph" => Graph.drawLineGraph(data, regression, title, xAxisTitle, yAxisTitle)
   }
 
   private def generateSort[A <: Comparable[_]](sortMode: String): (((A, Double), (A, Double)) => Boolean) = sortMode match {
