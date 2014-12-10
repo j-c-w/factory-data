@@ -17,7 +17,7 @@ public class LineGraph extends Graph {
     }
 
     public JFreeChart createChart(XYSeriesCollection collection, RegressionGenerator regression, String title, String xAxisTitle, String yAxisTitle) {
-		collection.addSeries(regression.drawLine());
+		regression.addEquationToSet(collection, 0);
         JFreeChart chart = ChartFactory.createXYLineChart(title, xAxisTitle, yAxisTitle, collection, PlotOrientation.VERTICAL, true, false, false);
         return chart;
     }

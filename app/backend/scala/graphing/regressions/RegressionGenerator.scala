@@ -18,7 +18,7 @@ package backend.scala.graphing.regressions
 import java.rmi.server.ExportException
 
 import org.jfree.data.statistics.Regression
-import org.jfree.data.xy.{XYDataset, XYSeries}
+import org.jfree.data.xy.{XYSeriesCollection, XYSeries}
 
 /*
  * Created by Jackson Woodruff on 25/11/2014 
@@ -26,61 +26,79 @@ import org.jfree.data.xy.{XYDataset, XYSeries}
  */
 
 object RegressionGenerator {
-  def fromString(string: String) = string match {
-    case Linear.toString => Linear
-    case Polynomial.toString => Polynomial
-    case Exponential.toString => Exponential
-    case _ => NoRegression
+  val linear = "Linear"
+  val polynomial = "Polynomial"
+  val exponential = "Exponential"
+
+  def fromString(string: String, power: Int) = string match {
+    case linear => new RegressionGenerator(1)
+    case polynomial => new RegressionGenerator(power)
+    case exponential => new RegressionGenerator(-1)
   }
 
   def toList = List(
-    Linear.toString, Polynomial.toString, Exponential.toString
+    linear, polynomial, exponential
   )
 }
 
-abstract class RegressionGenerator {
-  protected def linear(set: XYDataset, seriesNumber: Int) =
+class RegressionGenerator(power: Int) {
+  protected def linear(set: XYSeriesCollection, seriesNumber: Int) =
     Regression.getOLSRegression(set, seriesNumber)
 
   //5 is the maximum power of the polynomial
-  protected def polynomial(set: XYDataset, seriesNumber: Int) =
-    Regression.getPolynomialRegression(set, seriesNumber, 5)
+  protected def polynomial(set: XYSeriesCollection, seriesNumber: Int, power: Int) =
+    Regression.getPolynomialRegression(set, seriesNumber, power)
 
-  protected def exponential(set: XYDataset, seriesNumber: Int) =
+  protected def exponential(set: XYSeriesCollection, seriesNumber: Int) =
     Regression.getPowerRegression(set, seriesNumber)
 
-  def getEquation(equation: Array[Double]): (Double => Double)
+  /*
+   * This returns an anonymous function that
+   * parses doubles (and so can be plotted).
+   *
+   * For an exponential equation pass -1 as the power.
+   */
+  def getEquation(set: XYSeriesCollection, seriesNumber: Int): (Double => Double) =
+    if (power < 0) {
+      val doubles = exponential(set, seriesNumber)
+      x => doubles(0) * Math.pow(x, doubles(1))
+    } else {
+      val doubles = polynomial(set, seriesNumber, power)
+      val equationList: IndexedSeq[(Double => Double)] = ((0 until doubles.length).zip(doubles)).map {
+        case(coefficient, pwr) => ((x: Double) => coefficient * Math.pow(x, pwr))
+      }
+      x => equationList.foldRight(0.0) (_.apply(x) + _)
+    }
 
-  def getEquationString: String
+  /*
+   * This returns a string representation of the
+   * regression equation.
+   *
+   * I find it infuriating that I cannot reuse the code
+   * above despite the similarity between the getEquation
+   * and getEquationString methods
+   */
+  def getEquationString(set: XYSeriesCollection, seriesNumber: Int): String =
+    if (power < 0) {
+      val doubles = exponential(set, seriesNumber)
+      "y = " + doubles(0).toString + "x^(" + doubles(1).toString + ")"
+    } else {
+      val doubles = polynomial(set, seriesNumber, power)
+      val equationList: IndexedSeq[String] = ((0 until doubles.length).zip(doubles)).map {
+        case(coefficient, pwr) => coefficient + "x^(" + pwr.toString + ")"
+      }
+      equationList.foldRight("y = ") (_ + " + " + _)
+    }
 
-  def drawLine: XYSeries
+  def addEquationToSet(set: XYSeriesCollection, seriesNumber: Int) = {
+    val series = new XYSeries(getEquationString(set, seriesNumber))
+    val minX = set.getSeries(seriesNumber).getMinX
+    val maxX = set.getSeries(seriesNumber).getMaxX
 
-}
+    val equation = getEquation(set, seriesNumber)
+    val minY = equation.apply(minX)
+    val maxY = equation.apply(maxX)
 
-object NoRegression extends RegressionGenerator {
-  override val toString = "No Line of Best Fit"
-  def getEquation(set: Array[Double]) = ???
-  def getEquationString = ???
-  def drawLine = ???
-}
-
-object Linear extends RegressionGenerator {
-  override val toString = "Linear"
-  def getEquation(set: Array[Double]) = ???
-  def getEquationString = ???
-  def drawLine = ???
-}
-
-object Polynomial extends RegressionGenerator {
-  override val toString = "Polynomial"
-  def getEquation(set: Array[Double]) = ???
-  def getEquationString = ???
-  def drawLine = ???
-}
-
-object Exponential extends RegressionGenerator {
-  override val toString = "Exponential"
-  def getEquation(set: Array[Double]) = ???
-  def getEquationString = ???
-  def drawLine = ???
+    set.addSeries(series)
+  }
 }

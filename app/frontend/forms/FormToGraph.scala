@@ -5,6 +5,7 @@ import java.io.File
 import backend.scala.datatypes.options.MathComparable
 import backend.scala.datatypes.{DoubleOptionDataField, DataField, DataType, LineListObject}
 import backend.scala.graphing.data.DataParser
+import backend.scala.graphing.regressions.RegressionGenerator
 import backend.scala.graphing.{BarChartData, Graph}
 import backend.scala.query.ResultListObject
 import scala.concurrent._
@@ -72,7 +73,7 @@ object FormToGraph {
                                                               graphType: String, xAxisTitle: String,
                                                               yAxisTitle: String, regression: String): File = graphType match {
     case "Bar Chart" => Graph.drawBarChart(data, title, xAxisTitle, yAxisTitle)
-    case "Line Graph" => Graph.drawLineGraph(data, regression, title, xAxisTitle, yAxisTitle)
+    case "Line Graph" => Graph.drawLineGraph(data, new RegressionGenerator(1), title, xAxisTitle, yAxisTitle)
   }
 
   private def generateSort[A <: Comparable[_]](sortMode: String): (((A, Double), (A, Double)) => Boolean) = sortMode match {

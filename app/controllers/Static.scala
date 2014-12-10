@@ -1,6 +1,7 @@
 package controllers
 
 import backend.scala.datatypes._
+import backend.scala.graphing.regressions.RegressionGenerator
 
 /*
  * Created by Jackson Woodruff on 13/11/2014 
@@ -57,4 +58,6 @@ object Static {
   val graphTypes: List[String] = List(
     "Bar Chart", "Line Graph"
   )
+
+  val regressions: List[String] = RegressionGenerator.toList
 }

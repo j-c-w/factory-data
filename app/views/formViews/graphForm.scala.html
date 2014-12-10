@@ -24,6 +24,15 @@
             }
         }
     </select>
+    Regression: <select id="regressions" name="regressions">
+        @for(option <- Static.regressions) {
+            @if(option == data.regression) {
+                <option selected name="regressions" id="regressions">@option</option>
+            } else {
+                <option name="regressions" id="regressions">@option</option>
+            }
+        }
+    </select>
     <br/>
 
 
