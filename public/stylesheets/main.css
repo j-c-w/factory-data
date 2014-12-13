@@ -69,7 +69,23 @@ body {
 }
 
 #submitSessionRestore {
-    width: 200px;
+    width: 8em;
+}
+
+#sessionRestoreDiv {
+    height: 10em;
+    top: 8em;
+}
+
+#sessionIDEntryBox {
+    width: 8em;
+}
+
+#defaultSessionsBox {
+    /*
+     this height comes from the height of submitSessionRestore
+     and the distance from the top of that box */
+    top: 20em;
 }
 
 .center {
@@ -100,6 +116,15 @@ body {
     border-left: 1px solid #000000;
     border-right: 1px solid #000000;
     border-bottom: 1px solid #000000;
+}
+
+.floatingBoxRight {
+    width: 8em;
+    text-align: center;
+    background: darkred;
+    position: absolute;
+    right: 0.5em;
+    padding: 10px;
 }
 
 .borderedTable {

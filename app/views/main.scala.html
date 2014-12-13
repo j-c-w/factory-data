@@ -14,8 +14,8 @@
         @generic.header()
 
         <div id="content">
-            <div class="floatingBoxRight">
-                <h2>Restore Session</h2>
+            <div class="floatingBoxRight" id="sessionRestoreDiv">
+                <h3>Restore Session</h3>
                 <form action="/recoverSession" method="POST" id="recoverSession" name="recoverSession">
                     <p id="sessionIdStore">@sessionId</p>
                     @if(sessionRestoreFailed) {
@@ -25,10 +25,44 @@
                     }
                     Session ID: <input type="text" id="sessionIDEntryBox" name="id">
                     <br/>
+                    <br/>
                     <a href="" id="submitSessionRestore" class="formButton">Restore Session</a>
                 </form>
             </div>
-            <p>Content should go here.</p>
+            <div class="floatingBoxRight" id="defaultSessionsBox">
+                <h3>Interesting Queries</h3>
+                <!-- TODO -- fill this with a list of the default sessions to be retored -->
+                <ul>
+                    <li>Placeholder</li>
+                    <li>Placeholder</li>
+                    <li>.</li>
+                    <li>.</li>
+                    <li>.</li>
+                    <li>PlaceHolder</li>
+                </ul>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas hendrerit eget metus sed euismod. Nulla mollis ipsum est, vitae gravida eros tempor id. Maecenas odio turpis, tincidunt at venenatis in, dignissim eget arcu. Donec accumsan tempor eleifend. Cras accumsan est eget semper auctor. Vestibulum nisl magna, euismod sed sapien id, tincidunt pellentesque libero. Proin ante velit, scelerisque sed facilisis in, mattis non felis. Etiam id felis nunc.
+                <br/>
+                <br/>
+                Proin suscipit vel leo non mattis. Nunc efficitur sodales aliquam. Morbi pharetra consectetur enim faucibus interdum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam id diam vel ligula imperdiet aliquet id at magna. Duis nulla augue, convallis nec consectetur vitae, consectetur vitae mi. Ut vulputate vel nibh et ornare. Sed tincidunt, sapien nec sagittis pulvinar, eros lorem gravida purus, sit amet ornare dolor lacus quis mauris. Sed accumsan ornare nibh, id blandit justo pretium eu. Suspendisse sit amet sapien id risus interdum posuere aliquam eu quam. Etiam ut elit ut erat consectetur semper. Etiam rhoncus tincidunt tellus id porta. Pellentesque finibus, leo eget dapibus iaculis, nibh nunc gravida dui, vel commodo diam sapien a purus. Aenean blandit placerat congue.
+                <br/>
+                <br/>
+                Nunc a orci sapien. Nulla in sapien fringilla, laoreet nibh ut, condimentum tellus. Ut faucibus sagittis vestibulum. Aenean lorem nisl, ultrices a tellus eu, gravida tincidunt lacus. Fusce gravida feugiat sapien id maximus. Ut facilisis ante purus, eget tincidunt odio malesuada non. Ut eget egestas justo. Donec at magna euismod, blandit diam ac, scelerisque purus. Donec porta ex ac nisi luctus, eu volutpat sapien consequat.
+                <br/>
+                <br/>
+                Vestibulum eu eros malesuada, scelerisque lorem sed, porttitor lectus. Maecenas quis accumsan massa. Duis sit amet ultrices neque. Sed ac magna eleifend, imperdiet ante ut, vehicula dolor. Donec sollicitudin mauris sit amet turpis fringilla, ut bibendum felis consectetur. Fusce vehicula eros quis ipsum sodales, quis posuere tellus lobortis. Aliquam erat volutpat. Phasellus lacinia velit eros, sed lobortis neque tincidunt ac. Phasellus et odio quis velit pretium ultricies ut ac quam. Nulla consequat tristique accumsan. Donec vitae leo non urna dictum tempus ut in ligula. In quis vulputate ex. Quisque a ultricies justo. Aliquam volutpat mauris neque, et fermentum sem accumsan in. Aliquam finibus sapien arcu, id suscipit nisl sagittis eget.
+                <br/>
+                <br/>
+                Phasellus faucibus arcu in commodo dignissim. Nullam sit amet accumsan augue. Nullam eleifend elementum lorem a condimentum. Nullam vitae ante et eros sodales fringilla sollicitudin non diam. Pellentesque vehicula est dolor, eget dapibus massa elementum sit amet. Nullam ultricies est ante, tincidunt euismod ligula sollicitudin eget. Nunc maximus nisi lectus, sed iaculis tellus ornare ac. Phasellus ut enim a est ultrices laoreet ut eu dolor. Donec fringilla, ligula sit amet tristique scelerisque, ante lectus pellentesque justo, vitae viverra augue metus ac ante. Nulla tempor, erat id sagittis vulputate, turpis eros gravida neque, id consectetur nibh purus porttitor nibh. Donec tempus luctus tristique. Aenean luctus, nisl at consequat blandit, nunc dui interdum ex, at pharetra elit risus a tortor.</p>
+                <br/>
+                <br/>
+                Proin suscipit vel leo non mattis. Nunc efficitur sodales aliquam. Morbi pharetra consectetur enim faucibus interdum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam id diam vel ligula imperdiet aliquet id at magna. Duis nulla augue, convallis nec consectetur vitae, consectetur vitae mi. Ut vulputate vel nibh et ornare. Sed tincidunt, sapien nec sagittis pulvinar, eros lorem gravida purus, sit amet ornare dolor lacus quis mauris. Sed accumsan ornare nibh, id blandit justo pretium eu. Suspendisse sit amet sapien id risus interdum posuere aliquam eu quam. Etiam ut elit ut erat consectetur semper. Etiam rhoncus tincidunt tellus id porta. Pellentesque finibus, leo eget dapibus iaculis, nibh nunc gravida dui, vel commodo diam sapien a purus. Aenean blandit placerat congue.
+                <br/>
+                <br/>
+                Nunc a orci sapien. Nulla in sapien fringilla, laoreet nibh ut, condimentum tellus. Ut faucibus sagittis vestibulum. Aenean lorem nisl, ultrices a tellus eu, gravida tincidunt lacus. Fusce gravida feugiat sapien id maximus. Ut facilisis ante purus, eget tincidunt odio malesuada non. Ut eget egestas justo. Donec at magna euismod, blandit diam ac, scelerisque purus. Donec porta ex ac nisi luctus, eu volutpat sapien consequat.
+                <br/>
+                <br/>
+                Vestibulum eu eros malesuada, scelerisque lorem sed, porttitor lectus. Maecenas quis accumsan massa. Duis sit amet ultrices neque. Sed ac magna eleifend, imperdiet ante ut, vehicula dolor. Donec sollicitudin mauris sit amet turpis fringilla, ut bibendum felis consectetur. Fusce vehicula eros quis ipsum sodales, quis posuere tellus lobortis. Aliquam erat volutpat. Phasellus lacinia velit eros, sed lobortis neque tincidunt ac. Phasellus et odio quis velit pretium ultricies ut ac quam. Nulla consequat tristique accumsan. Donec vitae leo non urna dictum tempus ut in ligula. In quis vulputate ex. Quisque a ultricies justo. Aliquam volutpat mauris neque, et fermentum sem accumsan in. Aliquam finibus sapien arcu, id suscipit nisl sagittis eget.
         </div>
 
         @generic.footer()
