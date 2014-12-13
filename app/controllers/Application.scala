@@ -19,7 +19,7 @@ import scala.util.{Success, Failure, Try}
 
 object Application extends Controller {
   def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+    Ok(views.html.main("", sessionRestoreFailed = false))
   }
 
   def moreData(queryId: String) = Action {
@@ -46,11 +46,18 @@ object Application extends Controller {
   def recoverSession() = Action { implicit request =>
     val sentForm = request.body.asFormUrlEncoded
     val queryId = sentForm.getOrElse(Map()).getOrElse("id", List("")).head
-    val dynamicForm = Global.restoreSession(queryId)
+    //note we trim the query id here in case someone copied a space at
+    //either end of it
+    val dynamicForm = Global.restoreSession(queryId.trim)
     println("Restoring...")
     //note how we need a new SessionID so we don't run into
     //loading problems
-    loadDataPage(dynamicForm)
+    dynamicForm match {
+      case Some(_) => loadDataPage(dynamicForm)
+      //in the case that the restore failed this will have returned None,
+      //so we return to the main page.
+      case None => Ok(views.html.main(queryId, sessionRestoreFailed = true))
+    }
   }
 
   def submitForm = Action { implicit request =>

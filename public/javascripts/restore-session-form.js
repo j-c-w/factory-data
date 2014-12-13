@@ -16,9 +16,16 @@
 /**
  * Created by Jackson on 12/12/2014.
  */
+var sessionID;
+
 $(document).ready(function () {
     $("#submitSessionRestore").click(function() {
         $("#recoverSession").submit();
         return false;
     });
+
+    var sessionIDStore = $("#sessionIdStore");
+    sessionID = sessionIDStore.text();
+    sessionIDStore.remove();
+    $("#sessionIDEntryBox").val(sessionID);
 });

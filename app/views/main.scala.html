@@ -1,10 +1,10 @@
-@(title: String)(content: Html)
+@(sessionId: String, sessionRestoreFailed: Boolean)
 
 <!DOCTYPE html>
 
 <html>
     <head>
-        <title>@title</title>
+        <title>The RMG Data Project</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
@@ -17,7 +17,13 @@
             <div class="floatingBoxRight">
                 <h2>Restore Session</h2>
                 <form action="/recoverSession" method="POST" id="recoverSession" name="recoverSession">
-                    Session ID: <input type="text" name="id">
+                    <p id="sessionIdStore">@sessionId</p>
+                    @if(sessionRestoreFailed) {
+                        <!-- we only show this error if the session restore did indeed fail
+                        Otherwise it would be confusing and coutner-productive -->
+                        <p class="error">Oops! We couldn't find a query stored under that ID! </p>
+                    }
+                    Session ID: <input type="text" id="sessionIDEntryBox" name="id">
                     <br/>
                     <a href="" id="submitSessionRestore" class="formButton">Restore Session</a>
                 </form>

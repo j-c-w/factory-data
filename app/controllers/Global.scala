@@ -32,20 +32,23 @@ object Global {
     writer.close()
   }
 
+  /*
+   * Please note that if you pass this an empty string it will crash
+   */
   def restoreSession(queryId: String): Option[Map[String, Seq[String]]] = {
     val location = new File(pictureFileLocation + "/" + queryId)
     if (!location.exists()) {
-      Some(Map())
+      None
     } else {
-      val formString = new String(Files.readAllBytes(Paths.get(location.toString)))
-      println(formString)
       try {
+        val formString = new String(Files.readAllBytes(Paths.get(location.toString)))
+        println(formString)
         Some(Serialization.unserialize(formString))
       } catch {
         case ex: Exception => {
           println("Error restoring previous query, ID: " + queryId)
           println("Error Message: " + ex.getMessage)
-          Some(Map())
+          None
         }
       }
     }
