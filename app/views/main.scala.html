@@ -8,17 +8,21 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/restore-session-form.js")"  type="text/javascript"></script>
     </head>
     <body>
         @generic.header()
 
         <div id="content">
-            <h2>Restore Session</h2>
-            <form action="/recoverSession" method="POST" id="recoverSession" name="recoverSession">
-                Session ID: <input type="text" name="id">
-                <button type="submit" name="submitRestore" value="Restore Session">Restore Session</button>
-            </form>
-            <p>Lots of content</p>
+            <div class="floatingBoxRight">
+                <h2>Restore Session</h2>
+                <form action="/recoverSession" method="POST" id="recoverSession" name="recoverSession">
+                    Session ID: <input type="text" name="id">
+                    <br/>
+                    <a href="" id="submitSessionRestore" class="formButton">Restore Session</a>
+                </form>
+            </div>
+            <p>Content should go here.</p>
         </div>
 
         @generic.footer()
