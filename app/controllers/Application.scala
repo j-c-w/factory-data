@@ -186,13 +186,16 @@ object Application extends Controller {
     val xAxisTitle = map.getOrElse("xAxisTitle", List(""))
     val yAxisTitle = map.getOrElse("yAxisTitle", List(""))
     val graphSortMode = map.getOrElse("graphSortMode", List("xAxis"))
+    //currently not in use
     val regressions = map.getOrElse("regressions", List(""))
+    //
 
     val axesDisplayed = map.getOrElse("displayAxes", Static.defaultFields)
 
-    val graphData = (xAxis, yAxis, regressions).zipped.map{
-      case (x, y, reg) => new GraphFormParser(x, y, graphTitle.head, graphType.head,
-        xAxisTitle.head, yAxisTitle.head, graphSortMode.head, reg)
+    val graphData = (xAxis, yAxis).zipped.map{
+      case (x, y) => new GraphFormParser(x, y, graphTitle.head, graphType.head,
+        xAxisTitle.head, yAxisTitle.head, graphSortMode.head, "")//this last item is the regression
+        //which is currently not in use
     }
     val filters = filterComparisons.zip(filterField).zip(filterValue).zip(filterConnectors).map(
     {case (((comparator, field), value), connector) => new FilterFormData(field, comparator, value, connector)}
