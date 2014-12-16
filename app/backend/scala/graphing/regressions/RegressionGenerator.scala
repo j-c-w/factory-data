@@ -63,7 +63,7 @@ class RegressionGenerator(power: Int) {
       val doubles = exponential(set, seriesNumber)
       x => doubles(0) * Math.pow(x, doubles(1))
     } else {
-      val doubles = polynomial(set, seriesNumber, power)
+      val doubles = linear(set, seriesNumber)
       val equationList: IndexedSeq[(Double => Double)] = ((0 until doubles.length).zip(doubles)).map {
         case(coefficient, pwr) => ((x: Double) => coefficient * Math.pow(x, pwr))
       }
@@ -83,11 +83,11 @@ class RegressionGenerator(power: Int) {
       val doubles = exponential(set, seriesNumber)
       "y = " + doubles(0).toString + "x^(" + doubles(1).toString + ")"
     } else {
-      val doubles = polynomial(set, seriesNumber, power)
+      val doubles = linear(set, seriesNumber)
       val equationList: IndexedSeq[String] = ((0 until doubles.length).zip(doubles)).map {
-        case(coefficient, pwr) => coefficient + "x^(" + pwr.toString + ")"
+        case(pwr, coefficient) => coefficient + "x^(" + pwr.toString + ")"
       }
-      equationList.foldRight("y = ") (_ + " + " + _)
+      equationList.foldRight("y = ") ((str, equ) => str + " + " + equ)
     }
 
   def addEquationToSet(set: XYSeriesCollection, seriesNumber: Int) = {
@@ -96,8 +96,14 @@ class RegressionGenerator(power: Int) {
     val maxX = set.getSeries(seriesNumber).getMaxX
 
     val equation = getEquation(set, seriesNumber)
-    val minY = equation.apply(minX)
-    val maxY = equation.apply(maxX)
+    val minY = equation.apply(minX + 0.0000001)
+    val maxY = equation.apply(maxX -0.00001)
+
+    println("Minimum: " + minX.toString + ", " + minY.toString)
+    println("Maximum: " + maxX.toString + ", " + maxY.toString)
+
+    series.add(minX, minY)
+    series.add(maxX, maxY)
 
     set.addSeries(series)
   }
