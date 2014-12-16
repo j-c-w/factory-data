@@ -73,7 +73,7 @@ body {
 }
 
 #sessionRestoreDiv {
-    height: 10em;
+    height: 15em;
     top: 8em;
 }
 
@@ -85,7 +85,7 @@ body {
     /*
      this height comes from the height of submitSessionRestore
      and the distance from the top of that box */
-    top: 20em;
+    top: 25em;
 }
 
 .center {
