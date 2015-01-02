@@ -22,16 +22,6 @@ object Application extends Controller {
     Ok(views.html.main("", sessionRestoreFailed = false))
   }
 
-  def loadFile(file: String) = {
-    val privateFilesPattern = "(private/*)".r
-    file match {
-      case privateFilesPattern(dir) => Action {
-        Results.Forbidden("Access to all files in private/ is denied")
-      }
-      case x => Assets.at(path="/public", x)
-    }
-  }
-
   def moreData(queryId: String) = Action {
     val displayFields = Cache.getOrElse(queryId + "DisplayFields")(Static.defaultFields)
     val possiblyData = Cache.getAs[Array[ResultListObject[LineListObject]]](queryId)
