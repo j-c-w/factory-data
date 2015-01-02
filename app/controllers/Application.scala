@@ -130,6 +130,9 @@ object Application extends Controller {
       case t => {
         println("Error loading data, Stacktrace: ")
         t.printStackTrace
+        // We set a string here becuase that will trigger the error mechanism
+        // rather than just letting the javascript spin endlessly.
+        Cache.set(queryId, "Query Failed", 180)
       }
     }
     Ok(views.html.dataView(queryId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), new File("")))
