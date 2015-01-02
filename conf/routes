@@ -15,7 +15,7 @@ POST        /submitForm                   controllers.Application.submitForm
 GET         /endOfQuery                   controllers.Application.endOfQuery
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                 controllers.Assets.at(path="/public", file)
+GET         /assets/*file                 controllers.Application.loadFile(file)
 
 # Map the pages from the /views/form forlder for use in JS files
 GET         /forms/*formType              controllers.Application.load(formType)
