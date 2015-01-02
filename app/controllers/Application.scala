@@ -23,7 +23,7 @@ object Application extends Controller {
   }
 
   def tempFile(file: String) = Action {
-    val actualFile = new File("temp", file);
+    val actualFile = new File(Global.pictureFileLocation, file);
     if (actualFile.exists())
       Results.NotFound("File not found")
     else
