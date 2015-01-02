@@ -1,5 +1,5 @@
 logs
-public/images/gen
+public/images/gen/*
 project/dependencies.yml
 project/project
 project/target
