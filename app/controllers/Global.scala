@@ -23,7 +23,7 @@ object Global {
 
   lazy val pictureFileLocation = new File(pathToFiles, "public\\images\\gen")
   lazy val errorPictureLocation = new File(pathToFiles, "public\\images\\graphFailed.png")
-  lazy val dataCVSLocation = new File(pathToFiles, "public\\private\\second_harmonized.csv")
+  lazy val dataCVSLocation = new File(pathToFiles, "conf\\private\\second_harmonized.csv")
 
   lazy val baseData = DataLoader.dataAsList
 
