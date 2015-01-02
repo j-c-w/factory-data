@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.{Locale, Date}
 import backend.scala.datatypes.options._
 import backend.scala.datatypes._
+import controllers.Global
 import main.backend.csv.scala.com.github.tototoshi.csv.CSVReader
 
 import scala.collection.parallel.immutable.ParSeq
@@ -22,7 +23,7 @@ import scala.util.Try
  */
 
 object DataLoader {
-  val reader = CSVReader.open("C:\\Users\\Jackson\\Projects\\IPA\\Data\\harmonized data\\second_harmonized.csv")
+  val reader = CSVReader.open(Global.dataCVSLocation)
 
   def loadData: List[List[String]] = {
     printf("Loading Data From CSV")
