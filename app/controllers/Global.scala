@@ -19,9 +19,11 @@ object Global {
   def getQueryId =
     nextNRandoms(40)
 
-  lazy val pictureFileLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\restore\\factory-data\\public\\images\\gen")
-  lazy val errorPictureLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\PlayTest\\restore\\factory-data\\public\\images\\graphFailed.png")
-  lazy val dataCVSLocation = new File("C:\\Users\\Jackson\\Projects\\IPA\\Data\\harmonized data\\second_harmonized.csv")
+  private lazy val pathToFiles = new File("").getAbsolutePath
+
+  lazy val pictureFileLocation = new File(pathToFiles, "public\\images\\gen")
+  lazy val errorPictureLocation = new File(pathToFiles, "public\\images\\graphFailed.png")
+  lazy val dataCVSLocation = new File(pathToFiles, "private\\second_harmonized.csv")
 
   lazy val baseData = DataLoader.dataAsList
 
