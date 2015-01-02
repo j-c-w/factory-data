@@ -22,6 +22,14 @@ object Application extends Controller {
     Ok(views.html.main("", sessionRestoreFailed = false))
   }
 
+  def tempFile(file: String) = Action {
+    val actualFile = new File("temp", file);
+    if (actualFile.exists())
+      Results.NotFound("File not found")
+    else
+      Ok.sendFile(actualFile)
+  }
+
   def moreData(queryId: String) = Action {
     val displayFields = Cache.getOrElse(queryId + "DisplayFields")(Static.defaultFields)
     val possiblyData = Cache.getAs[Array[ResultListObject[LineListObject]]](queryId)

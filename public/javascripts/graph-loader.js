@@ -9,7 +9,7 @@ $(document).ready(function() {
     pictureFileNameContainer = $("#pictureFileName");
     pictureFileName = pictureFileNameContainer.text();
     pictureFileNameContainer.hide();
-    var pictureUrl = "assets/images/gen/" + pictureFileName
+    var pictureUrl = "temp/" + pictureFileName
     var refreshPictureInterval = setInterval(function() {
         $.ajax({
             url: pictureUrl,
