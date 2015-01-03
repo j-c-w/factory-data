@@ -43,6 +43,17 @@ object Application extends Controller {
     }
   }
 
+  /*
+   * This method returns an Ok if the cahce contains the key passed
+   * Otherwise it returns a NotFound result
+   */
+  def checkCache(key: String) = Action {
+    Cache.get(key) match {
+      case None => Results.NotFound(key + " Not found in cache")
+      case Some(_) => Ok("Key in cache")
+    }
+  }
+
   def recoverSession() = Action { implicit request =>
     val sentForm = request.body.asFormUrlEncoded
     val queryId = sentForm.getOrElse(Map()).getOrElse("id", List("")).head

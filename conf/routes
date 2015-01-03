@@ -3,28 +3,31 @@
 # ~~~~
 
 # Home page
-GET         /                             controllers.Application.index
+GET         /                            controllers.Application.index
 
 # Basic lists page
-GET         /list                         controllers.Application.list
+GET         /list                        controllers.Application.list
 
 # Submit form route (redirects to /list)
-POST        /submitForm                   controllers.Application.submitForm
+POST        /submitForm                  controllers.Application.submitForm
 
 # Just loads a small file to sinify the end of the query
-GET         /endOfQuery                   controllers.Application.endOfQuery
+GET         /endOfQuery                  controllers.Application.endOfQuery
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                 controllers.Assets.at(path="/public", file)
+GET         /assets/*file                controllers.Assets.at(path="/public", file)
 
 # Map the pages from the /views/form forlder for use in JS files
-GET         /forms/*formType              controllers.Application.load(formType)
+GET         /forms/*formType             controllers.Application.load(formType)
 
 # this is used to start the lazy list loading
-GET         /dataStart/:sessionId         controllers.Application.dataStart(sessionId)
+GET         /dataStart/:sessionId        controllers.Application.dataStart(sessionId)
 
 # This is used for getting more data from the query
-GET         /moreData/:sessionId          controllers.Application.moreData(sessionId)
+GET         /moreData/:sessionId         controllers.Application.moreData(sessionId)
 
 # This is used to recover sessions
-POST         /recoverSession              controllers.Application.recoverSession()
+POST        /recoverSession              controllers.Application.recoverSession()
+
+# This is for checking the cache for a given string
+GET         /cacheCheck/*key            controllers.Application.cacheCheck(key)

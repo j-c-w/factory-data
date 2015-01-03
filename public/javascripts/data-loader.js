@@ -5,12 +5,12 @@ $(document).ready(function() {
     var sessionIdContainer = $("#sessionId");
     var sessionId = sessionIdContainer.text();
     sessionIdContainer.hide();
-    var conformationUrl = "assets/images/gen/" + sessionId;
+    var conformationUrl = "cacheCheck/" + sessionId;
     var refreshDataInterval = setInterval(function() {
         $.ajax({
             url: conformationUrl,
             success: function(data){
-                //the file exists, so load the data
+                // the cache says it has the data loaded
                 $.ajax({
                     url : "dataStart/" + sessionId,
                     success : function(result){
@@ -22,7 +22,8 @@ $(document).ready(function() {
                 clearInterval(refreshDataInterval);
             },
             error: function(data){
-                //leave it, because the file does not exist
+                // let the interval repeat, because the data has
+                // not appeared in cache yet
             }
         })
     }, 1000);
