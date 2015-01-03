@@ -56,6 +56,7 @@ object Application extends Controller {
 
   def loadImageFromCache(key: String) = Action {
     val image = Cache.getAs[String](key)
+    Cache.remove(key)
     image match {
       case Some(x) => Ok(views.html.generic.imageDisplay(x))
       case None => Results.NotFound("No Base 64 encoded image found under " + key)
