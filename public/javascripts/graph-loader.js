@@ -36,7 +36,7 @@ loadGraph = function (pictureName) {
             graphDiv.html(loadedData)
         },
         error: function(errror) {
-            graphDiv.html("<p>oops! we messed up. Could you try that again?</p>")
+            graphDiv.html("<p class='center'>oops! we messed up. Could you try that again?</p>")
         }
     })
 };
