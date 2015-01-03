@@ -30,6 +30,14 @@ object Application extends Controller {
       Ok.sendFile(actualFile)
   }
 
+  def dataLoaded(queryId: String) = Action {
+    val cacheContents = Cache.get(queryId)
+    cacheContents match {
+      case None => Results.NotFound("Cache not loaded data")
+      case Some(_) => Ok("Data in cache")
+    }
+  }
+
   def moreData(queryId: String) = Action {
     val displayFields = Cache.getOrElse(queryId + "DisplayFields")(Static.defaultFields)
     val possiblyData = Cache.getAs[Array[ResultListObject[LineListObject]]](queryId)

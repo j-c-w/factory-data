@@ -5,7 +5,7 @@ $(document).ready(function() {
     var sessionIdContainer = $("#sessionId");
     var sessionId = sessionIdContainer.text();
     sessionIdContainer.hide();
-    var conformationUrl = "temp/" + sessionId;
+    var conformationUrl = "dataLoaded/" + sessionId;
     var refreshDataInterval = setInterval(function() {
         $.ajax({
             url: conformationUrl,

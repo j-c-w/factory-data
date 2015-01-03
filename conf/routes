@@ -16,7 +16,11 @@ GET         /endOfQuery                  controllers.Application.endOfQuery
 
 # This is exclusively for Heroku. It is to check/load files from the temp directory
 # because I am not allowed to use the public directory
-GET         /temp/*file                 controllers.Application.tempFile(file)
+GET         /temp/*file                  controllers.Application.tempFile(file)
+
+# This is a method for checking whether the cache has updated to contain the new
+# requested information.
+GET         /dataLoaded/*queryId        controllers.Application.dataLoaded(queryId)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                controllers.Assets.at(path="/public", file)
