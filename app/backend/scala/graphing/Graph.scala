@@ -8,9 +8,11 @@ import backend.scala.datatypes.DataType
 import backend.scala.graphing.regressions.{RegressionGenerator}
 import controllers.Global
 import org.jfree.chart.{ChartUtilities, ChartFactory, JFreeChart}
+import play.api.cache.Cache
 import scala.concurrent.future
 import scala.actors.threadpool.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.Play.current
 
 //import org.jfree.chart.JFreeChart
 
@@ -36,38 +38,40 @@ object Graph {
   def drawBarChart[B <: Comparable[_], T <: DataType[T]](data: BarChartData[B, T],
                   title: String,
                   xAxisTitle: String,
-                  yAxisTitle: String): File = {
-    val destinationFile = Global.getPictureFile
+                  yAxisTitle: String) = {
+    val saveString = Global.getPictureSaveString
     val drawer = future {
       val chart = new BarChart(data.toCategorySet, title, xAxisTitle, yAxisTitle)
-      chart.saveAsPNG(destinationFile)
+      val base64 = chart.toBase64
+      Cache.set(saveString, base64, 3600)
     }
     drawer onFailure {
       case t =>
         println("Graph failed: " + t.getMessage)
-        FileUtility.copyFile(Global.errorPictureLocation, destinationFile)
+
     }
-    destinationFile
+    saveString
   }
 
   def drawLineGraph[A <: Comparable[_], T <: DataType[T]](data: BarChartData[A, T],
                   regression: RegressionGenerator,
                   title: String,
                   xAxisTitle: String,
-                  yAxisTitle: String) : File = {
-    val destinationFile = Global.getPictureFile
+                  yAxisTitle: String) = {
+    val saveString = Global.getPictureSaveString
     val drawer = future {
       val chart = new LineGraph(data.toXYSeriesCollection, regression,
         title, xAxisTitle, yAxisTitle)
-      chart.saveAsPNG(destinationFile)
+      val base64 = chart.toBase64
+      Cache.set(saveString, base64, 3600)
     }
 
     drawer onFailure {
       case t =>
         println("Graph failed: " + t.getMessage)
-        FileUtility.copyFile(Global.errorPictureLocation, destinationFile)
+
     }
-    destinationFile
+    saveString
   }
 
 }
