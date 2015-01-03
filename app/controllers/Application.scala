@@ -30,11 +30,11 @@ object Application extends Controller {
     val cacheContents = Cache.get(queryId)
     cacheContents match {
       case None => {
-        printf("Data Not in cache yet")
+        println("Data Not in cache yet")
         Results.NotFound("Cache not loaded data")
       }
       case Some(_) => {
-        printf("Data found in cache -- loading")
+        println("Data found in cache -- loading")
         Ok("Data in cache")
       }
     }

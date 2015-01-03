@@ -23,5 +23,5 @@ $(document).ready(function() {
                 //leave it, because the file does not exist
             }
         })
-    }, 1000);
+    }, 1000000);
 });
