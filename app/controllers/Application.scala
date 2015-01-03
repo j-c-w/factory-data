@@ -23,11 +23,7 @@ object Application extends Controller {
   }
 
   def tempFile(file: String) = Action {
-    val actualFile = new File(Global.pictureFileLocation, file);
-    if (actualFile.exists())
       Results.NotFound("File not found")
-    else
-      Ok.sendFile(actualFile)
   }
 
   def dataLoaded(queryId: String) = Action {
@@ -112,7 +108,7 @@ object Application extends Controller {
       //we need to pass the dataForm so that the
       //global can put a serialized version of it in a file
       //that way, given a session ID, we can recover the query
-      Global.sendNotification(queryId, dynamicForm)
+      //Global.sendNotification(queryId, dynamicForm)
       processedData
     }
     data onFailure {
@@ -140,7 +136,7 @@ object Application extends Controller {
     val queryId = Global.getQueryId.mkString("")
     val fut = future {
       Cache.set(queryId, Backend.loadRaw, 3600)
-      Global.sendNotification(queryId, Some(Map()))
+      //Global.sendNotification(queryId, Some(Map()))
     }
     fut.onFailure {
       case t => {
