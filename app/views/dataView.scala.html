@@ -1,6 +1,6 @@
-@(queryId: String,
-        headers: List[String], formData: (List[frontend.forms.FilterFormData], List[frontend.forms.SortFormData],
-        List[frontend.forms.AggregateFormData], List[frontend.forms.GraphFormParser], List[String]), graphFile: java.io.File)
+@(queryId: String, headers: List[String], formData: (List[frontend.forms.FilterFormData],
+        List[frontend.forms.SortFormData], List[frontend.forms.AggregateFormData],
+        List[frontend.forms.GraphFormParser], List[String]), graphLocation: String)
 
 @import backend.scala.datatypes.LineListObject
 @import backend.scala.graphing.{Graph, BarChartData}
@@ -29,14 +29,15 @@
         <div id="queryForm">
             @formViews.queryForm(formData)
         </div>
-        @if(graphFile.toString != "") {
+        @if(graphLocation != "") {
             <br/>
             <br/>
             <script src="@routes.Assets.at("javascripts/graph-loader.js")" type="text/javascript"></script>
-            <p class="center"><img src="@routes.Assets.at("images/loading.gif")" id="loadingGraphDisplay"></p>
-            <p class="center"><img id="graphDisplay"></p>
+            <div id="graphDisplayDiv">
+                <p class="center"><img src="@routes.Assets.at("images/loading.gif")" id="loadingGraphDisplay"></p>
+            </div>
             <!-- this <p> is soley for communicating with the JS. -->
-            <p id="pictureFileName">@graphFile.getName()</p>
+            <p id="pictureFileName">@graphLocation</p>
         }
         <p>Query ID: @queryId - <a href="" class="whatIsThis">What is this?</a></p>
         <div id="floatingMessageBox">
