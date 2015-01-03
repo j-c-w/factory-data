@@ -47,10 +47,18 @@ object Application extends Controller {
    * This method returns an Ok if the cahce contains the key passed
    * Otherwise it returns a NotFound result
    */
-  def checkCache(key: String) = Action {
+  def cacheCheck(key: String) = Action {
     Cache.get(key) match {
       case None => Results.NotFound(key + " Not found in cache")
       case Some(_) => Ok("Key in cache")
+    }
+  }
+
+  def loadImageFromCache(key: String) = Action {
+    val image = Cache.getAs[String](key)
+    image match {
+      case Some(x) => Ok(views.html.generic.imageDisplay(x))
+      case None => Results.NotFound("No Base 64 encoded image found under " + key)
     }
   }
 
@@ -123,12 +131,12 @@ object Application extends Controller {
       }
     }
     println("Drawing Graph")
-    val file = FormToGraph.formsToGraph(filteredGraph, data)
+    val hasGraph = FormToGraph.formsToGraph(filteredGraph, data)
     println("Finished drawing graph")
 
     //note that we are passing the un=filtered data back to the
     //layout so people don't get confused when things dissapear
-    Ok(views.html.dataView(queryId, Static.tableHeaders, dataForm, file))
+    Ok(views.html.dataView(queryId, Static.tableHeaders, dataForm, hasGraph))
   }
 
   def list = Action {
@@ -146,7 +154,7 @@ object Application extends Controller {
         Cache.set(queryId, "Query Failed", 180)
       }
     }
-    Ok(views.html.dataView(queryId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), new File("")))
+    Ok(views.html.dataView(queryId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), ""))
   }
 
   def endOfQuery = Action {

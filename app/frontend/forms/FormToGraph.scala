@@ -27,12 +27,12 @@ import scala.util.Try
 object FormToGraph {
 
   /*
-   * this takes a list of graph forms and then returns a single graph file
-   * with all of those lines plotted
+   * this takes a list of graph forms and then returns a
+   * boolean indicating whether we are plotting a graph.
    */
-  def formsToGraph(forms: List[GraphFormParser], data: Future[List[ResultListObject[LineListObject]]]): File = {
+  def formsToGraph(forms: List[GraphFormParser], data: Future[List[ResultListObject[LineListObject]]]) = {
     if (forms.length == 0) {
-      new File("")//return something because nothing was passed
+      ""
     } else {
       val title = forms.head.title
       val graphType = forms.head.graphType
@@ -57,7 +57,7 @@ object FormToGraph {
    * Finally it returns a File object that represents the
    * location of the drawn graph.
    */
-  def formToGraph(form: GraphFormParser, data: Future[List[ResultListObject[LineListObject]]]): File = {
+  def formToGraph(form: GraphFormParser, data: Future[List[ResultListObject[LineListObject]]]): String = {
     val xAxis = DataField.fromString(form.xAxis)
     //I think I am allowed to type-cast this because there should only be double options coming
     //through
@@ -71,7 +71,7 @@ object FormToGraph {
 
   private def drawChart[A <: Comparable[_], T <: DataType[T]](data: BarChartData[A, T], title: String,
                                                               graphType: String, xAxisTitle: String,
-                                                              yAxisTitle: String, regression: String): File = graphType match {
+                                                              yAxisTitle: String, regression: String): String = graphType match {
     case "Bar Chart" => Graph.drawBarChart(data, title, xAxisTitle, yAxisTitle)
     case "Line Graph" => Graph.drawLineGraph(data, new RegressionGenerator(1), title, xAxisTitle, yAxisTitle)
   }

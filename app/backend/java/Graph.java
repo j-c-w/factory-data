@@ -15,8 +15,12 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 
 public class Graph {
     protected JFreeChart chart;
@@ -32,6 +36,25 @@ public class Graph {
             e.printStackTrace();
         }
     }
+
+	/*
+	 * This is to reduce the dependence of this app on the file system.
+	 *
+	 * Instead of writing the chart to the file system it returns a base 64 string
+	 * of its contents.
+	 */
+	public String toBase64() {
+		try {
+			BufferedImage image = chart.createBufferedImage(1000, 600);
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			ImageIO.write(image, "png", out);
+			byte[] bytes = out.toByteArray();
+			return Base64.getEncoder().encodeToString(bytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
 
     /*
      * takes a default category dataset and converts it into a

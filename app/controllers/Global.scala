@@ -19,6 +19,9 @@ object Global {
   def getQueryId =
     nextNRandoms(40)
 
+  def getPictureSaveString =
+    nextNRandoms(20).mkString("")
+
   private lazy val pathToFiles = new File("").getAbsolutePath
 
   lazy val pictureFileLocation = new File(pathToFiles, "public\\images\\gen")
