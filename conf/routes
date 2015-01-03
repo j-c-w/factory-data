@@ -30,4 +30,8 @@ GET         /moreData/:sessionId         controllers.Application.moreData(sessio
 POST        /recoverSession              controllers.Application.recoverSession()
 
 # This is for checking the cache for a given string
-GET         /cacheCheck/*key            controllers.Application.cacheCheck(key)
+GET         /cacheCheck/*key             controllers.Application.cacheCheck(key)
+
+# This loads a picture in the cache under the passed string
+# the picture must be stored as a base64 string.
+GET         /loadPicture/*key            controllers.Application.loadImageFromCache(key)
