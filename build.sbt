@@ -1,19 +1,15 @@
-import play.Project._
-
 name := "HelloWorld"
 
 version := "1.0"
 
-playScalaSettings
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-libraryDependencies += "org.jfree" % "jfreechart" % "1.0.14"
-
-libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test"
-
-libraryDependencies += "org.scala-lang" % "scala-actors" % "2.10.0-M6"//this is for futures etc.
-
-libraryDependencies += cache
-
+libraryDependencies ++= Seq(
+  "org.jfree" % "jfreechart" % "1.0.14",
+  "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test",
+  "org.scala-lang" % "scala-actors" % "2.10.0-M6",//this is for futures etc.
+  cache
+)
 
 publishArtifact in (Compile, packageDoc) := false
 
