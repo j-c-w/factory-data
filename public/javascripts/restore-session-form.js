@@ -19,12 +19,30 @@
 var sessionID;
 
 $(document).ready(function () {
+    var form = $("#recoverSession");
+    var sessionIDStore = $("#sessionIdStore");
     $("#submitSessionRestore").click(function() {
-        $("#recoverSession").submit();
+        var spinner = $("#serverCheckSpinner");
+        var messageBox = $("#queryRestoreMessageBox");
+        messageBox.text("");
+        spinner.show();
+        $.ajax({
+            url: "assets/images/gen/" + sessionID,
+            success: function() {
+                spinner.hide();
+                //successful - submit the form
+                form.submit();
+                messageBox.text("Restore Query...")
+            },
+            error: function() {
+                spinner.hide();
+                messageBox.slideDown();
+                messageBox.text("oops! It looks like something went wrong!")
+            }
+        });
         return false;
     });
 
-    var sessionIDStore = $("#sessionIdStore");
     sessionID = sessionIDStore.text();
     sessionIDStore.remove();
     $("#sessionIDEntryBox").val(sessionID);
