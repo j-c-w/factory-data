@@ -72,8 +72,11 @@ body {
     width: 8em;
 }
 
+.buttonInRightBar {
+    width: 8em;
+}
+
 #sessionRestoreDiv {
-    height: 15em;
     top: 8em;
 }
 
