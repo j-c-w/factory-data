@@ -9,6 +9,9 @@ tr {
 
 body {
     background-color: indianred;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
 }
 
 #content {
