@@ -9,50 +9,14 @@ tr {
 
 body {
     background-color: indianred;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
 }
 
 #content {
     padding-left: 10em;
     padding-right: 10em;
-}
-
-#header {
-    background-color: darkred;
-}
-
-#header h1 {
-    text-align: center;
-    color: white;
-}
-
-#header ul {
-    list-style: none;
-    background-color: #550000;
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    display: table;
-    width: 100%;
-}
-
-#header li {
-    font-size: 1.2em;
-    line-height: 40px;
-    display: table-cell;
-    height: 40px;
-    width: 50%;
-}
-
-#header a {
-    background-color: #550000;
-    text-decoration: none;
-    display: block;
-    transition: .3s background-color;
-}
-
-#header a:hover {
-    background-color: darkred;
-    cursor: pointer;
 }
 
 #footer {
@@ -134,12 +98,6 @@ body {
     border: 1px solid #000000;
 }
 
-.navigationBar {
-    color: white;
-    font-size: 1em;
-    text-emphasis-style: none;
-}
-
 .horizontalScroll {
     padding:5px;
     width: 100%;
@@ -158,3 +116,18 @@ body {
     overflow:scroll;
 }
 
+.button {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    display: table-cell;
+    color: white;
+    background-color: #550000;
+    text-decoration: none;
+    transition: .3s background-color;
+}
+
+.button:hover {
+    background-color: darkred;
+    cursor: pointer;
+}
