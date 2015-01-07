@@ -16,15 +16,10 @@
 /**
  * Created by Jackson on 12/12/2014.
  */
-var sessionID;
 
 $(document).ready(function () {
     var form = $("#recoverSession");
-    var sessionIDStore = $("#sessionIdStore");
     var textInput = $("#sessionIDEntryBox");
-    sessionID = sessionIDStore.text();
-    sessionIDStore.remove();
-    textInput.val(sessionID);
 
     $("#submitSessionRestore").click(function() {
         var spinner = $("#serverCheckSpinner");
