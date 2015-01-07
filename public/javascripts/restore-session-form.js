@@ -21,13 +21,19 @@ var sessionID;
 $(document).ready(function () {
     var form = $("#recoverSession");
     var sessionIDStore = $("#sessionIdStore");
+    var textInput = $("#sessionIDEntryBox");
+    sessionID = sessionIDStore.text();
+    sessionIDStore.remove();
+    textInput.val(sessionID);
+
     $("#submitSessionRestore").click(function() {
         var spinner = $("#serverCheckSpinner");
         var messageBox = $("#queryRestoreMessageBox");
         messageBox.text("");
         spinner.show();
+        var currentSessionId = textInput.val();
         $.ajax({
-            url: "assets/images/gen/" + sessionID,
+            url: "assets/images/gen/" + currentSessionId,
             success: function() {
                 spinner.hide();
                 //successful - submit the form
@@ -42,8 +48,4 @@ $(document).ready(function () {
         });
         return false;
     });
-
-    sessionID = sessionIDStore.text();
-    sessionIDStore.remove();
-    $("#sessionIDEntryBox").val(sessionID);
 });

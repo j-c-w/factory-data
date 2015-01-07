@@ -13,19 +13,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-section {
+#header {
     background-color: darkred;
     padding-top: 0;
     margin-top: 0;
 }
 
-section h1 {
+#header h1 {
     text-align: center;
     font-size: 2em;
     color: white;
 }
 
-section nav {
+#header nav {
     color: white;
     text-emphasis-style: none;
     display: table;
@@ -35,6 +35,6 @@ section nav {
     width: 100%;
 }
 
-section a {
+#header a {
     width: 50%;
 }
