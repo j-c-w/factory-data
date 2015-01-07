@@ -1,4 +1,4 @@
-@(sessionId: String, sessionRestoreFailed: Boolean)
+@()
 
 <!DOCTYPE html>
 
@@ -19,14 +19,8 @@
                 <a class="formButton buttonInRightBar" id="sessionRestoreButton" href="">Restore Session +</a>
                 <div id="sessionRestoreDiv">
                     <form action="/recoverSession" method="POST" id="recoverSession" name="recoverSession">
-                        <p id="sessionIdStore">@sessionId</p>
                         <img id="serverCheckSpinner" src="@routes.Assets.at("images/circularLoading.gif")" hidden="true"/>
                         <p id="queryRestoreMessageBox"></p>
-                        @if(sessionRestoreFailed) {
-                            <!-- we only show this error if the session restore did indeed fail
-                            Otherwise it would be confusing and coutner-productive -->
-                            <p class="error">Oops! We couldn't find a query stored under that ID! </p>
-                        }
                         Session ID: <input type="text" id="sessionIDEntryBox" name="id">
                         <br/>
                         <br/>
