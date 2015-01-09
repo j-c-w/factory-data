@@ -65,7 +65,7 @@ trait SuperDataField {
   def get(data: LineListObject): Comparable[_]
 }
 
-abstract class DataField[T <: MathComparable[T]] extends SuperDataField {
+trait DataField[T <: MathComparable[T]] extends SuperDataField {
   def toString: String
   def get(data: LineListObject): T
 
@@ -75,29 +75,29 @@ abstract class DataField[T <: MathComparable[T]] extends SuperDataField {
 }
 
 /*
- * These sub classes implement the comparison method,
+ * These sub traits implement the comparison method,
  * which is very very helpful because it enables easy
  * type casting (which is somethat that I had serious
  * problems with before
  */
-abstract class NothingDataField extends DataField[Nothing] {
+trait NothingDataField extends DataField[Nothing] {
   def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] =
     Try(throw new Exception("NothingDataField.compare"))
 }
 
-abstract class IntegerOptionDataField extends DataField[IntegerOption] {
+trait IntegerOptionDataField extends DataField[IntegerOption] {
   def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
     Try(comparisonMethod.compare(get(data), IntegerOption.toIntegerOption(stringComparison)))
   }
 }
 
-abstract class DoubleOptionDataField extends DataField[DoubleOption] {
+trait DoubleOptionDataField extends DataField[DoubleOption] {
   def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
     Try(comparisonMethod.compare(get(data), DoubleOption.toDoubleOption(stringComparison)))
   }
 }
 
-abstract class StringOptionDataField extends DataField[StringOption] {
+trait StringOptionDataField extends DataField[StringOption] {
   def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
     Try(comparisonMethod.compare(get(data), SomeString(stringComparison)))
   }
