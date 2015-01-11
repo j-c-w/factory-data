@@ -20,7 +20,7 @@ import backend.scala.datatypes.builders.BuilderType
  *    class Example extends DataType[Example]
  */
 
-abstract class ImplementedDataType[T <: ImplementedDataType[T, B], B <: BuilderType[T, B]] extends DataType[T] {
+trait ImplementedDataType[T <: ImplementedDataType[T, B], B <: BuilderType[T, B]] extends DataType[T] {
   type Self <: ImplementedDataType[T, B]
 
   /*

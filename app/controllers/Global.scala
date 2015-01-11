@@ -2,6 +2,8 @@ package controllers
 
 import java.io._
 import java.nio.file.{Files, Paths}
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 import backend.scala.DataLoader
 import frontend.Serialization
@@ -26,7 +28,7 @@ object Global {
 
   lazy val pictureFileLocation = new File(pathToFiles, "temp")
   lazy val errorPictureLocation = new File(pathToFiles, "public/images/graphFailed.png")
-  lazy val dataCVSLocation = new File(pathToFiles, "conf/private/second_harmonized.csv")
+  lazy val dataCVSLocation = new File(pathToFiles, "conf/private/fourth_harmonized.csv")
 
   lazy val baseData = DataLoader.dataAsList
 
@@ -48,8 +50,10 @@ object Global {
     } else {
       try {
         val formString = new String(Files.readAllBytes(Paths.get(location.toString)))
-        println(formString)
-        Some(Serialization.unserialize(formString))
+        val serialized = Some(Serialization.unserialize(formString))
+        println("Unserialization successful")
+        updateDate(location, formString)
+        serialized
       } catch {
         case ex: Exception => {
           println("Error restoring previous query, ID: " + queryId)
@@ -59,6 +63,22 @@ object Global {
       }
     }
   }
+  
+  /*
+   * This method updates the date in the form string to make it 
+   * the current date.
+   */
+  private def updateDate(location: File, currentContents: String): Unit = {
+    val formContents = currentContents.split("\n") drop 1
+    val finalContents = (getDateString :+ formContents).mkString("\n")
+    val writer = new PrintWriter(location)
+    writer.write(finalContents)
+    writer.close()
+  }
+
+  def getDateString =
+    new SimpleDateFormat("dd/MM/yyyy")
+      .format(Calendar.getInstance.getTime)
 
   def getPictureFile: File = {
     val saveDir = new File(pictureFileLocation + "/" + nextNRandoms(40).mkString("") + ".png")

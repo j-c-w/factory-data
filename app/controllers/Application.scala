@@ -19,7 +19,7 @@ import scala.util.{Success, Failure, Try}
 
 object Application extends Controller {
   def index = Action {
-    Ok(views.html.main("", sessionRestoreFailed = false))
+    Ok(views.html.main())
   }
 
   def tempFile(file: String) = Action {
@@ -94,7 +94,7 @@ object Application extends Controller {
       case Some(_) => loadDataPage(dynamicForm)
       //in the case that the restore failed this will have returned None,
       //so we return to the main page.
-      case None => Ok(views.html.main(queryId, sessionRestoreFailed = true))
+      case None => Ok(views.html.main())
     }
   }
 

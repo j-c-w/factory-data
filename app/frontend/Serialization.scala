@@ -1,5 +1,11 @@
 package frontend
 
+import java.text.SimpleDateFormat
+import java.util.Calendar
+
+import controllers.Global
+import sun.util.calendar.LocalGregorianCalendar.Date
+
 import scala.util.Try
 
 /*
@@ -11,7 +17,7 @@ import scala.util.Try
 
 object Serialization {
   def serialize(map: Map[String, Seq[String]]): String = {
-    map.map{
+    Global.getDateString + "\n" + map.map{
       case(identifier, stringSequence) => {
         identifier + ":->" + stringSequence.mkString("~.~")
       }
@@ -19,7 +25,9 @@ object Serialization {
   }
 
   def unserialize(string: String): Map[String, Seq[String]] = {
-    val lines = string.split("\n")
+    // Drop the first line because it contains the date.
+    // The date has already been dealt with by this stage.
+    val lines = string.split("\n").drop(1)
     lines.map(line => {
       val lineSplit = line.split(":->")
       val end = Try(lineSplit.tail.head.split("~.~").toSeq)

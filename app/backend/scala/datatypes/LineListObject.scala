@@ -2,7 +2,7 @@ package backend.scala.datatypes
 
 import java.util.Date
 
-import backend.scala.datatypes.options.{DoubleOption, IntegerOption}
+import backend.scala.datatypes.options.{StringOption, DoubleOption, IntegerOption}
 import main.backend.scala.datatypes.builders.LineListObjectBuilder
 
 
@@ -46,10 +46,13 @@ class LineListObject(val factoryDate: FactoryDate,
   //we have to define efficiency down here because it is calculated
   //from other values
   def efficiency: DoubleOption = {
-    {inputOutput.outputMinutes.get / targetInformation.availableMinutes.get} or {
-      inputOutput.outputMinutes.get / ((absenteeism.loPresent.get + absenteeism.hlPresent.get) * targetInformation.hours.get * 60)
-    }
+    inputOutput.outputMinutes.get / targetInformation.availableMinutes.get
   }
+
+  def outputOverTarget: DoubleOption = {
+    inputOutput.dayOutput.get / targetInformation.outputTarget.get
+  }
+
 
   //averages this datapoint by a number
   def averageBy(number: Int) =

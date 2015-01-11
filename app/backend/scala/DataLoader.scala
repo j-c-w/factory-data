@@ -29,30 +29,31 @@ object DataLoader {
     printf("Loading Data From CSV")
     reader.all
   }
+  
+  implicit val toIntegerOptionOrNone = IntegerOption.toIntegerOptionOrNone _
+  implicit val toDoubleOptionOrNone = DoubleOption.toDoubleOptionOrNone _
+  implicit val toStringOption = StringOption(_)
 
 
   def rowToObject(list: List[String]): LineListObject = new LineListObject(
-    getDate(list(1)),
-    new LineData(IntegerOption.toIntegerOptionOrNone(list(2)), IntegerOption.toIntegerOptionOrNone(list(3)), IntegerOption.toIntegerOptionOrNone(list(4)),
-      IntegerOption.toIntegerOptionOrNone(list(5)), IntegerOption.toIntegerOptionOrNone(list(6))),
-    new OrderData(IntegerOption.toIntegerOptionOrNone(list(7)), DoubleOption.toWrappedDoubleOrNone(list(8)), DoubleOption.toWrappedDoubleOrNone(list(9))),
-    new TargetData(DoubleOption.toWrappedDoubleOrNone(list(10)), DoubleOption.toWrappedDoubleOrNone(list(11)), DoubleOption.toWrappedDoubleOrNone(list(12))),
-    new IOData(DoubleOption.toWrappedDoubleOrNone(list(13)), DoubleOption.toWrappedDoubleOrNone(list(14)), DoubleOption.toWrappedDoubleOrNone(list(15)),
-      DoubleOption.toWrappedDoubleOrNone(list(16)), DoubleOption.toWrappedDoubleOrNone(list(17))),
-    new QualityData(DoubleOption.toWrappedDoubleOrNone(list(18)), DoubleOption.toWrappedDoubleOrNone(list(19)), DoubleOption.toWrappedDoubleOrNone(list(25))),
-    new AbsenteeismData(DoubleOption.toWrappedDoubleOrNone(list(20)), DoubleOption.toWrappedDoubleOrNone(list(21)), DoubleOption.toWrappedDoubleOrNone(list(22)),
-      DoubleOption.toWrappedDoubleOrNone(list(23)), DoubleOption.toWrappedDoubleOrNone(list(24))),
-    IntegerOption(1), IntegerOption.toIntegerOptionOrNone(list(0))
+    getDate(list(15), list(14)),
+    new LineData(list(1)),
+    new OrderData(list(2), list(3)),
+    new TargetData(list(7), list(9), list(4)),
+    new IOData(list(8), list(5)),
+    new QualityData(list(11), list(12), list(13)),
+    new AbsenteeismData(list(6), list(10)),
+    IntegerOption(1), list(0)
   )
 
-  private def getDate(date: String) = {
+  private def getDate(date: String, dayOfWeek: StringOption) = {
     Try {
       val splitDate = date.split("/")
 
-      new FactoryDate(IntegerOption.toIntegerOptionOrNone(splitDate(1)),
-      IntegerOption.toIntegerOptionOrNone(splitDate(0)),
-      IntegerOption.toIntegerOptionOrNone(splitDate(2)))}.getOrElse(
-        new FactoryDate(NoInteger, NoInteger, NoInteger)
+      new FactoryDate(splitDate(1),
+      splitDate(0),
+      splitDate(2), dayOfWeek)}.getOrElse(
+        new FactoryDate(NoInteger, NoInteger, NoInteger, dayOfWeek)
       )
   }
 
