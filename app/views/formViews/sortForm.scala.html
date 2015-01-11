@@ -14,7 +14,7 @@
         }
     </select>
 
-    Sort Mode: <select name="sortMode" id="sortMode">
+    <select name="sortMode" id="sortMode">
         @for(mode <- Static.sortModes) {
             @if(formData.sortMethod == mode) {
                 <option selected value="@mode">@mode</option>

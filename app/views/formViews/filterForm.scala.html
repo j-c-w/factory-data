@@ -28,7 +28,7 @@ list containing the and/or options for use in chaining filters -->
             }
         }
     </select>
-    Comparison Method: <select name="filterComparison" id="filterComparator">
+    <select name="filterComparison" id="filterComparator">
         @for(method <- Static.comparisonMethods) {
             @if(formData.filterComparator == method) {
                 <option selected value="@method">@method</option>
@@ -37,6 +37,6 @@ list containing the and/or options for use in chaining filters -->
             }
         }
     </select>
-    Comparison Value: <input type="text" value="@formData.filterText" name="filterValue" id="filterValue">
+    <input type="text" value="@formData.filterText" name="filterValue" id="filterValue">
     <a href="" class="deleteButton">X</a>
 </div>
