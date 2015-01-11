@@ -134,7 +134,7 @@ case object Year extends IntegerOptionDataField {
 
 case object DayOfWeek extends StringOptionDataField {
   override def get(data: LineListObject): StringOption = 
-    data.factoryDate.dow
+    data.factoryDate.dayOfWeek
   override val toString = "Day of Week"
 }
 
@@ -182,7 +182,7 @@ case object OutputTarget extends DoubleOptionDataField {
 
 case object OutputOverTarget extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
-    data.targetInformation.outputOverTarget.get
+    data.outputOverTarget
   override val toString = "Output/Target"
 }
 

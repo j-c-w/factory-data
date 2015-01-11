@@ -49,7 +49,7 @@ class LineListObject(val factoryDate: FactoryDate,
     inputOutput.outputMinutes.get / targetInformation.availableMinutes.get
   }
 
-  def outputOverTarget = {
+  def outputOverTarget: DoubleOption = {
     inputOutput.dayOutput.get / targetInformation.outputTarget.get
   }
 

@@ -31,11 +31,12 @@ object DataLoader {
   }
   
   implicit val toIntegerOptionOrNone = IntegerOption.toIntegerOptionOrNone _
-  implicit val toDoubleOptionOrNone = DoubleOption.toDoubleOption _
+  implicit val toDoubleOptionOrNone = DoubleOption.toDoubleOptionOrNone _
+  implicit val toStringOption = StringOption(_)
 
 
   def rowToObject(list: List[String]): LineListObject = new LineListObject(
-    getDate(list(15)),
+    getDate(list(15), list(14)),
     new LineData(list(1)),
     new OrderData(list(2), list(3)),
     new TargetData(list(7), list(9), list(4)),
@@ -45,14 +46,14 @@ object DataLoader {
     IntegerOption(1), list(0)
   )
 
-  private def getDate(date: String) = {
+  private def getDate(date: String, dayOfWeek: StringOption) = {
     Try {
       val splitDate = date.split("/")
 
       new FactoryDate(splitDate(1),
       splitDate(0),
-      splitDate(2))}.getOrElse(
-        new FactoryDate(NoInteger, NoInteger, NoInteger)
+      splitDate(2), dayOfWeek)}.getOrElse(
+        new FactoryDate(NoInteger, NoInteger, NoInteger, dayOfWeek)
       )
   }
 

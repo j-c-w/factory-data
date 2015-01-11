@@ -1,7 +1,9 @@
 package backend.scala.datatypes
 
+import java.util.Date
+
 import backend.scala.datatypes.builders.{FactoryDateBuilder, BuilderType}
-import backend.scala.datatypes.options.IntegerOption
+import backend.scala.datatypes.options.{StringOption, SomeInteger, IntegerOption}
 
 /*
  * Created by Jackson Woodruff on 20/11/2014 
@@ -10,7 +12,8 @@ import backend.scala.datatypes.options.IntegerOption
 
 class FactoryDate(val day: IntegerOption,
                   val month: IntegerOption,
-                  val year: IntegerOption) extends ImplementedDataType[FactoryDate, FactoryDateBuilder] {
+                  val year: IntegerOption,
+                  val dayOfWeek: StringOption) extends ImplementedDataType[FactoryDate, FactoryDateBuilder] {
   self =>
 
   override type Self = this.type
@@ -56,5 +59,6 @@ class FactoryDate(val day: IntegerOption,
       month = self.month
       year = self.year
       day = self.day
+      dayOfWeek = self.dayOfWeek
     }
 }
