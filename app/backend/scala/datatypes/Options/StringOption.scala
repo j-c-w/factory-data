@@ -39,8 +39,8 @@ object NoString extends StringOption {
 }
 
 object StringOption {
-  def apply(string: String) =
-    Some(string)
+  def apply(string: String): StringOption =
+    SomeString(string)
 }
 
 
