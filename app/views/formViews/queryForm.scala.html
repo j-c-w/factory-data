@@ -92,6 +92,7 @@
                 @if(formData._4.length == 0) {
                     <!-- If there is nothing passed, leave empty for the time being -->
                     @formViews.graphForm(true, None)
+                    @formViews.graphForm(false, None)
                 } else {
                     @formViews.graphForm(true, Some(formData._4.head))
                     @for(data <- formData._4) {
