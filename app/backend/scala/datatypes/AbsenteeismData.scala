@@ -9,11 +9,8 @@ import backend.scala.datatypes.options._
  * 
  */
 
-class AbsenteeismData(val machines: DoubleOptionWrapper,
-                      val loPresent: DoubleOptionWrapper,
-                      val loAbsent: DoubleOptionWrapper,
-                      val hlPresent: DoubleOptionWrapper,
-                      val hlAbsent: DoubleOptionWrapper) extends ImplementedDataType[AbsenteeismData, AbsenteeismDataBuilder] {
+class AbsenteeismData(val totalPresent: DoubleOptionWrapper,
+                      val absentRate: DoubleOptionWrapper) extends ImplementedDataType[AbsenteeismData, AbsenteeismDataBuilder] {
   self =>
 
   override type Self = this.type
@@ -46,21 +43,15 @@ class AbsenteeismData(val machines: DoubleOptionWrapper,
      * should be ignored completely.
      */
   override def averageBy(number: Int): AbsenteeismData = new AbsenteeismDataBuilder {
-    machines = self.machines.average
-    loPresent = self.loPresent.average
-    loAbsent = self.loAbsent.average
-    hlPresent = self.hlPresent.average
-    hlAbsent = self.hlAbsent.average
+    totalPresent = self.totalPresent.average
+    absentRate = self.absentRate.average
   }.build
 
   /*
    * returns a builder object for this item.
    */
   override def toBuilder: AbsenteeismDataBuilder = new AbsenteeismDataBuilder {
-    machines = self.machines
-    loPresent = self.loPresent
-    loAbsent = self.loAbsent
-    hlPresent = self.hlPresent
-    hlAbsent = self.hlAbsent
+    totalPresent = self.totalPresent
+    absentRate = self.absentRate
   }
 }

@@ -9,11 +9,8 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
  * 
  */
 
-class IOData(val inputCount: DoubleOptionWrapper,
-             val outputCount: DoubleOptionWrapper,
-             val dayOutput: DoubleOptionWrapper,
-             val outputMinutes: DoubleOptionWrapper,
-             val lostMinutes: DoubleOptionWrapper) extends ImplementedDataType[IOData, IODataBuilder] {
+class IOData(val outputMinutes: DoubleOptionWrapper,
+             val dayOutput: DoubleOptionWrapper) extends ImplementedDataType[IOData, IODataBuilder] {
   self =>
   override type Self = this.type
 
@@ -45,21 +42,15 @@ class IOData(val inputCount: DoubleOptionWrapper,
      * should be ignored completely.
      */
   override def averageBy(number: Int): IOData = new IODataBuilder {
-    inputCount = self.inputCount.average
-    outputCount = self.outputCount.average
-    dayOutput = self.dayOutput.average
     outputMinutes = self.outputMinutes.average
-    lostMinutes = self.lostMinutes.average
+    dayOutput = self.dayOutput.average
   }.build
 
   /*
    * returns a builder object for this item.
    */
   override def toBuilder: IODataBuilder = new IODataBuilder {
-    inputCount = self.inputCount
-    outputCount = self.outputCount
-    dayOutput = self.dayOutput
     outputMinutes = self.outputMinutes
-    lostMinutes = self.lostMinutes
+    dayOutput= self.dayOutput
   }
 }

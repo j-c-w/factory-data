@@ -13,7 +13,6 @@ import backend.scala.datatypes.options.{NoDouble, NoInteger, DoubleOption, Integ
 class OrderDataBuilder extends BuilderType[OrderData, OrderDataBuilder] {
   self =>
 
-  var buyer: IntegerOption = NoInteger
   var smv: DoubleOptionWrapper = new DoubleOptionWrapper
   var runningDays: DoubleOptionWrapper = new DoubleOptionWrapper
 
@@ -24,14 +23,13 @@ class OrderDataBuilder extends BuilderType[OrderData, OrderDataBuilder] {
      * into a type of T.
      */
   override def build: OrderData =
-    new OrderData(buyer, smv, runningDays)
+    new OrderData(smv, runningDays)
 
   /*
    * This takes another builder object of the same type
    * and merges it to create a single builder
    */
   override def mergeSum(other: OrderDataBuilder): OrderDataBuilder = new OrderDataBuilder {
-    buyer = self.buyer mergeEqual other.buyer
     smv = self.smv mergeEqual other.smv
     runningDays = self.runningDays mergeSum other.runningDays
   }

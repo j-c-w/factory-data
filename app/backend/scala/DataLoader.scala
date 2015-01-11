@@ -36,12 +36,12 @@ object DataLoader {
 
   def rowToObject(list: List[String]): LineListObject = new LineListObject(
     getDate(list(1)),
-    new LineData(list(2), list(3), list(4), list(5), list(6)),
-    new OrderData(list(7), list(8), list(9)),
-    new TargetData(list(10), list(11), list(12)),
-    new IOData(list(13), list(14), list(15), list(16), list(17)),
-    new QualityData(list(18), list(19), list(25)),
-    new AbsenteeismData(list(20), list(21), list(22), list(23), list(24)),
+    new LineData(list(2)),
+    new OrderData(list(3), list(4)),
+    new TargetData(list(4), list(6)),
+    new IOData(list(4), list(4)),
+    new QualityData(list(8), list(9), list(10)),
+    new AbsenteeismData(list(5), list(7)),
     IntegerOption(1), list(0)
   )
 

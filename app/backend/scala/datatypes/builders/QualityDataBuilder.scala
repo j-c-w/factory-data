@@ -12,24 +12,24 @@ import backend.scala.datatypes.options.{NoDouble, DoubleOption}
 class QualityDataBuilder extends BuilderType[QualityData, QualityDataBuilder] {
   self =>
 
-  var totalChecked: DoubleOptionWrapper = new DoubleOptionWrapper
-  var reject: DoubleOptionWrapper = new DoubleOptionWrapper
-  var defect: DoubleOptionWrapper = new DoubleOptionWrapper
+  var alterRate: DoubleOptionWrapper = new DoubleOptionWrapper
+  var rejectRate: DoubleOptionWrapper = new DoubleOptionWrapper
+  var spotRate: DoubleOptionWrapper = new DoubleOptionWrapper
 
   /*
      * This method is used to turn the builder
      * into a type of T.
      */
   override def build: QualityData =
-    new QualityData(totalChecked, reject, defect)
+    new QualityData(alterRate, spotRate, rejectRate)
 
   /*
    * This takes another builder object of the same type
    * and merges it to create a single builder
    */
   override def mergeSum(other: QualityDataBuilder): QualityDataBuilder = new QualityDataBuilder {
-    totalChecked = self.totalChecked mergeSum other.totalChecked
-    reject = self.reject mergeSum other.reject
-    defect = self. defect mergeSum other.defect
+    alterRate = self.alterRate mergeSum other.alterRate
+    rejectRate = self.rejectRate mergeSum other.rejectRate
+    spotRate = self. spotRate mergeSum other.spotRate
   }
 }
