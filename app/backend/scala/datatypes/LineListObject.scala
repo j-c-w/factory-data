@@ -34,6 +34,7 @@ class LineListObject(val factoryDate: FactoryDate,
     new LineListObjectBuilder {
       factoryDate = self.factoryDate
       orderInfo = self.orderInfo
+      lineInfo = self.lineInfo
       targetInformation = self.targetInformation
       inputOutput = self.inputOutput
       qualityInformation = self.qualityInformation
