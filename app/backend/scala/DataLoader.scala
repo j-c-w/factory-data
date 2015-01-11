@@ -50,8 +50,8 @@ object DataLoader {
     Try {
       val splitDate = date.split("/")
 
-      new FactoryDate(splitDate(1),
-      splitDate(0),
+      new FactoryDate(splitDate(0),
+      splitDate(1),
       splitDate(2), dayOfWeek)}.getOrElse(
         new FactoryDate(NoInteger, NoInteger, NoInteger, dayOfWeek)
       )
