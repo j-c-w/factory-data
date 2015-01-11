@@ -33,7 +33,6 @@ class LineListObject(val factoryDate: FactoryDate,
   def toBuilder: LineListObjectBuilder = {
     new LineListObjectBuilder {
       factoryDate = self.factoryDate
-      lineInfo = self.lineInfo
       orderInfo = self.orderInfo
       targetInformation = self.targetInformation
       inputOutput = self.inputOutput
