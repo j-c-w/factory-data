@@ -35,13 +35,13 @@ object DataLoader {
 
 
   def rowToObject(list: List[String]): LineListObject = new LineListObject(
-    getDate(list(1)),
-    new LineData(list(2)),
-    new OrderData(list(3), list(4)),
-    new TargetData(list(4), list(6)),
-    new IOData(list(4), list(4)),
-    new QualityData(list(8), list(9), list(10)),
-    new AbsenteeismData(list(5), list(7)),
+    getDate(list(15)),
+    new LineData(list(1)),
+    new OrderData(list(2), list(3)),
+    new TargetData(list(7), list(9), list(4)),
+    new IOData(list(8), list(5)),
+    new QualityData(list(11), list(12), list(13)),
+    new AbsenteeismData(list(6), list(10)),
     IntegerOption(1), list(0)
   )
 

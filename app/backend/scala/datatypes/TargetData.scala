@@ -10,7 +10,8 @@ import backend.scala.datatypes.options.{SomeDouble, DoubleOption}
  */
 
 class TargetData(val availableMinutes: DoubleOptionWrapper,
-                 val outputTarget: DoubleOptionWrapper) extends ImplementedDataType[TargetData, TargetDataBuilder]{
+                 val outputTarget: DoubleOptionWrapper,
+                 val totalTarget: DoubleOptionWrapper) extends ImplementedDataType[TargetData, TargetDataBuilder]{
   self =>
   override type Self = this.type
 
@@ -44,6 +45,7 @@ class TargetData(val availableMinutes: DoubleOptionWrapper,
   override def averageBy(number: Int): TargetData = new TargetDataBuilder {
     availableMinutes = self.availableMinutes.average
     outputTarget = self.outputTarget.average
+    totalTarget = self.totalTarget.average
   }.build
 
 
@@ -53,5 +55,6 @@ class TargetData(val availableMinutes: DoubleOptionWrapper,
   override def toBuilder: TargetDataBuilder = new TargetDataBuilder {
     availableMinutes = self.availableMinutes
     outputTarget = self.outputTarget
+    totalTarget = self.totalTarget
   }
 }
