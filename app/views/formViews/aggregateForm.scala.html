@@ -15,7 +15,7 @@
         }
     </select>
 
-    Aggregate Mode: <select name="aggregateMode" id="aggregateMode">
+    <select name="aggregateMode" id="aggregateMode">
         @for(mode <- Static.aggregateModes) {
             @if(formData.aggregateMode == mode) {
                 <option selected value="@mode">@mode</option>
