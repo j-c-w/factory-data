@@ -34,7 +34,7 @@ object Static {
   val numberHeaders: List[String] = noSelection :: DataField.asDoublesList
 
   val comparisonMethods: List[String] = List(
-    noSelection, "==", "!=", "<=", ">=", ">", "<"
+    "==", "!=", "<=", ">=", ">", "<"
   )
 
   val graphSortOptions: List[String] = List(
@@ -43,11 +43,11 @@ object Static {
 
   val fieldNames: List[String] = noSelection :: tableHeaders
 
-  val aggregateModes: List[String] = noSelection :: List(
+  val aggregateModes: List[String] = List(
     "Average", "Sum"
   )
 
-  val sortModes: List[String] = noSelection :: List(
+  val sortModes: List[String] = List(
     "Ascending", "Descending"
   )
 
