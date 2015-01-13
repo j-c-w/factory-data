@@ -92,6 +92,7 @@ abstract class IntegerOption extends MathComparable[IntegerOption] {
     case SomeInteger(x) => SomeDouble(x.toDouble)
   }
 
+  def isNone = isEmpty
   def or(other: => IntegerOption): IntegerOption
   def isEmpty: Boolean
   def get: Int
