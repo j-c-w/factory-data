@@ -14,6 +14,7 @@ $(document).ready(function () {
     $("#addFilter").click(function() {
         return addToForm("filter", function() {
             removeConnectors();
+            setFilterListeners();
         })
     });
     $("#addAggregate").click(function() {
@@ -40,6 +41,7 @@ $(document).ready(function () {
     });
     setDropdownListeners();
     setGraphAxisValues();
+    setFilterListeners();
     updateListeners();
     hideRequiredXAxis($("#graphType").val());
     //se also set the selected xAxis to the default
@@ -48,6 +50,25 @@ $(document).ready(function () {
 
 
 });
+
+setFilterListeners = function () {
+    var field = $(".filterComparator");
+    field.change(function () {
+        checkFilter($(this), $(this).parent().children("#filterValue"))
+    });
+
+    field.each(function (index, element) {
+        checkFilter($(element), $(element).parent().children("#filterValue"))
+    });
+};
+
+checkFilter = function (filter, valueBox) {
+    if (filter.val() == "has data") {
+        valueBox.hide()
+    } else {
+        valueBox.show()
+    }
+};
 
 removeConnectors = function() {
     if ($("#filterDiv div:first #filterConnector").length != 0) {
@@ -58,7 +79,7 @@ removeConnectors = function() {
 };
 
 setGraphAxisValues = function() {
-    $("#graphType").change(function() {
+    $(".graphType").change(function() {
         hideRequiredXAxis(this.value)
     })
 };
