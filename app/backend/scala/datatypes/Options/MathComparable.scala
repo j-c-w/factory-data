@@ -8,7 +8,7 @@ package backend.scala.datatypes.options
  * useful methods like <, >, <= etc.
  */
 
-abstract class MathComparable[T <: MathComparable[T]] extends Comparable[T] {
+trait MathComparable[T <: MathComparable[T]] extends Comparable[T] with OptionComparable {
   def > (other: T) =
     (this compareTo other) > 0
 
@@ -20,4 +20,8 @@ abstract class MathComparable[T <: MathComparable[T]] extends Comparable[T] {
 
   def <= (other: T) =
     (this compareTo other) <= 0
+}
+
+trait OptionComparable {
+  def isNone: Boolean
 }

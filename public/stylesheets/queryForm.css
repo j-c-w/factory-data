@@ -2,6 +2,12 @@
     background-color: darkred;
     padding-left: 20px;
     padding-right: 20px;
+    /*
+     * We want all the tool divs to be hidden
+     * by default to prevent them flashing up as
+     * the js loads
+     */
+    display: none;
 }
 
 .submitButtonsList {
