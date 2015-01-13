@@ -4,7 +4,7 @@ The display connector variable is so that we show the dropdown
 list containing the and/or options for use in chaining filters -->
 
 @import frontend.forms.FilterFormData; val formData = data.getOrElse(new FilterFormData())
-<div>
+<div class="filterFieldDiv">
     <br/>
     <br/>
     @if(displayConnector) {
@@ -28,7 +28,7 @@ list containing the and/or options for use in chaining filters -->
             }
         }
     </select>
-    <select name="filterComparison" id="filterComparator">
+    <select name="filterComparison" class="filterComparator">
         @for(method <- Static.comparisonMethods) {
             @if(formData.filterComparator == method) {
                 <option selected value="@method">@method</option>

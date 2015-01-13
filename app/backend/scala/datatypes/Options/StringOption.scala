@@ -19,6 +19,8 @@ abstract class StringOption extends MathComparable[StringOption] {
     if ((this compareTo other) == 0) this
     else NoString
 
+  def isNone = isEmpty
+
   def isEmpty: Boolean
   def get: String
   def getOrElse(x: => String): String

@@ -19,18 +19,19 @@ object ComparisonMethod {
     case GreaterThan.toString => GreaterThan
     case GreaterThanOrEqual.toString => GreaterThanOrEqual
     case LessThanOrEqual.toString => LessThanOrEqual
+    case NotNone.toString => NotNone
   }
 
   def asList: List[String] = List(
     Equals.toString, NotEqual.toString, LessThan.toString,
-    GreaterThan.toString, LessThanOrEqual.toString, GreaterThanOrEqual.toString
+    GreaterThan.toString, LessThanOrEqual.toString, GreaterThanOrEqual.toString,
+    NotNone.toString
   )
 }
 
 trait ComparisonMethod {
   def toString: String
-
-  def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean
+  def compare[A <: MathComparable[A]](o1: => A, o2: => A): Boolean
 }
 
 /*
@@ -39,42 +40,47 @@ trait ComparisonMethod {
  */
 
 object Equals extends ComparisonMethod {
-  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
+  override def compare[A <: MathComparable[A]](o1: => A, o2: => A): Boolean =
     o1 == o2
-
   override val toString = "equal to"
 }
 object NotEqual extends ComparisonMethod {
-  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
+  override def compare[A <: MathComparable[A]](o1: => A, o2: => A): Boolean =
     o1 != o2
-
   override val toString = "not equal to"
 }
+
 object LessThan extends ComparisonMethod {
-
-  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
+  override def compare[A <: MathComparable[A]](o1: => A, o2: => A): Boolean =
     o1 < o2
-
   override val toString = "less than"
 }
+
 object GreaterThan extends ComparisonMethod {
-
-  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
+  override def compare[A <: MathComparable[A]](o1: => A, o2: => A): Boolean =
     o1 > o2
-
   override val toString = "greater than"
 }
+
 object LessThanOrEqual extends ComparisonMethod {
-
-  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
+  override def compare[A <: MathComparable[A]](o1: => A, o2: => A): Boolean =
     o1 <= o2
-
   override val toString = "greater than or equal"
 }
+
 object GreaterThanOrEqual extends ComparisonMethod {
-
-  override def compare[A <: MathComparable[A]](o1: A, o2: A): Boolean =
+  override def compare[A <: MathComparable[A]](o1: => A, o2: => A): Boolean =
     o1 >= o2
-
   override val toString = "less than or equal"
+}
+
+object NotNone extends ComparisonMethod {
+  /*
+   * This is a special implementation of the methods above.
+   * It does not make use of o2 because it only checks the not-none-ness
+   * of o1
+   */
+  override def compare[A <: MathComparable[A]](o1: => A, o2: => A): Boolean =
+    !o1.isNone
+  override val toString = "has data"
 }
