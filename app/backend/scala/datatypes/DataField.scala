@@ -211,7 +211,7 @@ case object AlterRate extends DoubleOptionDataField {
 case object SpotRate extends DoubleOptionDataField {
   override def get(data: LineListObject): DoubleOption =
     data.qualityInformation.spotRate.get
-  override val toString = "SpotRate"
+  override val toString = "Spot Rate"
 }
 
 case object RejectRate extends DoubleOptionDataField {
@@ -289,6 +289,7 @@ object DataField {
     OutputMinutes.toString,
     AlterRate.toString,
     RejectRate.toString,
+    SpotRate.toString,
     TotalPresent.toString,
     AbsentRate.toString,
     Efficiency.toString,
