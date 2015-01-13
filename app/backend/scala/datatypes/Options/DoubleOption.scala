@@ -47,7 +47,7 @@ abstract class DoubleOption extends MathComparable[DoubleOption] {
     else NoDouble
 
   def isNone = isEmpty
-  
+
   def or(other: => DoubleOption): DoubleOption
   def get: Double
   def isEmpty: Boolean
