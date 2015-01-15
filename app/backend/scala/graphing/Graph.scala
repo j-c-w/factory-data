@@ -54,13 +54,12 @@ object Graph {
   }
 
   def drawLineGraph[A <: Comparable[_], T <: DataType[T]](data: BarChartData[A, T],
-                  regression: RegressionGenerator,
                   title: String,
                   xAxisTitle: String,
                   yAxisTitle: String) = {
     val saveString = Global.getPictureSaveString
     val drawer = future {
-      val chart = new LineGraph(data.toXYSeriesCollection, regression,
+      val chart = new LineGraph(data.toXYSeriesCollection,
         title, xAxisTitle, yAxisTitle)
       val base64 = chart.toBase64
       Cache.set(saveString, base64, 3600)

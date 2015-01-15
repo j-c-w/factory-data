@@ -73,7 +73,7 @@ object FormToGraph {
                                                               graphType: String, xAxisTitle: String,
                                                               yAxisTitle: String, regression: String): String = graphType match {
     case "Bar Chart" => Graph.drawBarChart(data, title, xAxisTitle, yAxisTitle)
-    case "Line Graph" => Graph.drawLineGraph(data, new RegressionGenerator(1), title, xAxisTitle, yAxisTitle)
+    case "Line Graph" => Graph.drawLineGraph(data, title, xAxisTitle, yAxisTitle)
   }
 
   private def generateSort[A <: Comparable[_]](sortMode: String): (((A, Double), (A, Double)) => Boolean) = sortMode match {

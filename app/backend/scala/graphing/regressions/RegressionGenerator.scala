@@ -17,7 +17,6 @@ package backend.scala.graphing.regressions
 
 import java.rmi.server.ExportException
 
-import org.jfree.data.statistics.Regression
 import org.jfree.data.xy.{XYSeriesCollection, XYSeries}
 
 /*
@@ -27,84 +26,43 @@ import org.jfree.data.xy.{XYSeriesCollection, XYSeries}
 
 object RegressionGenerator {
   val linear = "Linear"
-  val polynomial = "Polynomial"
-  val exponential = "Exponential"
 
-  def fromString(string: String, power: Int) = string match {
-    case linear => new RegressionGenerator(1)
-    case polynomial => new RegressionGenerator(power)
-    case exponential => new RegressionGenerator(-1)
+  def fromString(s: String): Regression = s match {
+    case `linear` => Linear
+    case _ => NoRegression
   }
 
   def toList = List(
-    linear, polynomial, exponential
+    linear
   )
 }
 
-class RegressionGenerator(power: Int) {
-  protected def linear(set: XYSeriesCollection, seriesNumber: Int) =
-    Regression.getOLSRegression(set, seriesNumber)
+case object Linear extends Regression {
+  override def preformRegression(data: XYSeriesCollection, seriesNumber: Int): Unit = {
+    val (m, c) = equation(data, seriesNumber)
+    val newSeries: XYSeries = new XYSeries(equationString(m, c))
 
-  //5 is the maximum power of the polynomial
-  protected def polynomial(set: XYSeriesCollection, seriesNumber: Int, power: Int) =
-    Regression.getPolynomialRegression(set, seriesNumber, power)
+    val min = data.getSeries(seriesNumber).getMinX
+    val max = data.getSeries(seriesNumber).getMaxX
 
-  protected def exponential(set: XYSeriesCollection, seriesNumber: Int) =
-    Regression.getPowerRegression(set, seriesNumber)
+    def f(x: Double) =
+      m * x + c
 
-  /*
-   * This returns an anonymous function that
-   * parses doubles (and so can be plotted).
-   *
-   * For an exponential equation pass -1 as the power.
-   */
-  def getEquation(set: XYSeriesCollection, seriesNumber: Int): (Double => Double) =
-    if (power < 0) {
-      val doubles = exponential(set, seriesNumber)
-      x => doubles(0) * Math.pow(x, doubles(1))
-    } else {
-      val doubles = linear(set, seriesNumber)
-      val equationList: IndexedSeq[(Double => Double)] = ((0 until doubles.length).zip(doubles)).map {
-        case(coefficient, pwr) => ((x: Double) => coefficient * Math.pow(x, pwr))
-      }
-      x => equationList.foldRight(0.0) (_.apply(x) + _)
-    }
+    newSeries.add(min, f(min))
+    newSeries.add(max, f(max))
 
-  /*
-   * This returns a string representation of the
-   * regression equation.
-   *
-   * I find it infuriating that I cannot reuse the code
-   * above despite the similarity between the getEquation
-   * and getEquationString methods
-   */
-  def getEquationString(set: XYSeriesCollection, seriesNumber: Int): String =
-    if (power < 0) {
-      val doubles = exponential(set, seriesNumber)
-      "y = " + doubles(0).toString + "x^(" + doubles(1).toString + ")"
-    } else {
-      val doubles = linear(set, seriesNumber)
-      val equationList: IndexedSeq[String] = ((0 until doubles.length).zip(doubles)).map {
-        case(pwr, coefficient) => coefficient + "x^(" + pwr.toString + ")"
-      }
-      equationList.foldRight("y = ") ((str, equ) => str + " + " + equ)
-    }
-
-  def addEquationToSet(set: XYSeriesCollection, seriesNumber: Int) = {
-    val series = new XYSeries(getEquationString(set, seriesNumber))
-    val minX = set.getSeries(seriesNumber).getMinX
-    val maxX = set.getSeries(seriesNumber).getMaxX
-
-    val equation = getEquation(set, seriesNumber)
-    val minY = equation.apply(minX + 0.0000001)
-    val maxY = equation.apply(maxX -0.00001)
-
-    println("Minimum: " + minX.toString + ", " + minY.toString)
-    println("Maximum: " + maxX.toString + ", " + maxY.toString)
-
-    series.add(minX, minY)
-    series.add(maxX, maxY)
-
-    set.addSeries(series)
+    data.addSeries(newSeries)
   }
+
+  def equationString(m: Double, c: Double) = "y = " + m + "x " + " + " + c
+
+}
+
+case object NoRegression extends Regression {
+  /*
+   * This preforms the regression and adds the line to the collection.
+   *
+   * However, in this case, we don't actually want to do anything.
+   */
+  override def preformRegression(data: XYSeriesCollection, seriesNumber: Int): Unit = {}
 }
