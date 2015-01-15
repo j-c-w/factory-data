@@ -88,7 +88,7 @@ hideRequiredXAxis = function(value) {
     if (value === "Bar Chart") {
         $(".xAxisAll").show();
         $(".xAxisDoublesOnly").hide();
-    } else if (value === "Line Graph") {
+    } else if (value === "Line Graph" || value === "Scatter Plot") {
         $(".xAxisAll").hide();
         $(".xAxisDoublesOnly").show();
     } else {

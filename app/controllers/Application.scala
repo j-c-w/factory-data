@@ -204,6 +204,7 @@ object Application extends Controller {
     val xAxis = graphType.head match {
       case "Bar Chart" => xAxisAll
       case "Line Graph" => xAxisDoubles
+      case "Scatter Plot" => xAxisDoubles
     }
     val graphTitle = map.getOrElse("graphTitle", List(""))
     val xAxisTitle = map.getOrElse("xAxisTitle", List(""))
