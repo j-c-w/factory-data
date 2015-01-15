@@ -94,6 +94,13 @@ hideRequiredXAxis = function(value) {
     } else {
         alert("Error: " + value + " is not a valid graph type")
     }
+
+    if (value === "Scatter Plot") {
+        // show all the regression dropdowns
+        $(".regressionsSelect").show();
+    } else {
+        $(".regressionsSelect").hide();
+    }
     setDropdownListeners();
 };
 
