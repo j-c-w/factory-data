@@ -39,8 +39,8 @@ object RegressionGenerator {
 
 case object Linear extends Regression {
   override def preformRegression(data: XYSeriesCollection, seriesNumber: Int): Unit = {
-    val (m, c) = equation(data, seriesNumber)
-    val newSeries: XYSeries = new XYSeries(equationString(m, c))
+    val (c, m) = equation(data, seriesNumber)
+    val newSeries: XYSeries = new XYSeries(equationString(c, m))
 
     val min = data.getSeries(seriesNumber).getMinX
     val max = data.getSeries(seriesNumber).getMaxX
@@ -54,7 +54,7 @@ case object Linear extends Regression {
     data.addSeries(newSeries)
   }
 
-  def equationString(m: Double, c: Double) = "y = " + m + "x " + " + " + c
+  def equationString(c: Double, m: Double) = "y = " + m + "x " + " + " + c
 
 }
 
