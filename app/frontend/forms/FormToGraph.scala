@@ -38,7 +38,9 @@ object FormToGraph {
       val graphType = forms.head.graphType
       val xAxisTitle = forms.head.xAxisTitle
       val yAxisTitle = forms.head.yAxisTitle
-      val regression = forms.head.regression
+      val regressions = forms.map {
+        x => RegressionGenerator.fromString(x.regression)
+      }
       val parsers = forms.map(form => {new DataParser[Comparable[_], LineListObject](
         data, result => {
           val xAx = DataField.fromString(form.xAxis)
@@ -46,7 +48,7 @@ object FormToGraph {
           (xAx.get(result.lineObject), yAx.get(result.lineObject).getOrElse(0))
         }, generateSort(forms.head.graphSortMode), form.yAxis
       )})
-      drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle, regression)
+      drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle, regressions)
     }
   }
   /*
@@ -66,15 +68,15 @@ object FormToGraph {
     val parser = new DataParser[Comparable[_], LineListObject](
       data, x => (xAxis.get(x.lineObject), yAxis.get(x.lineObject).getOrElse(0.0)), generateSort(form.graphSortMode), form.title)
     val chartData = new BarChartData(List(parser))
-    drawChart(chartData, form.title, form.graphType, form.xAxis, form.yAxis, form.regression)
+    drawChart(chartData, form.title, form.graphType, form.xAxis, form.yAxis, List(RegressionGenerator.fromString(form.regression)))
   }
 
   private def drawChart[A <: Comparable[_], T <: DataType[T]](data: BarChartData[A, T], title: String,
                                                               graphType: String, xAxisTitle: String,
-                                                              yAxisTitle: String, regression: String): String = graphType match {
+                                                              yAxisTitle: String, regression: List[Regression]): String = graphType match {
     case "Bar Chart" => Graph.drawBarChart(data, title, xAxisTitle, yAxisTitle)
     case "Line Graph" => Graph.drawLineGraph(data, title, xAxisTitle, yAxisTitle)
-    case "Scatter Plot" => Graph.drawScatterPlot(data, title, xAxisTitle, yAxisTitle, Nil.toArray)
+    case "Scatter Plot" => Graph.drawScatterPlot(data, title, xAxisTitle, yAxisTitle, regression.toArray)
   }
 
   private def generateSort[A <: Comparable[_]](sortMode: String): (((A, Double), (A, Double)) => Boolean) = sortMode match {
