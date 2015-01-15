@@ -16,6 +16,7 @@
 package backend.scala.graphing.regressions
 
 import backend.scala.graphing.data.XYDataSet
+import org.jfree.chart.plot.XYPlot
 import org.jfree.data.xy.XYSeriesCollection
 
 /**
@@ -35,5 +36,5 @@ trait Regression {
   /*
    * This preforms the regression and adds the line to the collection
    */
-  def preformRegression(data: XYSeriesCollection, seriesNumber: Int): Unit
+  def preformRegression(data: XYSeriesCollection, plot: XYPlot, seriesNumber: Int): Unit
 }

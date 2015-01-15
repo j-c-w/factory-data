@@ -33,10 +33,11 @@ public class ScatterPlot extends Graph {
 	}
 
 	private JFreeChart getChart(XYSeriesCollection dataset, String title, String xAxisTitle, String yAxisTitle, Regression[] regressions) {
+		JFreeChart chart = ChartFactory.createScatterPlot(title, xAxisTitle, yAxisTitle, dataset, PlotOrientation.HORIZONTAL, true, false, false);
 		for (int i = 0; i < regressions.length; i ++) {
-			regressions[i].preformRegression(dataset, i);
+			regressions[i].preformRegression(dataset, chart.getXYPlot(), i);
 		}
 
-		return ChartFactory.createScatterPlot(title, xAxisTitle, yAxisTitle, dataset, PlotOrientation.HORIZONTAL, true, false, false);
+		return chart;
 	}
 }

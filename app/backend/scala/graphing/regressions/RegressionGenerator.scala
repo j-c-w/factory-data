@@ -17,6 +17,8 @@ package backend.scala.graphing.regressions
 
 import java.rmi.server.ExportException
 
+import org.jfree.chart.annotations.XYLineAnnotation
+import org.jfree.chart.plot.XYPlot
 import org.jfree.data.xy.{XYSeriesCollection, XYSeries}
 
 /*
@@ -38,9 +40,8 @@ object RegressionGenerator {
 }
 
 case object Linear extends Regression {
-  override def preformRegression(data: XYSeriesCollection, seriesNumber: Int): Unit = {
+  override def preformRegression(data: XYSeriesCollection, plot: XYPlot, seriesNumber: Int): Unit = {
     val (c, m) = equation(data, seriesNumber)
-    val newSeries: XYSeries = new XYSeries(equationString(c, m))
 
     val min = data.getSeries(seriesNumber).getMinX
     val max = data.getSeries(seriesNumber).getMaxX
@@ -48,10 +49,8 @@ case object Linear extends Regression {
     def f(x: Double) =
       m * x + c
 
-    newSeries.add(min, f(min))
-    newSeries.add(max, f(max))
-
-    data.addSeries(newSeries)
+    val annotation = new XYLineAnnotation(min, f(min), max, f(max))
+    plot.addAnnotation(annotation)
   }
 
   def equationString(c: Double, m: Double) = "y = " + m + "x " + " + " + c
@@ -64,5 +63,5 @@ case object NoRegression extends Regression {
    *
    * However, in this case, we don't actually want to do anything.
    */
-  override def preformRegression(data: XYSeriesCollection, seriesNumber: Int): Unit = {}
+  override def preformRegression(data: XYSeriesCollection, plot: XYPlot, seriesNumber: Int): Unit = {}
 }
