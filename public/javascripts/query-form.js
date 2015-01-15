@@ -45,9 +45,9 @@ $(document).ready(function () {
     updateListeners();
     hideRequiredXAxis($("#graphType").val());
     //se also set the selected xAxis to the default
-    //note that this will always exist because it will be added by default
     selectedXAxis = $(".aggregateField:last").val()
-
+    if (selectedXAxis === undefined) {
+    }
 
 });
 
@@ -79,8 +79,8 @@ removeConnectors = function() {
 };
 
 setGraphAxisValues = function() {
-    $(".graphType").change(function() {
-        hideRequiredXAxis(this.value)
+    $("#graphType").change(function() {
+        hideRequiredXAxis($(this).val())
     })
 };
 
