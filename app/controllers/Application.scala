@@ -2,6 +2,7 @@ package controllers
 
 import backend.scala.Backend
 import backend.scala.datatypes.{DataField, LineListObject}
+import backend.scala.graphing.regressions.RegressionGenerator
 import backend.scala.query.{ResultListObject, FilterBuilder, QueryBuilder, NoAggregate}
 import frontend.{FilterParser, ComparisonMethod, Equals}
 import frontend.forms._
@@ -128,7 +129,7 @@ object Application extends Controller {
         println("Query " + queryId + " Failed")
         println("Error Message: " + t.getMessage)
         println("Stacktrace: ")
-        t.printStackTrace
+        t.printStackTrace()
       }
     }
     println("Drawing Graph")
@@ -204,20 +205,20 @@ object Application extends Controller {
     val xAxis = graphType.head match {
       case "Bar Chart" => xAxisAll
       case "Line Graph" => xAxisDoubles
+      case "Scatter Plot" => xAxisDoubles
     }
     val graphTitle = map.getOrElse("graphTitle", List(""))
     val xAxisTitle = map.getOrElse("xAxisTitle", List(""))
     val yAxisTitle = map.getOrElse("yAxisTitle", List(""))
     val graphSortMode = map.getOrElse("graphSortMode", List("xAxis"))
-    //currently not in use
     val regressions = map.getOrElse("regressions", List(""))
     //
 
     val axesDisplayed = map.getOrElse("displayAxes", Static.defaultFields)
 
-    val graphData = (xAxis, yAxis).zipped.map{
-      case (x, y) => new GraphFormParser(x, y, graphTitle.head, graphType.head,
-        xAxisTitle.head, yAxisTitle.head, graphSortMode.head, "")//this last item is the regression
+    val graphData = (xAxis, yAxis, regressions).zipped.map{
+      case (x, y, regression) => new GraphFormParser(x, y, graphTitle.head, graphType.head,
+        xAxisTitle.head, yAxisTitle.head, graphSortMode.head, regression)//this last item is the regression
         //which is currently not in use
     }
     val filters = filterComparisons.zip(filterField).zip(filterValue).zip(filterConnectors).map(

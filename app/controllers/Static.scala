@@ -56,8 +56,8 @@ object Static {
   )
 
   val graphTypes: List[String] = List(
-    "Bar Chart", "Line Graph"
+    "Bar Chart", "Line Graph", "Scatter Plot"
   )
 
-  val regressions: List[String] = RegressionGenerator.toList
+  val regressions: List[String] = noSelection :: RegressionGenerator.toList
 }

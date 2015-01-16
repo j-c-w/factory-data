@@ -24,15 +24,6 @@
             }
         }
     </select>
-    Regression: <select id="regressions" name="regressions">
-        @for(option <- Static.regressions) {
-            @if(option == data.regression) {
-                <option selected name="regressions" id="regressions">@option</option>
-            } else {
-                <option name="regressions" id="regressions">@option</option>
-            }
-        }
-    </select>
     <br/>
 
 
@@ -72,6 +63,18 @@
             }
         }
         </select>
+
+        <div class="regressionsSelect" style="display: inline">
+            Regression: <select class="regressions" name="regressions">
+            @for(option <- Static.regressions) {
+                @if(option == data.regression) {
+                    <option selected name="regressions" id="regressions">@option</option>
+                } else {
+                    <option name="regressions" id="regressions">@option</option>
+                }
+            }
+            </select>
+        </div>
         <a href="" class="deleteButton">X</a>
     </div>
 }
