@@ -43,7 +43,12 @@ class BarChartData[A <: Comparable[_], T <: DataType[T]](dataParser: List[DataPa
   }
 
   def autoFilter(xyData: List[XYData[Double, Double]]) = {
-    xyData filter (_.xData.nonEmpty)
+    xyData map { x =>
+      x.xData match {
+        case Nil => new XYData(List(0.0, 0.0), List(0.0, 0.0), x.series)
+        case _ => x
+      }
+    }
   }
 
 }
