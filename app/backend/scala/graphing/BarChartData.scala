@@ -28,7 +28,8 @@ class BarChartData[A <: Comparable[_], T <: DataType[T]](dataParser: List[DataPa
   def toXYSeriesCollection: XYSeriesCollection = {
     val set = new XYSeriesCollection()
     val parsedList = dataParser map (x => x.parseXY)
-    val xySeries = parsedList map (parsed => {
+    val filteredList = autoFilter(parsedList)
+    val xySeries = filteredList map (parsed => {
       val singleSeries = new XYSeries(parsed.series)
       for((x, y) <- parsed.xData zip parsed.yData) {
         singleSeries.add(x, y)
@@ -39,6 +40,10 @@ class BarChartData[A <: Comparable[_], T <: DataType[T]](dataParser: List[DataPa
       set.addSeries(series)
     }
     set
+  }
+
+  def autoFilter(xyData: List[XYData[Double, Double]]) = {
+    xyData filter (_.xData.nonEmpty)
   }
 
 }
