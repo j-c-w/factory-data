@@ -36,5 +36,5 @@ trait Regression {
   /*
    * This preforms the regression and adds the line to the collection
    */
-  def preformRegression(data: XYSeriesCollection, plot: XYPlot, seriesNumber: Int): Unit
+  def preformRegression(data: XYSeriesCollection, plot: XYPlot): Unit
 }

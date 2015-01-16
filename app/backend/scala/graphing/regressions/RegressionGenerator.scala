@@ -29,8 +29,8 @@ import org.jfree.data.xy.{XYSeriesCollection, XYSeries}
 object RegressionGenerator {
   val linear = "Linear"
 
-  def fromString(s: String): Regression = s match {
-    case `linear` => Linear
+  def fromString(s: String, key: String): Regression = s match {
+    case `linear` => Linear(key)
     case _ => NoRegression
   }
 
@@ -39,18 +39,24 @@ object RegressionGenerator {
   )
 }
 
-case object Linear extends Regression {
-  override def preformRegression(data: XYSeriesCollection, plot: XYPlot, seriesNumber: Int): Unit = {
-    val (c, m) = equation(data, seriesNumber)
+case class Linear(key: String) extends Regression {
+  override def preformRegression(data: XYSeriesCollection, plot: XYPlot): Unit = {
+    try {
+      val seriesNumber = data.getSeriesIndex(key)
+      val (c, m) = equation(data, seriesNumber)
 
-    val min = data.getSeries(seriesNumber).getMinX
-    val max = data.getSeries(seriesNumber).getMaxX
+      val min = data.getSeries(seriesNumber).getMinX
+      val max = data.getSeries(seriesNumber).getMaxX
 
-    def f(x: Double) =
-      m * x + c
+      def f(x: Double) =
+        m * x + c
 
-    val annotation = new XYLineAnnotation(min, f(min), max, f(max))
-    plot.addAnnotation(annotation)
+      val annotation = new XYLineAnnotation(min, f(min), max, f(max))
+      plot.addAnnotation(annotation)
+    } catch {
+      case _ => // There was probably not enough data
+        println("Not enough data to preform regression")
+    }
   }
 
   def equationString(c: Double, m: Double) = "y = " + m + "x " + " + " + c
@@ -63,5 +69,5 @@ case object NoRegression extends Regression {
    *
    * However, in this case, we don't actually want to do anything.
    */
-  override def preformRegression(data: XYSeriesCollection, plot: XYPlot, seriesNumber: Int): Unit = {}
+  override def preformRegression(data: XYSeriesCollection, plot: XYPlot): Unit = {}
 }

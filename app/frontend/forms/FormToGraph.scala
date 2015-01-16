@@ -39,7 +39,7 @@ object FormToGraph {
       val xAxisTitle = forms.head.xAxisTitle
       val yAxisTitle = forms.head.yAxisTitle
       val regressions = forms.map {
-        x => RegressionGenerator.fromString(x.regression)
+        x => RegressionGenerator.fromString(x.regression, x.yAxis)
       }
       val parsers = forms.map(form => {new DataParser[Comparable[_], LineListObject](
         data, result => {
@@ -68,7 +68,8 @@ object FormToGraph {
     val parser = new DataParser[Comparable[_], LineListObject](
       data, x => (xAxis.get(x.lineObject), yAxis.get(x.lineObject).getOrElse(0.0)), generateSort(form.graphSortMode), form.title)
     val chartData = new BarChartData(List(parser))
-    drawChart(chartData, form.title, form.graphType, form.xAxis, form.yAxis, List(RegressionGenerator.fromString(form.regression)))
+    drawChart(chartData, form.title, form.graphType, form.xAxis,
+      form.yAxis, List(RegressionGenerator.fromString(form.regression, form.yAxis)))
   }
 
   private def drawChart[A <: Comparable[_], T <: DataType[T]](data: BarChartData[A, T], title: String,
