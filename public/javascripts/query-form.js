@@ -45,8 +45,9 @@ $(document).ready(function () {
     updateListeners();
     hideRequiredXAxis($("#graphType").val());
     //se also set the selected xAxis to the default
-    selectedXAxis = $(".aggregateField:last").val()
+    selectedXAxis = $(".aggregateField:last").val();
     if (selectedXAxis === undefined) {
+        selectedXAxis = $(".xAxisAll").val();
     }
 
 });
