@@ -129,7 +129,7 @@ object Application extends Controller {
         println("Query " + queryId + " Failed")
         println("Error Message: " + t.getMessage)
         println("Stacktrace: ")
-        t.printStackTrace
+        t.printStackTrace()
       }
     }
     println("Drawing Graph")

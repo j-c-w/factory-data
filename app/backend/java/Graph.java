@@ -46,10 +46,24 @@ public class Graph {
 	public String toBase64() {
 		try {
 			BufferedImage image = chart.createBufferedImage(1000, 600);
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			ImageIO.write(image, "png", out);
-			byte[] bytes = out.toByteArray();
-			return Base64.getEncoder().encodeToString(bytes);
+			return imageTo64(image);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "error";
+		}
+	}
+
+	private static String imageTo64(BufferedImage image) throws IOException {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ImageIO.write(image, "png", out);
+		byte[] bytes = out.toByteArray();
+		return Base64.getEncoder().encodeToString(bytes);
+	}
+
+	public static String errorBase64() {
+		try {
+			BufferedImage image = ImageIO.read(Global.errorPictureLocation());
+			return imageTo64(image);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "error";

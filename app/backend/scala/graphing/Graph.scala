@@ -65,7 +65,7 @@ object Graph {
     drawer onFailure {
       case t =>
         println("Graph failed: " + t.getMessage)
-
+        Cache.set(saveString, backend.java.Graph.errorBase64, 3600)
     }
     saveString
   }
