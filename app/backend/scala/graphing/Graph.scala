@@ -3,9 +3,9 @@ package backend.scala.graphing
 import java.io.File
 
 import backend.java.utils.FileUtility
-import backend.java.{LineGraph, BarChart}
+import backend.java.{ScatterPlot, LineGraph, BarChart}
 import backend.scala.datatypes.DataType
-import backend.scala.graphing.regressions.{RegressionGenerator}
+import backend.scala.graphing.regressions.{Regression, RegressionGenerator}
 import controllers.Global
 import org.jfree.chart.{ChartUtilities, ChartFactory, JFreeChart}
 import play.api.cache.Cache
@@ -33,35 +33,31 @@ import backend.scala.query.ResultListObject
  */
 
 object Graph {
-
+  def drawScatterPlot[B <: Comparable[_], T <: DataType[T]] (data: BarChartData[B, T],
+                  title: String,
+                  xAxisTitle: String,
+                  yAxisTitle: String,
+                  regressions: Array[Regression]) = {
+    drawGraph(new ScatterPlot(data.toXYSeriesCollection, title, xAxisTitle, yAxisTitle, regressions))
+  }
 
   def drawBarChart[B <: Comparable[_], T <: DataType[T]](data: BarChartData[B, T],
                   title: String,
                   xAxisTitle: String,
                   yAxisTitle: String) = {
-    val saveString = Global.getPictureSaveString
-    val drawer = future {
-      val chart = new BarChart(data.toCategorySet, title, xAxisTitle, yAxisTitle)
-      val base64 = chart.toBase64
-      Cache.set(saveString, base64, 3600)
-    }
-    drawer onFailure {
-      case t =>
-        println("Graph failed: " + t.getMessage)
-
-    }
-    saveString
+    drawGraph(new BarChart(data.toCategorySet, title, xAxisTitle, yAxisTitle))
   }
 
   def drawLineGraph[A <: Comparable[_], T <: DataType[T]](data: BarChartData[A, T],
-                  regression: RegressionGenerator,
                   title: String,
                   xAxisTitle: String,
                   yAxisTitle: String) = {
+    drawGraph(new LineGraph(data.toXYSeriesCollection, title, xAxisTitle, yAxisTitle))
+  }
+
+  private def drawGraph(chart: backend.java.Graph): String = {
     val saveString = Global.getPictureSaveString
     val drawer = future {
-      val chart = new LineGraph(data.toXYSeriesCollection, regression,
-        title, xAxisTitle, yAxisTitle)
       val base64 = chart.toBase64
       Cache.set(saveString, base64, 3600)
     }
@@ -69,9 +65,8 @@ object Graph {
     drawer onFailure {
       case t =>
         println("Graph failed: " + t.getMessage)
-
+        Cache.set(saveString, backend.java.Graph.errorBase64, 3600)
     }
     saveString
   }
-
 }

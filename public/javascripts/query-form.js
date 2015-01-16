@@ -45,9 +45,9 @@ $(document).ready(function () {
     updateListeners();
     hideRequiredXAxis($("#graphType").val());
     //se also set the selected xAxis to the default
-    //note that this will always exist because it will be added by default
     selectedXAxis = $(".aggregateField:last").val()
-
+    if (selectedXAxis === undefined) {
+    }
 
 });
 
@@ -79,8 +79,8 @@ removeConnectors = function() {
 };
 
 setGraphAxisValues = function() {
-    $(".graphType").change(function() {
-        hideRequiredXAxis(this.value)
+    $("#graphType").change(function() {
+        hideRequiredXAxis($(this).val())
     })
 };
 
@@ -88,11 +88,18 @@ hideRequiredXAxis = function(value) {
     if (value === "Bar Chart") {
         $(".xAxisAll").show();
         $(".xAxisDoublesOnly").hide();
-    } else if (value === "Line Graph") {
+    } else if (value === "Line Graph" || value === "Scatter Plot") {
         $(".xAxisAll").hide();
         $(".xAxisDoublesOnly").show();
     } else {
         alert("Error: " + value + " is not a valid graph type")
+    }
+
+    if (value === "Scatter Plot") {
+        // show all the regression dropdowns
+        $(".regressionsSelect").show();
+    } else {
+        $(".regressionsSelect").hide();
     }
     setDropdownListeners();
 };
