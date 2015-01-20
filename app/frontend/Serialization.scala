@@ -19,8 +19,8 @@ import scala.xml.{XML, Elem}
 
 object Serialization {
   def serialize(map: Map[String, Seq[String]]): String = {
-    val doc = <doc>{
-      <date>{Global.getDateString}</date>
+    val doc = <doc>
+      <date>{Global.getDateString}</date>{
       for (x <- map.toList) yield {
         <series>
             <iden>{x._1}</iden>
