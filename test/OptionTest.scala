@@ -9,7 +9,6 @@ import org.specs2.mutable.Specification
  */
 
 
-@RunWith(classOf[JUnitRunner])
 class OptionTest extends Specification {
   "Integer Comparison" should {
     "All be true" in {
