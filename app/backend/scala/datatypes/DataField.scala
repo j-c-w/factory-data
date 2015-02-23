@@ -260,7 +260,6 @@ object DataField {
     case LineCode.toString => LineCode
     case SMV.toString => SMV
     case RunningDays.toString => RunningDays
-    case DayOutput.toString => DayOutput
     case OutputMinutes.toString => OutputMinutes
     case AlterRate.toString => AlterRate
     case SpotRate.toString => SpotRate
@@ -315,7 +314,6 @@ object DataField {
     Efficiency.toString,
     OutputTarget.toString,
     AvailableMinutes.toString,
-    TotalTarget.toString,
-    DayOutput.toString
+    TotalTarget.toString
   )
 }
