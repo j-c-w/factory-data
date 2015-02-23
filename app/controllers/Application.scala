@@ -116,7 +116,8 @@ object Application extends Controller {
     //after we extract the data, we have to remove the non-entered data values
     //for parsing by the rest of the program at this point
     val filteredFilter = filter.filter(!_.toList.contains(Static.noSelection))
-    val filteredSort = sort.filter(!_.toList.contains(Static.noSelection))
+    // Note that sorters are revered to make the sort order make sense form a user perspective.
+    val filteredSort = sort.filter(!_.toList.contains(Static.noSelection)).reverse
     val filteredAggregate = aggregate.filter(!_.toList.contains(Static.noSelection))
     val filteredGraph = graph.filter(!_.toList.contains(Static.noSelection))
     val filteredDisplayAxes = displayAxes.filter(!_.equals(Static.noSelection))

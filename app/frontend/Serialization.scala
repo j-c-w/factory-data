@@ -4,9 +4,11 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 
 import controllers.Global
+import play.api.templates.Xml
 import sun.util.calendar.LocalGregorianCalendar.Date
 
 import scala.util.Try
+import scala.xml.{XML, Elem}
 
 /*
  * Created by Jackson Woodruff on 19/11/2014 
@@ -17,21 +19,36 @@ import scala.util.Try
 
 object Serialization {
   def serialize(map: Map[String, Seq[String]]): String = {
-    Global.getDateString + "\n" + map.map{
-      case(identifier, stringSequence) => {
-        identifier + ":->" + stringSequence.mkString("~.~")
+    val doc = <doc>
+      <date>{Global.getDateString}</date>{
+      for (x <- map.toList) yield {
+        <series>
+            <iden>{x._1}</iden>
+            {
+            for (item <- x._2) yield {
+              <item>{item}</item>
+            }
+          }
+        </series>
       }
-    }.mkString("\n")
+    }</doc>
+
+    val x = doc.buildString(false)
+    println(x)
+    x
   }
 
   def unserialize(string: String): Map[String, Seq[String]] = {
-    // Drop the first line because it contains the date.
-    // The date has already been dealt with by this stage.
-    val lines = string.split("\n").drop(1)
-    lines.map(line => {
-      val lineSplit = line.split(":->")
-      val end = Try(lineSplit.tail.head.split("~.~").toSeq)
-      (lineSplit.head, end.getOrElse(List("")))
-    }).toMap
+    println(string)
+    val xml = XML.loadString(string)
+    val series = xml \\ "series"
+    println(series)
+    val entries = series map {
+      x => {
+        val items = (x \\ "item") map (_.text)
+        ((x \ "iden").text, items)
+      }
+    }
+    entries.toMap
   }
 }

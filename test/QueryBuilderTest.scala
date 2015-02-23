@@ -1,5 +1,6 @@
 import backend.scala.datatypes.LineListObject
-import backend.scala.datatypes.options.DoubleOption
+import backend.scala.datatypes.options.wrappers.DoubleOptionWrapper
+import backend.scala.datatypes.options.{IntegerOption, DoubleOption}
 import backend.scala.query._
 import controllers.Global
 import org.specs2.mutable.Specification
@@ -12,7 +13,7 @@ import org.specs2.mutable.Specification
 class QueryBuilderTest extends Specification {
   "FilterBuilder" should {
     "Return an empty list" in {
-      val filterBuilder = new FilterBuilder[LineListObject](_.lineCode == 0)
+      val filterBuilder = new FilterBuilder[LineListObject](_.factoryCode == 0)
       val queryBuilder = new QueryBuilder[LineListObject](Some(filterBuilder), new AggregateBuilder[LineListObject], None)
 
       val data = queryBuilder.processData(Global.baseData)
@@ -23,8 +24,7 @@ class QueryBuilderTest extends Specification {
   "AggregateBuilder" should {
     "Return a singleton list" in {
       val aggregateBuilder = new AggregateBuilder[LineListObject]
-      aggregateBuilder.add(new AggregateSumBy[DoubleOption, LineListObject](_.getTotalSupervisors))
-      aggregateBuilder.add(new AggregateAverageBy[DoubleOption, LineListObject](_.getTotalProductionWorkersAbsent))
+      aggregateBuilder.add(new AggregateSumBy[IntegerOption, LineListObject](_.numberOfObservations))
       aggregateBuilder.add(new AggregateAverage[LineListObject])
 
       val data = aggregateBuilder.aggregateData(Global.baseData)
@@ -36,10 +36,11 @@ class QueryBuilderTest extends Specification {
   "SortBuilder" should {
     "Return a list where the total number of production workers is 0 in the top item" in {
       val sortBuilder = new SortBuilder[LineListObject]()
-      sortBuilder.add({ case (d1, d2) => d1.lineObject.getTotalProductionWorkers > d1.lineObject.getTotalProductionWorkers})
+      sortBuilder.add({ case (d1, d2) =>
+        d1.lineObject.getTotalProductionWorkers > d1.lineObject.getTotalProductionWorkers})
 
       val newData = sortBuilder.sortBy(new NoAggregate[LineListObject].aggregate(Global.baseData))
-      newData.head.lineObject.getTotalProductionWorkers == DoubleOption(0) must equalTo(true)
+      newData.head.lineObject.absenteeism.totalPresent == DoubleOptionWrapper(DoubleOption(0)) must equalTo(true)
 
     }
   }

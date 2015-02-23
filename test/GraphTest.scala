@@ -3,6 +3,8 @@ import backend.scala.query.NoAggregate
 import controllers.Global
 import frontend.forms.{FormToGraph, GraphFormParser}
 
+import scala.concurrent.Future
+
 /*
  * Created by Jackson Woodruff on 22/10/2014 
  *
@@ -18,10 +20,11 @@ object GraphTest {
   }
 
   def draw() = {
+    val futureData = Future {
+      new NoAggregate().aggregate(Global.baseData)
+    }
     val parser = new GraphFormParser("Line Code", "Total Production Workers",
-      "Line Code vs Total Production Workers", "LineGraph")
-    FormToGraph.formToGraph(parser, new NoAggregate().aggregate(Global.baseData))
+      "Line Code vs Total Production Workers", "LineGraph", "xAxis Title", "yAxis Title", "xAxis Ascending", "No Regression")
+    FormToGraph.formToGraph(parser, futureData)
   }
-
-
 }
