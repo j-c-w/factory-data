@@ -52,7 +52,7 @@ object Global {
         val formString = new String(Files.readAllBytes(Paths.get(location.toString)))
         val serialized = Some(Serialization.unserialize(formString))
         println("Unserialization successful")
-        updateDate(location, formString)
+        updateDate(location, serialized.get)
         serialized
       } catch {
         case ex: Exception => {
@@ -65,12 +65,11 @@ object Global {
   }
   
   /*
-   * This method updates the date in the form string to make it 
-   * the current date.
+   * This method takes the unserilized form and
+   * just reserialises it with the new date.
    */
-  private def updateDate(location: File, currentContents: String): Unit = {
-    val formContents = currentContents.split("\n") drop 1
-    val finalContents = (getDateString :+ formContents).mkString("\n")
+  private def updateDate(location: File, currentContents: Map[String, Seq[String]]): Unit = {
+    val finalContents = Serialization.serialize(currentContents)
     val writer = new PrintWriter(location)
     writer.write(finalContents)
     writer.close()

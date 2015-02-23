@@ -1,4 +1,6 @@
-import backend.scala.datatypes.options.{SomeDouble, NoInteger, SomeInteger}
+import backend.scala.datatypes.options.{NoInteger, SomeDouble, SomeInteger}
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.specs2.mutable.Specification
 
 /*
