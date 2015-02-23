@@ -314,6 +314,6 @@ object DataField {
     Efficiency.toString,
     OutputTarget.toString,
     AvailableMinutes.toString,
-    TotalTarget.toString,
+    TotalTarget.toString
   )
 }
