@@ -285,7 +285,6 @@ object DataField {
     LineCode.toString,
     SMV.toString,
     RunningDays.toString,
-    DayOutput.toString,
     OutputMinutes.toString,
     AlterRate.toString,
     RejectRate.toString,
