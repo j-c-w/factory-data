@@ -16,9 +16,7 @@ object Static {
 
   val tableHeaders: List[String] = DataField.asList
 
-  val defaultFields: List[String] = List(
-    FactoryCode.toString, LineCode.toString, TotalPresent.toString, AbsentRate.toString
-  )
+  val defaultFields: List[String] = List()
 
 
   val noSelection: String = "--- None ---"
