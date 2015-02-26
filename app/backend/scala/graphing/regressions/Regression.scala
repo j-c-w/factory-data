@@ -15,9 +15,12 @@
 
 package backend.scala.graphing.regressions
 
+import java.awt.Color
 import java.text.DecimalFormat
+import javafx.scene.paint.Paint
 
 import backend.scala.graphing.data.XYDataSet
+import com.sun.javafx.tk.Toolkit.PaintAccessor
 import org.jfree.chart.plot.XYPlot
 import org.jfree.data.xy.XYSeriesCollection
 
@@ -43,6 +46,20 @@ trait Regression {
   protected def round(n: Number): String = {
     val formatter = new DecimalFormat("#.####")
     formatter.format(n)
+  }
+
+  /*
+   * This is another utility function that yeilds the appropriate color
+   * for repeated regressions
+   */
+  protected def getLineColor(seriesNumber: Int) = seriesNumber % 7 match {
+    case 0 => Color.GREEN
+    case 1 => Color.BLACK // This is the first color that will be used.
+    case 2 => Color.BLUE
+    case 3 => Color.RED
+    case 4 => Color.CYAN
+    case 5 => Color.MAGENTA
+    case 6 => Color.WHITE
   }
 
   /*

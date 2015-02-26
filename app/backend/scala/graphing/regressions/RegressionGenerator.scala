@@ -54,15 +54,20 @@ case class Linear(key: String) extends Regression {
         line, 0, data.getSeries(seriesNumber).getMaxX,
         2, equationString(c, m)
       )
-      plot.setDataset(1, lineSet)
+      val plotNumber: Int = plot.getDatasetCount
+
+      plot.setDataset(plotNumber, lineSet)
 
       val renderer = new XYLineAndShapeRenderer(
         true, false)
-      renderer.setSeriesPaint(0, Color.BLACK)
-      plot.setRenderer(1, renderer);
+      renderer.setSeriesPaint(0, getLineColor(plotNumber))
+      plot.setRenderer(plotNumber, renderer);
     } catch {
-      case _ => // There was probably not enough data
+      case e => {
+        // There was probably not enough data
         println("Not enough data to preform regression")
+        e.printStackTrace()
+      }
     }
   }
 
