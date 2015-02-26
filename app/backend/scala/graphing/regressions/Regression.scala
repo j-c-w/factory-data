@@ -15,6 +15,8 @@
 
 package backend.scala.graphing.regressions
 
+import java.text.DecimalFormat
+
 import backend.scala.graphing.data.XYDataSet
 import org.jfree.chart.plot.XYPlot
 import org.jfree.data.xy.XYSeriesCollection
@@ -31,6 +33,16 @@ trait Regression {
       case (m :: c :: _) => (m, c)
       case _ => (0, 0)
     }
+  }
+
+  /*
+   * This is a utility rounding function. It is stored in here to ensure
+   * that the rounding on the numbers for the regressions is consistent
+   * and easy to change
+   */
+  protected def round(n: Number): String = {
+    val formatter = new DecimalFormat("#.####")
+    formatter.format(n)
   }
 
   /*

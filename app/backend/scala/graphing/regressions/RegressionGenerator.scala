@@ -66,7 +66,8 @@ case class Linear(key: String) extends Regression {
     }
   }
 
-  def equationString(c: Double, m: Double) = "y = " + m + "x " + " + " + c
+  def equationString(c: Double, m: Double) = "y = " + round(m) +
+    "x " + " + " + round(c)
 }
 
 case object NoRegression extends Regression {
