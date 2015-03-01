@@ -19,7 +19,7 @@ object Global {
     Random.alphanumeric.take(n).toArray
 
   def getQueryId =
-    nextNRandoms(40)
+    getDateStringWithoutDay + "-" + nextNRandoms(5).mkString("")
 
   def getPictureSaveString =
     nextNRandoms(20).mkString("")
@@ -74,6 +74,10 @@ object Global {
     writer.write(finalContents)
     writer.close()
   }
+
+  def getDateStringWithoutDay =
+    new SimpleDateFormat("MM/yy")
+      .format(Calendar.getInstance.getTime)
 
   def getDateString =
     new SimpleDateFormat("dd/MM/yyyy")
