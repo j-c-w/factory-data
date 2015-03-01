@@ -15,11 +15,15 @@
 
 package backend.scala.graphing.regressions
 
+import java.awt.Color
 import java.rmi.server.ExportException
 
 import org.jfree.chart.annotations.XYLineAnnotation
 import org.jfree.chart.plot.XYPlot
-import org.jfree.data.xy.{XYSeriesCollection, XYSeries}
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer
+import org.jfree.data.function.LineFunction2D
+import org.jfree.data.general.DatasetUtilities
+import org.jfree.data.xy.{XYDataset, XYSeriesCollection, XYSeries}
 
 /*
  * Created by Jackson Woodruff on 25/11/2014 
@@ -45,22 +49,30 @@ case class Linear(key: String) extends Regression {
       val seriesNumber = data.getSeriesIndex(key)
       val (c, m) = equation(data, seriesNumber)
 
-      val min = data.getSeries(seriesNumber).getMinX
-      val max = data.getSeries(seriesNumber).getMaxX
+      val line = new LineFunction2D(c, m)
+      val lineSet = DatasetUtilities.sampleFunction2D(
+        line, 0, data.getSeries(seriesNumber).getMaxX,
+        2, equationString(c, m)
+      )
+      val plotNumber: Int = plot.getDatasetCount
 
-      def f(x: Double) =
-        m * x + c
+      plot.setDataset(plotNumber, lineSet)
 
-      val annotation = new XYLineAnnotation(min, f(min), max, f(max))
-      plot.addAnnotation(annotation)
+      val renderer = new XYLineAndShapeRenderer(
+        true, false)
+      renderer.setSeriesPaint(0, getLineColor(plotNumber))
+      plot.setRenderer(plotNumber, renderer);
     } catch {
-      case _ => // There was probably not enough data
+      case e => {
+        // There was probably not enough data
         println("Not enough data to preform regression")
+        e.printStackTrace()
+      }
     }
   }
 
-  def equationString(c: Double, m: Double) = "y = " + m + "x " + " + " + c
-
+  def equationString(c: Double, m: Double) = "y = " + round(m) +
+    "x " + " + " + round(c)
 }
 
 case object NoRegression extends Regression {
