@@ -44,12 +44,8 @@ object Application extends Controller {
     }
   }
 
-  def help(helpPage: String) = Action {
-    val helpTuple = Static.Assets.helpList.filter( {
-      case(`helpPage`, _) => true
-      case(_, _) => false
-    })
-    Ok(views.html.helpPage(helpTuple))
+  def help() = Action {
+    Ok(views.html.helpPage())
   }
 
   /*

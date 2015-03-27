@@ -1,4 +1,4 @@
-@(helpString: List[(String, String)])
+@()
 
 <!DOCTYPE html>
 <html>
@@ -14,14 +14,220 @@
 <body>
     @generic.header()
     <div id="content">
-        @if(helpString.length == 0){
-            <h1>Help Page not found</h1>
-        } else {
-            @for(x <- helpString) {
-                <h1>@x._1</h1>
-                <p>@x._2</p>
-            }
-        }
+        <!-- This document was written in word. It was then converted to HTML using this online tool:
+            http://www.zamzar.com/convert/doc-to-html/
+
+            Slight modifications have been made to maintain the style of the document
+            --->
+        <h1><a name="_Toc414958346">Introduction</a></h1>
+
+        <p>This is a project that is used to process data. Below are instructions on how to actually use the project, with most areas of use covered in depth. For a more detailed look at how the data is actually processed, the attached design is worth looking over.</p>
+
+        <h1><a name="_Toc414958347">Using the App</a></h1>
+
+        <p>When processing data, there are a few key ideas to keep in mind. First and foremost is the order of operations (we will look at each of them in more depth later).</p>
+
+        <p>1) Filtering</p>
+
+        <p>2) Aggregating</p>
+
+        <p>3) Sorting</p>
+
+        <p>4) Drawing Graphs</p>
+
+        <p>This is always the case. If you add a filter, it will always be performed before any aggregations you add. Likewise, all sorting will be done before a graph is drawn. </p>
+
+        <p>This is something that is worth bearing in mind, as it can cause confusion were you to believe that filtering is done after aggregation (in the vast majority of cases before/after aggregation will be the same).</p>
+
+        <h1><a name="@Static.Assets.filterHelp">Filtering</a></h1>
+
+        <p>Filtering is a relatively simple task. After adding a filter (with the Add Filter button), you are presented with three different boxes. In the first box, you select the field you wish to filter on, in the second, you select how you want to compare, and in the final box, you enter your comparison value.</p>
+
+        <p>The only element of complexity with filters comes when you have more than two filters. In this case, you will be presented with an additional box, for combining the two filters (this box can take the value of and or or). What is important to remember about this is that there is no operator precedence unlike in common systems – order of operations is always first filter -&gt; last filter. In other words, there are implicit brackets between each filter.</p>
+
+        <p>In graphical terms, an (incorrect) list of filters, that looks like it selects all Tuesdays from factories 1004 and 1005 looks like this:</p>
+
+        <table border="1" cellspacing="0" cellpadding="0" >
+            <tbody>
+                <tr>
+                    <td valign="top" > </td>
+                    <td valign="top" ><p>Day of Week equals 3</p></td>
+                </tr>
+
+                <tr>
+                    <td valign="top" ><p>And</p></td>
+                    <td valign="top" ><p>Factory Code equals 1004</p></td>
+                </tr>
+
+                <tr>
+                    <td valign="top" ><p>Or</p></td>
+                    <td valign="top" ><p>Factory Code equals 1005</p></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <p>Would be interpreted like this:</p>
+
+        <p>(Day of week equals 3 AND Factory Code equals 1004) OR (Factory Code equals 1005)</p>
+
+        <p>And it would not produce the expected result. Instead, it would return all fields from factory 1004 on a Tuesday, along with all the rows for factory 1005. A working query would look like this:</p>
+
+        <table border="1" cellspacing="0" cellpadding="0" >
+            <tbody>
+                <tr>
+                    <td valign="top" > </td>
+                    <td valign="top" ><p>Factory Code equals 1004</p></td>
+                </tr>
+
+                <tr>
+                    <td valign="top" ><p>Or</p></td>
+                    <td valign="top" ><p>Factory Code equals 1005</p></td>
+                </tr>
+
+                <tr>
+                    <td valign="top" ><p>And</p></td>
+                    <td valign="top" ><p>Day of Week equals 3</p></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <p>This produces a query where all the rows are selected from either factories 1004 or 1005 on a Tuesday.</p>
+
+        <h2><a name="@Static.Assets.aggregateHelp">Aggregation</a></h2>
+
+        <p>Fortunately, aggregation is a much simpler process. After adding an aggregation, you must select the field you wish to aggregate on, and a mode.</p>
+
+        <p>The modes for aggregation are as follows: average, which results in the average value, and sum, which sums all the fields. </p>
+
+        <p>The field of the last aggregation that you preform is linked with the field that you select for the x-axis of the graph. </p>
+
+        <h2><a name="@Static.Assets.sortHelp">Sorting</a></h2>
+
+        <p>Sorting can be performed any number of times. Sorting works in the following way:</p>
+
+        <p>The data is first sorted on the first sort that you enter (you can think of this as the primary sort). For fields that match, data is progressively sorted on any sorts you define.</p>
+
+        <h2><a name="@Static.Assets.graphHelp">Graphing</a></h2>
+
+        <p>Drawing the graphs is the last task that is performed. There are three different types of graph, and each have their own intricacies to bear in mind.</p>
+
+        <h3><a name="_Toc414958352">What is actually plotted?</a></h3>
+
+        <p>If you were to plot X against Y without adding any filters or aggregation, you would get some very strange results. Firstly, any field that has no data is interpreted as a 0. Thus, for a scatter plot, you would have a very high concentration of (0, 0) points. Equally, because line graphs and bar charts can only plot one value per X value, you would only see a single row’s worth of data plotted in each point (not, as you might be expecting, an average/sum). This is best seen with the following example:</p>
+
+        <table border="1" cellspacing="0" cellpadding="0" >
+            <tbody>
+                <tr>
+                    <td valign="top" ><p>Factory Code</p></td>
+                    <td valign="top" ><p>Total Produced</p></td>
+                </tr>
+
+                <tr>
+                    <td valign="top" ><p>1</p></td>
+                    <td valign="top" ><p>100</p></td>
+                </tr>
+
+                <tr>
+                    <td valign="top" ><p>2</p></td>
+                    <td valign="top" ><p>200</p></td>
+                </tr>
+
+                <tr>
+                    <td valign="top" ><p>2</p></td>
+                    <td valign="top" ><p>300</p></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <p>If you were to plot Factory Code against Total Produced in this example (in a bar chart or line graph), you would be left with two different columns. The first would be (1, 100), and the second would be (2, 300), because the (2, 200) would be overwritten.</p>
+
+        <p>To deal with this, there are a few things to bear in mind. Firstly, regardless of the type of chart you are using, it is worthwhile (unless you wish to include the 0, 0 values) filtering all the fields you are using on your graph.</p>
+
+        <p>To tackle the problem of repeated points you have two options. Firstly, you could use a scatter plot, which would plot all the data you pass to it (even repeated points). Alternatively, you could aggregate on Factory Code, which would result in a single value for each individual factory code (it would subsequently be possible to plot these on a line graph/bar chart without losing data.</p>
+
+        <h1><a name="@Static.Assets.columnHelp">Displayed Columns</a></h1>
+        <p>The column headers that are returned in the table as the result of a query can be changed using the Columns section. To add a column to the table, click the ‘Add Column’ button, then select the field that you want in the column.</p>
+        <h1><a name="_Toc414958353">Query IDs Explained</a></h1>
+
+        <p>Query IDs are a feature aimed at helping you share your queries with others. There are two important things to bear in mind about query IDs. </p>
+
+        <p>The first, and most important thing is that query IDs are not refreshed until after you submit your query.</p>
+
+        <p>This means that if you write out a query you must click Search Data/Draw Graph before the structure of your query is saved. The way to think of this is by remembering that the ID points to the data (which is only updated when you submit a query) rather than the form.</p>
+
+        <p>The other thing worth noting about Query IDs is that they will be deleted after two months of inactivity. </p>
+
+        <h1><a name="_Toc414958354">Advanced Aggregation</a></h1>
+
+        <p>Aggregating on decimalized fields can seem to produce strange results. The reason for this is the fat that decimals are in fact stored to many more decimal places than can be seen on the screen, thus, although two fields that both say 0.1 might look identical, the first might actually be 0.097 while the second could be .103. This is just something to bear in mind as you aggregate fields with decimals.</p>
+
+        <p>Another topic worth covering here is why some fields turn into No Data when aggregated whilst others don’t. </p>
+
+        <p>Internally, fields are classed as one of two different types: averageable (those that make sense when averaged, i.e. Total Output), and non-averageable (those that would make no sense when averaged, i.e. Factory Code). During aggregation, these two types behave differently. Averageable types will always be added together (and so will never become a No Data slot). However, if two Non-Averageable types meet, the will be merged as a No Data. This is best seen with an example. </p>
+
+        <p>We aggregate this data on Day Of Week</p>
+
+        <table border="1" cellspacing="0" cellpadding="0" >
+            <tbody>
+                <tr>
+                    <td valign="top" ><p>Product</p></td>
+                    <td valign="top" ><p>Day Of Week</p></td>
+                    <td valign="top" ><p>Total Produced</p></td>
+                    <td valign="top" ><p>Size</p></td>
+                </tr>
+
+                <tr>
+                    <td valign="top" ><p>Shirt</p></td>
+                    <td valign="top" ><p>1</p></td>
+                    <td valign="top" ><p>500</p></td>
+                    <td valign="top" ><p>LG</p></td>
+                </tr>
+
+                <tr>
+                    <td valign="top" ><p>Sweater</p></td>
+                    <td valign="top" ><p>1</p></td>
+                    <td valign="top" ><p>400</p></td>
+                    <td valign="top" ><p>LG</p></td>
+                </tr>
+
+                <tr>
+                    <td valign="top" ><p>Sweater</p></td>
+                    <td valign="top" ><p>1</p></td>
+                    <td valign="top" ><p>No Data</p></td>
+                    <td valign="top" ><p>LG</p></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <p>The result would be the following:</p>
+
+        <table border="1" cellspacing="0" cellpadding="0" >
+            <tbody>
+                <tr>
+                    <td valign="top" ><p>Product</p></td>
+                    <td valign="top" ><p>Day Of Week</p></td>
+                    <td valign="top" ><p>Total Produced</p></td>
+                    <td valign="top" ><p>Size</p></td>
+                </tr>
+
+                <tr>
+                    <td valign="top" ><p>No Data</p></td>
+                    <td valign="top" ><p>1</p></td>
+                    <td valign="top" ><p>450</p></td>
+                    <td valign="top" ><p>LG</p></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <p>Product becomes No Data because we just tried to combine to not-equal fields that can’t be summed. Size stays as-is because both the values are the same for all the columns aggregated. Despite the presence of a No Data in the Total Produced column, the average is still displayed because the No Data can safely be ignored. </p>
+
+        <h1><br />
+        </h1>
     </div>
     @generic.footer()
 </body>
