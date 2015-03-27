@@ -14,6 +14,10 @@ POST        /submitForm                  controllers.Application.submitForm
 # Just loads a small file to sinify the end of the query
 GET         /endOfQuery                  controllers.Application.endOfQuery
 
+# This is for the help pages. The variable passed is used to determine which page to
+# actually show.
+GET         /help/*helpType            controllers.Application.help(helpType)
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                controllers.Assets.at(path="/public", file)
 
