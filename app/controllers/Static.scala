@@ -65,5 +65,9 @@ object Static {
     val sortHelp = ("Sort", "help")
     val graphHelp = ("Graph", "help")
     val columnHelp = ("Column", "help")
+
+    val helpList = List(
+      filterHelp, aggregateHelp, sortHelp, graphHelp, columnHelp
+    )
   }
 }

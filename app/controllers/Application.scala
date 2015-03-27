@@ -44,6 +44,14 @@ object Application extends Controller {
     }
   }
 
+  def help(helpPage: String) = Action {
+    val helpTuple = Static.Assets.helpList.filter( {
+      case(`helpPage`, _) => true
+      case(_, _) => false
+    })
+    Ok(views.html.helpPage(helpTuple))
+  }
+
   /*
    * This method returns an Ok if the cahce contains the key passed
    * Otherwise it returns a NotFound result
