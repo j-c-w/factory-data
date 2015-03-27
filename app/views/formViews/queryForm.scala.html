@@ -23,6 +23,7 @@
         <div id="filter" class="toolDiv">
             <br/>
             <div id="filterDiv">
+                @generic.helpPopup(Static.Assets.filterHelp)
                 @if(formData._1.length == 0) {
                     <!-- If there is nothing passed, leave empty for the time being -->
                     <!-- formViews.filterForm(displayConnector = false, None) -->
@@ -47,6 +48,7 @@
         <div id="aggregate" class="toolDiv">
             <br/>
             <div id="aggregateDiv">
+                @generic.helpPopup(Static.Assets.aggregateHelp)
                 @if(formData._3.length == 0) {
                     <!-- If there is nothing passed, leave empty for the time being -->
                     <!-- formViews.aggregateForm(None) -->
@@ -67,6 +69,7 @@
         <div id="sort" class="toolDiv">
             <br/>
             <div id="sortDiv">
+                @generic.helpPopup(Static.Assets.sortHelp)
                 @if(formData._2.length == 0) {
                     <!-- If there is nothing passed, leave empty for the time being -->
                     <!-- formViews.sortForm(None) -->
@@ -87,6 +90,7 @@
         <div id="graph" class="toolDiv">
             <br/>
             <div id="graphDiv">
+                @generic.helpPopup(Static.Assets.graphHelp)
                 @if(formData._4.length == 0) {
                     <!-- If there is nothing passed, leave empty for the time being -->
                     @formViews.graphForm(true, None)
@@ -108,6 +112,7 @@
         <div id="column" class="toolDiv">
             <br/>
             <div id="columnDiv">
+                @generic.helpPopup(Static.Assets.columnHelp)
                 @if(formData._5.length == 0) {
                     <!-- If there is nothing passed, leave empty for the time being -->
                     <!-- formViews.fieldSelect(Some(Static.noSelection)) -->
