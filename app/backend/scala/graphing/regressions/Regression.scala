@@ -17,10 +17,8 @@ package backend.scala.graphing.regressions
 
 import java.awt.Color
 import java.text.DecimalFormat
-import javafx.scene.paint.Paint
 
 import backend.scala.graphing.data.XYDataSet
-import com.sun.javafx.tk.Toolkit.PaintAccessor
 import org.jfree.chart.plot.XYPlot
 import org.jfree.data.xy.XYSeriesCollection
 
