@@ -33,7 +33,7 @@ object Global {
   lazy val baseData = DataLoader.dataAsList
 
   def sendNotification(queryId: String, formData: Option[Map[String, Seq[String]]]): Unit = {
-    val location = new File(pictureFileLocation + "/" + queryId)
+    val location = new File(pictureFileLocation + "\\" + queryId)
     location.createNewFile()
     val writer = new PrintWriter(location)
     writer.write(Serialization.serialize(formData.getOrElse(Map())))

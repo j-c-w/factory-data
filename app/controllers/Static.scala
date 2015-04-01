@@ -58,4 +58,12 @@ object Static {
   )
 
   val regressions: List[String] = noSelection :: RegressionGenerator.toList
+
+  object Assets {
+    val filterHelp = "Filtering"
+    val aggregateHelp = "Aggregation"
+    val sortHelp = "Sorting"
+    val graphHelp = "Graphs"
+    val columnHelp = "Columns"
+  }
 }

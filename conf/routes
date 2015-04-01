@@ -14,9 +14,8 @@ POST        /submitForm                  controllers.Application.submitForm
 # Just loads a small file to sinify the end of the query
 GET         /endOfQuery                  controllers.Application.endOfQuery
 
-# This is exclusively for Heroku. It is to check/load files from the temp directory
-# because I am not allowed to use the public directory
-GET         /temp/*file                  controllers.Application.tempFile(file)
+# This just loads the help page
+GET         /help                        controllers.Application.help
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                controllers.Assets.at(path="/public", file)

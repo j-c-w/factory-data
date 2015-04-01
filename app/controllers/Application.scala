@@ -62,6 +62,10 @@ object Application extends Controller {
     }
   }
 
+  def help() = Action {
+    Ok(views.html.helpPage())
+  }
+
   /*
    * This method returns an Ok if the cahce contains the key passed
    * Otherwise it returns a NotFound result
