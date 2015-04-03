@@ -116,6 +116,18 @@ body {
     overflow:scroll;
 }
 
+.leftCenterVertical {
+    padding: 5px;
+    float: left;
+    margin-top: 5px;
+}
+
+.rightCenterVertical {
+    padding: 5px;
+    float: right;
+    margin-top: 5px;
+}
+
 .button {
     text-align: center;
     padding: 0;
