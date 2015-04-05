@@ -73,6 +73,8 @@ object Application extends Controller {
   def cacheCheck(key: String) = Action {
     Cache.get(key) match {
       case None => Results.NotFound(key + " Not found in cache")
+      case Some(false) => // This is setup to mean there is no data yet, but there will be some soon
+        Ok("Values still being computed")
       case Some(_) => Ok("Key in cache")
     }
   }
@@ -130,6 +132,13 @@ object Application extends Controller {
     val queryBuilder = FormToQuery.parse((filteredFilter, filteredSort, filteredAggregate))
     println("Query Built")
 
+
+    // We also need to set some default values in the cache, so that
+    // the system is aware that there will be something there, but
+    // that there is not anything there yet.
+    Cache.set(queryId, false, 3600)
+    Cache.set(queryId + "DisplayFields", false, 3600)
+    Cache.set(queryId + "Graph", false, 3600)
     val data = future {
       val processedData = queryBuilder.processData(Global.baseData)
       println("Data Processed")
@@ -144,10 +153,12 @@ object Application extends Controller {
       processedData
     }
     data onFailure {
-      //we need to send the notification anyways, but since we put a boolean in the cache
-      //we know the query failed
+      // we need to send the notification anyways, but since we put a boolean in the cache
+      // we know the query failed. Note that we use true rather than false to prevent confusion
+      // with the idea that there will be a value in the cache as opposed to the idea that there will
+      // never be a value in the cache
       case t => {
-        Cache.set(queryId, false, 3600)
+        Cache.set(queryId, true, 3600)
         Global.sendNotification(queryId, dynamicForm)
         println("Query " + queryId + " Failed")
         println("Error Message: " + t.getMessage)
@@ -156,7 +167,7 @@ object Application extends Controller {
       }
     }
     println("Drawing Graph")
-    val hasGraph = FormToGraph.formsToGraph(filteredGraph, data)
+    val hasGraph = FormToGraph.formsToGraph(filteredGraph, data, queryId + "Graph")
     println("Finished drawing graph")
 
     //note that we are passing the un=filtered data back to the
@@ -179,7 +190,7 @@ object Application extends Controller {
         Cache.set(queryId, "Query Failed", 180)
       }
     }
-    Ok(views.html.dataView(queryId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), ""))
+    Ok(views.html.dataView(queryId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), false))
   }
 
   def endOfQuery = Action {

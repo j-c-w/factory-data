@@ -37,26 +37,28 @@ object Graph {
                   title: String,
                   xAxisTitle: String,
                   yAxisTitle: String,
-                  regressions: Array[Regression]) = {
-    drawGraph(new ScatterPlot(data.toXYSeriesCollection, title, xAxisTitle, yAxisTitle, regressions))
+                  regressions: Array[Regression],
+                  saveString: String) = {
+    drawGraph(new ScatterPlot(data.toXYSeriesCollection, title, xAxisTitle, yAxisTitle, regressions), saveString)
   }
 
   def drawBarChart[B <: Comparable[_], T <: DataType[T]](data: BarChartData[B, T],
                   title: String,
                   xAxisTitle: String,
-                  yAxisTitle: String) = {
-    drawGraph(new BarChart(data.toCategorySet, title, xAxisTitle, yAxisTitle))
+                  yAxisTitle: String,
+                  saveString: String) = {
+    drawGraph(new BarChart(data.toCategorySet, title, xAxisTitle, yAxisTitle), saveString)
   }
 
   def drawLineGraph[A <: Comparable[_], T <: DataType[T]](data: BarChartData[A, T],
                   title: String,
                   xAxisTitle: String,
-                  yAxisTitle: String) = {
-    drawGraph(new LineGraph(data.toXYSeriesCollection, title, xAxisTitle, yAxisTitle))
+                  yAxisTitle: String,
+                  saveString: String) = {
+    drawGraph(new LineGraph(data.toXYSeriesCollection, title, xAxisTitle, yAxisTitle), saveString)
   }
 
-  private def drawGraph(chart: backend.java.Graph): String = {
-    val saveString = Global.getPictureSaveString
+  private def drawGraph(chart: backend.java.Graph, saveString: String): String = {
     val drawer = future {
       val base64 = chart.toBase64
       Cache.set(saveString, base64, 3600)
