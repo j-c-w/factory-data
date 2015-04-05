@@ -30,7 +30,8 @@ object FormToGraph {
    * this takes a list of graph forms and then returns a
    * boolean indicating whether we are plotting a graph.
    */
-  def formsToGraph(forms: List[GraphFormParser], data: Future[List[ResultListObject[LineListObject]]]) = {
+  def formsToGraph(forms: List[GraphFormParser], data: Future[List[ResultListObject[LineListObject]]],
+                   saveString: String) = {
     if (forms.length == 0) {
       ""
     } else {
@@ -48,7 +49,7 @@ object FormToGraph {
           (xAx.get(result.lineObject), yAx.get(result.lineObject).getOrElse(0))
         }, generateSort(forms.head.graphSortMode), form.yAxis
       )})
-      drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle, regressions)
+      drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle, regressions, saveString)
     }
   }
   /*
@@ -59,7 +60,8 @@ object FormToGraph {
    * Finally it returns a File object that represents the
    * location of the drawn graph.
    */
-  def formToGraph(form: GraphFormParser, data: Future[List[ResultListObject[LineListObject]]]): String = {
+  def formToGraph(form: GraphFormParser, data: Future[List[ResultListObject[LineListObject]]],
+                  saveString: String): String = {
     val xAxis = DataField.fromString(form.xAxis)
     //I think I am allowed to type-cast this because there should only be double options coming
     //through
@@ -69,15 +71,16 @@ object FormToGraph {
       data, x => (xAxis.get(x.lineObject), yAxis.get(x.lineObject).getOrElse(0.0)), generateSort(form.graphSortMode), form.title)
     val chartData = new BarChartData(List(parser))
     drawChart(chartData, form.title, form.graphType, form.xAxis,
-      form.yAxis, List(RegressionGenerator.fromString(form.regression, form.yAxis)))
+      form.yAxis, List(RegressionGenerator.fromString(form.regression, form.yAxis)), saveString)
   }
 
   private def drawChart[A <: Comparable[_], T <: DataType[T]](data: BarChartData[A, T], title: String,
                                                               graphType: String, xAxisTitle: String,
-                                                              yAxisTitle: String, regression: List[Regression]): String = graphType match {
-    case "Bar Chart" => Graph.drawBarChart(data, title, xAxisTitle, yAxisTitle)
-    case "Line Graph" => Graph.drawLineGraph(data, title, xAxisTitle, yAxisTitle)
-    case "Scatter Plot" => Graph.drawScatterPlot(data, title, xAxisTitle, yAxisTitle, regression.toArray)
+                                                              yAxisTitle: String, regression: List[Regression],
+                                                              saveString: String): String = graphType match {
+    case "Bar Chart" => Graph.drawBarChart(data, title, xAxisTitle, yAxisTitle, saveString)
+    case "Line Graph" => Graph.drawLineGraph(data, title, xAxisTitle, yAxisTitle, saveString)
+    case "Scatter Plot" => Graph.drawScatterPlot(data, title, xAxisTitle, yAxisTitle, regression.toArray, saveString)
   }
 
   private def generateSort[A <: Comparable[_]](sortMode: String): (((A, Double), (A, Double)) => Boolean) = sortMode match {

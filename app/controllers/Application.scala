@@ -112,6 +112,13 @@ object Application extends Controller {
     val queryBuilder = FormToQuery.parse((filteredFilter, filteredSort, filteredAggregate))
     println("Query Built")
 
+
+    // We also need to set some default values in the cache, so that
+    // the system is aware that there will be something there, but
+    // that there is not anything there yet.
+    Cache.set(queryId, false, 3600)
+    Cache.set(queryId + "DisplayFields", false, 3600)
+    Cache.set(queryId + "Graph", false, 3600)
     val data = future {
       val processedData = queryBuilder.processData(Global.baseData)
       println("Data Processed")
@@ -138,7 +145,7 @@ object Application extends Controller {
       }
     }
     println("Drawing Graph")
-    val hasGraph = FormToGraph.formsToGraph(filteredGraph, data)
+    val hasGraph = FormToGraph.formsToGraph(filteredGraph, data, queryId + "Graph")
     println("Finished drawing graph")
 
     //note that we are passing the un=filtered data back to the
