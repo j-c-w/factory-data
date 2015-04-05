@@ -135,10 +135,12 @@ object Application extends Controller {
       processedData
     }
     data onFailure {
-      //we need to send the notification anyways, but since we put a boolean in the cache
-      //we know the query failed.
+      // we need to send the notification anyways, but since we put a boolean in the cache
+      // we know the query failed. Note that we use true rather than false to prevent confusion
+      // with the idea that there will be a value in the cache as opposed to the idea that there will
+      // never be a value in the cache
       case t => {
-        Cache.set(queryId, false, 3600)
+        Cache.set(queryId, true, 3600)
         Global.sendNotification(queryId, dynamicForm)
         println("Query " + queryId + " Failed")
         println("Error Message: " + t.getMessage)
