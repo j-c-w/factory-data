@@ -10,6 +10,7 @@ import backend.scala.graphing.{BarChartData, Graph}
 import backend.scala.query.ResultListObject
 import scala.concurrent._
 import scala.concurrent.duration.Duration.Inf
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
 import scala.util.Try
@@ -35,21 +36,25 @@ object FormToGraph {
     if (forms.length == 0) {
       false
     } else {
-      val title = forms.head.title
-      val graphType = forms.head.graphType
-      val xAxisTitle = forms.head.xAxisTitle
-      val yAxisTitle = forms.head.yAxisTitle
-      val regressions = forms.map {
-        x => RegressionGenerator.fromString(x.regression, x.yAxis)
+      future {
+        val title = forms.head.title
+        val graphType = forms.head.graphType
+        val xAxisTitle = forms.head.xAxisTitle
+        val yAxisTitle = forms.head.yAxisTitle
+        val regressions = forms.map {
+          x => RegressionGenerator.fromString(x.regression, x.yAxis)
+        }
+        val parsers = forms.map(form => {
+          new DataParser[Comparable[_], LineListObject](
+            data, result => {
+              val xAx = DataField.fromString(form.xAxis)
+              val yAx = DataField.fromString(form.yAxis).asInstanceOf[DoubleOptionDataField]
+              (xAx.get(result.lineObject), yAx.get(result.lineObject).getOrElse(0))
+            }, generateSort(forms.head.graphSortMode), form.yAxis
+          )
+        })
+        drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle, regressions, saveString)
       }
-      val parsers = forms.map(form => {new DataParser[Comparable[_], LineListObject](
-        data, result => {
-          val xAx = DataField.fromString(form.xAxis)
-          val yAx = DataField.fromString(form.yAxis).asInstanceOf[DoubleOptionDataField]
-          (xAx.get(result.lineObject), yAx.get(result.lineObject).getOrElse(0))
-        }, generateSort(forms.head.graphSortMode), form.yAxis
-      )})
-      drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle, regressions, saveString)
       true
     }
   }
