@@ -14,13 +14,16 @@ $(document).ready(function() {
         $.ajax({
             url: pictureUrl,
             success: function(data){
+                if (data === 'Values still being computed') {
+                    return;
+                }
                 // the graph exists, so load it into the div.
                 loadGraph(pictureFileName);
                 clearInterval(refreshPictureInterval);
             },
             error: function(data){
-                // leave it, becuase the graph has not
-                // been drawn yet
+                $("#graphDisplayDiv").html("<p class='center'>Something went wrong. Please retry your query.</p>");
+                clearInterval(refreshPictureInterval);
             }
         })
     }, 1000);

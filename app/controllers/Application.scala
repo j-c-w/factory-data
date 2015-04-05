@@ -55,6 +55,8 @@ object Application extends Controller {
   def cacheCheck(key: String) = Action {
     Cache.get(key) match {
       case None => Results.NotFound(key + " Not found in cache")
+      case Some(false) => // This is setup to mean there is no data yet, but there will be some soon
+        Ok("Values still being computed")
       case Some(_) => Ok("Key in cache")
     }
   }
