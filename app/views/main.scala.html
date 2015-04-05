@@ -20,6 +20,7 @@
                 <div id="sessionRestoreDiv">
                     <form action="/recoverSession" method="POST" id="recoverSession" name="recoverSession">
                         <img id="serverCheckSpinner" src="@routes.Assets.at("images/circularLoading.gif")" hidden="true"/>
+                        <p>This feature does not work on heroku's servers. Trying to use it is fruitless.</p>
                         <p id="queryRestoreMessageBox"></p>
                         Session ID: <input type="text" id="sessionIDEntryBox" name="id">
                         <br/>

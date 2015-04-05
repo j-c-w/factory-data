@@ -8,6 +8,8 @@ import backend.scala.graphing.data.DataParser
 import backend.scala.graphing.regressions.{Regression, RegressionGenerator}
 import backend.scala.graphing.{BarChartData, Graph}
 import backend.scala.query.ResultListObject
+import play.api.cache.Cache
+import play.api.Play.current
 import scala.concurrent._
 import scala.concurrent.duration.Duration.Inf
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -36,7 +38,7 @@ object FormToGraph {
     if (forms.length == 0) {
       false
     } else {
-      future {
+      val graphDrawing = future {
         val title = forms.head.title
         val graphType = forms.head.graphType
         val xAxisTitle = forms.head.xAxisTitle
@@ -54,6 +56,16 @@ object FormToGraph {
           )
         })
         drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle, regressions, saveString)
+      }
+
+      graphDrawing onFailure {
+        case t =>
+          printf("Error drawing graph. Stacktrace: ")
+          printf(t.getMessage)
+          t.printStackTrace()
+          // Just like in the case of the data failure, we need to make
+          // sure that the user is not just left with a spinning bar.
+          Cache.set(saveString, true, 3600)
       }
       true
     }
