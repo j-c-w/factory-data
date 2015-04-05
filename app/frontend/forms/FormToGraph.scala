@@ -33,7 +33,7 @@ object FormToGraph {
   def formsToGraph(forms: List[GraphFormParser], data: Future[List[ResultListObject[LineListObject]]],
                    saveString: String) = {
     if (forms.length == 0) {
-      ""
+      false
     } else {
       val title = forms.head.title
       val graphType = forms.head.graphType
@@ -50,6 +50,7 @@ object FormToGraph {
         }, generateSort(forms.head.graphSortMode), form.yAxis
       )})
       drawChart(new BarChartData(parsers.toList), title, graphType, xAxisTitle, yAxisTitle, regressions, saveString)
+      true
     }
   }
   /*

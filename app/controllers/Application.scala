@@ -136,7 +136,7 @@ object Application extends Controller {
     }
     data onFailure {
       //we need to send the notification anyways, but since we put a boolean in the cache
-      //we know the query failed
+      //we know the query failed.
       case t => {
         Cache.set(queryId, false, 3600)
         Global.sendNotification(queryId, dynamicForm)
@@ -147,12 +147,12 @@ object Application extends Controller {
       }
     }
     println("Drawing Graph")
-    FormToGraph.formsToGraph(filteredGraph, data, queryId + "Graph")
+    val hasGraph = FormToGraph.formsToGraph(filteredGraph, data, queryId + "Graph")
     println("Finished drawing graph")
 
     //note that we are passing the un=filtered data back to the
     //layout so people don't get confused when things dissapear
-    Ok(views.html.dataView(queryId, Static.tableHeaders, dataForm, queryId + "Graph"))
+    Ok(views.html.dataView(queryId, Static.tableHeaders, dataForm, hasGraph))
   }
 
   def list = Action {
@@ -170,7 +170,7 @@ object Application extends Controller {
         Cache.set(queryId, "Query Failed", 180)
       }
     }
-    Ok(views.html.dataView(queryId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), ""))
+    Ok(views.html.dataView(queryId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), false))
   }
 
   def endOfQuery = Action {
