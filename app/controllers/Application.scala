@@ -145,12 +145,12 @@ object Application extends Controller {
       }
     }
     println("Drawing Graph")
-    val hasGraph = FormToGraph.formsToGraph(filteredGraph, data, queryId + "Graph")
+    FormToGraph.formsToGraph(filteredGraph, data, queryId + "Graph")
     println("Finished drawing graph")
 
     //note that we are passing the un=filtered data back to the
     //layout so people don't get confused when things dissapear
-    Ok(views.html.dataView(queryId, Static.tableHeaders, dataForm, hasGraph))
+    Ok(views.html.dataView(queryId, Static.tableHeaders, dataForm, queryId + "Graph"))
   }
 
   def list = Action {
