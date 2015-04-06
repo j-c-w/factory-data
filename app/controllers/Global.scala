@@ -44,7 +44,14 @@ object Global {
    * Please note that if you pass this an empty string it will crash
    */
   def restoreSession(queryId: String): Option[Map[String, Seq[String]]] = {
-    val location = new File(pictureFileLocation + "/" + queryId)
+    val location = new File(pictureFileLocation + "\\" + queryId)
+    loadSession(location)
+  }
+
+  def loadExample(iden: String) =
+    loadSession(new File(dataCVSLocation.getParent + "\\query" + iden))
+
+  private def loadSession(location: File) = {
     if (!location.exists()) {
       None
     } else {
@@ -56,7 +63,7 @@ object Global {
         serialized
       } catch {
         case ex: Exception => {
-          println("Error restoring previous query, ID: " + queryId)
+          println("Error restoring previous session, file: ", location.toString)
           println("Error Message: " + ex.getMessage)
           None
         }

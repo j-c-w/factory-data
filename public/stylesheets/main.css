@@ -20,7 +20,12 @@ body {
 }
 
 #footer {
-     background-color: darkred;
+    background-color: darkred;
+    position : relative;
+    bottom : 0;
+    width: 100%;
+    text-align: center;
+    margin-top : 0;
 }
 
 #floatingMessageBox {
@@ -36,8 +41,26 @@ body {
     width: 8em;
 }
 
+form {
+    color: #dbdbdb;
+}
+
+.whiteText {
+    color: #dbdbdb;
+    text-decoration: none;
+}
+
 .buttonInRightBar {
     width: 8em;
+}
+
+.stretchToWidth {
+    max-width: 98%;
+    height: auto;
+}
+
+.inlineImage {
+    padding: 5px;
 }
 
 #sessionRestoreDiv {

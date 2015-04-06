@@ -20,9 +20,9 @@
                 <div id="sessionRestoreDiv">
                     <form action="/recoverSession" method="POST" id="recoverSession" name="recoverSession">
                         <img id="serverCheckSpinner" src="@routes.Assets.at("images/circularLoading.gif")" hidden="true"/>
-                        <p>This feature does not work on heroku's servers. Trying to use it is fruitless.</p>
-                        <p id="queryRestoreMessageBox"></p>
-                        Session ID: <input type="text" id="sessionIDEntryBox" name="id">
+                        <p class="whiteText">This feature does not work on heroku's servers. Trying to use it is fruitless.</p>
+                        <p class="whiteText" id="queryRestoreMessageBox"></p>
+                        <p class="whiteText">Session ID: </p><input type="text" id="sessionIDEntryBox" name="id">
                         <br/>
                         <br/>
                         <a href="" id="submitSessionRestore" class="formButton">Restore Session</a>
@@ -31,39 +31,34 @@
                 </div>
                 <a class="formButton buttonInRightBar" id="defaultSessionsButton" href="">Queries +</a>
                 <div id="defaultSessionsBox">
-                    <!-- TODO -- fill this with a list of the default sessions to be retored -->
-                    <ul>
-                        <li>The query ID system does not run on the heroku servers. It will function fully when this is moved to a dedicated server.</li>
-                        <li>.</li>
-                        <li>.</li>
-                        <li>.</li>
-                    </ul>
+                    <br/>
+                    <a href="/examples/1" class="whiteText">Absenteeism by Day of Month</a>
+                    <br/>
+                    <br/>
+                    <a href="/examples/2" class="whiteText">Efficiency by Running Days</a>
+                    <br/>
+                    <br/>
+                    <a href="/examples/3" class="whiteText">Defect Rates by Running Days</a>
+                    <br/>
+                    <br/>
+                    <a href="/examples/4" class="whiteText">Defect Rate by Day of Month</a>
                 </div>
             </div>
             <h3>Please be aware that the query ID system will not be running on this version of the production.</h3>
             <p>It relies on storage features not provided by heroku but will work fine once the dedicated server is ready (I am assured that this will happen once the full dataset is ready).</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas hendrerit eget metus sed euismod. Nulla mollis ipsum est, vitae gravida eros tempor id. Maecenas odio turpis, tincidunt at venenatis in, dignissim eget arcu. Donec accumsan tempor eleifend. Cras accumsan est eget semper auctor. Vestibulum nisl magna, euismod sed sapien id, tincidunt pellentesque libero. Proin ante velit, scelerisque sed facilisis in, mattis non felis. Etiam id felis nunc.
-                <br/>
-                <br/>
-                Proin suscipit vel leo non mattis. Nunc efficitur sodales aliquam. Morbi pharetra consectetur enim faucibus interdum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam id diam vel ligula imperdiet aliquet id at magna. Duis nulla augue, convallis nec consectetur vitae, consectetur vitae mi. Ut vulputate vel nibh et ornare. Sed tincidunt, sapien nec sagittis pulvinar, eros lorem gravida purus, sit amet ornare dolor lacus quis mauris. Sed accumsan ornare nibh, id blandit justo pretium eu. Suspendisse sit amet sapien id risus interdum posuere aliquam eu quam. Etiam ut elit ut erat consectetur semper. Etiam rhoncus tincidunt tellus id porta. Pellentesque finibus, leo eget dapibus iaculis, nibh nunc gravida dui, vel commodo diam sapien a purus. Aenean blandit placerat congue.
-                <br/>
-                <br/>
-                Nunc a orci sapien. Nulla in sapien fringilla, laoreet nibh ut, condimentum tellus. Ut faucibus sagittis vestibulum. Aenean lorem nisl, ultrices a tellus eu, gravida tincidunt lacus. Fusce gravida feugiat sapien id maximus. Ut facilisis ante purus, eget tincidunt odio malesuada non. Ut eget egestas justo. Donec at magna euismod, blandit diam ac, scelerisque purus. Donec porta ex ac nisi luctus, eu volutpat sapien consequat.
-                <br/>
-                <br/>
-                Vestibulum eu eros malesuada, scelerisque lorem sed, porttitor lectus. Maecenas quis accumsan massa. Duis sit amet ultrices neque. Sed ac magna eleifend, imperdiet ante ut, vehicula dolor. Donec sollicitudin mauris sit amet turpis fringilla, ut bibendum felis consectetur. Fusce vehicula eros quis ipsum sodales, quis posuere tellus lobortis. Aliquam erat volutpat. Phasellus lacinia velit eros, sed lobortis neque tincidunt ac. Phasellus et odio quis velit pretium ultricies ut ac quam. Nulla consequat tristique accumsan. Donec vitae leo non urna dictum tempus ut in ligula. In quis vulputate ex. Quisque a ultricies justo. Aliquam volutpat mauris neque, et fermentum sem accumsan in. Aliquam finibus sapien arcu, id suscipit nisl sagittis eget.
-                <br/>
-                <br/>
-                Phasellus faucibus arcu in commodo dignissim. Nullam sit amet accumsan augue. Nullam eleifend elementum lorem a condimentum. Nullam vitae ante et eros sodales fringilla sollicitudin non diam. Pellentesque vehicula est dolor, eget dapibus massa elementum sit amet. Nullam ultricies est ante, tincidunt euismod ligula sollicitudin eget. Nunc maximus nisi lectus, sed iaculis tellus ornare ac. Phasellus ut enim a est ultrices laoreet ut eu dolor. Donec fringilla, ligula sit amet tristique scelerisque, ante lectus pellentesque justo, vitae viverra augue metus ac ante. Nulla tempor, erat id sagittis vulputate, turpis eros gravida neque, id consectetur nibh purus porttitor nibh. Donec tempus luctus tristique. Aenean luctus, nisl at consequat blandit, nunc dui interdum ex, at pharetra elit risus a tortor.</p>
-                <br/>
-                <br/>
-                Proin suscipit vel leo non mattis. Nunc efficitur sodales aliquam. Morbi pharetra consectetur enim faucibus interdum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam id diam vel ligula imperdiet aliquet id at magna. Duis nulla augue, convallis nec consectetur vitae, consectetur vitae mi. Ut vulputate vel nibh et ornare. Sed tincidunt, sapien nec sagittis pulvinar, eros lorem gravida purus, sit amet ornare dolor lacus quis mauris. Sed accumsan ornare nibh, id blandit justo pretium eu. Suspendisse sit amet sapien id risus interdum posuere aliquam eu quam. Etiam ut elit ut erat consectetur semper. Etiam rhoncus tincidunt tellus id porta. Pellentesque finibus, leo eget dapibus iaculis, nibh nunc gravida dui, vel commodo diam sapien a purus. Aenean blandit placerat congue.
-                <br/>
-                <br/>
-                Nunc a orci sapien. Nulla in sapien fringilla, laoreet nibh ut, condimentum tellus. Ut faucibus sagittis vestibulum. Aenean lorem nisl, ultrices a tellus eu, gravida tincidunt lacus. Fusce gravida feugiat sapien id maximus. Ut facilisis ante purus, eget tincidunt odio malesuada non. Ut eget egestas justo. Donec at magna euismod, blandit diam ac, scelerisque purus. Donec porta ex ac nisi luctus, eu volutpat sapien consequat.
-                <br/>
-                <br/>
-                Vestibulum eu eros malesuada, scelerisque lorem sed, porttitor lectus. Maecenas quis accumsan massa. Duis sit amet ultrices neque. Sed ac magna eleifend, imperdiet ante ut, vehicula dolor. Donec sollicitudin mauris sit amet turpis fringilla, ut bibendum felis consectetur. Fusce vehicula eros quis ipsum sodales, quis posuere tellus lobortis. Aliquam erat volutpat. Phasellus lacinia velit eros, sed lobortis neque tincidunt ac. Phasellus et odio quis velit pretium ultricies ut ac quam. Nulla consequat tristique accumsan. Donec vitae leo non urna dictum tempus ut in ligula. In quis vulputate ex. Quisque a ultricies justo. Aliquam volutpat mauris neque, et fermentum sem accumsan in. Aliquam finibus sapien arcu, id suscipit nisl sagittis eget.
+            <p class="center"><img class="stretchToWidth" src="@routes.Assets.at("images/data_picture.png")"></p>
+            <p>The Ready-made Garment Productivity Project (rmgpp.org) aims to collect detailed and comparable productivity data from garment manufacturers in several countries. Initial work has focused primarily on Bangladesh.</p>
+            <p><a target="_blank" href="http://en.wikipedia.org/wiki/Economy_of_Bangladesh#/media/File:Garments_Factory_in_Bangladesh.JPG"><img class="inlineImage" src="@routes.Assets.at("images/Garments_Factory_in_Bangladesh.jpg")" align="right"/></a>The portal allows users to create reports from daily, line-level sewing production data. At present, the data come from 17 factories in Bangladesh that are all suppliers to large well-know brands. Click on the link above to create customized graphs and tables using the data.</p>
+            <p>Why focus on the garment sector? Garments have often been one of the first steps onto the manufacturing ladder for low-income countries, and an important point of entry into international markets. But the data are also highly comparable across factories because availability of Standard Minute Values allows some comparison even when production lines produce different products.</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
         </div>
 
         @generic.footer()

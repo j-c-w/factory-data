@@ -1,0 +1,47 @@
+<doc>
+      <date>06/04/2015</date><series>
+            <iden>filterComparison</iden>
+            <item>less than</item><item>has data</item>
+        </series><series>
+            <iden>filterField</iden>
+            <item>Running Days</item><item>Running Days</item>
+        </series><series>
+            <iden>graphTitle</iden>
+            <item>Defect Rates by Running Days</item>
+        </series><series>
+            <iden>xAxisDoubles</iden>
+            <item>Running Days</item>
+        </series><series>
+            <iden>filterValue</iden>
+            <item>25</item><item></item>
+        </series><series>
+            <iden>graphSortMode</iden>
+            <item>xAxis Ascending</item>
+        </series><series>
+            <iden>regressions</iden>
+            <item>--- None ---</item>
+        </series><series>
+            <iden>yAxis</iden>
+            <item>Alter Rate</item>
+        </series><series>
+            <iden>filterConnector</iden>
+            <item>And</item>
+        </series><series>
+            <iden>xAxisTitle</iden>
+            <item>Running Days</item>
+        </series><series>
+            <iden>aggregateMode</iden>
+            <item>Average</item>
+        </series><series>
+            <iden>yAxisTitle</iden>
+            <item>Defect rate (%)</item>
+        </series><series>
+            <iden>aggregateField</iden>
+            <item>Running Days</item>
+        </series><series>
+            <iden>xAxisAll</iden>
+            <item>Running Days</item>
+        </series><series>
+            <iden>graphType</iden>
+            <item>Bar Chart</item>
+        </series></doc>

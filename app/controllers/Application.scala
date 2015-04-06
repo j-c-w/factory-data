@@ -66,11 +66,20 @@ object Application extends Controller {
     Ok(views.html.helpPage())
   }
 
+  def loadExample(iden: String) = Action {
+    val form = Global.loadExample(iden)
+    form match {
+      case Some(_) => loadDataPage(form)
+      case None => Ok(views.html.main())
+    }
+  }
+
   /*
    * This method returns an Ok if the cahce contains the key passed
    * Otherwise it returns a NotFound result
    */
   def cacheCheck(key: String) = Action {
+    println("Checking Cache")
     Cache.get(key) match {
       case None => Results.NotFound(key + " Not found in cache")
       case Some(false) => // This is setup to mean there is no data yet, but there will be some soon
@@ -81,7 +90,6 @@ object Application extends Controller {
 
   def loadImageFromCache(key: String) = Action {
     val image = Cache.getAs[String](key)
-    Cache.remove(key)
     image match {
       case Some(x) => Ok(views.html.generic.imageDisplay(x))
       case None => Results.NotFound("No Base 64 encoded image found under " + key)
@@ -107,7 +115,7 @@ object Application extends Controller {
 
   def submitForm = Action { implicit request =>
     val dynamicForm = request.body.asFormUrlEncoded
-    println(dynamicForm)
+    println("Form submitted")
     //Now we parse that and turn it into a form parser
     loadDataPage(dynamicForm)
   }
@@ -131,6 +139,7 @@ object Application extends Controller {
     println("Building Query")
     val queryBuilder = FormToQuery.parse((filteredFilter, filteredSort, filteredAggregate))
     println("Query Built")
+    println("Query ID", queryId)
 
 
     // We also need to set some default values in the cache, so that
@@ -139,6 +148,7 @@ object Application extends Controller {
     Cache.set(queryId, false, 3600)
     Cache.set(queryId + "DisplayFields", false, 3600)
     Cache.set(queryId + "Graph", false, 3600)
+    println("Put defaults in Cache")
     val data = future {
       val processedData = queryBuilder.processData(Global.baseData)
       println("Data Processed")

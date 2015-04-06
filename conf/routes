@@ -11,6 +11,9 @@ GET         /list                        controllers.Application.list
 # Submit form route (redirects to /list)
 POST        /submitForm                  controllers.Application.submitForm
 
+# This is in case a GET request is accidentally send to /submitForm
+GET         /submitForm                  controllers.Application.list
+
 # Just loads a small file to sinify the end of the query
 GET         /endOfQuery                  controllers.Application.endOfQuery
 
@@ -32,9 +35,15 @@ GET         /moreData/:sessionId         controllers.Application.moreData(sessio
 # This is used to recover sessions
 POST        /recoverSession              controllers.Application.recoverSession()
 
+# This is used in case the user accidentally tries to run the URL for /recoverSession
+GET         /recoverSession              controllers.Application.list
+
 # This is for checking the cache for a given string
 GET         /cacheCheck/*key             controllers.Application.cacheCheck(key)
 
 # This loads a picture in the cache under the passed string
 # the picture must be stored as a base64 string.
-GET         /loadPicture/*key            controllers.Application.loadImageFromCache(key)
+GET         /loadPicture/*key            controllers.Application.loadImageFromCache(
+
+# This is for loading in the examples from the main page.
+GET         /examples/:number        controllers.Application.loadExample(number)
