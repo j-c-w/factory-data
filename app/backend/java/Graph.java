@@ -31,7 +31,7 @@ public class Graph {
 	 */
     public void saveAsPNG(File saveDir) {
         try {
-            ChartUtilities.saveChartAsPNG(saveDir, chart, 1000, 600);
+            ChartUtilities.saveChartAsPNG(saveDir, chart, 1400, 800);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class Graph {
 	 */
 	public String toBase64() {
 		try {
-			BufferedImage image = chart.createBufferedImage(1000, 600);
+			BufferedImage image = chart.createBufferedImage(1400, 800);
 			return imageTo64(image);
 		} catch (IOException e) {
 			e.printStackTrace();

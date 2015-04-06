@@ -45,13 +45,13 @@ object Global {
    */
   def restoreSession(queryId: String): Option[Map[String, Seq[String]]] = {
     val location = new File(pictureFileLocation + "/" + queryId)
-    loadSession(location)
+    loadSession(location, true)
   }
 
   def loadExample(iden: String) =
-    loadSession(new File(dataCVSLocation.getParent + "/query" + iden))
+    loadSession(new File(dataCVSLocation.getParent + "/query" + iden), false)
 
-  private def loadSession(location: File) = {
+  private def loadSession(location: File, shouldUpdateDate: Boolean) = {
     if (!location.exists()) {
       None
     } else {
@@ -59,7 +59,7 @@ object Global {
         val formString = new String(Files.readAllBytes(Paths.get(location.toString)))
         val serialized = Some(Serialization.unserialize(formString))
         println("Unserialization successful")
-        updateDate(location, serialized.get)
+        if (shouldUpdateDate) { updateDate(location, serialized.get) }
         serialized
       } catch {
         case ex: Exception => {
