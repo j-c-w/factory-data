@@ -48,13 +48,11 @@ object Application extends Controller {
     Ok(views.html.helpPage())
   }
 
-  def loadExample(iden: String): Action[AnyContent] = {
+  def loadExample(iden: String) = Action {
     val form = Global.loadExample(iden)
     form match {
-      case Some(_) => Action {
-        loadDataPage(form)
-      }
-      case None => list
+      case Some(_) => loadDataPage(form)
+      case None => Ok(views.html.main())
     }
   }
 
