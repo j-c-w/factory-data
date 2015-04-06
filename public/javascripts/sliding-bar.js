@@ -25,7 +25,6 @@ $(document).ready(function() {
     var premadeResultsButton = $("#defaultSessionsButton");
 
     restoreDiv.hide();
-    premadeResults.hide();
 
     restoreDivButton.click(function() {
         if (restoreDiv.is(":visible")) {

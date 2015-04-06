@@ -46,4 +46,4 @@ GET         /cacheCheck/*key             controllers.Application.cacheCheck(key)
 GET         /loadPicture/*key            controllers.Application.loadImageFromCache(
 
 # This is for loading in the examples from the main page.
-GET         /examples/:number        controllers.Application.loadExample(number)
+GET         /examples/:number            controllers.Application.loadExample(number)
