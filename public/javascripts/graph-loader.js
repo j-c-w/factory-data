@@ -10,7 +10,6 @@ $(document).ready(function() {
     pictureFileName = pictureFileNameContainer.text();
     pictureFileNameContainer.hide();
     var pictureUrl = "/cacheCheck/" + pictureFileName;
-    alert(pictureFileName);
     var refreshPictureInterval = setInterval(function() {
         $.ajax({
             url: pictureUrl,
