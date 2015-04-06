@@ -1,0 +1,35 @@
+<doc>
+      <date>06/04/2015</date><series>
+            <iden>aggregateField</iden>
+            <item>Day</item>
+        </series><series>
+            <iden>aggregateMode</iden>
+            <item>Average</item>
+        </series><series>
+            <iden>graphTitle</iden>
+            <item>Absenteeism by Day of Month</item>
+        </series><series>
+            <iden>graphType</iden>
+            <item>Bar Chart</item>
+        </series><series>
+            <iden>xAxisTitle</iden>
+            <item>Day of month</item>
+        </series><series>
+            <iden>yAxisTitle</iden>
+            <item>Percent of workers absent</item>
+        </series><series>
+            <iden>graphSortMode</iden>
+            <item>xAxis Ascending</item>
+        </series><series>
+            <iden>xAxisAll</iden>
+            <item>Day</item>
+        </series><series>
+            <iden>xAxisDoubles</iden>
+            <item>--- None ---</item>
+        </series><series>
+            <iden>yAxis</iden>
+            <item>Absent Rate</item>
+        </series><series>
+            <iden>regressions</iden>
+            <item>--- None ---</item>
+        </series></doc>
