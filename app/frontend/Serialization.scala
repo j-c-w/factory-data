@@ -33,16 +33,12 @@ object Serialization {
       }
     }</doc>
 
-    val x = doc.buildString(false)
-    println(x)
-    x
+    doc.buildString(false)
   }
 
   def unserialize(string: String): Map[String, Seq[String]] = {
-    println(string)
     val xml = XML.loadString(string)
     val series = xml \\ "series"
-    println(series)
     val entries = series map {
       x => {
         val items = (x \\ "item") map (_.text)
