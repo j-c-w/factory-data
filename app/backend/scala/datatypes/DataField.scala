@@ -93,8 +93,13 @@ trait IntegerOptionDataField extends DataField[IntegerOption] {
 
 trait DoubleOptionDataField extends DataField[DoubleOption] {
   def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
-    Try(comparisonMethod.compare(get(data), DoubleOption.toDoubleOption(stringComparison)))
+    Try(comparisonMethod.compare(fieldGet(data), DoubleOption.toDoubleOption(stringComparison)))
   }
+  
+  final def get(data: LineListObject) =
+    fieldGet(data).round
+  
+  def fieldGet(data: LineListObject): DoubleOption
 }
 
 trait StringOptionDataField extends DataField[StringOption] {
@@ -148,13 +153,13 @@ case object LineCode extends IntegerOptionDataField {
 //Order Information ///////////////////
 
 case object SMV extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.orderInfo.smv.get
   override val toString = "SMV"
 }
 
 case object RunningDays extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.orderInfo.runningDays.get
   override val toString = "Running Days"
 }
@@ -163,25 +168,25 @@ case object RunningDays extends DoubleOptionDataField {
 ///////////Target Data////////////////////////////////////
 
 case object TotalTarget extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.targetInformation.totalTarget.get
   override val toString = "Total Target"
 }
 
 case object AvailableMinutes extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.targetInformation.availableMinutes.get
   override val toString = "Available Minutes"
 }
 
 case object OutputTarget extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.targetInformation.outputTarget.get
   override val toString = "Output Target"
 }
 
 case object OutputOverTarget extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.outputOverTarget
   override val toString = "Output/Target"
 }
@@ -189,13 +194,13 @@ case object OutputOverTarget extends DoubleOptionDataField {
 /////////////////////////////////////////////////////////
 //////////////IO Data///////////////////////////////////////
 case object DayOutput extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.inputOutput.dayOutput.get
   override val toString = "Day Output"
 }
 
 case object OutputMinutes extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.inputOutput.outputMinutes.get
   override val toString = "Output Minutes"
 }
@@ -203,19 +208,19 @@ case object OutputMinutes extends DoubleOptionDataField {
 //////////////////////////////////////////////////////
 //////////Quality section////////////////////////////
 case object AlterRate extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.qualityInformation.alterRate.get
   override val toString = "Alter Rate"
 }
 
 case object SpotRate extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.qualityInformation.spotRate.get
   override val toString = "Spot Rate"
 }
 
 case object RejectRate extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.qualityInformation.rejectRate.get
   override val toString = "Reject Rate"
 }
@@ -223,13 +228,13 @@ case object RejectRate extends DoubleOptionDataField {
 ///////////////////////////////////////////////////////
 //////////Attendance Data/////////////////////////////
 case object TotalPresent extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.absenteeism.totalPresent.get
   override val toString = "Total Present"
 }
 
 case object AbsentRate extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.absenteeism.absentRate.get
   override val toString = "Absent Rate"
 }
@@ -237,7 +242,7 @@ case object AbsentRate extends DoubleOptionDataField {
 /////////////////////////////////////////////////////
 /////////efficiency//////////////////////////////////
 case object Efficiency extends DoubleOptionDataField {
-  override def get(data: LineListObject): DoubleOption =
+  override def fieldGet(data: LineListObject): DoubleOption =
     data.efficiency
   override val toString = "Efficiency"
 }

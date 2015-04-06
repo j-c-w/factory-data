@@ -35,7 +35,7 @@ abstract class DoubleOption extends MathComparable[DoubleOption] {
     case (_, _) => NoDouble
   }
 
-  def compareTo(other: DoubleOption) = (this, other) match {
+  def compareTo(other: DoubleOption) = (this.round, other.round) match {
     case (SomeDouble(x), SomeDouble(y)) => x compareTo y
     case (NoDouble, NoDouble) => 0
     case (SomeDouble(x), NoDouble) => 1
@@ -52,6 +52,7 @@ abstract class DoubleOption extends MathComparable[DoubleOption] {
   def get: Double
   def isEmpty: Boolean
   def getOrElse(otherwise: Double): Double
+  def round: DoubleOption
 }
 
 case class SomeDouble(x: Double) extends DoubleOption {
@@ -59,12 +60,10 @@ case class SomeDouble(x: Double) extends DoubleOption {
   def get = x
   def isEmpty = false
   //rounds the output to 2dp before displaying
-  override def toString = if (x < 0) x.toString //there has been a serious problem -- leave as is
-  else {
-    //do the rounding -- this should not be done anywhere else
-    //for the sake of accuracy
-    (Math.floor(100 * x + 0.5) / 100).toString;
-  }
+  override def toString = round.get.toString
+  def round = SomeDouble((if (x < 0) -1 else 1) * {
+    Math.floor(1000 * Math.abs(x) + 0.5) / 1000
+  })
 
   def getOrElse(double: Double) = x
 }
@@ -75,6 +74,7 @@ case object NoDouble extends DoubleOption {
   def isEmpty = true
   override def toString = "No Data"
   def getOrElse(other: Double) = other
+  def round = NoDouble
 }
 
 /*
