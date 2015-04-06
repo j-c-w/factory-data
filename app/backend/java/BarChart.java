@@ -27,6 +27,7 @@ public class BarChart extends Graph {
 		//this line sets the x axis to the exact x axis from the
 		//category plot (which fits the values to size)
 		chart.getCategoryPlot().setDomainAxis(categoryPlot.getDomainAxis());
+	    chart.getCategoryPlot().getDomainAxis().setLabel(xAxisTitle);
         chart.setTitle(title);
         return chart;
     }
