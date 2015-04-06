@@ -31,5 +31,5 @@ $(document).ready(function() {
                 clearInterval(refreshDataInterval);
             }
         })
-    }, 2000);
+    }, 1000);
 });

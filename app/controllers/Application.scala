@@ -123,6 +123,7 @@ object Application extends Controller {
     println("Building Query")
     val queryBuilder = FormToQuery.parse((filteredFilter, filteredSort, filteredAggregate))
     println("Query Built")
+    println("Query ID", queryId)
 
 
     // We also need to set some default values in the cache, so that

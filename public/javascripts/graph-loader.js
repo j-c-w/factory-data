@@ -26,7 +26,7 @@ $(document).ready(function() {
                 clearInterval(refreshPictureInterval);
             }
         })
-    }, 2000);
+    }, 1000);
 });
 
 loadGraph = function (pictureName) {

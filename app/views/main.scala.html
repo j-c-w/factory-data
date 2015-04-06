@@ -20,9 +20,9 @@
                 <div id="sessionRestoreDiv">
                     <form action="/recoverSession" method="POST" id="recoverSession" name="recoverSession">
                         <img id="serverCheckSpinner" src="@routes.Assets.at("images/circularLoading.gif")" hidden="true"/>
-                        <p>This feature does not work on heroku's servers. Trying to use it is fruitless.</p>
-                        <p id="queryRestoreMessageBox"></p>
-                        Session ID: <input type="text" id="sessionIDEntryBox" name="id">
+                        <p class="whiteText">This feature does not work on heroku's servers. Trying to use it is fruitless.</p>
+                        <p class="whiteText" id="queryRestoreMessageBox"></p>
+                        <p class="whiteText">Session ID: </p><input type="text" id="sessionIDEntryBox" name="id">
                         <br/>
                         <br/>
                         <a href="" id="submitSessionRestore" class="formButton">Restore Session</a>
@@ -31,13 +31,17 @@
                 </div>
                 <a class="formButton buttonInRightBar" id="defaultSessionsButton" href="">Queries +</a>
                 <div id="defaultSessionsBox">
-                    <a href="/examples/1">1</a>
                     <br/>
-                    <a href="/examples/2">2</a>
+                    <a href="/examples/1" class="whiteText">Absenteeism by Day of Month</a>
                     <br/>
-                    <a href="/examples/3">3</a>
                     <br/>
-                    <a href="/examples/4">4</a>
+                    <a href="/examples/2" class="whiteText">Efficiency by Running Days</a>
+                    <br/>
+                    <br/>
+                    <a href="/examples/3" class="whiteText">Defect Rates by Running Days</a>
+                    <br/>
+                    <br/>
+                    <a href="/examples/4" class="whiteText">Defect Rate by Day of Month</a>
                 </div>
             </div>
             <h3>Please be aware that the query ID system will not be running on this version of the production.</h3>

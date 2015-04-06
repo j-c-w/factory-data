@@ -4,6 +4,8 @@
 
 @if(first) {
     Graph Title: <input id="graphTitle" type="text" name="graphTitle" value="@data.title">
+    <br/>
+    <br/>
     Graph Type: <select id="graphType" name="graphType">
         @for(graphType <- Static.graphTypes) {
             @if(graphType == data.graphType) {
@@ -13,8 +15,12 @@
             }
         }
     </select>
+    <br/>
+    <br/>
     xAxis Title: <input id="xAxisTitle" name="xAxisTitle" type="text" value="@data.xAxisTitle">
     yAxis Title: <input id="yAxisTitle" name="yAxisTitle" type="text" value="@data.yAxisTitle">
+    <br/>
+    <br/>
     Sort xAxis values by: <select id="xAxisSort" name="graphSortMode">
         @for(option <- Static.graphSortOptions) {
             @if(option == data.graphSortMode){
