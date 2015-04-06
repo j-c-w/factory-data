@@ -41,9 +41,8 @@ GET         /recoverSession              controllers.Application.list
 # This is for checking the cache for a given string
 GET         /cacheCheck/*key             controllers.Application.cacheCheck(key)
 
-# This loads a picture in the cache under the passed string
-# the picture must be stored as a base64 string.
-GET         /loadPicture/*key            controllers.Application.loadImageFromCache(
+# This loads a picture in the cache under the passed string the picture must be stored as a base64 string.
+GET         /loadPicture/*key            controllers.Application.loadImageFromCache(key)
 
 # This is for loading in the examples from the main page.
 GET         /examples/:number            controllers.Application.loadExample(number)
