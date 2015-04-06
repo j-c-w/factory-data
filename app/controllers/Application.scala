@@ -48,6 +48,16 @@ object Application extends Controller {
     Ok(views.html.helpPage())
   }
 
+  def loadExample(iden: String): Action[AnyContent] = {
+    val form = Global.loadExample(iden)
+    form match {
+      case Some(_) => Action {
+        loadDataPage(form)
+      }
+      case None => list
+    }
+  }
+
   /*
    * This method returns an Ok if the cahce contains the key passed
    * Otherwise it returns a NotFound result
