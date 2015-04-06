@@ -9,7 +9,8 @@ $(document).ready(function() {
     pictureFileNameContainer = $("#pictureFileName");
     pictureFileName = pictureFileNameContainer.text();
     pictureFileNameContainer.hide();
-    var pictureUrl = "cacheCheck/" + pictureFileName;
+    var pictureUrl = "/cacheCheck/" + pictureFileName;
+    alert(pictureFileName);
     var refreshPictureInterval = setInterval(function() {
         $.ajax({
             url: pictureUrl,
@@ -21,7 +22,7 @@ $(document).ready(function() {
                 loadGraph(pictureFileName);
                 clearInterval(refreshPictureInterval);
             },
-            error: function(data){
+            error: function(data, status, error){
                 $("#graphDisplayDiv").html("<p class='center'>Something went wrong. Please retry your query.</p>");
                 clearInterval(refreshPictureInterval);
             }
@@ -34,7 +35,7 @@ loadGraph = function (pictureName) {
     // from the server.
     var graphDiv = $("#graphDisplayDiv");
     $.ajax({
-        url: "loadPicture/" + pictureName,
+        url: "/loadPicture/" + pictureName,
         success: function (loadedData) {
             graphDiv.html(loadedData)
         },
