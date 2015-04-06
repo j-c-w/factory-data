@@ -28,9 +28,13 @@
         <div id="queryForm">
             @formViews.queryForm(formData)
         </div>
+        <p>Query ID: @queryId - <a href="" class="whatIsThis">What is this?</a></p>
+        <div id="floatingMessageBox">
+            <p>A Query ID can be used to restore a query between sessions</p>
+            <p>The contents of your query are saved, and so can be restored at a later date using this ID. Just
+                save the text somewhere, and put it into the restore form on the home page!</p>
+        </div>
         @if(hasGraph) {
-            <br/>
-            <br/>
             <script src="@routes.Assets.at("javascripts/graph-loader.js")" type="text/javascript"></script>
             <div id="graphDisplayDiv">
                 <p class="center"><img src="@routes.Assets.at("images/loading.gif")" id="loadingGraphDisplay"></p>
@@ -38,12 +42,6 @@
             <!-- this <p> is soley for communicating with the JS. -->
             <p id="pictureFileName">@(queryId + "Graph")</p>
         }
-        <p>Query ID: @queryId - <a href="" class="whatIsThis">What is this?</a></p>
-        <div id="floatingMessageBox">
-            <p>A Query ID can be used to restore a query between sessions</p>
-            <p>The contents of your query are saved, and so can be restored at a later date using this ID. Just
-                save the text somewhere, and put it into the restore form on the home page!</p>
-        </div>
 
         @if(formData._5.count(!_.equals(Static.noSelection)) > 0) {
             <table class="borderedTable">
