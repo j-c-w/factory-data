@@ -61,6 +61,7 @@ object Application extends Controller {
    * Otherwise it returns a NotFound result
    */
   def cacheCheck(key: String) = Action {
+    println("Checking Cache")
     Cache.get(key) match {
       case None => Results.NotFound(key + " Not found in cache")
       case Some(false) => // This is setup to mean there is no data yet, but there will be some soon
@@ -71,7 +72,6 @@ object Application extends Controller {
 
   def loadImageFromCache(key: String) = Action {
     val image = Cache.getAs[String](key)
-    Cache.remove(key)
     image match {
       case Some(x) => Ok(views.html.generic.imageDisplay(x))
       case None => Results.NotFound("No Base 64 encoded image found under " + key)
@@ -97,7 +97,7 @@ object Application extends Controller {
 
   def submitForm = Action { implicit request =>
     val dynamicForm = request.body.asFormUrlEncoded
-    println(dynamicForm)
+    println("Form submitted")
     //Now we parse that and turn it into a form parser
     loadDataPage(dynamicForm)
   }
@@ -130,6 +130,7 @@ object Application extends Controller {
     Cache.set(queryId, false, 3600)
     Cache.set(queryId + "DisplayFields", false, 3600)
     Cache.set(queryId + "Graph", false, 3600)
+    println("Put defaults in Cache")
     val data = future {
       val processedData = queryBuilder.processData(Global.baseData)
       println("Data Processed")
