@@ -47,11 +47,13 @@ object FormToGraph {
           x => RegressionGenerator.fromString(x.regression, x.yAxis)
         }
         val parsers = forms.map(form => {
+          val xAx = DataField.fromString(form.xAxis)
+          val yAx = DataField.fromString(form.yAxis).asInstanceOf[DoubleOptionDataField]
           new DataParser[Comparable[_], LineListObject](
             data, result => {
-              val xAx = DataField.fromString(form.xAxis)
-              val yAx = DataField.fromString(form.yAxis).asInstanceOf[DoubleOptionDataField]
               (xAx.get(result.lineObject), yAx.get(result.lineObject).getOrElse(0))
+            }, (result: ResultListObject[LineListObject]) => {
+              !(xAx.get(result.lineObject).isNone || yAx.get(result.lineObject).isNone)
             }, generateSort(forms.head.graphSortMode), form.yAxis
           )
         })
@@ -86,7 +88,8 @@ object FormToGraph {
     val yAxis: DoubleOptionDataField = DataField.fromString(form.yAxis).asInstanceOf[DoubleOptionDataField]
 
     val parser = new DataParser[Comparable[_], LineListObject](
-      data, x => (xAxis.get(x.lineObject), yAxis.get(x.lineObject).getOrElse(0.0)), generateSort(form.graphSortMode), form.title)
+      data, x => (xAxis.get(x.lineObject), yAxis.get(x.lineObject).getOrElse(0.0)),
+      x => !(xAxis.get(x.lineObject).isNone || yAxis.get(x.lineObject).isNone), generateSort(form.graphSortMode), form.title)
     val chartData = new BarChartData(List(parser))
     drawChart(chartData, form.title, form.graphType, form.xAxis,
       form.yAxis, List(RegressionGenerator.fromString(form.regression, form.yAxis)), saveString)
