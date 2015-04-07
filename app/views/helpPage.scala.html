@@ -115,7 +115,7 @@
 
         <h3><a name="_Toc414958352">What is actually plotted?</a></h3>
 
-        <p>If you were to plot X against Y without adding any filters or aggregation, you would get some very strange results. Firstly, any field that has no data is interpreted as a 0. Thus, for a scatter plot, you would have a very high concentration of (0, 0) points. Equally, because line graphs and bar charts can only plot one value per X value, you would only see a single row’s worth of data plotted in each point (not, as you might be expecting, an average/sum). This is best seen with the following example:</p>
+        <p>If you were to plot X against Y without adding any filters or aggregation, you would get some very strange results. Because line graphs and bar charts can only plot one value per X value, you would only see a single row’s worth of data plotted in each point (not, as you might be expecting, an average/sum). This is best seen with the following example:</p>
 
         <table border="1" cellspacing="0" cellpadding="0" >
             <tbody>
@@ -143,8 +143,6 @@
         </table>
 
         <p>If you were to plot Factory Code against Total Produced in this example (in a bar chart or line graph), you would be left with two different columns. The first would be (1, 100), and the second would be (2, 300), because the (2, 200) would be overwritten.</p>
-
-        <p>To deal with this, there are a few things to bear in mind. Firstly, regardless of the type of chart you are using, it is worthwhile (unless you wish to include the 0, 0 values) filtering all the fields you are using on your graph.</p>
 
         <p>To tackle the problem of repeated points you have two options. Firstly, you could use a scatter plot, which would plot all the data you pass to it (even repeated points). Alternatively, you could aggregate on Factory Code, which would result in a single value for each individual factory code (it would subsequently be possible to plot these on a line graph/bar chart without losing data.</p>
 

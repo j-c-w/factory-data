@@ -112,7 +112,8 @@ updateAggregateReminder = function() {
             // We need to remind them this is a little
             // strange.
             errorParagraph.html("You are aggregating the data, but drawing a" +
-                " scatter plot. A bar chart might be better suited to this data.")
+                " scatter plot. Consider deleting this aggregation or using a" +
+                " bar chart instead.")
         }
     }
 };
