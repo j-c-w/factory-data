@@ -182,7 +182,7 @@ object Application extends Controller {
         Cache.set(queryId, "Query Failed", 180)
       }
     }
-    Ok(views.html.dataView(queryId, Static.tableHeaders, (List(), List(), List(), List(), Static.defaultFields), false))
+    Ok(views.html.dataView(queryId, Static.tableHeaders, (List(), List(), List(new AggregateFormData()), List(), Static.defaultFields), false))
   }
 
   def endOfQuery = Action {
