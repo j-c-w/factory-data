@@ -17,17 +17,18 @@ import scala.concurrent.duration._
 
 class DataParser[A <: Comparable[_], T <: DataType[T]](data: Future[List[ResultListObject[T]]],
                                       converter: ResultListObject[T] => (A, Double),
+                                      dataFilter: ResultListObject[T] => Boolean,
                                       sortMode: ((A, Double), (A, Double)) => Boolean, series: String) {
   lazy val parse: XYData[A, Double] = {
     val awaitedData = Await.result(data, 10 minutes)
-    val zippedData  = (awaitedData map converter).sortWith (sortMode)
+    val zippedData  = ((awaitedData filter dataFilter) map converter).sortWith (sortMode)
     val (x, y) = zippedData.toList.unzip
     new XYData[A, Double](x, y, series)
   }
 
   lazy val parseXY: XYData[Double, Double] = {
     val awaitedData = Await.result(data, 10 minutes)
-    val zippedData  = (awaitedData map converter).sortWith (sortMode)
+    val zippedData  = ((awaitedData filter dataFilter) map converter).sortWith (sortMode)
     val (x, y) = zippedData.toList.unzip
     val doubleX = x.asInstanceOf[List[DoubleOption]] map (x => x.getOrElse(0))
     new XYData[Double, Double](doubleX, y, series)

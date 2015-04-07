@@ -10,6 +10,11 @@
     display: none;
 }
 
+.errorParagraph {
+    color: #0bb282;
+    font-size: 1.2em;
+}
+
 .submitButtonsList {
     list-style: none;
     background-color: #550000;
