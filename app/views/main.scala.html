@@ -6,10 +6,13 @@
     <head>
         <title>RMG Productivity Project</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/blueberry.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/restore-session-form.js")"  type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/sliding-bar.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/jquery.blueberry.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/main-menu.js")" type="text/javascript"></script>
     </head>
     <body>
         @generic.header()
@@ -45,20 +48,33 @@
                 </div>
             </div>
             <h3>Please be aware that the query ID system will not be running on this version of the production.</h3>
-            <p>It relies on storage features not provided by heroku but will work fine once the dedicated server is ready (I am assured that this will happen once the full dataset is ready).</p>
-            <p class="center"><img class="stretchToWidth" src="@routes.Assets.at("images/data_picture.png")"></p>
-            <p>The Ready-made Garment Productivity Project (rmgpp.org) aims to collect detailed and comparable productivity data from garment manufacturers in several countries. Initial work has focused primarily on Bangladesh.</p>
-            <p><a target="_blank" href="http://en.wikipedia.org/wiki/Economy_of_Bangladesh#/media/File:Garments_Factory_in_Bangladesh.JPG"><img class="inlineImage" src="@routes.Assets.at("images/Garments_Factory_in_Bangladesh.jpg")" align="right"/></a>The portal allows users to create reports from daily, line-level sewing production data. At present, the data come from 17 factories in Bangladesh that are all suppliers to large well-know brands. Click on the link above to create customized graphs and tables using the data.</p>
-            <p>Why focus on the garment sector? Garments have often been one of the first steps onto the manufacturing ladder for low-income countries, and an important point of entry into international markets. But the data are also highly comparable across factories because availability of Standard Minute Values allows some comparison even when production lines produce different products.</p>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            <p>It relies on features not provided by the current Heroku servers. I apologise for any inconvenience
+                whilst a more permanent solution is prepared</p>
+            <div class="twoThirdsWidth" style="float: left">
+                <p class="center"><img class="stretchToWidth" src="@routes.Assets.at("images/data_picture.png")"></p>
+                <p>The Ready-made Garment Productivity Project (rmgpp.org) aims to collect detailed and comparable
+                    productivity data from garment manufacturers in several countries. Initial work has focused
+                    primarily on Bangladesh.</p>
+                <p>The portal allows users to create reports from daily, line-level sewing production data.
+                    At present, the data come from 17 factories in Bangladesh that are all suppliers to large well-know
+                    brands. Click on the link above to create customized graphs and tables using the data.</p>
+                <p>Why focus on the garment sector? Garments have often been one of the first steps onto the manufacturing
+                    ladder for low-income countries, and an important point of entry into international markets. But the
+                    data are also highly comparable across factories because availability of Standard Minute Values allows
+                    some comparison even when production lines produce different products.</p>
+            </div>
+            <div class="oneThirdWidth" style="float: right">
+                <a target="_blank" href="http://en.wikipedia.org/wiki/Economy_of_Bangladesh#/media/File:Garments_Factory_in_Bangladesh.JPG">
+                <img class="stretchToWidth" src="@routes.Assets.at("images/Garments_Factory_in_Bangladesh.jpg")" align="right"/></a>
+                <div class="blueberry">
+                    <ul class="slides">
+                        <li><img src="@routes.Assets.at("images/homepage_scroll/absenteesimByDayOfMonth.jpg")"/></li>
+                        <li><img src="@routes.Assets.at("images/homepage_scroll/defectRatesByDayOfMonth.jpg")"/></li>
+                        <li><img src="@routes.Assets.at("images/homepage_scroll/defectRatesByRunningDays.jpg")"/></li>
+                        <li><img src="@routes.Assets.at("images/homepage_scroll/efficiencyByRunningDays.jpg")"/></li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         @generic.footer()
