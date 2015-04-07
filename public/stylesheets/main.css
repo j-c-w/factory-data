@@ -17,6 +17,7 @@ body {
 #content {
     padding-left: 10em;
     padding-right: 10em;
+    overflow: hidden;
 }
 
 #footer {
@@ -57,6 +58,33 @@ form {
 .stretchToWidth {
     max-width: 98%;
     height: auto;
+}
+
+.twoThirdsWidth {
+    max-width: 66%;
+    height: auto;
+}
+
+.oneThirdWidth {
+    max-width: 33%;
+    height: auto;
+}
+
+.slippry-list {
+    position: relative;
+}
+
+.hidden {
+    opacity: 0;
+    filter: alpha(opacity = 0); /* For IE8 and earlier */
+}
+
+.slidingContainer li {
+    list-style: none;
+}
+
+.slidingContainer ul li {
+    width: 98%;
 }
 
 .inlineImage {
