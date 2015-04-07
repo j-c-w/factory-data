@@ -138,6 +138,7 @@ form {
 
 .floatingBoxRight {
     width: 8em;
+    top: 12.5em;
     text-align: center;
     background: darkred;
     position: absolute;
