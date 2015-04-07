@@ -70,11 +70,13 @@ form {
     height: auto;
 }
 
-.slidingContainer {
+.slippry-list {
     position: relative;
-    overflow: auto;
-    height: 300px;
-    width: 300px;
+}
+
+.hidden {
+    opacity: 0;
+    filter: alpha(opacity = 0); /* For IE8 and earlier */
 }
 
 .slidingContainer li {

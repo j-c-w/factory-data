@@ -7,10 +7,11 @@
  * This sets up the scrolling of the graphs on the main page.
  *
  * An explanation of the settings can be seen here:
- *      http://marktyrrell.com/labs/blueberry/
+ *      http://slippry.com/settings/
  */
 $(document).ready(function(){
-    $(".blueberry").blueberry({
-        interval: 4000
+    $(".slippry-list").slippry({
+        pause: 4000,
+        start: "random"
     });
 });
