@@ -20,6 +20,7 @@ $(document).ready(function () {
     $("#addAggregate").click(function() {
         return addToForm("aggregate", function() {
             $(".aggregateField:last").val(selectedXAxis);
+            updateAggregateReminder();
             setDropdownListeners();
         })
     });
@@ -85,6 +86,37 @@ setGraphAxisValues = function() {
     })
 };
 
+updateAggregateReminder = function() {
+    var errorParagraph = $(".errorParagraph");
+
+    var value = $("#graphType").val();
+    var aggregationGroup = $(".aggregationQueryDiv");
+    var aggregationsNumber = aggregationGroup.length;
+    if (value === "Line Graph" || value === "Bar Chart") {
+        // This is to check if we need to alert
+        // the user to the fact that their query will make
+        // limited sense without an aggregation.
+        if (aggregationsNumber > 0) {
+            errorParagraph.html("")
+        } else {
+            errorParagraph.html("You are drawing a " + value.toLowerCase() +
+                " but not aggregating the data. This is probably not what you" +
+                " meant to do. Consider adding an aggregation or using a" +
+                " scatter plot instead.")
+        }
+    } else {
+        if (aggregationsNumber === 0) {
+            errorParagraph.html("")
+        } else {
+            // The user is aggregating on a scater plot.
+            // We need to remind them this is a little
+            // strange.
+            errorParagraph.html("You are aggregating the data, but drawing a" +
+                " scatter plot. A bar chart might be better suited to this data.")
+        }
+    }
+};
+
 hideRequiredXAxis = function(value) {
     if (value === "Bar Chart") {
         $(".xAxisAll").show();
@@ -95,6 +127,8 @@ hideRequiredXAxis = function(value) {
     } else {
         alert("Error: " + value + " is not a valid graph type")
     }
+
+    updateAggregateReminder();
 
     if (value === "Scatter Plot") {
         // show all the regression dropdowns
@@ -150,6 +184,9 @@ updateListeners = function() {
         //we need to call this in case we removed the second to last
         //filter.
         removeConnectors();
+        // And this needs to be called in case we removed the only
+        // aggregation
+        updateAggregateReminder();
         return false
     });
 };
