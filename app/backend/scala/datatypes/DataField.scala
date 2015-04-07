@@ -62,7 +62,7 @@ trait SuperDataField {
    * so is not worth doing. This method will have to remain concrete for the
    * time being.
    */
-  def get(data: LineListObject): Comparable[_]
+  def get(data: LineListObject): (Comparable[_] with OptionComparable)
 }
 
 trait DataField[T <: MathComparable[T]] extends SuperDataField {
