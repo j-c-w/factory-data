@@ -56,17 +56,17 @@ form {
 }
 
 .stretchToWidth {
-    max-width: 98%;
+    max-width: 100%;
     height: auto;
 }
 
 .twoThirdsWidth {
-    max-width: 66%;
+    width: 66%;
     height: auto;
 }
 
 .oneThirdWidth {
-    max-width: 33%;
+    width: 33%;
     height: auto;
 }
 
