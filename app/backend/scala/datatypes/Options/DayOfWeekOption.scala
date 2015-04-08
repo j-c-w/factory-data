@@ -36,6 +36,8 @@ object NoDayOfWeek extends DayOfWeekOption {
   override def get: String = throw new NoSuchElementException("NoDayOfWeek.get")
 
   override def getOrElse(x: => String): String = x
+
+  override def toString = "No Data"
 }
 
 abstract case class SomeDayOfWeek(day: String, order: Int) extends DayOfWeekOption {
