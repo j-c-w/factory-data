@@ -1,7 +1,7 @@
 package backend.scala.datatypes.builders
 
 import backend.scala.datatypes.FactoryDate
-import backend.scala.datatypes.options.{NoString, StringOption, IntegerOption, NoInteger}
+import backend.scala.datatypes.options._
 
 /*
  * Created by Jackson Woodruff on 20/11/2014 
@@ -14,7 +14,7 @@ class FactoryDateBuilder extends BuilderType[FactoryDate, FactoryDateBuilder] {
   var day: IntegerOption = NoInteger
   var month: IntegerOption = NoInteger
   var year: IntegerOption = NoInteger
-  var dayOfWeek: StringOption  = NoString
+  var dayOfWeek: DayOfWeekOption  = NoDayOfWeek
 
 
   /*

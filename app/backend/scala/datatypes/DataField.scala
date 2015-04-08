@@ -91,6 +91,12 @@ trait IntegerOptionDataField extends DataField[IntegerOption] {
   }
 }
 
+trait DayOfWeekOptionDataField extends DataField[DayOfWeekOption] {
+  def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
+    Try(comparisonMethod.compare(get(data), DayOfWeekOption.fromDayString(stringComparison)))
+  }
+}
+
 trait DoubleOptionDataField extends DataField[DoubleOption] {
   def compare(data: LineListObject, comparisonMethod: ComparisonMethod, stringComparison: String): Try[Boolean] = {
     Try(comparisonMethod.compare(fieldGet(data), DoubleOption.toDoubleOption(stringComparison)))
@@ -137,8 +143,8 @@ case object Year extends IntegerOptionDataField {
   override val toString = "Year"
 }
 
-case object DayOfWeek extends StringOptionDataField {
-  override def get(data: LineListObject): StringOption = 
+case object DayOfWeek extends DayOfWeekOptionDataField {
+  override def get(data: LineListObject): DayOfWeekOption =
     data.factoryDate.dayOfWeek
   override val toString = "Day of Week"
 }

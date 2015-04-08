@@ -36,7 +36,7 @@ object DataLoader {
 
 
   def rowToObject(list: List[String]): LineListObject = new LineListObject(
-    getDate(list(15), getDOW(list(14))),
+    getDate(list(15), DayOfWeekOption.fromOrderString(list(14))),
     new LineData(list(1)),
     new OrderData(list(2), list(3)),
     new TargetData(list(7), list(9), list(4)),
@@ -46,18 +46,7 @@ object DataLoader {
     IntegerOption(1), list(0)
   )
 
-  private def getDOW(dayOfWeek: String): StringOption = dayOfWeek match {
-    case "0" => "0 - Sunday"
-    case "1" => "1 - Monday"
-    case "2" => "2 - Tuesday"
-    case "3" => "3 - Wednesday"
-    case "4" => "4 - Thursday"
-    case "5" => "5 - Friday"
-    case "6" => "6 - Saturday"
-    case _ => NoString
-  }
-
-  private def getDate(date: String, dayOfWeek: StringOption) = {
+  private def getDate(date: String, dayOfWeek: DayOfWeekOption) = {
     Try {
       val splitDate = date.split("/")
 

@@ -2,7 +2,7 @@ package frontend.forms
 
 import java.io.File
 
-import backend.scala.datatypes.options.MathComparable
+import backend.scala.datatypes.options.{DayOfWeekOption, MathComparable}
 import backend.scala.datatypes.{DoubleOptionDataField, DataField, DataType, LineListObject}
 import backend.scala.graphing.data.DataParser
 import backend.scala.graphing.regressions.{Regression, RegressionGenerator}
@@ -106,6 +106,13 @@ object FormToGraph {
 
   private def generateSort[A <: Comparable[_]](sortMode: String): (((A, Double), (A, Double)) => Boolean) = sortMode match {
     case "xAxis Ascending" => {case ((x1, _), (x2, _)) =>
+      // Should speed become an issue, this might be somewhere to look.
+      // This check really does not have to be done every time the sort is done..
+      // if we know that x1 or x2 is not a DayOfWeek, then there is not reason to check every time
+      val (dow1, dow2) = (DayOfWeekOption.fromDayString(x1.toString), DayOfWeekOption.fromDayString(x2.toString))
+      if (!(dow1.isNone && dow2.isNone)) {
+        dow1.compareTo(dow2) < 0
+      } else
       //we need to try sorting as numbers first, because if the values passed are indeed numbers,
       //then the string sort really doesn't cut it at all
       //I don't want to do this with a match statement, because that
@@ -114,8 +121,16 @@ object FormToGraph {
       Try (x1.toString.toDouble < x2.toString.toDouble).getOrElse(x1.toString.compareTo(x2.toString()) < 0)
     }
     case "xAxis Descending" => {
-      case ((x1, _), (x2, _)) =>
-        Try (x1.toString.toDouble > x2.toString.toDouble).getOrElse(x1.toString.compareTo(x2.toString()) > 0)
+      case ((x1, _), (x2, _)) => {
+        // Should speed become an issue, this might be somewhere to look.
+        // This check really does not have to be done every time the sort is done..
+        // if we know that x1 or x2 is not a DayOfWeek, then there is not reason to check every time
+        val (dow1, dow2) = (DayOfWeekOption.fromDayString(x1.toString), DayOfWeekOption.fromDayString(x2.toString))
+        if (!(dow1.isNone && dow2.isNone)) {
+          dow1.compareTo(dow2) > 0
+        } else
+          Try(x1.toString.toDouble > x2.toString.toDouble).getOrElse(x1.toString.compareTo(x2.toString()) > 0)
+      }
     }
     case "No Sort" => ((_, _) => false)
     case "yAxis Ascending" => {case ((_, y1), (_, y2)) => y1 < y2}
