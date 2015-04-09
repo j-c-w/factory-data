@@ -4,6 +4,7 @@
 $(document).ready(function() {
     var whatLink = $(".whatIsThis");
     var message = $("#floatingMessageBox");
+    message.css('zIndex', 1000);
     message.hide();
     hideMessage = function() {
         message.slideUp(callback = function() {
