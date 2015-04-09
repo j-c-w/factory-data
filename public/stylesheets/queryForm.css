@@ -78,6 +78,10 @@
     line-height: 40px;
 }
 
+.deleteButtonWithoutListeners:hover {
+    background-color: darkred;
+}
+
 .deleteButton:hover {
     background-color: darkred;
 }
