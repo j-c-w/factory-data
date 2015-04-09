@@ -28,7 +28,10 @@
         <div id="queryForm">
             @formViews.queryForm(formData)
         </div>
-        <p>Query ID: @queryId - <a href="" class="whatIsThis">What is this?</a></p>
+        <div style="display: table; width: 100%">
+            <p style="display: inline-block">Query ID: @queryId - <a href="" class="whatIsThis">What is this?</a></p>
+            <p style="display: inline-block; float:right;">@generic.helpPopup("", true)</p>
+        </div>
         <div id="floatingMessageBox">
             <p>A Query ID can be used to restore a query between sessions</p>
             <p>The contents of your query are saved, and so can be restored at a later date using this ID. Just

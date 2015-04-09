@@ -1,5 +1,9 @@
-@(helpString: String)
+@(helpString: String, generalHelp: Boolean = false)
 
-<a target="_blank" class="deleteButtonWithoutListeners" href="/@("help#" + helpString)" >?</a>
+@if(generalHelp) {
+    <a target="_blank" class="helpButton center" href="/help">Help</a>
+} else {
+    <a target="_blank" class="deleteButtonWithoutListeners" href="/@("help#" + helpString)" >?</a>
+}
 
 <br/>
