@@ -26,9 +26,10 @@ object Global {
 
   private lazy val pathToFiles = new File("").getAbsolutePath
 
-  lazy val pictureFileLocation = new File(pathToFiles, "temp")
+  lazy val pictureFileLocation = new File(pathToFiles, "public/images/gen")
   lazy val errorPictureLocation = new File(pathToFiles, "public/images/graphFailed.png")
   lazy val dataCVSLocation = new File(pathToFiles, "conf/private/fourth_harmonized.csv")
+  lazy val exampleQueryLocation = new File(pathToFiles, "conf/private")
 
   lazy val baseData = DataLoader.dataAsList
 
@@ -49,7 +50,7 @@ object Global {
   }
 
   def loadExample(iden: String) =
-    loadSession(new File(dataCVSLocation.getParent + "/query" + iden), false)
+    loadSession(new File(exampleQueryLocation + "/query" + iden), false)
 
   private def loadSession(location: File, shouldUpdateDate: Boolean) = {
     if (!location.exists()) {
